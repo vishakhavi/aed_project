@@ -15,8 +15,7 @@ import java.util.Date;
 public class TravelAgency {
     CustomerDirectory customerDirectory;
     ArrayList<Flight> flightList;
-    
-    Arliner arliner;
+    ArrayList<Airliner> arlinerDirectory;
     
      public Flight addFlight(){
         Flight flight = new Flight();
