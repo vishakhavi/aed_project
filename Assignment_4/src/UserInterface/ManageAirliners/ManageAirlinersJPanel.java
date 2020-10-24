@@ -5,6 +5,12 @@
  */
 package UserInterface.ManageAirliners;
 
+import Business.Airliner;
+import Business.AirlinerDirectory;
+import Business.Flight;
+import Business.MasterSchedule;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Vishakha
@@ -14,8 +20,24 @@ public class ManageAirlinersJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ManageAirlinersJPanel
      */
-    public ManageAirlinersJPanel() {
+    
+    public int count;
+    public AirlinerDirectory airlinerDirectory;
+    public MasterSchedule flightSchedule;
+    private JPanel userProcessContainer;
+    private Airliner airliner;
+    public Flight flightdir;
+    
+    
+    public ManageAirlinersJPanel(JPanel userProcessContainer,Airliner airline, MasterSchedule flightSchList, AirlinerDirectory airlineDirectory, Flight flightdir){
+        this.airlinerDirectory =  new AirlinerDirectory();
+        this.airliner = airline;
+        this.flightSchedule = flightSchList;
+        this.userProcessContainer = userProcessContainer;
+        this.flightdir = flightdir;
+
         initComponents();
+        //populateTbl();
     }
 
     /**

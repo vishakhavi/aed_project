@@ -16,11 +16,18 @@ public class TravelAgency {
     CustomerDirectory customerDirectory;
     ArrayList<Flight> flightList;
     ArrayList<Airliner> arlinerDirectory;
+    private static TravelAgency travelAgency;
     
      public Flight addFlight(){
         Flight flight = new Flight();
         flightList.add(flight);
         return flight;
+    }
+     public static TravelAgency getInstance(){
+        if(travelAgency==null){
+            travelAgency=new TravelAgency();
+        }
+        return travelAgency;
     }
     
     public Flight searchCustomer(String flightNumber){
