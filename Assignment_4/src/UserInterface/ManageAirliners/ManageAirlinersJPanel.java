@@ -10,6 +10,7 @@ import Business.Airliner;
 import Business.AirlinerDirectory;
 import Business.Flight;
 import Business.MasterSchedule;
+import java.awt.CardLayout;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
@@ -31,25 +32,26 @@ public class ManageAirlinersJPanel extends JPanel {
     
     
     public ManageAirlinersJPanel(JPanel userProcessContainer,Airliner airline, MasterSchedule flightSchList, AirlinerDirectory airlineDirectory, Flight flightdir){
-        this.airlinerDirectory =  new AirlinerDirectory();
+        this.airlinerDirectory =  airlineDirectory;
         this.airliner = airline;
         this.flightSchedule = flightSchList;
         this.userProcessContainer = userProcessContainer;
         this.flightdir = flightdir;
         initComponents();
         //populateTbl();
+        displayAirlinerTable();
     }
 
-    public void displayTable()
+    public void displayAirlinerTable()
     {
         DefaultTableModel model = (DefaultTableModel)tblAirliners.getModel();
         model.setRowCount(0);
         //int count = 1;
         //Supplier supplier = (Supplier)suppComboBox1.getSelectedItem();
         for(Airliner a : airlinerDirectory.getAirlineDirectory()) {
-            Object row[] = new Object[1];
-            row[0] = a.getAirlinerName();
-            //row[1] = a.getAirlinerName();
+            Object row[] = new Object[2];
+            row[0] = a.getSerialNum();
+            row[1] = a.getAirlinerName();
             model.addRow(row); 
             //count++;
         }   
@@ -116,8 +118,8 @@ public class ManageAirlinersJPanel extends JPanel {
                 .addGap(17, 17, 17)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
                 .addComponent(btnAddAirliner)
                 .addGap(31, 31, 31)
                 .addComponent(btnViewAirliner)
@@ -127,6 +129,10 @@ public class ManageAirlinersJPanel extends JPanel {
 
     private void btnAddAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAirlinerActionPerformed
         // TODO add your handling code here:
+        CreateNewAirlinerJPanel ls = new CreateNewAirlinerJPanel(userProcessContainer,this.airlinerDirectory);
+        userProcessContainer.add("CreateAirline", ls);
+        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_btnAddAirlinerActionPerformed
 
 
