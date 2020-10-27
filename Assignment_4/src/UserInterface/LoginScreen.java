@@ -13,6 +13,7 @@ import Business.Flight;
 import Business.MasterSchedule;
 import Business.User;
 import Business.UserDirectory;
+import UserInterface.ManageAirliners.BookFlightPanel;
 import UserInterface.ManageAirliners.ManageAirlinersJPanel;
 import java.awt.CardLayout;
 import java.util.ArrayList;
@@ -150,6 +151,17 @@ public class LoginScreen extends javax.swing.JPanel {
                 if (s.authenticateUser(txtUserName.getText(), txtPword.getText())){
                    JOptionPane.showMessageDialog(panelRight, "Logged in successfully");
                    grantAccess();
+                }
+                else
+                JOptionPane.showMessageDialog(panelRight, "Please enter valid userName");
+            }else if(role.equals("User")){
+                UserDirectory s = new UserDirectory();
+                if (s.authenticateUser(txtUserName.getText(), txtPword.getText())){
+                   JOptionPane.showMessageDialog(panelRight, "Logged in successfully");
+                    BookFlightPanel us = new BookFlightPanel(panelRight,flightSchList,flightDirectory,airlineDirectory);
+                    panelRight.add("BookFlightPanel", us);
+                    CardLayout layout = (CardLayout)this.panelRight.getLayout();
+                    layout.next(panelRight);
                 }
                 else
                 JOptionPane.showMessageDialog(panelRight, "Please enter valid userName");

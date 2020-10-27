@@ -10,7 +10,7 @@ import Business.AirlinerDirectory;
 import Business.CustomerDirectory;
 import Business.Flight;
 import Business.MasterSchedule;
-import UserInterface.BookFlightPanel.BookFlightPanel;
+import UserInterface.ManageAirliners.BookFlightPanel;
 import java.awt.CardLayout;
 
 /**
@@ -118,9 +118,8 @@ public class TravelAgrencyMain extends javax.swing.JFrame {
     }//GEN-LAST:event_AdminBtnActionPerformed
 
     private void UserBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UserBtnActionPerformed
-
-        BookFlightPanel us = new BookFlightPanel(UserProcessContainer,flightSchList,flightDirectory,airlineDirectory);
-        UserProcessContainer.add("BookFlightPanel", us);
+        LoginScreen ls = new LoginScreen("User",UserProcessContainer,airline,flightSchList,flightDirectory,airlineDirectory,custDirectory.getCustomerList());
+        UserProcessContainer.add("LoginScreen", ls);
         CardLayout layout = (CardLayout)this.UserProcessContainer.getLayout();
         layout.next(UserProcessContainer);
     }//GEN-LAST:event_UserBtnActionPerformed

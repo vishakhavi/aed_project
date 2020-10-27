@@ -5,9 +5,17 @@
  */
 package Business;
 
+import java.text.DateFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.chrono.ChronoLocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
+
 
 /**
  *
@@ -74,7 +82,8 @@ public class MasterSchedule {
         return null;
     }
     
-    public ArrayList<Flight> searchFlight(String from, String to, String date){
+    public ArrayList<Flight> searchFlight(String from, String to, Date date){
+        try{
         tempFlightDirectory = new ArrayList<Flight>(flightDirectory);
         temp1FlightDirectory = new ArrayList<Flight>();
         
@@ -93,9 +102,20 @@ public class MasterSchedule {
                 }    
             }
         }
+        
+         if ((null != date)){
+            for (Flight flight: tempFlightDirectory){
+                if (date.after(Date.from(flight.getDateOfFlight().atStartOfDay(ZoneId.systemDefault().systemDefault()).toInstant()))){
+                temp1FlightDirectory.add(flight);
+                }    
+            }
+        }
 
    
         tempFlightDirectory.removeAll(temp1FlightDirectory);
+        }catch(Exception e){
+            System.err.println("Cannot parse date"+e);
+        }
         return tempFlightDirectory;
     }
 }

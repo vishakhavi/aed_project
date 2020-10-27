@@ -16,8 +16,10 @@ public class UserDirectory {
 
     public UserDirectory() {
         User user1 = new User("Admin","admin","Admin");
+        User user2 = new User("User","user123","User");
         userList = new ArrayList();
         userList.add(user1);
+        userList.add(user2);
     }
 
     public ArrayList<User> getUserList() {

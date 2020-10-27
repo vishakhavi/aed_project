@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package UserInterface.BookFlightPanel;
+package UserInterface.ManageAirliners;
 
 
 import Business.AirlinerDirectory;
@@ -12,13 +12,15 @@ import Business.MasterSchedule;
 import java.awt.CardLayout;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+
 
 /**
  *
@@ -35,13 +37,18 @@ public class BookFlightPanel extends javax.swing.JPanel {
     private ArrayList<String> temp = new ArrayList<String>();
     private ArrayList<LocalDate> tempDate = new ArrayList<LocalDate>();
     private ArrayList<LocalDateTime> tempTime = new ArrayList<LocalDateTime>();
+   
 
     public BookFlightPanel(JPanel UserProcessContainer, MasterSchedule flightSchList, Flight flightDirectory, AirlinerDirectory airlineDirectory) {
+        
+        
+        
         initComponents();
         this.userProcessContainer = UserProcessContainer;
         this.flightSchList = flightSchList;
         this.flightDirectory = flightDirectory;
         this.airlineDirectory = airlineDirectory;
+         
         populateTable();
         populateDropdown();
     }
@@ -69,10 +76,10 @@ public class BookFlightPanel extends javax.swing.JPanel {
         
         fromComboBox.removeAllItems();
         toComboBox.removeAllItems();
-        DOFComboBox.removeAllItems();
         fromComboBox.addItem("Select from");
         toComboBox.addItem("Select To");
-        DOFComboBox.addItem("Select Date");
+        jDateChooser.setDate(new Date());
+        
          
         //From HashSet
         temp.clear();
@@ -98,7 +105,11 @@ public class BookFlightPanel extends javax.swing.JPanel {
         
         //DOF
         for(Flight flight: flightSchList.getFlightDirectory()){
-           DOFComboBox.addItem((flight.getDateOfFlight()).toString());
+           Date date = Date.from(flight.getDateOfFlight().atStartOfDay(ZoneId.systemDefault().systemDefault()).toInstant());
+
+           jDateChooser.setDate(date);
+
+           //DOFComboBox.addItem((flight.getDateOfFlight()).toString());
         }
       
 
@@ -119,7 +130,6 @@ public class BookFlightPanel extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         toComboBox = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
-        DOFComboBox = new javax.swing.JComboBox<>();
         searchBtn = new javax.swing.JButton();
         BackBtn = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
@@ -130,6 +140,7 @@ public class BookFlightPanel extends javax.swing.JPanel {
         chkEarliestFlightOrder = new javax.swing.JCheckBox();
         chkCheapestFlightOrder = new javax.swing.JCheckBox();
         btnBookNow = new javax.swing.JButton();
+        jDateChooser = new com.toedter.calendar.JDateChooser();
 
         jLabel1.setText("To");
 
@@ -140,8 +151,6 @@ public class BookFlightPanel extends javax.swing.JPanel {
         toComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jLabel3.setText("Date of Flight");
-
-        DOFComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         searchBtn.setText("SEARCH");
         searchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -269,14 +278,14 @@ public class BookFlightPanel extends javax.swing.JPanel {
                                 .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(DOFComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(98, 98, 98)
                                 .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
-                .addGap(230, 230, 230)
+                .addGap(244, 244, 244)
                 .addComponent(btnBookNow, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -288,19 +297,20 @@ public class BookFlightPanel extends javax.swing.JPanel {
                     .addComponent(jLabel5)
                     .addComponent(BackBtn))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(fromComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1)
-                    .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(DOFComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBtn))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel2)
+                        .addComponent(fromComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
+                        .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel3)
+                        .addComponent(searchBtn))
+                    .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(64, 64, 64)
                 .addComponent(btnBookNow, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(147, Short.MAX_VALUE))
+                .addContainerGap(89, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -332,8 +342,9 @@ public class BookFlightPanel extends javax.swing.JPanel {
             to = (String)toComboBox.getSelectedItem();
         }
         
-        String date = "";
-            date = (String)DOFComboBox.getSelectedItem();
+        Date date;
+            //date = (String)DOFComboBox.getSelectedItem();
+            date = jDateChooser.getDate();
         
         if ((from.equals(" ")) || (to.equals(" ")) || (date.equals("")))
         { 
@@ -365,10 +376,10 @@ public class BookFlightPanel extends javax.swing.JPanel {
         if(selection >=0 )
         {
             Flight flight = (Flight) tblAllFlights.getValueAt(selection, 0);
-           /* CustomerPagePanel amPanel = new CustomerPagePanel(userProcessContainer,flight);
+            CustomerPagePanel amPanel = new CustomerPagePanel(userProcessContainer,flight);
             userProcessContainer.add("CustomerPagePanel", amPanel);
             CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
-            layout.next(userProcessContainer);*/
+            layout.next(userProcessContainer);
             
         }
         else{
@@ -420,7 +431,7 @@ public class BookFlightPanel extends javax.swing.JPanel {
             for (int x=0; x<list.size(); x++) // bubble sort outer loop
             {
                 for (int i=0; i < list.size()-1; i++) {
-                    if (list.get(i).getTimeOfFlight().isAfter(list.get(i+1).getTimeOfFlight()))
+                    if (list.get(i).getTimeOfFlight().isBefore(list.get(i+1).getTimeOfFlight()))
                     {
                         temp = list.get(i);
                        list.set(i,list.get(i+1) );
@@ -476,12 +487,12 @@ public class BookFlightPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BackBtn;
-    private javax.swing.JComboBox<String> DOFComboBox;
     private javax.swing.JButton ResetBtn;
     private javax.swing.JButton btnBookNow;
     private javax.swing.JCheckBox chkCheapestFlightOrder;
     private javax.swing.JCheckBox chkEarliestFlightOrder;
     private javax.swing.JComboBox<String> fromComboBox;
+    private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
