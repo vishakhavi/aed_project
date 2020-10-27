@@ -4,10 +4,15 @@
  * and open the template in the editor.
  */
 package UserInterface.ManageAirliners;
+
+
 import Business.Airliner;
-import javax.swing.JPanel;
 import Business.AirlinerDirectory;
+import Business.Flight;
+import Business.MasterSchedule;
+import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author Vishakha
@@ -16,14 +21,23 @@ public class ManageAirlinersJPanel extends JPanel {
 
     /**
      * Creates new form ManageAirlinersJPanel
-     */
-    AirlinerDirectory airlinerDirectory;
-    JPanel CardSequenceJPanel;
-    public ManageAirlinersJPanel(JPanel spane, AirlinerDirectory sd) {
-        CardSequenceJPanel = spane;
-        airlinerDirectory = sd;
-        displayTable();
+     */ 
+    public int count;
+    public AirlinerDirectory airlinerDirectory;
+    public MasterSchedule flightSchedule;
+    private JPanel userProcessContainer;
+    private Airliner airliner;
+    public Flight flightdir;
+    
+    
+    public ManageAirlinersJPanel(JPanel userProcessContainer,Airliner airline, MasterSchedule flightSchList, AirlinerDirectory airlineDirectory, Flight flightdir){
+        this.airlinerDirectory =  new AirlinerDirectory();
+        this.airliner = airline;
+        this.flightSchedule = flightSchList;
+        this.userProcessContainer = userProcessContainer;
+        this.flightdir = flightdir;
         initComponents();
+        //populateTbl();
     }
 
     public void displayTable()

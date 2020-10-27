@@ -15,23 +15,30 @@ public class UserDirectory {
     private ArrayList<User> userList;
 
     public UserDirectory() {
+        User user1 = new User("Admin","admin","Admin");
+        User user2 = new User("User","user123","User");
         userList = new ArrayList();
+        userList.add(user1);
+        userList.add(user2);
     }
 
     public ArrayList<User> getUserList() {
         return userList;
     }
     
-    public User authenticateUser(String username, String password){
-        for (User ua : userList)
+    public boolean authenticateUser(String username, String password){
+        for (User ua : userList){
+            System.out.print("users"+ua);
             if (ua.getUsername().equals(username) && ua.getPassword().equals(password)){
-                return ua;
+                return true;
             }
-        return null;
+       
+    }
+         return false;
     }
     
     public User createUserAccount(String username, String password,String role){
-        User user = new User();
+        User user = new User("Admin", "admin", "Admin");
         user.setUsername(username);
         user.setPassword(password);
         user.setRole(role);
