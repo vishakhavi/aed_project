@@ -20,9 +20,9 @@ public class AirlinerDirectory {
     
     public AirlinerDirectory() {
         airlinerDirectory = new ArrayList<Airliner>();
-        flightDirectory = new ArrayList<Flight>();
-        flightDirectory1 = new ArrayList<Flight>();
-        initialize();
+        //flightDirectory = new ArrayList<Flight>();
+        //flightDirectory1 = new ArrayList<Flight>();
+        //initialize();
     }
      
     private void initialize(){

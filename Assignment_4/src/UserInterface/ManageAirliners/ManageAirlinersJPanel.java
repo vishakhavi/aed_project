@@ -4,20 +4,43 @@
  * and open the template in the editor.
  */
 package UserInterface.ManageAirliners;
-
+import Business.Airliner;
+import javax.swing.JPanel;
+import Business.AirlinerDirectory;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Vishakha
  */
-public class ManageAirlinersJPanel extends javax.swing.JPanel {
+public class ManageAirlinersJPanel extends JPanel {
 
     /**
      * Creates new form ManageAirlinersJPanel
      */
-    public ManageAirlinersJPanel() {
+    AirlinerDirectory airlinerDirectory;
+    JPanel CardSequenceJPanel;
+    public ManageAirlinersJPanel(JPanel spane, AirlinerDirectory sd) {
+        CardSequenceJPanel = spane;
+        airlinerDirectory = sd;
+        displayTable();
         initComponents();
     }
 
+    public void displayTable()
+    {
+        DefaultTableModel model = (DefaultTableModel)tblAirliners.getModel();
+        model.setRowCount(0);
+        //int count = 1;
+        //Supplier supplier = (Supplier)suppComboBox1.getSelectedItem();
+        for(Airliner a : airlinerDirectory.getAirlineDirectory()) {
+            Object row[] = new Object[1];
+            row[0] = a.getAirlinerName();
+            //row[1] = a.getAirlinerName();
+            model.addRow(row); 
+            //count++;
+        }   
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,29 +51,76 @@ public class ManageAirlinersJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAirliners = new javax.swing.JTable();
+        btnAddAirliner = new javax.swing.JButton();
+        btnViewAirliner = new javax.swing.JButton();
 
         jLabel1.setText("Manage Airliners");
+
+        tblAirliners.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Serial Number", "Airliner Name"
+            }
+        ));
+        jScrollPane1.setViewportView(tblAirliners);
+
+        btnAddAirliner.setText("Create New Airliner >>");
+        btnAddAirliner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAddAirlinerActionPerformed(evt);
+            }
+        });
+
+        btnViewAirliner.setText("View Airliner >>");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(151, 151, 151)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(168, Short.MAX_VALUE))
+                .addGap(137, 137, 137)
+                .addComponent(jLabel1)
+                .addContainerGap(158, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAddAirliner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnViewAirliner, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(19, 19, 19)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 104, Short.MAX_VALUE)
+                .addComponent(btnAddAirliner)
+                .addGap(31, 31, 31)
+                .addComponent(btnViewAirliner)
+                .addGap(38, 38, 38))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnAddAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddAirlinerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAddAirlinerActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAddAirliner;
+    private javax.swing.JButton btnViewAirliner;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblAirliners;
     // End of variables declaration//GEN-END:variables
 }
