@@ -5,6 +5,13 @@
  */
 package UserInterface.ManageAirliners;
 
+import Business.Airliner;
+import Business.AirlinerDirectory;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Vishakha
@@ -14,8 +21,14 @@ public class CreateNewAirlinerJPanel extends javax.swing.JPanel {
     /**
      * Creates new form CreateNewAirlinerJPanel
      */
-    public CreateNewAirlinerJPanel() {
+    private JPanel userProcessContainer;
+    public AirlinerDirectory airlinerDirectory;
+    
+    
+    public CreateNewAirlinerJPanel(JPanel upc, AirlinerDirectory ad) {
         initComponents();
+        this.userProcessContainer = upc;
+        this. airlinerDirectory = ad;
     }
 
     /**
@@ -27,19 +40,128 @@ public class CreateNewAirlinerJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jTxtAirllinerName = new javax.swing.JTextField();
+        jBtncreateAirliner = new javax.swing.JButton();
+        jBtnBack = new java.awt.Button();
+        jTxtSerialNum = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+
+        jLabel1.setText("Enter Airliner Name");
+
+        jTxtAirllinerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtAirllinerNameActionPerformed(evt);
+            }
+        });
+
+        jBtncreateAirliner.setText("Create Airliner");
+        jBtncreateAirliner.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtncreateAirlinerActionPerformed(evt);
+            }
+        });
+
+        jBtnBack.setLabel("< Back");
+        jBtnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnBackActionPerformed(evt);
+            }
+        });
+
+        jTxtSerialNum.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtSerialNumActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Enter Serial Number");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jBtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2))
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jTxtSerialNum, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jBtncreateAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(38, 38, 38)
+                        .addComponent(jTxtAirllinerName, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(14, 14, 14)))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(24, 24, 24)
+                .addComponent(jBtnBack, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtSerialNum, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jTxtAirllinerName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(33, 33, 33)
+                .addComponent(jBtncreateAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(93, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTxtAirllinerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtAirllinerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtAirllinerNameActionPerformed
+
+    private void jBtncreateAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtncreateAirlinerActionPerformed
+        // TODO add your handling code here:
+        Airliner a = new Airliner();
+        
+        a.setAirlinerName(jTxtAirllinerName.getText().trim());
+        a.setSerialNum(jTxtSerialNum.getText().trim());
+        
+        this.airlinerDirectory.addAirline(a);
+        JOptionPane.showMessageDialog(null, "Created Airliner successfully");
+    }//GEN-LAST:event_jBtncreateAirlinerActionPerformed
+
+    private void jBtnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        
+        Component[] comps = userProcessContainer.getComponents();
+
+        for (Component comp : comps){
+            if (comp instanceof  ManageAirlinersJPanel){
+                System.out.println(comp);
+                ManageAirlinersJPanel manageP = (ManageAirlinersJPanel) comp;
+                manageP.displayAirlinerTable();
+            }
+        }
+        
+        layout.previous(userProcessContainer);
+    }//GEN-LAST:event_jBtnBackActionPerformed
+
+    private void jTxtSerialNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtSerialNumActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtSerialNumActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private java.awt.Button jBtnBack;
+    private javax.swing.JButton jBtncreateAirliner;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JTextField jTxtAirllinerName;
+    private javax.swing.JTextField jTxtSerialNum;
     // End of variables declaration//GEN-END:variables
 }

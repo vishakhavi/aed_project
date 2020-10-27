@@ -13,6 +13,15 @@ import java.util.ArrayList;
  */
 public class Airliner {
     private String airlinerName;
+    private String serialNum;
+
+    public String getSerialNum() {
+        return serialNum;
+    }
+
+    public void setSerialNum(String serialNum) {
+        this.serialNum = serialNum;
+    }
     private Flight flight;
     private ArrayList<Flight> flightCatalog;
 
