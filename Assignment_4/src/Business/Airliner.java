@@ -14,6 +14,8 @@ import java.util.ArrayList;
 public class Airliner {
     private String airlinerName;
     private String serialNum;
+    private Flight flight;
+    private ArrayList<Flight> flightCatalog;
 
     public String getSerialNum() {
         return serialNum;
@@ -22,8 +24,7 @@ public class Airliner {
     public void setSerialNum(String serialNum) {
         this.serialNum = serialNum;
     }
-    private Flight flight;
-    private ArrayList<Flight> flightCatalog;
+    
 
     public Airliner(){
         flightCatalog = new ArrayList<Flight>();
@@ -58,6 +59,6 @@ public class Airliner {
 
     @Override
     public String toString() {
-        return airlinerName;
+        return getSerialNum();
     }
 }
