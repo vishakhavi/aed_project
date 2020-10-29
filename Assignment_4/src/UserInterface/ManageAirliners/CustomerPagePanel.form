@@ -61,25 +61,21 @@
                           </Group>
                           <EmptySpace min="-2" pref="77" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jLabel10" max="32767" attributes="0"/>
+                              <Component id="jLabel13" alignment="1" pref="0" max="32767" attributes="0"/>
+                              <Component id="jLabel11" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jLabel12" alignment="1" max="32767" attributes="0"/>
+                              <Component id="jLabel9" alignment="1" max="32767" attributes="0"/>
+                          </Group>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="txtEmailCust" alignment="0" max="32767" attributes="0"/>
+                              <Component id="txtPhoneCust" max="32767" attributes="0"/>
+                              <Component id="txtTotalPrice" max="32767" attributes="0"/>
+                              <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
                               <Group type="102" attributes="0">
-                                  <Component id="jLabel10" min="-2" pref="62" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtNameCust" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" attributes="0">
-                                  <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                      <Component id="jLabel13" pref="0" max="32767" attributes="0"/>
-                                      <Component id="jLabel11" max="32767" attributes="0"/>
-                                      <Component id="jLabel12" max="32767" attributes="0"/>
-                                      <Component id="jLabel9" max="32767" attributes="0"/>
-                                  </Group>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Group type="103" groupAlignment="0" attributes="0">
-                                      <Component id="txtEmailCust" alignment="0" pref="144" max="32767" attributes="0"/>
-                                      <Component id="txtPhoneCust" max="32767" attributes="0"/>
-                                      <Component id="txtTotalPrice" max="32767" attributes="0"/>
-                                      <Component id="jDateChooser1" alignment="0" max="32767" attributes="0"/>
-                                  </Group>
+                                  <Component id="txtNameCust" min="-2" pref="189" max="-2" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
@@ -94,7 +90,7 @@
                           <Component id="jLabel1" min="-2" pref="156" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="933" max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="888" max="-2" attributes="0"/>
               </Group>
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
@@ -107,7 +103,7 @@
                       <Component id="btnViewDetails" max="32767" attributes="0"/>
                       <Component id="confirmBtn" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace min="0" pref="1022" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
