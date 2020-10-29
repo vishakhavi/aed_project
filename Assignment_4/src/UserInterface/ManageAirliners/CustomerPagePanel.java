@@ -189,7 +189,7 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         jLabel10.setText("Name :");
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("DOB::");
+        jLabel11.setText("DOB:");
 
         txtNameCust.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +207,7 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         jLabel12.setText("Phone No:");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setText("Price Total:");
+        jLabel13.setText("Price:");
 
         txtTotalPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,7 +245,7 @@ public class CustomerPagePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblSeats.setCellSelectionEnabled(true);
+        tblSeats.setColumnSelectionAllowed(false);
         tblSeats.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblSeats);
         if (tblSeats.getColumnModel().getColumnCount() > 0) {

@@ -13,6 +13,7 @@ import java.awt.CardLayout;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -64,7 +65,7 @@ public class BookFlightPanel extends javax.swing.JPanel {
             row[3]= flight.getToLocation();
             row[4]= flight.getPrice();
             row[5]= flight.getDateOfFlight();
-            row[6]= flight.getTimeOfFlight();
+            row[6]= flight.getTimeOfFlight().format(DateTimeFormatter.ISO_TIME);
             row[7]= flight.getAvailSeats();
             
             dtm.addRow(row);
@@ -78,7 +79,7 @@ public class BookFlightPanel extends javax.swing.JPanel {
         toComboBox.removeAllItems();
         fromComboBox.addItem("Select from");
         toComboBox.addItem("Select To");
-        jDateChooser.setDate(new Date());
+        //jDateChooser.setDate(new Date());
         
          
         //From HashSet
@@ -141,6 +142,8 @@ public class BookFlightPanel extends javax.swing.JPanel {
         chkCheapestFlightOrder = new javax.swing.JCheckBox();
         btnBookNow = new javax.swing.JButton();
         jDateChooser = new com.toedter.calendar.JDateChooser();
+        jLabel4 = new javax.swing.JLabel();
+        jComboBoxTimeSlot = new javax.swing.JComboBox<>();
 
         jLabel1.setText("To");
 
@@ -218,15 +221,16 @@ public class BookFlightPanel extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jScrollPane2)
+                        .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(chkCheapestFlightOrder)
                         .addGap(30, 30, 30)
                         .addComponent(chkEarliestFlightOrder)
                         .addGap(18, 18, 18)
                         .addComponent(ResetBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,6 +252,10 @@ public class BookFlightPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setText("Time :");
+
+        jComboBoxTimeSlot.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Morning(6-12 pm)", "Afternoon(12-6pm)", "Evening(6-12am)", "Night(12-6am)" }));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -260,17 +268,15 @@ public class BookFlightPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(14, 14, 14)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(BackBtn)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(BackBtn))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(156, 156, 156)
-                                .addComponent(jLabel5))
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel5)
                             .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(fromComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -279,10 +285,14 @@ public class BookFlightPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(131, 131, 131)
+                                .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jComboBoxTimeSlot, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
                                 .addComponent(searchBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 5, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addGap(244, 244, 244)
@@ -304,7 +314,9 @@ public class BookFlightPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1)
                         .addComponent(toComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
-                        .addComponent(searchBtn))
+                        .addComponent(searchBtn)
+                        .addComponent(jLabel4)
+                        .addComponent(jComboBoxTimeSlot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jDateChooser, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -345,7 +357,8 @@ public class BookFlightPanel extends javax.swing.JPanel {
         Date date;
             //date = (String)DOFComboBox.getSelectedItem();
             date = jDateChooser.getDate();
-        
+        String time =(String) jComboBoxTimeSlot.getSelectedItem();
+        System.out.println("time" + time);
         if ((from.equals(" ")) || (to.equals(" ")) || (date.equals("")))
         { 
             JOptionPane.showMessageDialog(null,"Please select from and to and date to search", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -355,7 +368,7 @@ public class BookFlightPanel extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null,"From and To cannot be the same", "Warning", JOptionPane.WARNING_MESSAGE);
             }
             else{
-                tempFlightDirectory = flightSchList.searchFlight(from, to, date);
+                tempFlightDirectory = flightSchList.searchFlight(from, to, date, time);
                 populateTableWithFilter();
             }
         }
@@ -492,10 +505,12 @@ public class BookFlightPanel extends javax.swing.JPanel {
     private javax.swing.JCheckBox chkCheapestFlightOrder;
     private javax.swing.JCheckBox chkEarliestFlightOrder;
     private javax.swing.JComboBox<String> fromComboBox;
+    private javax.swing.JComboBox<String> jComboBoxTimeSlot;
     private com.toedter.calendar.JDateChooser jDateChooser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
