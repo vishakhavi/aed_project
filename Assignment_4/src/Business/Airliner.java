@@ -30,6 +30,12 @@ public class Airliner {
         flightCatalog = new ArrayList<Flight>();
     }
     
+    public Airliner(String snum, String airName){
+        airlinerName = airName;
+        serialNum = snum;
+        flightCatalog = new ArrayList<Flight>();
+    }
+    
     public String getAirlinerName() {
         return airlinerName;
     }
