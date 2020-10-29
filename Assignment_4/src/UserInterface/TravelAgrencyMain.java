@@ -35,6 +35,8 @@ public class TravelAgrencyMain extends javax.swing.JFrame {
         airlineDirectory =  new AirlinerDirectory();
         custDirectory =  new CustomerDirectory();
         airline = new Airliner();
+        
+        initialize();
     }
 
     /**
@@ -124,6 +126,34 @@ public class TravelAgrencyMain extends javax.swing.JFrame {
         layout.next(UserProcessContainer);
     }//GEN-LAST:event_UserBtnActionPerformed
 
+    private void initialize() {
+        Airliner a1 = new Airliner("SP1234", "Spirit");
+        Airliner a2 = new Airliner("JA1234", "Jet Airways");
+        
+        Flight f1 = a1.addFlight();
+        f1.setAirline("Spirit");
+        f1.setPrice(300);
+        f1.setFlightNumber("MK100");
+        f1.setTotalSeats(150);
+        f1.setIsScheduled(true);
+        
+        Flight f2 = a1.addFlight();
+        f2.setAirline("Spirit");
+        f2.setPrice(400);
+        f2.setFlightNumber("MS100");
+        f2.setTotalSeats(150);
+        f2.setIsScheduled(true);
+        
+        Flight f3 = a2.addFlight();
+        f3.setAirline("Jet Airways");
+        f3.setPrice(400);
+        f3.setFlightNumber("MK100");
+        f3.setTotalSeats(150);
+        f3.setIsScheduled(true);
+        
+        airlineDirectory.addAirline(a1);
+        airlineDirectory.addAirline(a2);
+    }
     /**
      * @param args the command line arguments
      */
