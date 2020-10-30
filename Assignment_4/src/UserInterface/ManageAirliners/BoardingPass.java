@@ -13,6 +13,7 @@ import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
+import java.time.format.DateTimeFormatter;
 import javax.swing.JPanel;
 
 /**
@@ -42,6 +43,7 @@ public class BoardingPass extends javax.swing.JPanel {
         txtDate.setText(String.valueOf(customer.getDateOfFlight()));
         txtFrom.setText(customer.getFromLocation());
         txtTo.setText(customer.getToLocation());
+        txtTime.setText(customer.getTimeOfFlight().format(DateTimeFormatter.ISO_LOCAL_TIME));
         
         String[] temp = customer.getSeatsBoooked();
         String a= "";
@@ -77,6 +79,9 @@ public class BoardingPass extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txtTime = new javax.swing.JLabel();
 
         jLabel1.setText("Airline Name:");
 
@@ -91,21 +96,23 @@ public class BoardingPass extends javax.swing.JPanel {
         txtPassengerName.setText("Passenger Name");
 
         txtTo.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        txtTo.setForeground(new java.awt.Color(0, 153, 51));
         txtTo.setText("To");
 
         txtFrom.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
+        txtFrom.setForeground(new java.awt.Color(0, 153, 51));
         txtFrom.setText("From");
 
-        jLabel9.setText("Where is My Seat?");
+        jLabel9.setText("Seat No:");
 
         txtSeats.setText("Seats");
 
-        jLabel11.setText("DOF:");
+        jLabel11.setText("Journey Date:");
 
         txtDate.setText("Date");
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 0, 36)); // NOI18N
-        jLabel2.setText("-->");
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/ManageAirliners/hangbandongtai.png"))); // NOI18N
 
         jButton1.setText("Print Pass");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -128,55 +135,76 @@ public class BoardingPass extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(87, Short.MAX_VALUE))
         );
+
+        jLabel4.setFont(new java.awt.Font("Arial Black", 0, 14)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(51, 0, 255));
+        jLabel4.setText("Ticket Confirmation Details");
+
+        jLabel6.setText("Time :");
+
+        txtTime.setText("Time");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel5)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(txtPassengerName))
+                        .addGap(27, 27, 27)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(8, 8, 8)
+                                .addComponent(txtFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(78, 78, 78)
+                                .addComponent(txtTo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtSeats)
+                                .addGap(151, 151, 151)
+                                .addComponent(jLabel11)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtDate)
+                                .addGap(73, 73, 73)
+                                .addComponent(jLabel6)
+                                .addGap(18, 18, 18)
+                                .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(txtAIrlineName)
+                                        .addGap(234, 234, 234)
+                                        .addComponent(jLabel3)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(txtFlightNumber))
+                                    .addComponent(txtPassengerName)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtAIrlineName)
-                        .addGap(259, 259, 259)
-                        .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtFlightNumber))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel2)
-                        .addGap(94, 94, 94)
-                        .addComponent(txtTo, javax.swing.GroupLayout.PREFERRED_SIZE, 218, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel9)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtSeats)
-                        .addGap(151, 151, 151)
-                        .addComponent(jLabel11)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtDate))
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(257, 257, 257)
+                        .addComponent(jLabel4)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(17, 17, 17)
+                .addComponent(jLabel4)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(txtAIrlineName)
                     .addComponent(jLabel3)
                     .addComponent(txtFlightNumber))
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
                     .addComponent(txtPassengerName))
@@ -184,13 +212,17 @@ public class BoardingPass extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtFrom, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTo, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(52, 52, 52)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(txtSeats)
                     .addComponent(jLabel11)
-                    .addComponent(txtDate))
+                    .addComponent(txtDate)
+                    .addComponent(jLabel6)
+                    .addComponent(txtTime, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
@@ -236,7 +268,9 @@ public class BoardingPass extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel txtAIrlineName;
@@ -245,6 +279,7 @@ public class BoardingPass extends javax.swing.JPanel {
     private javax.swing.JLabel txtFrom;
     private javax.swing.JLabel txtPassengerName;
     private javax.swing.JLabel txtSeats;
+    private javax.swing.JLabel txtTime;
     private javax.swing.JLabel txtTo;
     // End of variables declaration//GEN-END:variables
 }

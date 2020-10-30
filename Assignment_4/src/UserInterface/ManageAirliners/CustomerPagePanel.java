@@ -11,6 +11,7 @@ import Business.Flight;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.HeadlessException;
 import java.time.LocalDate;
 import java.util.Date;
 import java.util.regex.Matcher;
@@ -60,22 +61,6 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         populateFlightDetails();
     }
     
-//    public class StatusColumnCellRenderer extends DefaultCellEditor {
-//        StatusColumnCellRenderer()
-//        {
-//            super( new JTextField() );
-//        }
-//        public Component getTableCellEditorComponent(
-//            JTable table, Object value, boolean isSelected, int row, int column)
-//        {
-//            Component c = super.getTableCellEditorComponent(
-//                table, value, isSelected, row, column);
-//            ((JComponent)c).setBorder(new LineBorder(Color.black));
-//
-//            return c;
-//        }
-//    }
-
     
     private void populateFlightDetails(){
         txtFlightNumber.setEnabled(false);
@@ -189,7 +174,7 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         jLabel10.setText("Name :");
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel11.setText("DOB::");
+        jLabel11.setText("DOB:");
 
         txtNameCust.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -207,7 +192,7 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         jLabel12.setText("Phone No:");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel13.setText("Price Total:");
+        jLabel13.setText("Price:");
 
         txtTotalPrice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -245,7 +230,7 @@ public class CustomerPagePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblSeats.setCellSelectionEnabled(true);
+        tblSeats.setColumnSelectionAllowed(false);
         tblSeats.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblSeats);
         if (tblSeats.getColumnModel().getColumnCount() > 0) {
@@ -447,11 +432,11 @@ public class CustomerPagePanel extends javax.swing.JPanel {
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:
-        
+        try{
         String name = txtNameCust.getText();
         if (name.equals("")){
             JOptionPane.showMessageDialog(null, "Please enter the Name");
-            throw new RuntimeException("Please enter the Name");
+            
         }
 
         String email = txtEmailCust.getText();
@@ -476,17 +461,18 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         String phoneNumber = txtPhoneCust.getText();
         if (phoneNumber.equals("")){
             JOptionPane.showMessageDialog(null, "Please enter the Phone number");
-            throw new RuntimeException("Please enter the Phone number");
+            
         }
-
-        String date = jDateChooser1.getDate().toString();
-        if (date.equals("")){
-            JOptionPane.showMessageDialog(null, "Please enter the Date");
-            throw new RuntimeException("Please enter the Date");
+        Date date = null;
+        if(jDateChooser1.getDate() != null){
+        date = jDateChooser1.getDate();
+        }
+        else {
+            JOptionPane.showMessageDialog(null, "Please enter the Date"); 
         }
         this.customer = new Customer();
         customer.setUsername(txtNameCust.getText());
-        customer.setDob(jDateChooser1.getDate());
+        customer.setDob(date);
         customer.setEmail_id(txtEmailCust.getText());
         customer.setPnumber(Integer.parseInt(txtPhoneCust.getText()));
         customer.setAirlineName(String.valueOf(flight.getAirline()));
@@ -494,8 +480,13 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         customer.setFromLocation(String.valueOf(flight.getFromLocation()));
         customer.setToLocation(String.valueOf(flight.getToLocation()));
         customer.setDateOfFlight(flight.getDateOfFlight());
+        customer.setTimeOfFlight(flight.getTimeOfFlight());
         
         seatAssignment();
+        }catch(HeadlessException | NumberFormatException e){
+            System.err.println("Excpetion in input fields "+ e);
+            JOptionPane.showMessageDialog(null, "Please enter appropriate values");
+        }
     }//GEN-LAST:event_confirmBtnActionPerformed
 
     private void btnViewDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnViewDetailsActionPerformed
