@@ -65,8 +65,8 @@ public class MasterSchedule {
         this.flightDirectory = flightDirectory;
     } 
     
-    public Flight addFlight(){
-        Flight flight = new Flight();
+    public Flight addFlight(Flight flight){
+        //Flight flight = new Flight();
         flightDirectory.add(flight);
         return flight;
     }

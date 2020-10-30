@@ -100,6 +100,11 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton1.setText("<Back");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         tblMasterSchedule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -233,7 +238,7 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
             Flight flight = (Flight) tblNotSchedule.getValueAt(selectedRow, 0);
             //irliner airline = (Airliner) tblAirliners.getValueAt(selectedRow1, 0);
             
-            FlightScheduleJPanel fs = new FlightScheduleJPanel(userProcessContainer,flight);
+            FlightScheduleJPanel fs = new FlightScheduleJPanel(userProcessContainer,flight,masterScheduleList,airlineDirectory);
             userProcessContainer.add("FlightSchedulePanel", fs);
             CardLayout layout = (CardLayout) userProcessContainer.getLayout();
             layout.next(userProcessContainer);
@@ -245,7 +250,26 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
 
     private void btnRemoveScheduleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoveScheduleActionPerformed
         // TODO add your handling code here:
+        int selectedRow = tblMasterSchedule.getSelectedRow();
+        //int selectedRow1 = tblAirliners.getSelectedRow();
+
+        if (selectedRow >= 0){
+            Flight flight = (Flight) tblMasterSchedule.getValueAt(selectedRow, 0);
+            masterScheduleList.deleteFlight(flight);
+            JOptionPane.showMessageDialog(null, "Flight removed from Master Schedule successfully");
+            populateTableMasterSchedule();
+        }
+        else{
+            JOptionPane.showMessageDialog(null,"Please selecte a row from the table", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_btnRemoveScheduleActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.previous(userProcessContainer);
+
+    }//GEN-LAST:event_jButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -98,8 +98,8 @@ public class ManageAirlinersJPanel extends JPanel {
         jBtnViewFlight = new javax.swing.JButton();
         jBtnAddFlight = new javax.swing.JButton();
         jBtnDeleteFlight = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnManageSch = new javax.swing.JButton();
+        btnBookFlight = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Manage Airliners");
@@ -159,17 +159,17 @@ public class ManageAirlinersJPanel extends JPanel {
             }
         });
 
-        jButton1.setText("Manage Schedule");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnManageSch.setText("Manage Schedule");
+        btnManageSch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnManageSchActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Book Flight");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnBookFlight.setText("Book Flight");
+        btnBookFlight.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnBookFlightActionPerformed(evt);
             }
         });
 
@@ -197,9 +197,9 @@ public class ManageAirlinersJPanel extends JPanel {
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 771, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(66, 66, 66)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnManageSch, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnBookFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)
                         .addComponent(btnViewAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(67, 67, 67)
@@ -215,11 +215,11 @@ public class ManageAirlinersJPanel extends JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnManageSch, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(btnAddAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnViewAirliner, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnBookFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(47, 47, 47)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
@@ -326,33 +326,33 @@ public class ManageAirlinersJPanel extends JPanel {
                                           
     }//GEN-LAST:event_jBtnViewFlightActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnBookFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBookFlightActionPerformed
         // TODO add your handling code here:
         
          BookFlightPanel us = new BookFlightPanel(userProcessContainer, flightSchedule,flightdir, airlinerDirectory);
         userProcessContainer.add("BookFlightPanel", us);
         CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
         layout.next(userProcessContainer);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnBookFlightActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnManageSchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageSchActionPerformed
         // TODO add your handling code here:
         MasterSchedulePanel us = new MasterSchedulePanel(userProcessContainer, flightSchedule, this.airlinerDirectory);
         userProcessContainer.add("MasterSchedulePanel", us);
         CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
         layout.next(userProcessContainer);
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnManageSchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddAirliner;
+    private javax.swing.JButton btnBookFlight;
+    private javax.swing.JButton btnManageSch;
     private javax.swing.JButton btnViewAirliner;
     private javax.swing.JButton jBtnAddFlight;
     private javax.swing.JButton jBtnDeleteFlight;
     private javax.swing.JButton jBtnViewFlight;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
