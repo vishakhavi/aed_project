@@ -10,6 +10,7 @@ import Business.Flight;
 import Business.MasterSchedule;
 import java.awt.CardLayout;
 import java.awt.Component;
+import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import javax.swing.JOptionPane;
@@ -133,7 +134,6 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
         depMins.setModel(new javax.swing.SpinnerNumberModel(0, 0, 55, 5));
 
         depHour.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
-        depHour.setValue(1);
 
         arrMins.setModel(new javax.swing.SpinnerNumberModel(0, 0, 55, 5));
 
@@ -283,6 +283,7 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 (flightDate.getDate().toString().equals("")))
         {
             JOptionPane.showMessageDialog(null,"Please fill out all fields", "Warning", JOptionPane.WARNING_MESSAGE);
+            return;
         }
         else
         {
@@ -291,6 +292,7 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 if(Double.parseDouble(txtPrice.getText()) <= 0)
                 {
                     JOptionPane.showMessageDialog(null,"Price must be a number greater than zero", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
                 }
                 Flight f = new Flight();
                 f.setFlightNumber(txtFlightNumber.getText());
@@ -299,9 +301,25 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 f.setFromLocation(txtSource.getText());
                 f.setToLocation(txtDestination.getText());
                 // seats cannot exceed actual seat count
-                f.setTotalSeats(Integer.parseInt(txtTotalSeats.getText()));
+                if((Integer.parseInt(txtTotalSeats.getText())) > flight.getTotalSeats())
+                {
+                    JOptionPane.showMessageDialog(null,"Seat count cannot exceed default flight seat count", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                else
+                {
+                    f.setTotalSeats(Integer.parseInt(txtTotalSeats.getText()));
+                }
                 // date cannot be past
-                f.setDateOfFlight(flightDate.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                if((LocalDate.now().compareTo(flightDate.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) > 0)
+                {
+                    JOptionPane.showMessageDialog(null,"Flight date cannot be in the past", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+                else
+                {
+                    f.setDateOfFlight(flightDate.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                }
                 String depHr, depMns, arrHr, arrMns, depTime, arrTime;
                 LocalTime departure, arrival;
                 depHr = depHour.getValue().toString();
@@ -309,11 +327,32 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 arrHr = arrHour.getValue().toString();
                 arrMns = arrMins.getValue().toString();
                 // for time less than 10
+                if(Integer.parseInt(depHr) < 10)
+                {
+                    depHr = "0" + depHr;
+                }
+                if(Integer.parseInt(depMns) < 10)
+                {
+                    depMns = "0" + depMns;
+                }
+                if(Integer.parseInt(arrHr) < 10)
+                {
+                    arrHr = "0" + arrHr;
+                }
+                if(Integer.parseInt(arrMns) < 10)
+                {
+                    arrMns = "0" + arrMns;
+                }
                 depTime = depHr + ":" + depMns + ":00";
                 arrTime = arrHr + ":" + arrMns + ":00";
-                // departure date should be less than arrival date
+                // departure time should be less than arrival time
                 departure = LocalTime.parse(depTime);
                 arrival = LocalTime.parse(arrTime);
+                if(departure.compareTo(arrival) > 0)
+                {
+                    JOptionPane.showMessageDialog(null,"Departure time cannot be later than arrival time", "Warning", JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
                 f.setTimeOfFlight(departure);
                 f.setArrivalTime(arrival);
                 masterScheduleList.getFlightDirectory().add(f);
@@ -323,12 +362,14 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
             catch(Exception e)
             {
                 JOptionPane.showMessageDialog(null,"One or more fields contain invalid value", "Warning", JOptionPane.WARNING_MESSAGE);
+                return;
             }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:'  userProcessContainer.remove(this);
+        userProcessContainer.remove(this);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         //        Restore prev screen's state
         Component[] comps = userProcessContainer.getComponents();

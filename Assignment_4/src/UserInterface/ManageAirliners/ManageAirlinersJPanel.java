@@ -337,7 +337,7 @@ public class ManageAirlinersJPanel extends JPanel {
 
     private void btnManageSchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnManageSchActionPerformed
         // TODO add your handling code here:
-        MasterSchedulePanel us = new MasterSchedulePanel(userProcessContainer, flightSchedule, this.airlinerDirectory);
+        MasterSchedulePanel us = new MasterSchedulePanel(userProcessContainer, flightSchedule, airlinerDirectory);
         userProcessContainer.add("MasterSchedulePanel", us);
         CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
         layout.next(userProcessContainer);
