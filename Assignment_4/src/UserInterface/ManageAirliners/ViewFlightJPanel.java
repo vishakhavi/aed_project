@@ -5,6 +5,19 @@
  */
 package UserInterface.ManageAirliners;
 
+import Business.Airliner;
+import Business.AirlinerDirectory;
+import Business.Flight;
+import java.awt.CardLayout;
+import java.awt.Component;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
 /**
  *
  * @author Vishakha
@@ -14,8 +27,41 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewAirlinerJPanel
      */
-    public ViewFlightJPanel() {
+     private JPanel userProcessContainer;
+    private Flight flight;
+    private Airliner airliner;
+    
+    public ViewFlightJPanel(JPanel userProcessContainer,Flight flight, Airliner airline) {
+        this.userProcessContainer = userProcessContainer;
+        this.flight = flight;
+        this.airliner = airline;
         initComponents();
+        populatefields();
+        TxtFlightNumber.setEnabled(false);
+        TxtAirlineName.setEnabled(false);
+        txtLastUpdated.setEnabled(false);
+        TxtPrice.setEnabled(false);
+        TxtTotSeats.setEnabled(false);
+        YesRBtn.setEnabled(false);
+        NoRBtn.setEnabled(false);
+    }
+    
+    public void populatefields(){
+        TxtAirlineName.setText(flight.getAirline());
+        LocalDateTime date = flight.getUpdatedOn();
+        DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
+        txtLastUpdated.setText(date.format(myFormatObj));
+//        txtLastUpdated.setText(flight.getUpdatedOn().toString());
+        TxtFlightNumber.setText(flight.getFlightNumber());
+        TxtPrice.setText(String.valueOf(flight.getPrice()));
+        TxtTotSeats.setText(String.valueOf(flight.getTotalSeats()));
+        boolean b1 = flight.isIsScheduled();
+        if (b1){
+            YesRBtn.setSelected(true);
+        }
+        else{
+            NoRBtn.setSelected(true);
+        } 
     }
 
     /**
@@ -27,7 +73,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -35,18 +81,26 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        txtFlightNumber = new javax.swing.JTextField();
-        txtAirline = new javax.swing.JTextField();
-        txtPrice = new javax.swing.JTextField();
-        txtTotalSeats = new javax.swing.JTextField();
-        txtUpdatedOn = new javax.swing.JTextField();
-        radioYes = new javax.swing.JRadioButton();
-        radioNo = new javax.swing.JRadioButton();
+        UpdateBtn = new javax.swing.JButton();
+        btnSave = new javax.swing.JButton();
+        TxtFlightNumber = new javax.swing.JTextField();
+        TxtAirlineName = new javax.swing.JTextField();
+        TxtPrice = new javax.swing.JTextField();
+        TxtTotSeats = new javax.swing.JTextField();
+        txtLastUpdated = new javax.swing.JTextField();
+        YesRBtn = new javax.swing.JRadioButton();
+        NoRBtn = new javax.swing.JRadioButton();
+        jErrorFlightNumber = new javax.swing.JLabel();
+        jErrorPrice = new javax.swing.JLabel();
+        jErrorTotalSeats = new javax.swing.JLabel();
 
-        jButton1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton1.setText("<Back");
+        btnBack.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnBack.setText("<Back");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Flight Details");
@@ -63,15 +117,45 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
 
         jLabel7.setText("Is Scheduled:");
 
-        jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton2.setText("Update");
+        UpdateBtn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        UpdateBtn.setText("Update");
+        UpdateBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateBtnActionPerformed(evt);
+            }
+        });
 
-        jButton3.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jButton3.setText("Save");
+        btnSave.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        btnSave.setText("Save");
+        btnSave.setEnabled(false);
+        btnSave.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSaveActionPerformed(evt);
+            }
+        });
 
-        radioYes.setText("Yes");
+        TxtAirlineName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TxtAirlineNameActionPerformed(evt);
+            }
+        });
 
-        radioNo.setText("No");
+        YesRBtn.setText("Yes");
+        YesRBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                YesRBtnActionPerformed(evt);
+            }
+        });
+
+        NoRBtn.setText("No");
+
+        jErrorFlightNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jErrorFlightNumber.setForeground(new java.awt.Color(255, 0, 0));
+
+        jErrorPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jErrorPrice.setForeground(new java.awt.Color(255, 0, 0));
+
+        jErrorTotalSeats.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -81,7 +165,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
-                        .addComponent(jButton1)
+                        .addComponent(btnBack)
                         .addGap(286, 286, 286)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
@@ -93,33 +177,31 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel7))
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtUpdatedOn, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(radioYes)
+                                        .addComponent(YesRBtn)
                                         .addGap(18, 18, 18)
-                                        .addComponent(radioNo))))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(txtAirline, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jLabel5))
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                            .addGap(31, 31, 31)
-                                            .addComponent(txtFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(txtPrice, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addComponent(txtTotalSeats, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
+                                        .addComponent(NoRBtn))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel4)
+                                    .addComponent(jLabel5))
+                                .addGap(31, 31, 31)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jErrorFlightNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(TxtAirlineName, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                    .addComponent(TxtFlightNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                    .addComponent(TxtPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                    .addComponent(TxtTotSeats, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
+                                    .addComponent(jErrorPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jErrorTotalSeats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(273, 273, 273)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(84, 84, 84)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(316, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -127,46 +209,200 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGap(48, 48, 48)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
+                    .addComponent(btnBack)
                     .addComponent(jLabel1))
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txtFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(TxtFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(jErrorFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(txtAirline, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(TxtAirlineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(TxtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(jErrorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(txtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
+                    .addComponent(TxtTotSeats, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(4, 4, 4)
+                .addComponent(jErrorTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(txtUpdatedOn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                    .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(radioYes)
-                    .addComponent(radioNo))
+                    .addComponent(YesRBtn)
+                    .addComponent(NoRBtn))
                 .addGap(50, 50, 50)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(128, Short.MAX_VALUE))
+                    .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void UpdateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateBtnActionPerformed
+        // TODO add your handling code here:
+         TxtFlightNumber.setEnabled(true);
+        TxtPrice.setEnabled(true);
+        TxtTotSeats.setEnabled(true);
+        YesRBtn.setEnabled(true);
+        NoRBtn.setEnabled(true);
+        btnSave.setEnabled(true);
+        UpdateBtn.setEnabled(false);
+    }//GEN-LAST:event_UpdateBtnActionPerformed
+
+    private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
+        // TODO add your handling code here:
+        
+        //Validation code starts
+         if(TxtFlightNumber.getText().trim().isEmpty() &&
+            TxtPrice.getText().trim().isEmpty() &&
+         TxtTotSeats.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Please Enter data to proceed!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            return;
+            } // Flight Number, Price, Seats Fields are Empty
+         
+         else {
+             jErrorFlightNumber.setText("");
+             jErrorPrice.setText("");
+             jErrorTotalSeats.setText("");
+            
+             
+            boolean error = false;
+            
+             if (TxtFlightNumber.getText().trim().isEmpty()) {
+                jErrorFlightNumber.setText("Flight Number cannot be empty");
+                error = true;
+            }
+            
+             
+            
+            try { //To validate if Price is actually a number
+                Double price = Double.parseDouble(TxtPrice.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (TxtPrice.getText().trim().isEmpty()) {
+                    jErrorPrice.setText("Price cannot be empty");
+                }else {
+                     jErrorPrice.setText("Price is not in Double format");
+                }
+               
+                error = true;
+            }
+            
+           
+            try { //To validate if  Total Seats is actually a number
+                Integer totalSeats = Integer.parseInt(TxtTotSeats.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (TxtTotSeats.getText().trim().isEmpty()) {
+                    jErrorTotalSeats.setText("Total Seats cannot be empty");
+                } else {
+                    jErrorTotalSeats.setText("Total Seats is not a number");
+                }
+                
+                error = true;
+            }
+          
+            
+               if(!(YesRBtn.isSelected() || NoRBtn.isSelected()))
+        {
+            JOptionPane.showMessageDialog(null, "Please select any of the IsScheduled radio button!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            
+        
+            error = true;
+            
+         }
+                
+            if (error) {
+                return;
+            }
+        }
+        
+        
+//      Validation code - End  
+        
+        String flightNumber = TxtFlightNumber.getText();
+        if (flightNumber.equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter the Flight Number");
+            throw new RuntimeException("Please enter the Flight Number");      
+        }
+        String price = String.valueOf(TxtPrice.getText());
+        if (price.equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter the Price");
+            throw new RuntimeException("Please enter the Price");      
+        }
+        String seats = String.valueOf(TxtTotSeats.getText());
+        if (seats.equals("")){
+            JOptionPane.showMessageDialog(null, "Please enter the Total Seats");
+            throw new RuntimeException("Please enter the Total Seats");      
+        }
+        boolean f1;
+        if (YesRBtn.isSelected())
+            f1 = true;
+        else
+            f1 = false;
+                
+       
+        flight.setFlightNumber(flightNumber);
+        flight.setPrice(Double.valueOf(price));
+        flight.setTotalSeats(Integer.valueOf(seats));
+        flight.setIsScheduled(f1);
+        flight.setUpdatedOn(LocalDateTime.now());
+        JOptionPane.showMessageDialog(null, "Flight updated successfully");
+        
+        userProcessContainer.remove(this);
+        CardLayout cardlayout = (CardLayout) userProcessContainer.getLayout();
+        Component[] comps = userProcessContainer.getComponents();
+
+        for (Component comp : comps){
+            if (comp instanceof ManageAirlinersJPanel){
+            System.out.println(comp);
+            ManageAirlinersJPanel manageP = (ManageAirlinersJPanel) comp;
+            manageP.displayAirlinerTable();
+            manageP.displayFlightsTable(this.airliner);
+            }
+        }
+        cardlayout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnSaveActionPerformed
+
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        userProcessContainer.remove(this);
+        CardLayout cardlayout = (CardLayout) userProcessContainer.getLayout();
+        cardlayout.previous(userProcessContainer);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void YesRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YesRBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_YesRBtnActionPerformed
+
+    private void TxtAirlineNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtAirlineNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_TxtAirlineNameActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JRadioButton NoRBtn;
+    private javax.swing.JTextField TxtAirlineName;
+    private javax.swing.JTextField TxtFlightNumber;
+    private javax.swing.JTextField TxtPrice;
+    private javax.swing.JTextField TxtTotSeats;
+    private javax.swing.JButton UpdateBtn;
+    private javax.swing.JRadioButton YesRBtn;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnSave;
+    private javax.swing.JLabel jErrorFlightNumber;
+    private javax.swing.JLabel jErrorPrice;
+    private javax.swing.JLabel jErrorTotalSeats;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -174,12 +410,6 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JRadioButton radioNo;
-    private javax.swing.JRadioButton radioYes;
-    private javax.swing.JTextField txtAirline;
-    private javax.swing.JTextField txtFlightNumber;
-    private javax.swing.JTextField txtPrice;
-    private javax.swing.JTextField txtTotalSeats;
-    private javax.swing.JTextField txtUpdatedOn;
+    private javax.swing.JTextField txtLastUpdated;
     // End of variables declaration//GEN-END:variables
 }

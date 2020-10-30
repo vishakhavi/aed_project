@@ -54,6 +54,8 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jErrorFlightNumber = new javax.swing.JLabel();
+        jErrorPrice = new javax.swing.JLabel();
 
         jTxtAirlineName.setEditable(false);
         jTxtAirlineName.setEnabled(false);
@@ -98,12 +100,21 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel5.setText("Total Seats:");
 
+        jErrorFlightNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jErrorFlightNumber.setForeground(new java.awt.Color(255, 0, 0));
+
+        jErrorPrice.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jErrorPrice.setForeground(new java.awt.Color(255, 0, 0));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(343, 343, 343)
+                        .addComponent(jBtnCreateFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -118,15 +129,14 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
                                 .addGap(96, 96, 96)))
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTxtAirlineName, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTxtAirlineName, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
                             .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jTxtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(343, 343, 343)
-                        .addComponent(jBtnCreateFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jTxtFlightNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(jTxtPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(jTxtTotalSeats, javax.swing.GroupLayout.DEFAULT_SIZE, 203, Short.MAX_VALUE)
+                            .addComponent(jErrorFlightNumber, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jErrorPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap(272, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -144,17 +154,21 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jErrorFlightNumber, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(jTxtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jErrorPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTxtTotalSeats, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(79, 79, 79)
                 .addComponent(jBtnCreateFlight, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(195, Short.MAX_VALUE))
+                .addContainerGap(181, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -167,7 +181,45 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
     private void jBtnCreateFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreateFlightActionPerformed
         // TODO add your handling code here:
         
-        //Validation code missing
+        //Validation code starts
+        
+         if(jTxtFlightNumber.getText().trim().isEmpty() &&
+           jTxtPrice.getText().trim().isEmpty())
+        {
+            
+           JOptionPane.showMessageDialog(null, "Please Enter data to proceed!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            return;
+        } // Flight Number and Price Fields are Empty
+         
+         else {
+             jErrorFlightNumber.setText("");
+             jErrorPrice.setText("");
+             
+            boolean error = false;
+            
+            if (jTxtFlightNumber.getText().trim().isEmpty()) {
+                jErrorFlightNumber.setText("Flight Number cannot be empty");
+                error = true;
+            }
+            
+             try { //To validate if  Price is actually a number
+                Double price  = Double.parseDouble(jTxtPrice.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (jTxtPrice.getText().trim().isEmpty()) {
+                   jErrorPrice.setText("Price cannot be empty");
+                } else {
+                    jErrorPrice.setText("Price is not in Double format");
+                }
+                error = true;
+            }
+                
+            if (error) {
+                return;
+            }
+        }
+        
+        
+//      Validation code - End  
         
         Flight f = new Flight();
         f.setAirline(jTxtAirlineName.getText().trim());
@@ -203,6 +255,8 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnBackNewFlight;
     private javax.swing.JButton jBtnCreateFlight;
+    private javax.swing.JLabel jErrorFlightNumber;
+    private javax.swing.JLabel jErrorPrice;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
