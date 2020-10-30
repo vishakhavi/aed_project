@@ -61,12 +61,6 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
         jTxtAirlineName.setEditable(false);
         jTxtAirlineName.setEnabled(false);
 
-        jTxtFlightNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtFlightNumberActionPerformed(evt);
-            }
-        });
-
         jTxtTotalSeats.setEditable(false);
         jTxtTotalSeats.setEnabled(false);
 
@@ -184,12 +178,6 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
                 .addContainerGap(181, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTxtFlightNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtFlightNumberActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_jTxtFlightNumberActionPerformed
 
     private void jBtnCreateFlightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreateFlightActionPerformed
         // TODO add your handling code here:

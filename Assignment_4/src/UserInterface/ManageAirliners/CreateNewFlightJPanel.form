@@ -119,9 +119,6 @@
     <Component class="javax.swing.JTextField" name="jTxtPrice">
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtFlightNumber">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxtFlightNumberActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtTotalSeats">
       <Properties>

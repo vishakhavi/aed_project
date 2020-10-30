@@ -68,12 +68,6 @@ public class CreateNewAirlinerJPanel extends javax.swing.JPanel {
             }
         });
 
-        jTxtSerialNum.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTxtSerialNumActionPerformed(evt);
-            }
-        });
-
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel2.setText("Serial Number:");
 
@@ -202,10 +196,6 @@ public class CreateNewAirlinerJPanel extends javax.swing.JPanel {
         this.airlinerDirectory.addAirline(a);
         JOptionPane.showMessageDialog(null, "Created Airliner successfully");
     }//GEN-LAST:event_jBtncreateAirlinerActionPerformed
-
-    private void jTxtSerialNumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtSerialNumActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTxtSerialNumActionPerformed
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:

@@ -110,9 +110,6 @@
       </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="jTxtSerialNum">
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTxtSerialNumActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
