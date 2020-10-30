@@ -52,6 +52,7 @@ public class TravelAgrencyMain extends javax.swing.JFrame {
         LeftPanel = new javax.swing.JPanel();
         AdminBtn = new javax.swing.JButton();
         UserBtn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
         UserProcessContainer = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -72,6 +73,8 @@ public class TravelAgrencyMain extends javax.swing.JFrame {
             }
         });
 
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/UserInterface/guanliyuan.png"))); // NOI18N
+
         javax.swing.GroupLayout LeftPanelLayout = new javax.swing.GroupLayout(LeftPanel);
         LeftPanel.setLayout(LeftPanelLayout);
         LeftPanelLayout.setHorizontalGroup(
@@ -82,15 +85,21 @@ public class TravelAgrencyMain extends javax.swing.JFrame {
                     .addComponent(AdminBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 107, Short.MAX_VALUE)
                     .addComponent(UserBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, LeftPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel1)
+                .addGap(49, 49, 49))
         );
         LeftPanelLayout.setVerticalGroup(
             LeftPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(LeftPanelLayout.createSequentialGroup()
-                .addGap(124, 124, 124)
+                .addGap(71, 71, 71)
+                .addComponent(jLabel1)
+                .addGap(39, 39, 39)
                 .addComponent(AdminBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
                 .addComponent(UserBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(313, Short.MAX_VALUE))
+                .addContainerGap(295, Short.MAX_VALUE))
         );
 
         jSplitPane1.setLeftComponent(LeftPanel);
@@ -194,6 +203,7 @@ public class TravelAgrencyMain extends javax.swing.JFrame {
     private javax.swing.JPanel LeftPanel;
     private javax.swing.JButton UserBtn;
     private javax.swing.JPanel UserProcessContainer;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JSplitPane jSplitPane1;
     // End of variables declaration//GEN-END:variables
 }

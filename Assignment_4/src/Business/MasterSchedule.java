@@ -32,14 +32,14 @@ public class MasterSchedule {
     }
 
     public void initialize(){
-    Flight f1 = new Flight("Spirit", "MK100", "Boston", "New York", 500, today,timeOfFlight, 150);
-    Flight f2 = new Flight("Spirit","MS100", "LA", "Boston", 400, tommorrow,timeOfFlight.plusHours(5),150);
+    Flight f1 = new Flight("Spirit", "MK100", "Boston", "New York", 500, today,timeOfFlight.plusHours(3), 150);
+    Flight f2 = new Flight("Spirit","MS100", "LA", "Boston", 400, tommorrow,timeOfFlight.plusHours(4),150);
     Flight f3 = new Flight("Jet Airways","JK101", "Boston", "New Jersey", 500, tommorrow,timeOfFlight.plusHours(8),150);
-    Flight f4 = new Flight("Jet Airways","JK102", "California", "New York", 500, dayAfter,timeOfFlight, 150);
-    Flight f5 = new Flight("Indigo","MI100", "LA", "New York", 500, dayAfter,timeOfFlight, 150);
-    Flight f6 = new Flight("GoAir","GA100", "LA", "Boston", 500, dayAfter,timeOfFlight, 150);
+    Flight f4 = new Flight("Jet Airways","JK102", "California", "New York", 500, dayAfter,timeOfFlight.minusMinutes(45), 150);
+    Flight f5 = new Flight("Indigo","MI100", "LA", "New York", 500, dayAfter,timeOfFlight.minusHours(5), 150);
+    Flight f6 = new Flight("GoAir","GA100", "LA", "Boston", 550, dayAfter,timeOfFlight.minusHours(3), 150);
     Flight f7 = new Flight("Spirit","MK102", "LA", "California", 500, dayAfter,timeOfFlight.plusHours(2), 150);
-    Flight f8 = new Flight("Indigo","MI105", "LA", "Boston", 500, dayAfter,timeOfFlight.plusHours(1), 150);
+    Flight f8 = new Flight("Indigo","MI105", "LA", "Boston", 350, dayAfter,timeOfFlight.plusHours(1), 150);
     
     flightDirectory.add(f1);
     flightDirectory.add(f2);
@@ -89,18 +89,18 @@ public class MasterSchedule {
         temp1FlightDirectory = new ArrayList<Flight>();
         try{
       
-        String timeRangeStart;
-        String timeRangeEnd;
+        String timeRangeStart = "06:00:00";
+        String timeRangeEnd = "11:59:59";
         if( time.equals("Morning(6-12 pm)")){
             timeRangeStart = "06:00:00";
             timeRangeEnd = "11:59:59";
-        }else if( time.equals("Afternoon(12-6pm)")){
+        }if( time.equals("Afternoon(12-6pm)")){
             timeRangeStart = "12:00:00";
             timeRangeEnd = "17:59:59";
-        }else if( time.equals("Evening(6-12am)")){
+        }if( time.equals("Evening(6-12am)")){
             timeRangeStart = "18:00:00";
             timeRangeEnd = "23:59:59";
-        }else {
+        }if( time.equals("Night(12-6am)")) {
             timeRangeStart = "00:00:00";
             timeRangeEnd = "05:59:59";
         }
@@ -124,26 +124,24 @@ public class MasterSchedule {
             for (Flight flight: tempFlightDirectory){
                 
                 if (date.after(Date.from(flight.getDateOfFlight().atStartOfDay(ZoneId.systemDefault().systemDefault()).toInstant()))){
-                 
                     temp1FlightDirectory.add(flight);
                 }    
             }
         }
+         if(!timeRangeStart.equals(timeRangeEnd)){
          for (Flight flight: tempFlightDirectory){
-         if(!(LocalTime.parse(timeRangeStart).isBefore(flight.getTimeOfFlight())) && 
-                    !(flight.getTimeOfFlight().isAfter(LocalTime.parse(timeRangeStart)))){
-                    System.out.println("time of flight2222"+flight.getTimeOfFlight());
-                    System.out.println("time of flight111"+flight.getTimeOfFlight());
-                  System.out.println("condition111"+flight.getTimeOfFlight().isBefore(LocalTime.parse(timeRangeStart)));
-                   System.out.println("condition222"+flight.getTimeOfFlight().isAfter(LocalTime.parse(timeRangeEnd)));
+             
+         if(!(flight.getTimeOfFlight().isAfter(LocalTime.parse(timeRangeStart)) && 
+                    flight.getTimeOfFlight().isBefore(LocalTime.parse(timeRangeEnd)))){
+                    
                     temp1FlightDirectory.add(flight);
+                     
                     }
           }
-
-    System.out.println(temp1FlightDirectory);
-    System.out.println("Directory "+tempFlightDirectory);
+         }
+   
         tempFlightDirectory.removeAll(temp1FlightDirectory);
-        System.out.println("final "+tempFlightDirectory);
+        
         }catch(Exception e){
             System.err.println("Cannot parse date"+e);
         }
