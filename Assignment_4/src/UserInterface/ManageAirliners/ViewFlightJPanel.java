@@ -37,6 +37,13 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         this.airliner = airline;
         initComponents();
         populatefields();
+        TxtFlightNumber.setEnabled(false);
+        TxtAirlineName.setEnabled(false);
+        txtLastUpdated.setEnabled(false);
+        TxtPrice.setEnabled(false);
+        TxtTotSeats.setEnabled(false);
+        YesRBtn.setEnabled(false);
+        NoRBtn.setEnabled(false);
     }
     
     public void populatefields(){
@@ -83,11 +90,9 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         txtLastUpdated = new javax.swing.JTextField();
         YesRBtn = new javax.swing.JRadioButton();
         NoRBtn = new javax.swing.JRadioButton();
-        jErrorAirline = new javax.swing.JLabel();
         jErrorFlightNumber = new javax.swing.JLabel();
         jErrorPrice = new javax.swing.JLabel();
         jErrorTotalSeats = new javax.swing.JLabel();
-        jErrorLastUpdatedOn = new javax.swing.JLabel();
 
         btnBack.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnBack.setText("<Back");
@@ -144,9 +149,6 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
 
         NoRBtn.setText("No");
 
-        jErrorAirline.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jErrorAirline.setForeground(new java.awt.Color(255, 0, 0));
-
         jErrorFlightNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jErrorFlightNumber.setForeground(new java.awt.Color(255, 0, 0));
 
@@ -154,9 +156,6 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         jErrorPrice.setForeground(new java.awt.Color(255, 0, 0));
 
         jErrorTotalSeats.setForeground(new java.awt.Color(255, 0, 0));
-
-        jErrorLastUpdatedOn.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jErrorLastUpdatedOn.setForeground(new java.awt.Color(255, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -177,13 +176,12 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                                     .addComponent(jLabel6)
                                     .addComponent(jLabel7))
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtLastUpdated, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(YesRBtn)
                                         .addGap(18, 18, 18)
-                                        .addComponent(NoRBtn))
-                                    .addComponent(jErrorLastUpdatedOn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                        .addComponent(NoRBtn))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
@@ -197,7 +195,6 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                                     .addComponent(TxtFlightNumber, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                                     .addComponent(TxtPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
                                     .addComponent(TxtTotSeats, javax.swing.GroupLayout.DEFAULT_SIZE, 151, Short.MAX_VALUE)
-                                    .addComponent(jErrorAirline, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jErrorPrice, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addComponent(jErrorTotalSeats, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(layout.createSequentialGroup()
@@ -224,9 +221,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(TxtAirlineName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(4, 4, 4)
-                .addComponent(jErrorAirline, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(TxtPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -242,9 +237,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtLastUpdated, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jErrorLastUpdatedOn, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(15, 15, 15)
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
                     .addComponent(YesRBtn)
@@ -253,7 +246,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(UpdateBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(80, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -273,20 +266,17 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         
         //Validation code starts
          if(TxtFlightNumber.getText().trim().isEmpty() &&
-           TxtAirlineName.getText().trim().isEmpty() &&
-          TxtPrice.getText().trim().isEmpty() &&
-         TxtTotSeats.getText().trim().isEmpty() &&
-          txtLastUpdated.getText().trim().isEmpty()) {
+            TxtPrice.getText().trim().isEmpty() &&
+         TxtTotSeats.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please Enter data to proceed!", "WARNING", JOptionPane.WARNING_MESSAGE);
             return;
-            } // All Fields Empty
+            } // Flight Number, Price, Seats Fields are Empty
          
          else {
              jErrorFlightNumber.setText("");
-             jErrorAirline.setText("");
              jErrorPrice.setText("");
              jErrorTotalSeats.setText("");
-             jErrorLastUpdatedOn.setText("");
+            
              
             boolean error = false;
             
@@ -295,18 +285,15 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                 error = true;
             }
             
-             if (TxtAirlineName.getText().trim().isEmpty()) {
-                jErrorAirline.setText("Airline Name cannot be empty");
-                error = true;
-            }
+             
             
             try { //To validate if Price is actually a number
-                Integer price = Integer.parseInt(TxtPrice.getText().trim());
+                Double price = Double.parseDouble(TxtPrice.getText().trim());
             } catch (NumberFormatException nfe) {
                 if (TxtPrice.getText().trim().isEmpty()) {
                     jErrorPrice.setText("Price cannot be empty");
                 }else {
-                     jErrorPrice.setText("Price is not a number");
+                     jErrorPrice.setText("Price is not in Double format");
                 }
                
                 error = true;
@@ -325,18 +312,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
                 error = true;
             }
           
-            try {
-                SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-                Date lastUpdatedOn = formatter.parse(txtLastUpdated.getText().trim());
-        } catch (ParseException e) {
-            if (txtLastUpdated.getText().trim().isEmpty()) {
-                jErrorLastUpdatedOn.setText("Last UpdatedOn cannot be empty");
-            } else {
-                jErrorLastUpdatedOn.setText("Please enter in dd-MM-yyyy HH:mm:ss");
-            }
             
-            error = true;
-        }
                if(!(YesRBtn.isSelected() || NoRBtn.isSelected()))
         {
             JOptionPane.showMessageDialog(null, "Please select any of the IsScheduled radio button!", "WARNING", JOptionPane.WARNING_MESSAGE);
@@ -380,6 +356,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         flight.setPrice(Double.valueOf(price));
         flight.setTotalSeats(Integer.valueOf(seats));
         flight.setIsScheduled(f1);
+        flight.setUpdatedOn(LocalDateTime.now());
         JOptionPane.showMessageDialog(null, "Flight updated successfully");
         
         userProcessContainer.remove(this);
@@ -423,9 +400,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton YesRBtn;
     private javax.swing.JButton btnBack;
     private javax.swing.JButton btnSave;
-    private javax.swing.JLabel jErrorAirline;
     private javax.swing.JLabel jErrorFlightNumber;
-    private javax.swing.JLabel jErrorLastUpdatedOn;
     private javax.swing.JLabel jErrorPrice;
     private javax.swing.JLabel jErrorTotalSeats;
     private javax.swing.JLabel jLabel1;

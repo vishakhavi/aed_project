@@ -203,12 +203,12 @@ public class CreateNewFlightJPanel extends javax.swing.JPanel {
             }
             
              try { //To validate if  Price is actually a number
-                Integer price  = Integer.parseInt(jTxtPrice.getText().trim());
+                Double price  = Double.parseDouble(jTxtPrice.getText().trim());
             } catch (NumberFormatException nfe) {
                 if (jTxtPrice.getText().trim().isEmpty()) {
                    jErrorPrice.setText("Price cannot be empty");
                 } else {
-                    jErrorPrice.setText("Price is not a number");
+                    jErrorPrice.setText("Price is not in Double format");
                 }
                 error = true;
             }
