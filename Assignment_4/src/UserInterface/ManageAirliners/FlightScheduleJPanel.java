@@ -286,29 +286,44 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
         }
         else
         {
-            Flight f = new Flight();
-            f.setFlightNumber(txtFlightNumber.getText());
-            f.setAirline(txtAirline.getText());
-            f.setPrice(Double.parseDouble(txtPrice.getText()));
-            f.setFromLocation(txtSource.getText());
-            f.setToLocation(txtDestination.getText());
-            f.setTotalSeats(Integer.parseInt(txtTotalSeats.getText()));
-            f.setDateOfFlight(flightDate.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-            String depHr, depMns, arrHr, arrMns, depTime, arrTime;
-            LocalTime departure, arrival;
-            depHr = depHour.getValue().toString();
-            depMns = depMins.getValue().toString();
-            arrHr = arrHour.getValue().toString();
-            arrMns = arrMins.getValue().toString();
-            depTime = depHr + ":" + depMns + ":00";
-            arrTime = arrHr + ":" + arrMns + ":00";
-            departure = LocalTime.parse(depTime);
-            arrival = LocalTime.parse(arrTime);
-            f.setTimeOfFlight(departure);
-            f.setArrivalTime(arrival);
-            masterScheduleList.getFlightDirectory().add(f);
-            airlineDirectory.getFlightDirectory().remove(flight);
-            JOptionPane.showMessageDialog(null, "Flight Scheduled!");
+            try
+            {
+                if(Double.parseDouble(txtPrice.getText()) <= 0)
+                {
+                    JOptionPane.showMessageDialog(null,"Price must be a number greater than zero", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+                Flight f = new Flight();
+                f.setFlightNumber(txtFlightNumber.getText());
+                f.setAirline(txtAirline.getText());
+                f.setPrice(Double.parseDouble(txtPrice.getText()));
+                f.setFromLocation(txtSource.getText());
+                f.setToLocation(txtDestination.getText());
+                // seats cannot exceed actual seat count
+                f.setTotalSeats(Integer.parseInt(txtTotalSeats.getText()));
+                // date cannot be past
+                f.setDateOfFlight(flightDate.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                String depHr, depMns, arrHr, arrMns, depTime, arrTime;
+                LocalTime departure, arrival;
+                depHr = depHour.getValue().toString();
+                depMns = depMins.getValue().toString();
+                arrHr = arrHour.getValue().toString();
+                arrMns = arrMins.getValue().toString();
+                // for time less than 10
+                depTime = depHr + ":" + depMns + ":00";
+                arrTime = arrHr + ":" + arrMns + ":00";
+                // departure date should be less than arrival date
+                departure = LocalTime.parse(depTime);
+                arrival = LocalTime.parse(arrTime);
+                f.setTimeOfFlight(departure);
+                f.setArrivalTime(arrival);
+                masterScheduleList.getFlightDirectory().add(f);
+                airlineDirectory.getFlightDirectory().remove(flight);
+                JOptionPane.showMessageDialog(null, "Flight Scheduled!");
+            }
+            catch(Exception e)
+            {
+                JOptionPane.showMessageDialog(null,"One or more fields contain invalid value", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
         }
     }//GEN-LAST:event_btnSubmitActionPerformed
 
