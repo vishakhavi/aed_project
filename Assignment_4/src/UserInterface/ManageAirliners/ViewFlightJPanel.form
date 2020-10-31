@@ -204,6 +204,9 @@
     <Component class="javax.swing.JTextField" name="TxtFlightNumber">
     </Component>
     <Component class="javax.swing.JTextField" name="TxtAirlineName">
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="TxtAirlineNameActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JTextField" name="TxtPrice">
     </Component>
@@ -215,11 +218,17 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Yes"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="YesRBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JRadioButton" name="NoRBtn">
       <Properties>
         <Property name="text" type="java.lang.String" value="No"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="NoRBtnActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jErrorFlightNumber">
       <Properties>

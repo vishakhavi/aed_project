@@ -109,17 +109,23 @@
         <Component class="javax.swing.JTable" name="tblMasterSchedule">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="6" rowCount="0">
+              <Table columnCount="7" rowCount="0">
                 <Column editable="false" title="Flight Number" type="java.lang.Object"/>
                 <Column editable="false" title="Airline" type="java.lang.Object"/>
                 <Column editable="false" title="Source" type="java.lang.Object"/>
                 <Column editable="false" title="Destination" type="java.lang.Object"/>
                 <Column editable="false" title="Date of Flight" type="java.lang.Object"/>
                 <Column editable="false" title="Time of Flight" type="java.lang.Object"/>
+                <Column editable="false" title="Arrival Time" type="java.lang.Object"/>
               </Table>
             </Property>
             <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">
               <TableColumnModel selectionModel="0">
+                <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
+                  <Title/>
+                  <Editor/>
+                  <Renderer/>
+                </Column>
                 <Column maxWidth="-1" minWidth="-1" prefWidth="-1" resizable="false">
                   <Title/>
                   <Editor/>

@@ -54,6 +54,12 @@ public class CreateNewAirlinerJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setText("Airliner Name:");
 
+        jTxtAirllinerName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTxtAirllinerNameActionPerformed(evt);
+            }
+        });
+
         jBtncreateAirliner.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jBtncreateAirliner.setText("Create Airliner");
         jBtncreateAirliner.addActionListener(new java.awt.event.ActionListener() {
@@ -139,6 +145,10 @@ public class CreateNewAirlinerJPanel extends javax.swing.JPanel {
                 .addContainerGap(290, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jTxtAirllinerNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTxtAirllinerNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTxtAirllinerNameActionPerformed
 
     private void jBtncreateAirlinerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtncreateAirlinerActionPerformed
         // TODO add your handling code here:
