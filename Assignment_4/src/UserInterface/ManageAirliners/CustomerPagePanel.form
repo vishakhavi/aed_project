@@ -247,9 +247,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtEmailCust">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtEmailCustActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel10">
           <Properties>
@@ -264,14 +261,8 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNameCust">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtNameCustActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="txtPhoneCust">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtPhoneCustActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel12">
           <Properties>
@@ -286,9 +277,6 @@
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtTotalPrice">
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtTotalPriceActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="BackBtn1">
           <Properties>

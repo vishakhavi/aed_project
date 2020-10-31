@@ -134,18 +134,7 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
             }
         });
 
-        TxtAirlineName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TxtAirlineNameActionPerformed(evt);
-            }
-        });
-
         YesRBtn.setText("Yes");
-        YesRBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                YesRBtnActionPerformed(evt);
-            }
-        });
 
         NoRBtn.setText("No");
 
@@ -380,14 +369,6 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         CardLayout cardlayout = (CardLayout) userProcessContainer.getLayout();
         cardlayout.previous(userProcessContainer);
     }//GEN-LAST:event_btnBackActionPerformed
-
-    private void YesRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YesRBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_YesRBtnActionPerformed
-
-    private void TxtAirlineNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtAirlineNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_TxtAirlineNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

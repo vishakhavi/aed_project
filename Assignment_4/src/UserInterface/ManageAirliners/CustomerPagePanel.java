@@ -164,41 +164,17 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         jLabel9.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel9.setText("Email ID:");
 
-        txtEmailCust.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEmailCustActionPerformed(evt);
-            }
-        });
-
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel10.setText("Name :");
 
         jLabel11.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel11.setText("DOB:");
 
-        txtNameCust.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtNameCustActionPerformed(evt);
-            }
-        });
-
-        txtPhoneCust.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPhoneCustActionPerformed(evt);
-            }
-        });
-
         jLabel12.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel12.setText("Phone No:");
 
         jLabel13.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         jLabel13.setText("Price:");
-
-        txtTotalPrice.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtTotalPriceActionPerformed(evt);
-            }
-        });
 
         BackBtn1.setText("< BACK");
         BackBtn1.addActionListener(new java.awt.event.ActionListener() {
@@ -230,7 +206,6 @@ public class CustomerPagePanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblSeats.setColumnSelectionAllowed(false);
         tblSeats.setGridColor(new java.awt.Color(0, 0, 0));
         jScrollPane1.setViewportView(tblSeats);
         if (tblSeats.getColumnModel().getColumnCount() > 0) {
@@ -413,22 +388,6 @@ public class CustomerPagePanel extends javax.swing.JPanel {
         }
         cardlayout.previous(userProcessContainer);
     }//GEN-LAST:event_BackBtn1ActionPerformed
-
-    private void txtTotalPriceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalPriceActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTotalPriceActionPerformed
-
-    private void txtPhoneCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneCustActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtPhoneCustActionPerformed
-
-    private void txtNameCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameCustActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtNameCustActionPerformed
-
-    private void txtEmailCustActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailCustActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEmailCustActionPerformed
 
     private void confirmBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmBtnActionPerformed
         // TODO add your handling code here:

@@ -83,12 +83,6 @@ public class LoginScreen extends javax.swing.JPanel {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
-        txtUserName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUserNameActionPerformed(evt);
-            }
-        });
-
         btnSubmit.setText("Login");
         btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -185,10 +179,6 @@ public class LoginScreen extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(panelRight, "Please enter Username and Password");
         }    
     }//GEN-LAST:event_btnSubmitActionPerformed
-
-    private void txtUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUserNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtUserNameActionPerformed
     
  
     private void grantAccess(){
