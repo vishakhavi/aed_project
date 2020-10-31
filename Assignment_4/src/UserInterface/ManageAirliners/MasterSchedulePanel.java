@@ -5,11 +5,15 @@
  */
 package UserInterface.ManageAirliners;
 
+import Business.Airliner;
 import Business.AirlinerDirectory;
 import Business.Flight;
 import Business.MasterSchedule;
 import java.awt.CardLayout;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -66,8 +70,8 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
             row[2]= flight.getFromLocation();
             row[3]= flight.getToLocation();
             row[4]= flight.getDateOfFlight();
-            row[5]= flight.getTimeOfFlight().format(DateTimeFormatter.ISO_TIME);
-            //row[6]= flight.getArrivalTime();
+            row[5]= flight.getTimeOfFlight();
+            row[6]= flight.getArrivalTime();
             dtm.addRow(row);
         }
     }
@@ -107,11 +111,11 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Flight Number", "Airline", "Source", "Destination", "Date of Flight", "Time of Flight"
+                "Flight Number", "Airline", "Source", "Destination", "Date of Flight", "Time of Flight", "Arrival Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -126,6 +130,7 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
             tblMasterSchedule.getColumnModel().getColumn(3).setResizable(false);
             tblMasterSchedule.getColumnModel().getColumn(4).setResizable(false);
             tblMasterSchedule.getColumnModel().getColumn(5).setResizable(false);
+            tblMasterSchedule.getColumnModel().getColumn(6).setResizable(false);
         }
 
         btnScheduleFlight.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -239,7 +244,7 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
             layout.next(userProcessContainer);
         }
         else{
-            JOptionPane.showMessageDialog(null,"Please select a row from the table", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Please selecte a row from the table", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnScheduleFlightActionPerformed
 
@@ -255,7 +260,7 @@ public class MasterSchedulePanel extends javax.swing.JPanel {
             populateTableMasterSchedule();
         }
         else{
-            JOptionPane.showMessageDialog(null,"Please select a row from the table", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null,"Please selecte a row from the table", "Warning", JOptionPane.WARNING_MESSAGE);
         }
     }//GEN-LAST:event_btnRemoveScheduleActionPerformed
 

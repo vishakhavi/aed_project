@@ -123,10 +123,6 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
 
         txtAirline.setEditable(false);
 
-        txtPrice.setEditable(false);
-
-        txtTotalSeats.setEditable(false);
-
         jButton2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jButton2.setText("<Back");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -258,12 +254,11 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(depMins, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(depHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jLabel11)
-                                .addComponent(jLabel13))))
+                            .addComponent(depHour, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel11)
+                            .addComponent(jLabel13)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(23, 23, 23)
                         .addComponent(jLabel9)))
@@ -282,8 +277,9 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
 
     private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
         // TODO add your handling code here:
-        if((txtSource.getText().equals("")) ||
-                (txtDestination.getText().equals("")) ||
+        if((txtFlightNumber.getText().equals("")) || (txtAirline.getText().equals("")) || 
+                (txtPrice.getText().equals("")) || (txtSource.getText().equals("")) ||
+                (txtDestination.getText().equals("")) || (txtTotalSeats.getText().equals("")) ||
                 (flightDate.getDate().toString().equals("")))
         {
             JOptionPane.showMessageDialog(null,"Please fill out all fields", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -293,11 +289,11 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
         {
             try
             {
-                /*if(Double.parseDouble(txtPrice.getText()) <= 0)
+                if(Double.parseDouble(txtPrice.getText()) <= 0)
                 {
                     JOptionPane.showMessageDialog(null,"Price must be a number greater than zero", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
-                }*/
+                }
                 Flight f = new Flight();
                 f.setFlightNumber(txtFlightNumber.getText());
                 f.setAirline(txtAirline.getText());
@@ -305,12 +301,15 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 f.setFromLocation(txtSource.getText());
                 f.setToLocation(txtDestination.getText());
                 // seats cannot exceed actual seat count
-                /*if((Integer.parseInt(txtTotalSeats.getText())) > flight.getTotalSeats())
+                if((Integer.parseInt(txtTotalSeats.getText())) > flight.getTotalSeats())
                 {
                     JOptionPane.showMessageDialog(null,"Seat count cannot exceed default flight seat count", "Warning", JOptionPane.WARNING_MESSAGE);
                     return;
-                }*/
-                f.setTotalSeats(Integer.parseInt(txtTotalSeats.getText()));
+                }
+                else
+                {
+                    f.setTotalSeats(Integer.parseInt(txtTotalSeats.getText()));
+                }
                 // date cannot be past
                 if((LocalDate.now().compareTo(flightDate.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate())) > 0)
                 {
@@ -344,8 +343,8 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 {
                     arrMns = "0" + arrMns;
                 }
-                depTime = depHr + ":" + depMns + ":00.000";
-                arrTime = arrHr + ":" + arrMns + ":00.000";
+                depTime = depHr + ":" + depMns + ":00";
+                arrTime = arrHr + ":" + arrMns + ":00";
                 // departure time should be less than arrival time
                 departure = LocalTime.parse(depTime);
                 arrival = LocalTime.parse(arrTime);
