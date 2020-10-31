@@ -344,8 +344,8 @@ public class FlightScheduleJPanel extends javax.swing.JPanel {
                 {
                     arrMns = "0" + arrMns;
                 }
-                depTime = depHr + ":" + depMns + ":00";
-                arrTime = arrHr + ":" + arrMns + ":00";
+                depTime = depHr + ":" + depMns + ":00.000";
+                arrTime = arrHr + ":" + arrMns + ":00.000";
                 // departure time should be less than arrival time
                 departure = LocalTime.parse(depTime);
                 arrival = LocalTime.parse(arrTime);
