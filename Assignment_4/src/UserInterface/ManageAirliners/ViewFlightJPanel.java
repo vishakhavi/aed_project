@@ -17,6 +17,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
 
 /**
  *
@@ -148,6 +149,11 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
         });
 
         NoRBtn.setText("No");
+        NoRBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                NoRBtnActionPerformed(evt);
+            }
+        });
 
         jErrorFlightNumber.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jErrorFlightNumber.setForeground(new java.awt.Color(255, 0, 0));
@@ -383,11 +389,26 @@ public class ViewFlightJPanel extends javax.swing.JPanel {
 
     private void YesRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_YesRBtnActionPerformed
         // TODO add your handling code here:
+          JRadioButton rbLog = (JRadioButton) evt.getSource();
+        if(rbLog.isSelected())
+        {
+            NoRBtn.setEnabled(false);
+        }  
+                                      
     }//GEN-LAST:event_YesRBtnActionPerformed
 
     private void TxtAirlineNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TxtAirlineNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_TxtAirlineNameActionPerformed
+
+    private void NoRBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NoRBtnActionPerformed
+        // TODO add your handling code here:
+         JRadioButton rbLog = (JRadioButton) evt.getSource();
+        if(rbLog.isSelected())
+        {
+            YesRBtn.setEnabled(false);
+        }  
+    }//GEN-LAST:event_NoRBtnActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
