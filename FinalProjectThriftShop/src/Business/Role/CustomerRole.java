@@ -6,20 +6,22 @@ package Business.Role;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
+import Business.Organization.CustomerServiceOrganization;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import userinterface.LabAssistantRole.LabAssistantWorkAreaJPanel;
+import userinterface.DoctorRole.DoctorWorkAreaJPanel;
 import javax.swing.JPanel;
 
 /**
  *
  * @author raunak
  */
-public class LabAssistantRole extends Role {
+public class CustomerRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem business) {
-        return new LabAssistantWorkAreaJPanel(userProcessContainer, account, organization, business);
+        return new DoctorWorkAreaJPanel(userProcessContainer, account, (CustomerServiceOrganization)organization, enterprise);
     }
+    
     
 }
