@@ -25,12 +25,40 @@ public class OrganizationDirectory {
     
     public Organization createOrganization(Type type){
         Organization organization = null;
-        if (type.getValue().equals(Type.Doctor.getValue())){
-            organization = new DoctorOrganization();
+        if (type.getValue().equals(Type.CustomerService.getValue())){
+            organization = new CustomerServiceOrganization();
             organizationList.add(organization);
         }
-        else if (type.getValue().equals(Type.Lab.getValue())){
-            organization = new LabOrganization();
+        else if (type.getValue().equals(Type.MaintenanceStaff.getValue())){
+            organization = new MaintenanceOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.Customer.getValue())){
+            organization = new AdsOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.CustomerService.getValue())){
+            organization = new CustomerServiceOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.DeliveryMan.getValue())){
+            organization = new ShippingUnitOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.QualityCheckOfficer.getValue())){
+            organization = new QualityCheckOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.ManufacturerAdmin.getValue())){
+            organization = new ManufacturingUnitOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.InsuranceManager.getValue())){
+            organization = new InsuranceOrganization();
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.AuctionConsultant.getValue())){
+            organization = new AuctionUnitOrganization();
             organizationList.add(organization);
         }
         return organization;
