@@ -51,6 +51,8 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
         jTxtProductCat = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jBtnCreateProduct = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jTxtProductQty = new javax.swing.JTextField();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Create Supplier - Product");
@@ -71,6 +73,9 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
                 jBtnCreateProductActionPerformed(evt);
             }
         });
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel5.setText("Quantity");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -96,9 +101,13 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(81, 81, 81)
                                 .addComponent(jTxtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))))
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jTxtProductQty, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(318, 318, 318)
+                        .addGap(331, 331, 331)
                         .addComponent(jBtnCreateProduct)))
                 .addContainerGap(307, Short.MAX_VALUE))
         );
@@ -119,9 +128,13 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jTxtProductCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(47, 47, 47)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtProductQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addComponent(jBtnCreateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(262, Short.MAX_VALUE))
+                .addContainerGap(233, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -131,8 +144,10 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
         product.setName(jTxtProductName.getText().trim());
         product.setPrice(Double.parseDouble(jTxtProductPrice.getText().trim()));
         product.setCategory(jTxtProductCat.getText().trim());
+        product.setQty(Integer.parseInt(jTxtProductQty.getText().trim()));
         product.setSupplier(this.supplier);
         
+        //Add the product to the Supplier's inventory
         this.supplier.getProductDirectory().getProducts().add(product);
         
         JOptionPane.showMessageDialog(null, "Created Product successfully");
@@ -161,8 +176,10 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField jTxtProductCat;
     private javax.swing.JTextField jTxtProductName;
     private javax.swing.JTextField jTxtProductPrice;
+    private javax.swing.JTextField jTxtProductQty;
     // End of variables declaration//GEN-END:variables
 }

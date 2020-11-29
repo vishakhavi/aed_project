@@ -29,4 +29,12 @@ public class ProductDirectory {
         products.add(product);
         return product;
     }
+    
+    public Product findProduct(String name) {
+        for (Product p : this.products) {
+            if (p.getName().equals(name))
+                return p;
+        }
+        return null;
+    }
 }

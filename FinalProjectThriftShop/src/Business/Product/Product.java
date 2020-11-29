@@ -4,6 +4,7 @@
  */
 package Business.Product;
 
+import Business.Dealer.Dealer;
 import Business.Employee.*;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 
@@ -18,7 +19,27 @@ public class Product {
     private static int count = 1;
     private double price;
     private String category;
+    private int qty = 0;
     private WholeSaleSupplier supplier = null;
+    private Dealer dealer = null;
+
+    public Dealer getDealer() {
+        return dealer;
+    }
+
+    public void setDealer(Dealer dealer) {
+        this.dealer = dealer;
+    }
+
+    public int getQty() {
+        return qty;
+    }
+
+    public void setQty(int qty) {
+        this.qty = qty;
+    }
+    
+   
 
     public double getPrice() {
         return price;

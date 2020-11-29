@@ -2,14 +2,15 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.wholeSaleSupplier;
+package userinterface.Dealer;
 
 
+import Business.Dealer.Dealer;
+import userinterface.wholeSaleSupplier.*;
 import Business.EcoSystem;
 import Business.Product.Product;
 
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.util.ArrayList;
@@ -20,26 +21,26 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Arthi
  */
-public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
+public class DealerWorkAreaJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
 
     private UserAccount userAccount;
     EcoSystem ecosystem;
-    WholeSaleSupplier supplier;
+    Dealer dealer;
     /**
      * Creates new form DoctorWorkAreaJPanel
      */
-    public WholeSaleSupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, WholeSaleSupplier s) {
+    public DealerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, Dealer deal) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
       
         this.userAccount = account;
         this.ecosystem = system;
-        this.supplier = s;
+        this.dealer = deal;
         
-        valueLabel.setText(this.supplier.getName());
+        valueLabel.setText(this.dealer.getName());
         
         populateRequestTable();
     }
@@ -47,16 +48,14 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
     public void populateRequestTable(){
         DefaultTableModel model = (DefaultTableModel)productsJTable.getModel();
         model.setRowCount(0);
-        //int count = 1;
-        //Supplier supplier = (Supplier)suppComboBox1.getSelectedItem();
-        ArrayList<WorkRequest> wrTable = new ArrayList<WorkRequest>();
         
-        for (Product p : this.supplier.getProductDirectory().getProducts()) {
-                Object row[] = new Object[4];
+        for (Product p : this.dealer.getProductDirectory().getProducts()) {
+                Object row[] = new Object[5];
                 row[0] = p.getId();
                 row[1] = p;
                 row[2] = p.getPrice();
                 row[3] = p.getCategory();
+                row[4] = p.getQty();
                 model.addRow(row); 
         }
     }
@@ -80,17 +79,17 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Category"
+                "ID", "Product Name", "Price", "Category", "Quantity"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -99,7 +98,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(productsJTable);
 
-        requestTestJButton.setText("Add a new Product");
+        requestTestJButton.setText("Add Product to Inventory");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
@@ -114,7 +113,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        enterpriseLabel.setText("Supplier");
+        enterpriseLabel.setText("Dealer");
 
         valueLabel.setText("<value>");
 
@@ -157,8 +156,8 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-        CreateSupProductsJPanel cspj = new CreateSupProductsJPanel(userProcessContainer, this.supplier);
-        userProcessContainer.add("createSupProducts", cspj);
+        ManageDealerProductsJPanel mdpj = new ManageDealerProductsJPanel(userProcessContainer, this.dealer, this.ecosystem);
+        userProcessContainer.add("ManageDealerProducts", mdpj);
         CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
         layout.next(userProcessContainer);   
     }//GEN-LAST:event_requestTestJButtonActionPerformed
