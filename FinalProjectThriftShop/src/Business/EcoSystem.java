@@ -7,8 +7,11 @@ package Business;
 
 import Business.Network.Network;
 import Business.Organization.Organization;
+import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
+import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +22,25 @@ public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private ArrayList<Network> networkList;
+    private WholeSaleSupplierDirectory wholeSaleSupplierDir;
+    private ProductDirectory productDirectory;
+
+    public ProductDirectory getProductDirectory() {
+        return productDirectory;
+    }
+
+    public void setProductDirectory(ProductDirectory productDirectory) {
+        this.productDirectory = productDirectory;
+    }
+
+    public WholeSaleSupplierDirectory getWholeSaleSupplierDir() {
+        return wholeSaleSupplierDir;
+    }
+
+    public void setWholeSaleSupplierDir(WholeSaleSupplierDirectory wholeSaleSupplierDir) {
+        this.wholeSaleSupplierDir = wholeSaleSupplierDir;
+    }
+    
     public static EcoSystem getInstance(){
         if(business==null){
             business=new EcoSystem();
@@ -40,6 +62,16 @@ public class EcoSystem extends Organization{
     private EcoSystem(){
         super(null);
         networkList=new ArrayList<Network>();
+        
+        //Initialize a Global - Product Directory
+        this.productDirectory = new ProductDirectory();
+        
+        //Add a couple of suppliers
+        wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
+        
+        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("Lots WholeSale", this));
+        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("CostCo WholeSale", this));
+        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("CostCo WholeSale", this));
     }
 
     public ArrayList<Network> getNetworkList() {
