@@ -5,6 +5,8 @@
  */
 package Business;
 
+import Business.Customer.Ads;
+import Business.Customer.CustomerDirectory;
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
 import Business.Network.Network;
@@ -26,6 +28,8 @@ public class EcoSystem extends Organization{
     private ArrayList<Network> networkList;
     private WholeSaleSupplierDirectory wholeSaleSupplierDir;
     private DealerDirectory dealerDir;
+    private Ads adsDirectory;
+    private CustomerDirectory customerDirectory;
 
     public DealerDirectory getDealerDir() {
         return dealerDir;
