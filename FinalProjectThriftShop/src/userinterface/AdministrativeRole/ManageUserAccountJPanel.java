@@ -4,9 +4,12 @@
  */
 package userinterface.AdministrativeRole;
 
+import Business.Customer.Customer;
+import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
+import Business.Role.CustomerRole;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -249,6 +252,16 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         Role role = (Role) roleJComboBox.getSelectedItem();
         
         organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
+        
+         if(enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(nameJTextField.getText()) && 
+                 role.equals(Role.RoleType.CustomerRole)){
+            Customer customer = new Customer();
+            customer.setUsername(userName);
+            customer.setPassword(password);
+            customer.setRole(new CustomerRole());
+            enterprise.getUserAccountDirectory().getUserAccountList().add(customer);
+            enterprise.getCustomerDirectory().addCustomer(customer);
+         }
         
         popData();
     }//GEN-LAST:event_createUserJButtonActionPerformed

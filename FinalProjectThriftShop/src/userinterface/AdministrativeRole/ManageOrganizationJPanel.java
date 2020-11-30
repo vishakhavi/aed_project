@@ -4,6 +4,7 @@
  */
 package userinterface.AdministrativeRole;
 
+import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.Organization.Organization.Type;
 import Business.Organization.OrganizationDirectory;
@@ -19,14 +20,16 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
 
     private OrganizationDirectory directory;
     private JPanel userProcessContainer;
+    private Enterprise enterprise;
     
     /**
      * Creates new form ManageOrganizationJPanel
      */
-    public ManageOrganizationJPanel(JPanel userProcessContainer,OrganizationDirectory directory) {
+    public ManageOrganizationJPanel(JPanel userProcessContainer,Enterprise enterprise) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
-        this.directory = directory;
+        this.enterprise = enterprise;
+        this.directory = enterprise.getOrganizationDirectory();
         
         populateTable();
         populateCombo();
@@ -34,9 +37,30 @@ public class ManageOrganizationJPanel extends javax.swing.JPanel {
     
     private void populateCombo(){
         organizationJComboBox.removeAllItems();
+         if(enterprise.getEnterpriseType().equals(Enterprise.EnterpriseType.Ecommerce)){
         for (Type type : Organization.Type.values()){
-            if (!type.getValue().equals(Type.Admin.getValue()))
+            if (!type.getValue().equals(Type.Admin.getValue()) && 
+                    type.getValue().equals(Type.Customer.getValue()) || 
+                    type.getValue().equals(Type.DeliveryMan.getValue()) || 
+                    type.getValue().equals(Type.QualityCheckOfficer.getValue()) ||
+                    type.getValue().equals(Type.CustomerService.getValue())){
                 organizationJComboBox.addItem(type);
+            }
+        }
+        }else if(enterprise.getEnterpriseType().equals(Enterprise.EnterpriseType.Insurance)){
+        for (Type type : Organization.Type.values()){
+        if(!type.getValue().equals(Type.Admin.getValue()) && 
+                    type.getValue().equals(Type.InsuranceManager.getValue())){
+                 organizationJComboBox.addItem(type);
+        }
+        }
+        }else if(enterprise.getEnterpriseType().equals(Enterprise.EnterpriseType.Manufacturing)){
+        for (Type type : Organization.Type.values()){ 
+            if(!type.getValue().equals(Type.Admin.getValue()) && 
+                    type.getValue().equals(Type.AuctionConsultant.getValue())){
+                 organizationJComboBox.addItem(type);
+        }
+        }
         }
     }
 
