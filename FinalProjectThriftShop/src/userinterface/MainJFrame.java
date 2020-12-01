@@ -4,11 +4,13 @@
  */
 package userinterface;
 
+import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Organization.Organization;
+import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
 import javax.swing.JOptionPane;
@@ -172,9 +174,15 @@ public class MainJFrame extends javax.swing.JFrame {
             return;
         }
         else{
+            System.out.println("role"+userAccount.getRole() + "useraccount"+userAccount.getClass());
+            if (userAccount.getRole().equals(Role.RoleType.CustomerRole)){
+                
+                    container.add("workArea", userAccount.getRole().createWorkArea(container, (Customer)userAccount,inOrganization, inEnterprise, system));
+            }else{
             CardLayout layout=(CardLayout)container.getLayout();
             container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
             layout.next(container);
+            }
         }
         
         loginJButton.setEnabled(false);

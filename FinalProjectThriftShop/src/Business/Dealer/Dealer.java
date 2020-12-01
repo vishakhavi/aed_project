@@ -2,20 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.WholeSaleSupplier;
+package Business.Dealer;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Product.ProductDirectory;
-import Business.Role.SystemAdminRole;
-import Business.Role.WholeSaleDealerRole;
+import Business.Role.DealerRole;
 import Business.UserAccount.UserAccount;
 
 /**
  *
  * @author Arthi Ganesan
  */
-public class WholeSaleSupplier {
+public class Dealer {
     
     private String name;
     private int id;
@@ -39,7 +38,7 @@ public class WholeSaleSupplier {
         this.userAccountAssoc = userAccountAssoc;
     }
 
-    public WholeSaleSupplier() {
+    public Dealer() {
         id = count;
         
         //Empty List of products - TODO
@@ -48,13 +47,13 @@ public class WholeSaleSupplier {
         count++;
     }
     
-    public WholeSaleSupplier(String name, EcoSystem system) {
+    public Dealer(String name, EcoSystem system) {
         id = count;
         this.name = name;
         
         //Create a UserAccount by trimming spaces in between, and associate it to the Supplier Object
         Employee employee = system.getEmployeeDirectory().createEmployee(name.replaceAll("\\s", ""));
-        this.userAccountAssoc = system.getUserAccountDirectory().createUserAccount(name.replaceAll("\\s", ""), "wholeSaleAdmin", employee, new WholeSaleDealerRole());
+        this.userAccountAssoc = system.getUserAccountDirectory().createUserAccount(name.replaceAll("\\s", ""), "dealerAdmin", employee, new DealerRole());
         
         //Empty List of products - TODO
         this.productDirectory = new ProductDirectory();

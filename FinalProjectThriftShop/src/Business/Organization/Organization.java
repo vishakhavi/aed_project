@@ -4,6 +4,8 @@
  */
 package Business.Organization;
 
+import Business.Customer.Ads;
+import Business.Customer.CustomerDirectory;
 import Business.Employee.EmployeeDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
@@ -21,6 +23,8 @@ public abstract class Organization {
     private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;
     private int organizationID;
+    private Ads adsList;
+    private CustomerDirectory customerDirectory;
     private static int counter=0;
     
     public enum Type{
@@ -76,7 +80,20 @@ public abstract class Organization {
     public void setWorkQueue(WorkQueue workQueue) {
         this.workQueue = workQueue;
     }
+    public Ads getAdsList() {
+        return adsList;
+    }
 
+    public void setAdsList(Ads adsList) {
+        this.adsList = adsList;
+    }
+     public CustomerDirectory getCustomerDirectory(){
+        return customerDirectory;
+    }
+
+    public void setCustomerDirectory(CustomerDirectory customerDirectory) {
+        this.customerDirectory = customerDirectory;
+    }
     @Override
     public String toString() {
         return name;

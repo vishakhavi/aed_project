@@ -5,6 +5,10 @@
  */
 package Business;
 
+import Business.Customer.Ads;
+import Business.Customer.CustomerDirectory;
+import Business.Dealer.Dealer;
+import Business.Dealer.DealerDirectory;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Product.ProductDirectory;
@@ -23,6 +27,17 @@ public class EcoSystem extends Organization{
     private static EcoSystem business;
     private ArrayList<Network> networkList;
     private WholeSaleSupplierDirectory wholeSaleSupplierDir;
+    private DealerDirectory dealerDir;
+    private Ads adsDirectory;
+    private CustomerDirectory customerDirectory;
+
+    public DealerDirectory getDealerDir() {
+        return dealerDir;
+    }
+
+    public void setDealerDir(DealerDirectory dealerDir) {
+        this.dealerDir = dealerDir;
+    }
     private ProductDirectory productDirectory;
 
     public ProductDirectory getProductDirectory() {
@@ -66,12 +81,23 @@ public class EcoSystem extends Organization{
         //Initialize a Global - Product Directory
         this.productDirectory = new ProductDirectory();
         
+        //Test Data - Suppliers
         //Add a couple of suppliers
         wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
         
+        
         this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("Lots WholeSale", this));
         this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("CostCo WholeSale", this));
-        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("CostCo WholeSale", this));
+        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("Walmart WholeSale", this));
+        
+        
+        //Test Data - Dealers
+        //Add a couple of dealers
+        dealerDir = new DealerDirectory();
+        
+        this.getDealerDir().getDealersList().add(new Dealer("Daves Store", this));
+        this.getDealerDir().getDealersList().add(new Dealer("Joes Store", this));
+        this.getDealerDir().getDealersList().add(new Dealer("Alwin Electronics", this));
     }
 
     public ArrayList<Network> getNetworkList() {
