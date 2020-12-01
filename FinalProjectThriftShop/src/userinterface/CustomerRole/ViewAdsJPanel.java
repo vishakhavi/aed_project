@@ -10,10 +10,20 @@ import Business.Customer.Customer;
 import Business.Customer.Post;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
+import java.awt.Image;
 import java.util.List;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.net.URL;
+import javax.imageio.ImageIO;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -24,9 +34,10 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private Customer customer;
     private Ads adsList;
-      private DefaultTableModel viewTable;
-    
+    private DefaultTableModel viewTable;
     private EcoSystem ecosystem;
+    private static final Object[][] rowData = {};
+    private static final Object[] columnNames = {"Product Name","Price","Category","Description","Image"};
 
     /**
      * Creates new form ViewAdsJPanel
@@ -36,30 +47,61 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.ecosystem = ecosystem;
-       
         adsList = ecosystem.getAdsList();
-        viewTable = (DefaultTableModel) jTableViewAds.getModel();
+       
+        
+       
+       // viewTable = new DefaultTableModel(rowData, columnNames);
+        viewTable =  new DefaultTableModel(null,columnNames){
+            @Override
+            public Class<?> getColumnClass(int column) {
+                if (column==4) return Icon.class;
+                return Object.class;
+            }
+        };
+       // viewTable.addRow(rowData);
+        //viewTable.addColumn(columnNames);
         populateTable();
+        
        
     }
     public void populateTable(){
+        try{
         viewTable.setRowCount(0);
         //createAddToCartButton();
+        /*for(Customer cust: ecosystem.getCustomerDirectory().getCustomerList()){
+            if(cust.equals(userAccount.getUsername())){
+               adsList = cust.getAdsList();
+            }
+        }*/
         if(adsList != null){
         List<Post> posts = adsList.getAdsList();
+        
         for (Post post : posts) {
             Object[] row = new Object[viewTable.getColumnCount()];
             row[0] = post;
             row[1] = post.getPrice();
-            row[2] = post.getCategory();
+            row[2] = post.getCategory(); 
             row[3] = post.getDescription();
-            viewTable.addRow(row);
+            Image product = ImageIO.read(new File(post.getPicture()));
+            Image newImg = product.getScaledInstance(170, 110, Image.SCALE_AREA_AVERAGING);
+            ImageIcon icon = new ImageIcon(newImg);
+            row[4] = icon;
+            viewTable.addRow(row);   
+            
         }
+        jTableViewAds.setRowHeight(200);
+        jTableViewAds.setModel(viewTable);
         }else{
             JOptionPane.showMessageDialog(null, "No Posts available");
         }
+        }catch(Exception e){
+            
+            System.err.println("Error while setting the image"+e.getMessage());
+        }
         
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -78,10 +120,10 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
 
         jTableViewAds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+                {null, null, null, null, null}
             },
             new String [] {
-                "Product Name", "Price", "Category", "Description"
+                "Product Name", "Price", "Category", "Description", "Image"
             }
         ));
         jScrollPane1.setViewportView(jTableViewAds);

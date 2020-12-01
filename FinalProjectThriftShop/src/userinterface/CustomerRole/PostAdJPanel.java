@@ -12,6 +12,11 @@ import Business.Customer.Post;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
+import java.awt.Image;
+import java.io.File;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -24,6 +29,8 @@ public class PostAdJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     private CustomerDirectory customerDirectory;
     private Ads adsList;
+    private String filepathValue;
+    private Customer customer;
    
     
     private EcoSystem ecosystem;
@@ -63,6 +70,9 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jTextFieldProductPrice = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaProductDescription = new javax.swing.JTextArea();
+        jLabel6 = new javax.swing.JLabel();
+        adImage = new javax.swing.JLabel();
+        jButtonUpload = new javax.swing.JButton();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -100,6 +110,18 @@ public class PostAdJPanel extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, -1, -1));
 
+        jLabel6.setText("Pictures:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 330, -1, -1));
+        jPanel1.add(adImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 320, 170, 110));
+
+        jButtonUpload.setText("Upload");
+        jButtonUpload.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUploadActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButtonUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 320, -1, -1));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,11 +157,17 @@ public class PostAdJPanel extends javax.swing.JPanel {
         }
 
         Post post = new Post(jTextFieldProductName.getText(), Double.valueOf(jTextFieldProductPrice.getText()),
-        jTextFieldProductCategory.getText(),jTextAreaProductDescription.getText());
+        jTextFieldProductCategory.getText(),jTextAreaProductDescription.getText(),
+        filepathValue);
 
         // ecosystem.getItemList().addItem(item);
         if(adsList!= null){
-            adsList.addItem(post);
+            adsList.addPost(post);
+            /*for(Customer cust: customerDirectory.getCustomerList()){
+            if(customerDirectory.getCustomerList().equals(userAccount.getUsername())){
+                ecosystem.getCustomerDirectory().addCustomer(cust);
+            }
+            }*/
             ecosystem.setAdsList(adsList);
         
         /*populateTable();
@@ -147,7 +175,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         itemPrice.setText("");*/
         } else{
              Ads adsList = new Ads();
-             adsList.addItem(post);
+             adsList.addPost(post);
              ecosystem.setAdsList(adsList);
              
             
@@ -170,13 +198,33 @@ public class PostAdJPanel extends javax.swing.JPanel {
 
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
+    private void jButtonUploadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUploadActionPerformed
+        // TODO add your handling code here:
+        try{
+        JFileChooser selectFile = new JFileChooser();
+        int approveValue = selectFile.showOpenDialog(this);
+        if(approveValue == JFileChooser.APPROVE_OPTION){
+            File filePath = selectFile.getSelectedFile();
+            filepathValue = filePath.getPath();
+            Image profilePic = ImageIO.read(new File(filepathValue));
+            Image newImg = profilePic.getScaledInstance(138, 190, Image.SCALE_AREA_AVERAGING);
+            adImage.setIcon(new ImageIcon(newImg));
+            JOptionPane.showMessageDialog(null, "Image uploaded successfully");
+        }
+        }catch(Exception e){
+            System.err.println("Exception while uploading or reading the image"+e);
+    }//GEN-LAST:event_jButtonUploadActionPerformed
 
+        }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel adImage;
+    private javax.swing.JButton jButtonUpload;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaProductDescription;

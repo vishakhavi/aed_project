@@ -14,13 +14,14 @@ public class Post {
     private double price;
     private String description;
     private String category;
+    private String picture;
 
-    public Post(String name, double price,String category, String description) {
+    public Post(String name, double price,String category, String description, String filePath) {
         this.name = name;
         this.price = price;
         this.category = category;
         this.description = description;
-        
+        this.picture = filePath;
     }
   
     public String getName() {
@@ -53,7 +54,13 @@ public class Post {
     public void setCategory(String category) {
         this.category = category;
     }
-    
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
     @Override
     public String toString() {
         return this.name;
