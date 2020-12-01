@@ -44,6 +44,8 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel) tblCustomerOrderStatus.getModel();
         model.setRowCount(0);
         //workRequestList = ecosystem.getWorkQueue().getWorkRequestListCustomer(account);
+
+
         for (WorkRequest request : workRequestList) {
             Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
             row[0] = request;
