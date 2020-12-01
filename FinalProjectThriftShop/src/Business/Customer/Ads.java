@@ -18,15 +18,15 @@ public class Ads {
         return adsList;
     }
 
-    public void setItemList(ArrayList<Post> adsList) {
+    public void setPostList(ArrayList<Post> adsList) {
         this.adsList = adsList;
     }
     
-    public void addItem(Post post){
+    public void addPost(Post post){
         adsList.add(post);
     }
     
-    public void removeItem(Post post){
+    public void removePost(Post post){
         adsList.remove(post);
     }
 }
