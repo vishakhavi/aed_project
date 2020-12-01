@@ -46,10 +46,13 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         systemAdminPanel = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        placeOrderButtonPanel = new javax.swing.JPanel();
+        postAdButtonPanel = new javax.swing.JPanel();
         postAdLabel = new javax.swing.JLabel();
-        orderStatusButtonPanel = new javax.swing.JPanel();
+        viewAdButtonPanel = new javax.swing.JPanel();
         viewAdLabel = new javax.swing.JLabel();
+        serviceRequestStatusButtonPanel = new javax.swing.JPanel();
+        serviceRequestLabel = new javax.swing.JLabel();
+        orderStatusButtonPanel = new javax.swing.JPanel();
         orderStatusLabel = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
@@ -58,9 +61,9 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        placeOrderButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        postAdButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                placeOrderButtonPanelMousePressed(evt);
+                postAdButtonPanelMousePressed(evt);
             }
         });
 
@@ -72,29 +75,29 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout placeOrderButtonPanelLayout = new javax.swing.GroupLayout(placeOrderButtonPanel);
-        placeOrderButtonPanel.setLayout(placeOrderButtonPanelLayout);
-        placeOrderButtonPanelLayout.setHorizontalGroup(
-            placeOrderButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(placeOrderButtonPanelLayout.createSequentialGroup()
-                .addGap(53, 53, 53)
-                .addComponent(postAdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 17, Short.MAX_VALUE))
+        javax.swing.GroupLayout postAdButtonPanelLayout = new javax.swing.GroupLayout(postAdButtonPanel);
+        postAdButtonPanel.setLayout(postAdButtonPanelLayout);
+        postAdButtonPanelLayout.setHorizontalGroup(
+            postAdButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, postAdButtonPanelLayout.createSequentialGroup()
+                .addContainerGap(70, Short.MAX_VALUE)
+                .addComponent(postAdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(83, 83, 83))
         );
-        placeOrderButtonPanelLayout.setVerticalGroup(
-            placeOrderButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(placeOrderButtonPanelLayout.createSequentialGroup()
+        postAdButtonPanelLayout.setVerticalGroup(
+            postAdButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(postAdButtonPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(postAdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+                .addComponent(postAdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel1.add(placeOrderButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, -1));
+        jPanel1.add(postAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 280, 50));
 
-        orderStatusButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
-        orderStatusButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        viewAdButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
+        viewAdButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                orderStatusButtonPanelMousePressed(evt);
+                viewAdButtonPanelMousePressed(evt);
             }
         });
 
@@ -106,24 +109,69 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
-        javax.swing.GroupLayout orderStatusButtonPanelLayout = new javax.swing.GroupLayout(orderStatusButtonPanel);
-        orderStatusButtonPanel.setLayout(orderStatusButtonPanelLayout);
-        orderStatusButtonPanelLayout.setHorizontalGroup(
-            orderStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderStatusButtonPanelLayout.createSequentialGroup()
-                .addContainerGap(50, Short.MAX_VALUE)
-                .addComponent(viewAdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+        javax.swing.GroupLayout viewAdButtonPanelLayout = new javax.swing.GroupLayout(viewAdButtonPanel);
+        viewAdButtonPanel.setLayout(viewAdButtonPanelLayout);
+        viewAdButtonPanelLayout.setHorizontalGroup(
+            viewAdButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewAdButtonPanelLayout.createSequentialGroup()
+                .addContainerGap(60, Short.MAX_VALUE)
+                .addComponent(viewAdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(69, 69, 69))
         );
-        orderStatusButtonPanelLayout.setVerticalGroup(
-            orderStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(orderStatusButtonPanelLayout.createSequentialGroup()
+        viewAdButtonPanelLayout.setVerticalGroup(
+            viewAdButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(viewAdButtonPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(viewAdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(orderStatusButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 48, 280, 50));
+        jPanel1.add(viewAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 280, 50));
+
+        serviceRequestStatusButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
+        serviceRequestStatusButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                serviceRequestStatusButtonPanelMousePressed(evt);
+            }
+        });
+
+        serviceRequestLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        serviceRequestLabel.setText("Customer Request");
+        serviceRequestLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                serviceRequestLabelMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout serviceRequestStatusButtonPanelLayout = new javax.swing.GroupLayout(serviceRequestStatusButtonPanel);
+        serviceRequestStatusButtonPanel.setLayout(serviceRequestStatusButtonPanelLayout);
+        serviceRequestStatusButtonPanelLayout.setHorizontalGroup(
+            serviceRequestStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+            .addGroup(serviceRequestStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, serviceRequestStatusButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap(75, Short.MAX_VALUE)
+                    .addComponent(serviceRequestLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(63, Short.MAX_VALUE)))
+        );
+        serviceRequestStatusButtonPanelLayout.setVerticalGroup(
+            serviceRequestStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(serviceRequestStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(serviceRequestStatusButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(serviceRequestLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jPanel1.add(serviceRequestStatusButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 140, 270, 40));
+
+        orderStatusButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
+        orderStatusButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                orderStatusButtonPanelMousePressed(evt);
+            }
+        });
 
         orderStatusLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         orderStatusLabel.setText("Order Status");
@@ -132,7 +180,29 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
                 orderStatusLabelMousePressed(evt);
             }
         });
-        jPanel1.add(orderStatusLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 220, 28));
+
+        javax.swing.GroupLayout orderStatusButtonPanelLayout = new javax.swing.GroupLayout(orderStatusButtonPanel);
+        orderStatusButtonPanel.setLayout(orderStatusButtonPanelLayout);
+        orderStatusButtonPanelLayout.setHorizontalGroup(
+            orderStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 280, Short.MAX_VALUE)
+            .addGroup(orderStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderStatusButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap(40, Short.MAX_VALUE)
+                    .addComponent(orderStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(45, Short.MAX_VALUE)))
+        );
+        orderStatusButtonPanelLayout.setVerticalGroup(
+            orderStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+            .addGroup(orderStatusButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, orderStatusButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(orderStatusLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+        );
+
+        jPanel1.add(orderStatusButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 280, 50));
 
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(940, 808));
         rightSystemAdminPanel.setLayout(new java.awt.CardLayout());
@@ -170,18 +240,24 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
     }
 
-    private void placeOrderButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_placeOrderButtonPanelMousePressed
+    private void postAdButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_postAdButtonPanelMousePressed
         placeOrder();
-    }//GEN-LAST:event_placeOrderButtonPanelMousePressed
+    }//GEN-LAST:event_postAdButtonPanelMousePressed
 
-    private void orderStatusLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderStatusLabelMousePressed
-        orderStatus();
-    }//GEN-LAST:event_orderStatusLabelMousePressed
+    private void serviceRequestLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_serviceRequestLabelMousePressed
+        CustomerServiceRequestJPanel customerServiceRequestJPanel = new CustomerServiceRequestJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        rightSystemAdminPanel.add("CustomerServiceRequestJPanel", customerServiceRequestJPanel);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
+    }//GEN-LAST:event_serviceRequestLabelMousePressed
 
-    private void orderStatusButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderStatusButtonPanelMousePressed
+    private void viewAdButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewAdButtonPanelMousePressed
         // TODO add your handling code here:
-        orderStatus();
-    }//GEN-LAST:event_orderStatusButtonPanelMousePressed
+        ViewAdsJPanel viewAdsJPanel = new ViewAdsJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        rightSystemAdminPanel.add("ViewAdsJPanel", viewAdsJPanel);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
+    }//GEN-LAST:event_viewAdButtonPanelMousePressed
 
     private void viewAdLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewAdLabelMousePressed
         // TODO add your handling code here:
@@ -191,10 +267,26 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(rightSystemAdminPanel);
     }//GEN-LAST:event_viewAdLabelMousePressed
 
+    private void orderStatusLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderStatusLabelMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_orderStatusLabelMousePressed
+
+    private void serviceRequestStatusButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_serviceRequestStatusButtonPanelMousePressed
+        // TODO add your handling code here:
+        CustomerServiceRequestJPanel customerServiceRequestJPanel = new CustomerServiceRequestJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        rightSystemAdminPanel.add("CustomerServiceRequestJPanel", customerServiceRequestJPanel);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
+    }//GEN-LAST:event_serviceRequestStatusButtonPanelMousePressed
+
+    private void orderStatusButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderStatusButtonPanelMousePressed
+        // TODO add your handling code here:
+        orderStatus();
+    }//GEN-LAST:event_orderStatusButtonPanelMousePressed
+
     private void orderStatus() {
         // TODO add your handling code here:
-       
-        
+      
         OrderStatusJPanel orderStatusJPanel = new OrderStatusJPanel(rightSystemAdminPanel, ecosystem, userAccount);
         rightSystemAdminPanel.add("OrderStatusJPanel", orderStatusJPanel);
         CardLayout layout = (CardLayout)rightSystemAdminPanel.getLayout();
@@ -206,10 +298,13 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel orderStatusButtonPanel;
     private javax.swing.JLabel orderStatusLabel;
-    private javax.swing.JPanel placeOrderButtonPanel;
+    private javax.swing.JPanel postAdButtonPanel;
     private javax.swing.JLabel postAdLabel;
     private javax.swing.JPanel rightSystemAdminPanel;
+    private javax.swing.JLabel serviceRequestLabel;
+    private javax.swing.JPanel serviceRequestStatusButtonPanel;
     private javax.swing.JPanel systemAdminPanel;
+    private javax.swing.JPanel viewAdButtonPanel;
     private javax.swing.JLabel viewAdLabel;
     // End of variables declaration//GEN-END:variables
 }
