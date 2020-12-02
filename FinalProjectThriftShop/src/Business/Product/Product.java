@@ -22,6 +22,15 @@ public class Product {
     private int qty = 0;
     private WholeSaleSupplier supplier = null;
     private Dealer dealer = null;
+    private String productImagePath;
+
+    public String getProductImagePath() {
+        return productImagePath;
+    }
+
+    public void setProductImagePath(String productImagePath) {
+        this.productImagePath = productImagePath;
+    }
 
     public Dealer getDealer() {
         return dealer;
