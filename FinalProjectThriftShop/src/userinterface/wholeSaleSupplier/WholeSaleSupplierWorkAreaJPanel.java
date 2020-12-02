@@ -12,8 +12,12 @@ import Business.UserAccount.UserAccount;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.awt.Image;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +45,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         
         valueLabel.setText(this.supplier.getName());
         
+        setListenerForTableSelection();
         populateRequestTable();
     }
     
@@ -60,6 +65,25 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
                 model.addRow(row); 
         }
     }
+    
+    private void setListenerForTableSelection() {
+      productsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+          public void valueChanged(ListSelectionEvent event) {
+              if (productsJTable.getSelectedRow() != -1) {
+                  Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 1);
+                  jLabelSupProdPicture.setIcon(finalImage(prod.getProductImagePath()));
+              }
+          }
+      });
+    }
+    
+     public ImageIcon finalImage(String imagePath) {
+        ImageIcon image  = new ImageIcon(imagePath);
+        Image img = image.getImage();
+        Image modifiedImg = img.getScaledInstance(jLabelSupProdPicture.getWidth(), jLabelSupProdPicture.getHeight(), Image.SCALE_SMOOTH);
+        ImageIcon finalImage = new ImageIcon(modifiedImg);
+        return finalImage;
+    }
 
     
     /**
@@ -77,6 +101,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
+        jLabelSupProdPicture = new javax.swing.JLabel();
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -136,8 +161,10 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(requestTestJButton))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(161, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabelSupProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,11 +176,15 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(refreshTestJButton))
                     .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(62, 62, 62)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabelSupProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(50, 50, 50)
                 .addComponent(requestTestJButton)
                 .addContainerGap(350, Short.MAX_VALUE))
         );
+
+        jLabelSupProdPicture.setBounds(10, 10, 650, 250);
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
@@ -166,11 +197,12 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
         populateRequestTable();
-        
+        jLabelSupProdPicture.setIcon(null);
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel enterpriseLabel;
+    private javax.swing.JLabel jLabelSupProdPicture;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable productsJTable;
     private javax.swing.JButton refreshTestJButton;

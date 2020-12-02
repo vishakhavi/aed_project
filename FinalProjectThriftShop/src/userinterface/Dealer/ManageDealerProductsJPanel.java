@@ -273,10 +273,11 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldUnitsCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(jButton3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldUnitsCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jButton3)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -337,7 +338,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             if (foundCartItem) { //Make sure to create one inventory of products and not add them over and over again.
                 foundCart.setQty(foundCart.getQty() + Integer.parseInt(qtyText));
             } else {
-                DealerCart cartItem = new DealerCart (selectedProduct.getName(), selectedProduct.getPrice(), Integer.parseInt(qtyText), selectedProduct.getCategory());
+                DealerCart cartItem = new DealerCart (selectedProduct.getName(), selectedProduct.getPrice(), Integer.parseInt(qtyText), selectedProduct.getCategory(), selectedProduct.getProductImagePath());
                 this.cart.add(cartItem);
             }
             
@@ -431,6 +432,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             p.setPrice(round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
             p.setQty(c.getQty());
             p.setCategory(c.getCategory());
+            p.setProductImagePath(c.getProductImagePath());
             
             addProductToDirectory(p, dealerPd);
             addProductToDirectory(p, globalPd);
