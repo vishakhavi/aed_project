@@ -11,6 +11,7 @@ import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
 import Business.Network.Network;
 import Business.Organization.Organization;
+import Business.Product.Product;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
@@ -80,8 +81,13 @@ public class EcoSystem extends Organization{
         
         //Initialize a Global - Product Directory
         this.productDirectory = new ProductDirectory();
-        this.getProductDirectory().createProduct("iPhone");
-        this.getProductDirectory().createProduct("Samsung");
+        Product p1 = this.getProductDirectory().createProduct("iPhone");
+        p1.setPrice(50);
+        p1.setCategory("Mobiles");
+        Product p2 = this.getProductDirectory().createProduct("Samsung");
+        p2.setPrice(45);
+        p2.setCategory("Mobiles");
+        
         //Test Data - Suppliers
         //Add a couple of suppliers
         wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
