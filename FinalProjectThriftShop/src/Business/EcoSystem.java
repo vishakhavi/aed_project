@@ -80,7 +80,8 @@ public class EcoSystem extends Organization{
         
         //Initialize a Global - Product Directory
         this.productDirectory = new ProductDirectory();
-        
+        this.getProductDirectory().createProduct("iPhone");
+        this.getProductDirectory().createProduct("Samsung");
         //Test Data - Suppliers
         //Add a couple of suppliers
         wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
