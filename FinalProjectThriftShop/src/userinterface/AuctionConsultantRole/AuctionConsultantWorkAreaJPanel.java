@@ -2,9 +2,10 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.wholeSaleSupplier;
+package userinterface.AuctionConsultantRole;
 
 
+import userinterface.wholeSaleSupplierRole.*;
 import Business.EcoSystem;
 import Business.Product.Product;
 
@@ -24,44 +25,38 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Arthi
  */
-public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
+public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
     private JPanel userProcessContainer;
-
     private UserAccount userAccount;
     EcoSystem ecosystem;
-    WholeSaleSupplier supplier;
     /**
      * Creates new form DoctorWorkAreaJPanel
      */
-    public WholeSaleSupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, WholeSaleSupplier s) {
+    public AuctionConsultantWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
       
         this.userAccount = account;
         this.ecosystem = system;
-        this.supplier = s;
         
-        valueLabel.setText(this.supplier.getName());
+        auctionCompNameLabel.setText(this.ecosystem.getAuctionUnitOrg().getName());
         
         setListenerForTableSelection();
-        populateRequestTable();
+        populateEligProductsTable();
     }
     
-    public void populateRequestTable(){
+    public void populateEligProductsTable(){
         DefaultTableModel model = (DefaultTableModel)productsJTable.getModel();
         model.setRowCount(0);
-        //int count = 1;
-        //Supplier supplier = (Supplier)suppComboBox1.getSelectedItem();
-        ArrayList<WorkRequest> wrTable = new ArrayList<WorkRequest>();
         
-        for (Product p : this.supplier.getProductDirectory().getProducts()) {
+        for (Product p : this.ecosystem.getProductDirectory().getProducts()) {
                 Object row[] = new Object[4];
                 row[0] = p.getId();
                 row[1] = p;
                 row[2] = p.getPrice();
-                row[3] = p.getCategory();
+                row[3] = p.getQty();
                 model.addRow(row); 
         }
     }
@@ -71,7 +66,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
           public void valueChanged(ListSelectionEvent event) {
               if (productsJTable.getSelectedRow() != -1) {
                   Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 1);
-                  jLabelSupProdPicture.setIcon(finalImage(prod.getProductImagePath()));
+                  jLabelGlobalProdPicture.setIcon(finalImage(prod.getProductImagePath()));
               }
           }
       });
@@ -80,7 +75,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
      public ImageIcon finalImage(String imagePath) {
         ImageIcon image  = new ImageIcon(imagePath);
         Image img = image.getImage();
-        Image modifiedImg = img.getScaledInstance(jLabelSupProdPicture.getWidth(), jLabelSupProdPicture.getHeight(), Image.SCALE_SMOOTH);
+        Image modifiedImg = img.getScaledInstance(jLabelGlobalProdPicture.getWidth(), jLabelGlobalProdPicture.getHeight(), Image.SCALE_SMOOTH);
         ImageIcon finalImage = new ImageIcon(modifiedImg);
         return finalImage;
     }
@@ -100,8 +95,11 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         requestTestJButton = new javax.swing.JButton();
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
-        valueLabel = new javax.swing.JLabel();
-        jLabelSupProdPicture = new javax.swing.JLabel();
+        auctionCompNameLabel = new javax.swing.JLabel();
+        jLabelGlobalProdPicture = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jTxtAuctionQty = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -111,7 +109,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Category"
+                "ID", "Product Name", "Price", "Inventory"
             }
         ) {
             Class[] types = new Class [] {
@@ -124,7 +122,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(productsJTable);
 
-        requestTestJButton.setText("Add a new Product");
+        requestTestJButton.setText("Add to Auction List");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 requestTestJButtonActionPerformed(evt);
@@ -139,32 +137,43 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         });
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        enterpriseLabel.setText("Supplier");
+        enterpriseLabel.setText("Auction Consultant Company Name");
 
-        valueLabel.setText("<value>");
+        auctionCompNameLabel.setText("<value>");
+
+        jLabel1.setText("List of Products - that qualify for auctioning (Less than 2 Orders placed)");
+
+        jLabel2.setText("# of Units to Add to Auction");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(auctionCompNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(59, 59, 59)
+                .addComponent(refreshTestJButton)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(164, 164, 164)
-                        .addComponent(refreshTestJButton))
+                        .addGap(24, 24, 24)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jTxtAuctionQty, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(requestTestJButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabelSupProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabelGlobalProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(280, 280, 280)
+                        .addComponent(requestTestJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -172,41 +181,50 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
                 .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(auctionCompNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(refreshTestJButton))
                     .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(295, 295, 295)
+                .addComponent(jLabel1)
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelSupProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
-                .addComponent(requestTestJButton)
-                .addContainerGap(350, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jLabelGlobalProdPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jTxtAuctionQty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(requestTestJButton, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(60, 60, 60))
         );
 
-        jLabelSupProdPicture.setBounds(10, 10, 650, 250);
+        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-        CreateSupProductsJPanel cspj = new CreateSupProductsJPanel(userProcessContainer, this.supplier);
-        userProcessContainer.add("createSupProducts", cspj);
-        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
-        layout.next(userProcessContainer);   
+//        CreateSupProductsJPanel cspj = new CreateSupProductsJPanel(userProcessContainer, this.supplier);
+//        userProcessContainer.add("createSupProducts", cspj);
+//        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+//        layout.next(userProcessContainer);   
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
-        populateRequestTable();
-        jLabelSupProdPicture.setIcon(null);
+        populateEligProductsTable();
+        jLabelGlobalProdPicture.setIcon(null);
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel auctionCompNameLabel;
     private javax.swing.JLabel enterpriseLabel;
-    private javax.swing.JLabel jLabelSupProdPicture;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabelGlobalProdPicture;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField jTxtAuctionQty;
     private javax.swing.JTable productsJTable;
     private javax.swing.JButton refreshTestJButton;
     private javax.swing.JButton requestTestJButton;
-    private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }
