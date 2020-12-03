@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.Dealer;
+package userinterface.DealerRole;
 
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerCart;
-import userinterface.wholeSaleSupplier.*;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Product.Product;
