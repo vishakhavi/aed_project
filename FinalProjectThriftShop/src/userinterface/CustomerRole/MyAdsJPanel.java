@@ -10,8 +10,6 @@ import Business.Customer.Customer;
 import Business.Customer.Post;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.BuyerBidPriceWorkRequest;
-import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.List;
 import java.awt.image.BufferedImage;
@@ -33,7 +31,7 @@ import javax.swing.table.TableCellRenderer;
  *
  * @author Vishakha
  */
-public class ViewAdsJPanel extends javax.swing.JPanel {
+public class MyAdsJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount userAccount;
     private Customer customer;
@@ -47,7 +45,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewAdsJPanel
      */
-    public ViewAdsJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem) {
+    public MyAdsJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem) {
         initComponents();
         initListerners();
         this.userProcessContainer = userProcessContainer;
@@ -124,10 +122,9 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         jTextFieldBidAmount = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jTextFieldProductName = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setText("View Ads ");
+        jLabel1.setText("My Ads ");
 
         jTableViewAds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,13 +143,6 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         jTextFieldProductName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextFieldProductNameActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Submit Request");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
             }
         });
 
@@ -176,10 +166,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
                             .addComponent(jTextFieldProductName)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(128, 128, 128)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(176, 176, 176)
-                        .addComponent(jButton1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(256, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -198,9 +185,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
                             .addComponent(jTextFieldBidAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(31, 31, 31)
                         .addComponent(jLabel3)))
-                .addGap(30, 30, 30)
-                .addComponent(jButton1)
-                .addContainerGap(171, Short.MAX_VALUE))
+                .addContainerGap(224, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -208,27 +193,8 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldProductNameActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        int selectedRow = jTableViewAds.getSelectedRow();
-        
-        if (selectedRow < 0){
-            return;
-        }
-        
-       /* BuyerBidPriceWorkRequest request = (LabTestWorkRequest)jScrollPane1.getValueAt(selectedRow, 0);
-     
-        request.setStatus("Processing");
-        
-        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request);
-        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);*/
-    }//GEN-LAST:event_jButton1ActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
