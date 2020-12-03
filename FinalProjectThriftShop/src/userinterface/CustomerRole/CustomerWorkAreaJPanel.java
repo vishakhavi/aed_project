@@ -321,11 +321,15 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void eCommerceLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceLabelMousePressed
         // TODO add your handling code here:
+        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        rightSystemAdminPanel.add("eCM", eCommerceMain);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
     }//GEN-LAST:event_eCommerceLabelMousePressed
 
     private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceButtonPanelMousePressed
         // TODO add your handling code here:
-        ECommerceMain eCommerceMain = new ECommerceMain(rightSystemAdminPanel, userAccount, ecosystem);
+        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
         rightSystemAdminPanel.add("eCM", eCommerceMain);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);

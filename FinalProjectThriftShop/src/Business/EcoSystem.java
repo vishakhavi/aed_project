@@ -13,6 +13,7 @@ import Business.Dealer.DealerDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
 import Business.Organization.Organization;
+import Business.Product.Product;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
@@ -103,8 +104,7 @@ public class EcoSystem extends Organization{
         //TODO - REMOVE THIS AND DO IT USING SUPPLIER-DEALER WORKFLOW (Talk to Arthi)
         //REASON: The Supplier Dealer workflow populates more fields that will be required for Customer Work requests creation.
         this.productDirectory = new ProductDirectory();
-//        this.getProductDirectory().createProduct("iPhone");
-//        this.getProductDirectory().createProduct("Samsung");
+
         //Test Data - Suppliers
         //Add a couple of suppliers
         wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
