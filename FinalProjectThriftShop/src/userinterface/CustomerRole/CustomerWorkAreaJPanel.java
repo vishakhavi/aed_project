@@ -56,7 +56,6 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         orderStatusLabel = new javax.swing.JLabel();
         eCommerceButtonPanel = new javax.swing.JPanel();
         eCommerceLabel = new javax.swing.JLabel();
-        btnECommerce = new javax.swing.JButton();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(31, 50, 97));
@@ -240,14 +239,6 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(eCommerceButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 280, 50));
 
-        btnECommerce.setText("eCommerce Site");
-        btnECommerce.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnECommerceActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnECommerce, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 240, -1, -1));
-
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(940, 808));
         rightSystemAdminPanel.setLayout(new java.awt.CardLayout());
 
@@ -344,14 +335,6 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         layout.next(rightSystemAdminPanel);
     }//GEN-LAST:event_eCommerceButtonPanelMousePressed
 
-    private void btnECommerceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnECommerceActionPerformed
-        // TODO add your handling code here:
-        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
-        rightSystemAdminPanel.add("eCM", eCommerceMain);
-        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
-        layout.next(rightSystemAdminPanel);
-    }//GEN-LAST:event_btnECommerceActionPerformed
-
     private void orderStatus() {
         // TODO add your handling code here:
       
@@ -363,7 +346,6 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnECommerce;
     private javax.swing.JPanel eCommerceButtonPanel;
     private javax.swing.JLabel eCommerceLabel;
     private javax.swing.JPanel jPanel1;
