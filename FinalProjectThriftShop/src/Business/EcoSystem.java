@@ -5,11 +5,13 @@
  */
 package Business;
 
+import Business.Auction.AuctionProductDirectory;
 import Business.Customer.Ads;
 import Business.Customer.CustomerDirectory;
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
 import Business.Network.Network;
+import Business.Organization.AuctionUnitOrganization;
 import Business.Organization.Organization;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
@@ -30,6 +32,25 @@ public class EcoSystem extends Organization{
     private DealerDirectory dealerDir;
     private Ads adsDirectory;
     private CustomerDirectory customerDirectory;
+    private ProductDirectory productDirectory;
+    private AuctionUnitOrganization auctionUnitOrg;
+    private AuctionProductDirectory auctionProductDirectory;
+
+    public AuctionProductDirectory getAuctionProductDirectory() {
+        return auctionProductDirectory;
+    }
+
+    public void setAuctionProductDirectory(AuctionProductDirectory auctionProductDirectory) {
+        this.auctionProductDirectory = auctionProductDirectory;
+    }
+
+    public AuctionUnitOrganization getAuctionUnitOrg() {
+        return auctionUnitOrg;
+    }
+
+    public void setAuctionUnitOrg(AuctionUnitOrganization auctionUnitOrg) {
+        this.auctionUnitOrg = auctionUnitOrg;
+    }
 
     public DealerDirectory getDealerDir() {
         return dealerDir;
@@ -38,7 +59,7 @@ public class EcoSystem extends Organization{
     public void setDealerDir(DealerDirectory dealerDir) {
         this.dealerDir = dealerDir;
     }
-    private ProductDirectory productDirectory;
+   
 
     public ProductDirectory getProductDirectory() {
         return productDirectory;
@@ -79,9 +100,11 @@ public class EcoSystem extends Organization{
         networkList=new ArrayList<Network>();
         
         //Initialize a Global - Product Directory
+        //TODO - REMOVE THIS AND DO IT USING SUPPLIER-DEALER WORKFLOW (Talk to Arthi)
+        //REASON: The Supplier Dealer workflow populates more fields that will be required for Customer Work requests creation.
         this.productDirectory = new ProductDirectory();
-        this.getProductDirectory().createProduct("iPhone");
-        this.getProductDirectory().createProduct("Samsung");
+//        this.getProductDirectory().createProduct("iPhone");
+//        this.getProductDirectory().createProduct("Samsung");
         //Test Data - Suppliers
         //Add a couple of suppliers
         wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
@@ -99,6 +122,9 @@ public class EcoSystem extends Organization{
         this.getDealerDir().getDealersList().add(new Dealer("Daves Store", this));
         this.getDealerDir().getDealersList().add(new Dealer("Joes Store", this));
         this.getDealerDir().getDealersList().add(new Dealer("Alwin Electronics", this));
+        
+        //Test Data - Add one Auction consultant
+        this.auctionUnitOrg = new AuctionUnitOrganization("Phoenix Auction Consultants", this);
     }
 
     public ArrayList<Network> getNetworkList() {
