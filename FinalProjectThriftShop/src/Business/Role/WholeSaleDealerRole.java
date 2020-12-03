@@ -11,7 +11,7 @@ import Business.UserAccount.UserAccount;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import userinterface.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 import javax.swing.JPanel;
-import userinterface.wholeSaleSupplier.WholeSaleSupplierWorkAreaJPanel;
+import userinterface.wholeSaleSupplierRole.WholeSaleSupplierWorkAreaJPanel;
 
 /**
  *
