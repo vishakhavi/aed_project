@@ -374,16 +374,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             }       
         }
 
-        jLabel5.setText("Total Price: $" + round(totalPrice,2));
-    }
-    
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
+        jLabel5.setText("Total Price: $" + EcoSystem.round(totalPrice,2));
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -428,7 +419,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             Product p = new Product();
             p.setDealer(this.dealer);
             p.setName(c.getName());
-            p.setPrice(round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
+            p.setPrice(EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
             p.setQty(c.getQty());
             p.setCategory(c.getCategory());
             p.setProductImagePath(c.getProductImagePath());
