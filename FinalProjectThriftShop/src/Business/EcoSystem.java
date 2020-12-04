@@ -101,9 +101,10 @@ public class EcoSystem extends Organization{
         networkList=new ArrayList<Network>();
         
         //Initialize a Global - Product Directory
-        //TODO - REMOVE THIS AND DO IT USING SUPPLIER-DEALER WORKFLOW (Talk to Arthi)
-        //REASON: The Supplier Dealer workflow populates more fields that will be required for Customer Work requests creation.
         this.productDirectory = new ProductDirectory();
+        
+        //Initialize a Global - Auction Product Directory
+        this.auctionProductDirectory = new AuctionProductDirectory();
 
         //Test Data - Suppliers
         //Add a couple of suppliers
@@ -143,5 +144,14 @@ public class EcoSystem extends Organization{
             
         }
         return true;
+    }
+    
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }
