@@ -55,8 +55,12 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         serviceRequestLabel = new javax.swing.JLabel();
         orderStatusButtonPanel = new javax.swing.JPanel();
         orderStatusLabel = new javax.swing.JLabel();
+
         myAdsButtonPanel = new javax.swing.JPanel();
         myAdsLabel = new javax.swing.JLabel();
+
+        eCommerceButtonPanel = new javax.swing.JPanel();
+        eCommerceLabel = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(31, 50, 97));
@@ -91,11 +95,11 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             postAdButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(postAdButtonPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(postAdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+                .addComponent(postAdLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel1.add(postAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -2, 280, 50));
+        jPanel1.add(postAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 50));
 
         viewAdButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
         viewAdButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -129,7 +133,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(viewAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 40, 280, 50));
+        jPanel1.add(viewAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 50, 280, 50));
 
         serviceRequestStatusButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
         serviceRequestStatusButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -245,6 +249,40 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(myAdsButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 182, 270, 40));
 
+        eCommerceButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eCommerceButtonPanelMousePressed(evt);
+            }
+        });
+
+        eCommerceLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eCommerceLabel.setText("eCommerce Site");
+        eCommerceLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                eCommerceLabelMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout eCommerceButtonPanelLayout = new javax.swing.GroupLayout(eCommerceButtonPanel);
+        eCommerceButtonPanel.setLayout(eCommerceButtonPanelLayout);
+        eCommerceButtonPanelLayout.setHorizontalGroup(
+            eCommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eCommerceButtonPanelLayout.createSequentialGroup()
+                .addContainerGap(79, Short.MAX_VALUE)
+                .addComponent(eCommerceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(74, 74, 74))
+        );
+        eCommerceButtonPanelLayout.setVerticalGroup(
+            eCommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eCommerceButtonPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(eCommerceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jPanel1.add(eCommerceButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 280, 50));
+
+
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(940, 808));
         rightSystemAdminPanel.setLayout(new java.awt.CardLayout());
 
@@ -322,6 +360,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         orderStatus();
     }//GEN-LAST:event_orderStatusButtonPanelMousePressed
 
+
     private void myAdsLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsLabelMousePressed
         // TODO add your handling code here:
         MyAdsJPanel myAdsJPanel = new MyAdsJPanel(rightSystemAdminPanel, ecosystem, userAccount);
@@ -334,6 +373,22 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         
     }//GEN-LAST:event_myAdsButtonPanelMousePressed
+    private void eCommerceLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceLabelMousePressed
+        // TODO add your handling code here:
+        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        rightSystemAdminPanel.add("eCM", eCommerceMain);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
+    }//GEN-LAST:event_eCommerceLabelMousePressed
+
+    private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceButtonPanelMousePressed
+        // TODO add your handling code here:
+        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        rightSystemAdminPanel.add("eCM", eCommerceMain);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
+    }//GEN-LAST:event_eCommerceButtonPanelMousePressed
+
 
     private void orderStatus() {
         // TODO add your handling code here:
@@ -346,6 +401,8 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel eCommerceButtonPanel;
+    private javax.swing.JLabel eCommerceLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel myAdsButtonPanel;
     private javax.swing.JLabel myAdsLabel;

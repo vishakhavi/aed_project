@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package userinterface.Dealer;
+package userinterface.DealerRole;
 
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerCart;
-import userinterface.wholeSaleSupplier.*;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Product.Product;
@@ -273,10 +272,11 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(10, 10, 10)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextFieldUnitsCount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel6)
-                        .addComponent(jButton3))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTextFieldUnitsCount, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(jButton3)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -337,7 +337,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             if (foundCartItem) { //Make sure to create one inventory of products and not add them over and over again.
                 foundCart.setQty(foundCart.getQty() + Integer.parseInt(qtyText));
             } else {
-                DealerCart cartItem = new DealerCart (selectedProduct.getName(), selectedProduct.getPrice(), Integer.parseInt(qtyText), selectedProduct.getCategory());
+                DealerCart cartItem = new DealerCart (selectedProduct.getName(), selectedProduct.getPrice(), Integer.parseInt(qtyText), selectedProduct.getCategory(), selectedProduct.getProductImagePath());
                 this.cart.add(cartItem);
             }
             
@@ -374,16 +374,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             }       
         }
 
-        jLabel5.setText("Total Price: $" + round(totalPrice,2));
-    }
-    
-    public static double round(double value, int places) {
-        if (places < 0) throw new IllegalArgumentException();
-
-        long factor = (long) Math.pow(10, places);
-        value = value * factor;
-        long tmp = Math.round(value);
-        return (double) tmp / factor;
+        jLabel5.setText("Total Price: $" + EcoSystem.round(totalPrice,2));
     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -428,9 +419,10 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             Product p = new Product();
             p.setDealer(this.dealer);
             p.setName(c.getName());
-            p.setPrice(round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
+            p.setPrice(EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
             p.setQty(c.getQty());
             p.setCategory(c.getCategory());
+            p.setProductImagePath(c.getProductImagePath());
             
             addProductToDirectory(p, dealerPd);
             addProductToDirectory(p, globalPd);

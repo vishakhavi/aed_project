@@ -10,13 +10,22 @@ import Business.WorkQueue.WorkQueue;
 
 /**
  *
- * @author harold
+ * @author Arthi Ganesan
  */
 public class DealerCart {
     private String name;
     private double price;
     private int qty;
     private String category;
+    private String productImagePath;
+
+    public String getProductImagePath() {
+        return productImagePath;
+    }
+
+    public void setProductImagePath(String productImagePath) {
+        this.productImagePath = productImagePath;
+    }
 
     public String getCategory() {
         return category;
@@ -34,11 +43,12 @@ public class DealerCart {
         this.qty = qty;
     }
     
-    public DealerCart(String n, double p, int q, String cat) {
+    public DealerCart(String n, double p, int q, String cat, String productImage) {
         this.name = n;
         this.price = p;
         this.qty = q;
         this.category = cat;
+        this.productImagePath = productImage;
     }
 
     public double getPrice() {
