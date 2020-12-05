@@ -13,7 +13,6 @@ import Business.UserAccount.UserAccount;
  */
 public class Customer extends UserAccount{
     private String customerName;
-    private String postId;
     private String address;
     private String phone;
     private Ads adsList;
@@ -35,14 +34,6 @@ public class Customer extends UserAccount{
 
     public void setName(String customerName) {
         this.customerName = customerName;
-    }
-
-    public String getPostId() {
-        return postId;
-    }
-
-    public void setPostId(String postId) {
-        this.postId = postId;
     }
 
     public String getAddress() {

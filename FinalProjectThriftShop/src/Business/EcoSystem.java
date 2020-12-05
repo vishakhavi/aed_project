@@ -19,6 +19,7 @@ import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
+import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,11 @@ public class EcoSystem extends Organization{
     private DealerDirectory dealerDir;
     private Ads adsDirectory;
     private CustomerDirectory customerDirectory;
+
+    
+    private WorkQueue workQueue;
+
+
     private ProductDirectory productDirectory;
     private AuctionUnitOrganization auctionUnitOrg;
     private AuctionProductDirectory auctionProductDirectory;
@@ -52,6 +58,7 @@ public class EcoSystem extends Organization{
     public void setAuctionUnitOrg(AuctionUnitOrganization auctionUnitOrg) {
         this.auctionUnitOrg = auctionUnitOrg;
     }
+
 
     public DealerDirectory getDealerDir() {
         return dealerDir;
@@ -135,7 +142,9 @@ public class EcoSystem extends Organization{
     public void setNetworkList(ArrayList<Network> networkList) {
         this.networkList = networkList;
     }
-    
+    public static void setInstance(EcoSystem system) {
+        business = system;
+    }
     public boolean checkIfUserIsUnique(String userName){
         if(!this.getUserAccountDirectory().checkIfUsernameIsUnique(userName)){
             return false;
