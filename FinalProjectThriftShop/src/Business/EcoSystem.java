@@ -117,7 +117,9 @@ public class EcoSystem extends Organization{
     public void setNetworkList(ArrayList<Network> networkList) {
         this.networkList = networkList;
     }
-    
+    public static void setInstance(EcoSystem system) {
+        business = system;
+    }
     public boolean checkIfUserIsUnique(String userName){
         if(!this.getUserAccountDirectory().checkIfUsernameIsUnique(userName)){
             return false;

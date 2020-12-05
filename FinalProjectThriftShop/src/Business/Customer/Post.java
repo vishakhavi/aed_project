@@ -19,6 +19,8 @@ public class Post {
     private String category;
     private String picture;
     private String id;
+
+    
   
 
     public Post(String name, double price,String category, String description, String filePath) {
@@ -34,7 +36,7 @@ public class Post {
     public String getId() {
         return id;
     }
-  
+    
     public String getName() {
         return name;
     }

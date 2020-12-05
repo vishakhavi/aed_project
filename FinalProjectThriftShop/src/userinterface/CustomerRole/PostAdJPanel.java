@@ -21,6 +21,7 @@ import com.teamdev.jxbrowser.view.swing.BrowserView;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.io.File;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
@@ -34,13 +35,14 @@ import javax.swing.JPanel;
 public class PostAdJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount userAccount;
-    private CustomerDirectory customerDirectory;
+    
     private Ads adsList;
     private String filepathValue;
     private Customer customer;
     LocationPoint locationPoint;
     Browser browser;
-    
+    private ArrayList<Customer> customerDirectory;
+    private ArrayList<UserAccount> userDirectory;
     private EcoSystem ecosystem;
 
     /**
@@ -52,12 +54,12 @@ public class PostAdJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.ecosystem = ecosystem;
         adsList = ecosystem.getAdsList();
-        
+        userDirectory = ecosystem.getUserAccountDirectory().getUserAccountList();
+        this.customer = (Customer)account;
        
-        customerDirectory = ecosystem.getCustomerDirectory();
         locationPoint = new LocationPoint();
         
-        EngineOptions options =
+      /*  EngineOptions options =
                 EngineOptions.newBuilder(RenderingMode.OFF_SCREEN).licenseKey("6P83ACG409I01JKYU6UO3NWI53G7VD8PTT8UBCKWRB0F3Z7FDMS0HSOKNDD95S0LOO1I").build();
         
         Engine engine = Engine.newInstance(options);
@@ -66,7 +68,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         BrowserView view = BrowserView.newInstance(browser);
         browser.navigation().loadUrl("https://www.google.com/maps");
         
-        mapCanvas.add(view);
+        mapCanvas.add(view);*/
         
     }
 
@@ -95,8 +97,8 @@ public class PostAdJPanel extends javax.swing.JPanel {
         adImage = new javax.swing.JLabel();
         jButtonUpload = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
-        mapCanvas = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jTextFieldItemLocation = new javax.swing.JTextField();
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -147,10 +149,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jPanel1.add(jButtonUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 320, -1, -1));
 
         jLabel7.setText("Location:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(284, 390, 50, -1));
-
-        mapCanvas.setText("jLabel8");
-        jPanel1.add(mapCanvas, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 390, 290, 160));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 450, 50, -1));
 
         jButton1.setText("Set Location");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -158,7 +157,8 @@ public class PostAdJPanel extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 400, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 450, -1, -1));
+        jPanel1.add(jTextFieldItemLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 450, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,17 +199,18 @@ public class PostAdJPanel extends javax.swing.JPanel {
         filepathValue);
 
         // ecosystem.getItemList().addItem(item);
-        if(customer.getAdsList() != null){
-            adsList.addPost(post);
-            /*for(Customer cust: customerDirectory.getCustomerList()){
+       /* for(UserAccount ua: userDirectory){
             if(cust.getUsername().equals(userAccount.getUsername())){
                customer = cust;
             }
             }*/
+        if(ecosystem.getAdsList() != null){
+            adsList.addPost(post);
+            
             ecosystem.setAdsList(adsList);
             customer.setAdsList(adsList);
-            customerDirectory.getCustomerList().add(customer);
-            ecosystem.setCustomerDirectory(customerDirectory);
+            //customerDirectory.getCustomerList().add(customer);
+            //ecosystem.setCustomerDirectory(customerDirectory);
         /*populateTable();
         itemName.setText("");
         itemPrice.setText("");*/
@@ -218,9 +219,9 @@ public class PostAdJPanel extends javax.swing.JPanel {
              ecosystem.setAdsList(adsList);
              customer = new Customer();
              customer.setAdsList(adsList);
-             customerDirectory = new CustomerDirectory();
-             customerDirectory.addCustomer(customer);
-             ecosystem.setCustomerDirectory(customerDirectory);
+             //customerDirectory = new CustomerDirectory();
+             //customerDirectory.addCustomer(customer);
+             //ecosystem.setCustomerDirectory(customerDirectory);
              
              
             
@@ -275,7 +276,10 @@ public class PostAdJPanel extends javax.swing.JPanel {
             }
             System.out.println("Lat" + locationPoint.getLatitude() + locationPoint.getLongitude());
     }//GEN-LAST:event_jButton1ActionPerformed
-
+    public void populateLongituteLatitude(LocationPoint locationPoint) {
+        this.locationPoint = locationPoint;
+        jTextFieldItemLocation.setText(locationPoint.getLatitude() + ", " + locationPoint.getLongitude());
+    }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adImage;
@@ -291,10 +295,10 @@ public class PostAdJPanel extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaProductDescription;
+    private javax.swing.JTextField jTextFieldItemLocation;
     private javax.swing.JTextField jTextFieldProductCategory;
     private javax.swing.JTextField jTextFieldProductName;
     private javax.swing.JTextField jTextFieldProductPrice;
-    private javax.swing.JLabel mapCanvas;
     private javax.swing.JButton requestTestJButton;
     // End of variables declaration//GEN-END:variables
 }

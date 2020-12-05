@@ -80,14 +80,14 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         viewTable.setRowCount(0);
         //createAddToCartButton();
          System.out.println("customer size"+ecosystem.getUserAccountDirectory().getUserAccountList().size());
-         for(UserAccount ua : ecosystem.getUserAccountDirectory().getUserAccountList()){
+         /*for(UserAccount ua : ecosystem.getUserAccountDirectory().getUserAccountList()){
              System.out.println("username==>"+ua.getUsername());
              System.out.println("role==>"+ua.getRole());
              if(ua.getRole() instanceof CustomerRole){
                  customer = (Customer) ua;
              }
              customerDirectory.addCustomer(customer);
-         }
+         }*/
         if(adsList != null ){
         List<Post> posts = adsList.getAdsList();
         
@@ -104,6 +104,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             row[4] = icon;
             //row[5] = post.getPostId();
             viewTable.addRow(row);   
+            System.out.println("post id"+post.getId());
             
         }
         jTableViewAds.setRowHeight(150);
