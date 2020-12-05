@@ -12,7 +12,16 @@ import java.util.ArrayList;
  * @author Vishakha
  */
 public class Ads {
+    private int postId;
+    private static int counter=1;
+    
+    
     ArrayList<Post> adsList = new ArrayList<Post>();
+    
+    public Ads(){
+        postId = counter;
+        ++counter;
+    }
 
     public ArrayList<Post> getAdsList() {
         return adsList;
@@ -25,7 +34,9 @@ public class Ads {
     public void addPost(Post post){
         adsList.add(post);
     }
-    
+    public int getPostId() {
+        return postId;
+    }
     public void removePost(Post post){
         adsList.remove(post);
     }

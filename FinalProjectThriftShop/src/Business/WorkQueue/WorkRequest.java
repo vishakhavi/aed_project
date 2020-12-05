@@ -4,6 +4,7 @@
  */
 package Business.WorkQueue;
 
+import Business.Customer.Customer;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
 
@@ -19,6 +20,33 @@ public abstract class WorkRequest {
     private String status;
     private Date requestDate;
     private Date resolveDate;
+    private double bidPrice;
+    private String productName;
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+    private Customer customer;
+
+    public double getBidPrice() {
+        return bidPrice;
+    }
+
+    public void setBidPrice(double bidPrice) {
+        this.bidPrice = bidPrice;
+    }
     
     public WorkRequest(){
         requestDate = new Date();
@@ -70,5 +98,9 @@ public abstract class WorkRequest {
 
     public void setResolveDate(Date resolveDate) {
         this.resolveDate = resolveDate;
+    }
+    @Override
+    public String toString(){
+        return this.productName;
     }
 }

@@ -16,6 +16,7 @@ import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
+import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
 
 /**
@@ -30,6 +31,15 @@ public class EcoSystem extends Organization{
     private DealerDirectory dealerDir;
     private Ads adsDirectory;
     private CustomerDirectory customerDirectory;
+    
+    private WorkQueue workQueue;
+
+    /*public EcoSystem(Ads adsDirectory, CustomerDirectory customerDirectory, WorkQueue workQueue) {
+        this.adsDirectory = adsDirectory;
+        this.customerDirectory = customerDirectory;
+        this.workQueue = workQueue;
+    }*/
+  
 
     public DealerDirectory getDealerDir() {
         return dealerDir;

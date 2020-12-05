@@ -5,16 +5,21 @@
  */
 package Business.Customer;
 
+import java.util.UUID;
+
 /**
  *
  * @author Vishakha
  */
 public class Post {
+   
     private String name;
     private double price;
     private String description;
     private String category;
     private String picture;
+    private String id;
+  
 
     public Post(String name, double price,String category, String description, String filePath) {
         this.name = name;
@@ -22,6 +27,12 @@ public class Post {
         this.category = category;
         this.description = description;
         this.picture = filePath;
+        UUID uuid = UUID.randomUUID();
+        id = uuid.toString();
+    }
+    
+    public String getId() {
+        return id;
     }
   
     public String getName() {
@@ -61,6 +72,8 @@ public class Post {
     public void setPicture(String picture) {
         this.picture = picture;
     }
+    
+   
     @Override
     public String toString() {
         return this.name;

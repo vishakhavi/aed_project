@@ -11,6 +11,7 @@ package Business.WorkQueue;
 public class BuyerBidPriceWorkRequest extends WorkRequest{
     
     private String bidStatus;
+   
 
     public String getBidStatus() {
         return bidStatus;
@@ -19,6 +20,4 @@ public class BuyerBidPriceWorkRequest extends WorkRequest{
     public void setBidStatus(String bidStatus) {
         this.bidStatus = bidStatus;
     }
-    
-    
 }
