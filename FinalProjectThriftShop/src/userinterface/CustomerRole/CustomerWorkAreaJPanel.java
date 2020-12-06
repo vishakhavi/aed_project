@@ -5,6 +5,7 @@ package userinterface.CustomerRole;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Business.Customer.Customer;
 import Business.EcoSystem;
 
 import Business.UserAccount.UserAccount;
@@ -23,6 +24,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem ecosystem;
     UserAccount userAccount;
+    JPanel currentVisitedPanel;
 
     public CustomerWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem ecosystem) {
         //this.set
@@ -32,6 +34,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
         this.userAccount = userAccount;
+        this.currentVisitedPanel = null; //update this value everytime when we visit a right panel.
        // placeOrder();
     }
 
@@ -54,8 +57,8 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         serviceRequestLabel = new javax.swing.JLabel();
         orderStatusButtonPanel = new javax.swing.JPanel();
         orderStatusLabel = new javax.swing.JLabel();
-        eCommerceButtonPanel = new javax.swing.JPanel();
-        eCommerceLabel = new javax.swing.JLabel();
+        eAuctionButtonPanel = new javax.swing.JPanel();
+        eAuctionLabel = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(31, 50, 97));
@@ -117,8 +120,8 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             viewAdButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, viewAdButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(60, Short.MAX_VALUE)
-                .addComponent(viewAdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(69, 69, 69))
+                .addComponent(viewAdLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(77, 77, 77))
         );
         viewAdButtonPanelLayout.setVerticalGroup(
             viewAdButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -206,38 +209,38 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(orderStatusButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 280, 50));
 
-        eCommerceButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+        eAuctionButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                eCommerceButtonPanelMousePressed(evt);
+                eAuctionButtonPanelMousePressed(evt);
             }
         });
 
-        eCommerceLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eCommerceLabel.setText("eCommerce Site");
-        eCommerceLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+        eAuctionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eAuctionLabel.setText("View e-Auction");
+        eAuctionLabel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                eCommerceLabelMousePressed(evt);
+                eAuctionLabelMousePressed(evt);
             }
         });
 
-        javax.swing.GroupLayout eCommerceButtonPanelLayout = new javax.swing.GroupLayout(eCommerceButtonPanel);
-        eCommerceButtonPanel.setLayout(eCommerceButtonPanelLayout);
-        eCommerceButtonPanelLayout.setHorizontalGroup(
-            eCommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eCommerceButtonPanelLayout.createSequentialGroup()
+        javax.swing.GroupLayout eAuctionButtonPanelLayout = new javax.swing.GroupLayout(eAuctionButtonPanel);
+        eAuctionButtonPanel.setLayout(eAuctionButtonPanelLayout);
+        eAuctionButtonPanelLayout.setHorizontalGroup(
+            eAuctionButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eAuctionButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(79, Short.MAX_VALUE)
-                .addComponent(eCommerceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(eAuctionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(74, 74, 74))
         );
-        eCommerceButtonPanelLayout.setVerticalGroup(
-            eCommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(eCommerceButtonPanelLayout.createSequentialGroup()
+        eAuctionButtonPanelLayout.setVerticalGroup(
+            eAuctionButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(eAuctionButtonPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(eCommerceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                .addComponent(eAuctionLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
-        jPanel1.add(eCommerceButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 280, 50));
+        jPanel1.add(eAuctionButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 280, 50));
 
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(940, 808));
         rightSystemAdminPanel.setLayout(new java.awt.CardLayout());
@@ -267,8 +270,11 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void placeOrder() {
         // TODO add your handling code here:
         
-
+        if(this.currentVisitedPanel != null)
+            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
+        
         PostAdJPanel postAdJPanel = new PostAdJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        this.currentVisitedPanel = postAdJPanel; //Store the current visited information
         rightSystemAdminPanel.add("PostAdJPanel", postAdJPanel);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
@@ -280,65 +286,104 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_postAdButtonPanelMousePressed
 
     private void serviceRequestLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_serviceRequestLabelMousePressed
-        CustomerServiceRequestJPanel customerServiceRequestJPanel = new CustomerServiceRequestJPanel(rightSystemAdminPanel, userAccount, ecosystem);
-        rightSystemAdminPanel.add("CustomerServiceRequestJPanel", customerServiceRequestJPanel);
-        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
-        layout.next(rightSystemAdminPanel);
+        navigateToCustomerServiceRequest();
     }//GEN-LAST:event_serviceRequestLabelMousePressed
 
     private void viewAdButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewAdButtonPanelMousePressed
         // TODO add your handling code here:
-        ViewAdsJPanel viewAdsJPanel = new ViewAdsJPanel(rightSystemAdminPanel, userAccount, ecosystem);
-        rightSystemAdminPanel.add("ViewAdsJPanel", viewAdsJPanel);
-        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
-        layout.next(rightSystemAdminPanel);
+        
     }//GEN-LAST:event_viewAdButtonPanelMousePressed
 
     private void viewAdLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewAdLabelMousePressed
+        navigateToViewAd();
+    }//GEN-LAST:event_viewAdLabelMousePressed
+
+    private void navigateToViewAd() {
         // TODO add your handling code here:
         ViewAdsJPanel viewAdsJPanel = new ViewAdsJPanel(rightSystemAdminPanel, userAccount, ecosystem);
         rightSystemAdminPanel.add("ViewAdsJPanel", viewAdsJPanel);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
-    }//GEN-LAST:event_viewAdLabelMousePressed
-
+    }
+    
     private void orderStatusLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderStatusLabelMousePressed
-        // TODO add your handling code here:
+        orderStatus();
     }//GEN-LAST:event_orderStatusLabelMousePressed
 
     private void serviceRequestStatusButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_serviceRequestStatusButtonPanelMousePressed
-        // TODO add your handling code here:
+       navigateToCustomerServiceRequest();
+    }//GEN-LAST:event_serviceRequestStatusButtonPanelMousePressed
+
+    private void navigateToCustomerServiceRequest() {
+         // TODO add your handling code here:
+        if(this.currentVisitedPanel != null)
+            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
+        
         CustomerServiceRequestJPanel customerServiceRequestJPanel = new CustomerServiceRequestJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        this.currentVisitedPanel = customerServiceRequestJPanel; //Store the current visited information
         rightSystemAdminPanel.add("CustomerServiceRequestJPanel", customerServiceRequestJPanel);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
-    }//GEN-LAST:event_serviceRequestStatusButtonPanelMousePressed
-
+    }
+    
     private void orderStatusButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_orderStatusButtonPanelMousePressed
         // TODO add your handling code here:
         orderStatus();
     }//GEN-LAST:event_orderStatusButtonPanelMousePressed
 
-    private void eCommerceLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceLabelMousePressed
+
+    private void myAdsLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsLabelMousePressed
         // TODO add your handling code here:
+        MyAdsJPanel myAdsJPanel = new MyAdsJPanel(rightSystemAdminPanel, ecosystem, userAccount);
+        rightSystemAdminPanel.add("MyAdsJPanel", myAdsJPanel);
+        CardLayout layout = (CardLayout)rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
+    }//GEN-LAST:event_myAdsLabelMousePressed
+
+    private void myAdsButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsButtonPanelMousePressed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_myAdsButtonPanelMousePressed
+
+    private void navigateToECommerce() {
+         // TODO add your handling code here:
+        if(this.currentVisitedPanel != null)
+            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
+        
         ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        this.currentVisitedPanel = eCommerceMain; //Store the current visited information
         rightSystemAdminPanel.add("eCM", eCommerceMain);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
-    }//GEN-LAST:event_eCommerceLabelMousePressed
+    }
+    
+    private void eAuctionLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eAuctionLabelMousePressed
+        navigateToAuction();
+    }//GEN-LAST:event_eAuctionLabelMousePressed
 
-    private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceButtonPanelMousePressed
-        // TODO add your handling code here:
-        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
-        rightSystemAdminPanel.add("eCM", eCommerceMain);
+    private void eAuctionButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eAuctionButtonPanelMousePressed
+        navigateToAuction();
+    }//GEN-LAST:event_eAuctionButtonPanelMousePressed
+
+    private void navigateToAuction() {
+        if(this.currentVisitedPanel != null)
+           this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
+        
+        
+        EAuctionJPanel eAuction = new EAuctionJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        this.currentVisitedPanel = eAuction; //Store the current visited information
+        rightSystemAdminPanel.add("eAuctionPanel", eAuction);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
-        layout.next(rightSystemAdminPanel);
-    }//GEN-LAST:event_eCommerceButtonPanelMousePressed
-
+        layout.next(rightSystemAdminPanel); 
+    }
+    
     private void orderStatus() {
         // TODO add your handling code here:
-      
+        if(this.currentVisitedPanel != null)
+            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
+        
         OrderStatusJPanel orderStatusJPanel = new OrderStatusJPanel(rightSystemAdminPanel, ecosystem, userAccount);
+        this.currentVisitedPanel = orderStatusJPanel; //Store the current visited information
         rightSystemAdminPanel.add("OrderStatusJPanel", orderStatusJPanel);
         CardLayout layout = (CardLayout)rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
@@ -346,8 +391,8 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel eCommerceButtonPanel;
-    private javax.swing.JLabel eCommerceLabel;
+    private javax.swing.JPanel eAuctionButtonPanel;
+    private javax.swing.JLabel eAuctionLabel;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel orderStatusButtonPanel;
     private javax.swing.JLabel orderStatusLabel;

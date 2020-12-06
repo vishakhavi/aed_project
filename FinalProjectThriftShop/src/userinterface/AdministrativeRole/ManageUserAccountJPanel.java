@@ -27,11 +27,13 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
      */
     private JPanel container;
     private Enterprise enterprise;
+    private UserAccount userAccount;
 
-    public ManageUserAccountJPanel(JPanel container, Enterprise enterprise) {
+    public ManageUserAccountJPanel(JPanel container,UserAccount userAccount, Enterprise enterprise) {
         initComponents();
         this.enterprise = enterprise;
         this.container = container;
+        this.userAccount = userAccount;
 
         popOrganizationComboBox();
        // employeeJComboBox.removeAllItems();
@@ -249,20 +251,19 @@ public class ManageUserAccountJPanel extends javax.swing.JPanel {
         String password = passwordJTextField.getText();
         Organization organization = (Organization) organizationJComboBox.getSelectedItem();
         Employee employee = (Employee) employeeJComboBox.getSelectedItem();
+        //Role role = (Role) roleJComboBox.getSelectedItem();
         Role role = (Role) roleJComboBox.getSelectedItem();
-        
         organization.getUserAccountDirectory().createUserAccount(userName, password, employee, role);
-        
-         if(enterprise.getUserAccountDirectory().checkIfUsernameIsUnique(nameJTextField.getText()) && 
-                 role.equals(Role.RoleType.CustomerRole)){
+        if(userAccount.getRole() instanceof CustomerRole){
             Customer customer = new Customer();
-            customer.setUsername(userName);
-            customer.setPassword(password);
+            customer.setName(nameJTextField.getText());
+     
+            customer.setUsername(nameJTextField.getText());
+            customer.setPassword(passwordJTextField.getText());
             customer.setRole(new CustomerRole());
-            enterprise.getUserAccountDirectory().getUserAccountList().add(customer);
-            enterprise.getCustomerDirectory().addCustomer(customer);
-         }
-        
+            organization.getUserAccountDirectory().addUserAccount(customer);
+            organization.getCustomerDirectory().addCustomer(customer);
+        }
         popData();
     }//GEN-LAST:event_createUserJButtonActionPerformed
 
