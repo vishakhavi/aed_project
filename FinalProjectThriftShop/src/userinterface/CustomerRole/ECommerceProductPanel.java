@@ -5,7 +5,12 @@
  */
 package userinterface.CustomerRole;
 
+import Business.EcoSystem;
 import Business.Product.Product;
+import Business.UserAccount.UserAccount;
+import java.awt.CardLayout;
+import java.awt.Component;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -19,16 +24,19 @@ public class ECommerceProductPanel extends javax.swing.JPanel {
      */
     JPanel rightSystemAdminPanel;
     Product product;
-    public ECommerceProductPanel(JPanel rightSystemAdminPanel, Product product) {
+    UserAccount userAccount;
+    public ECommerceProductPanel(JPanel rightSystemAdminPanel, Product product, UserAccount userAccount, EcoSystem ecosystem) {
         initComponents();
         this.rightSystemAdminPanel = rightSystemAdminPanel;
         this.product = product;
-        txtName.setText(product.getName());
-        txtPrice.setText(Double.toString(product.getPrice()));
-        txtCategory.setText(product.getCategory());
-        txtItemRemaining.setText(Integer.toString(product.getQty()));
+        this.userAccount = userAccount;
+        txtName.setText(this.product.getName());
+        txtPrice.setText(Double.toString(this.product.getPrice()));
+        txtCategory.setText(this.product.getCategory());
+        txtItemRemaining.setText(Integer.toString(this.product.getQty()));
+        //jSpinnerQuantity.setMaximumSize(this.product.getQty());
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -52,13 +60,17 @@ public class ECommerceProductPanel extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         txtEstimatedDelivery = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBack = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        jSpinnerQuantity = new javax.swing.JSpinner();
+        btnCart = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel1.setText("e-Commerce Products");
+
+        lblProduct.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
         jLabel2.setText("Product Name:");
@@ -89,9 +101,28 @@ public class ECommerceProductPanel extends javax.swing.JPanel {
 
         jLabel8.setText("Similar items you may be interested in:");
 
-        jButton1.setText("<<");
+        btnBack.setText("<<");
+        btnBack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBackActionPerformed(evt);
+            }
+        });
 
         jLabel9.setText("(Stars come here)");
+
+        jSpinnerQuantity.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
+        jSpinnerQuantity.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSpinnerQuantityStateChanged(evt);
+            }
+        });
+
+        btnCart.setText("Add to Cart");
+        btnCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -134,10 +165,14 @@ public class ECommerceProductPanel extends javax.swing.JPanel {
                                         .addComponent(jLabel9)
                                         .addGap(21, 21, 21))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtEstimatedDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addComponent(jButton1))))
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtEstimatedDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnCart)))))
+                            .addComponent(btnBack))))
                 .addContainerGap(69, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -146,9 +181,9 @@ public class ECommerceProductPanel extends javax.swing.JPanel {
                 .addGap(21, 21, 21)
                 .addComponent(jLabel1)
                 .addGap(28, 28, 28)
-                .addComponent(jButton1)
+                .addComponent(btnBack)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(lblProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -173,16 +208,58 @@ public class ECommerceProductPanel extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtEstimatedDelivery, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))))
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jSpinnerQuantity, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnCart, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
                 .addContainerGap(170, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
+        // TODO add your handling code here:
+        rightSystemAdminPanel.remove(this);
+        Component[] componentArray = rightSystemAdminPanel.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ECommerceMainJPanel ecmjp = (ECommerceMainJPanel) component;
+        ecmjp.populateTable("All");
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.previous(rightSystemAdminPanel);
+    }//GEN-LAST:event_btnBackActionPerformed
+
+    private void jSpinnerQuantityStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSpinnerQuantityStateChanged
+        // TODO add your handling code here:
+        int value = (Integer) jSpinnerQuantity.getValue();
+        if(value == 0)
+        {
+            btnCart.setEnabled(false);
+        }
+        else
+        {
+            btnCart.setEnabled(true);
+        }
+    }//GEN-LAST:event_jSpinnerQuantityStateChanged
+
+    private void btnCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCartActionPerformed
+        // TODO add your handling code here:
+        if((int)jSpinnerQuantity.getValue() > product.getQty())
+        {
+            JOptionPane.showMessageDialog(null, "Oops! Your request is more than our stock!");
+            return;
+        }
+        else
+        {
+            //Product p = 
+        }
+    }//GEN-LAST:event_btnCartActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCart;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -192,6 +269,7 @@ public class ECommerceProductPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JSpinner jSpinnerQuantity;
     private javax.swing.JLabel lblProduct;
     private javax.swing.JTextField txtCategory;
     private javax.swing.JTextField txtEstimatedDelivery;

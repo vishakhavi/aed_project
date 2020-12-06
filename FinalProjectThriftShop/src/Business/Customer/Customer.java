@@ -17,6 +17,7 @@ public class Customer extends UserAccount{
     private String address;
     private String phone;
     private Ads adsList;
+    private Cart cart;
 
     
    
@@ -62,10 +63,19 @@ public class Customer extends UserAccount{
     }
 
 
+    public Cart getCart() {
+        return cart;
+    }
+    
     @Override
     public String toString() {
         return customerName;
     }
     
-    
+    public Cart newCart()
+    {
+        Cart cart = new Cart();
+        cart.setTotalPrice(0);
+        return cart;
+    }
 }

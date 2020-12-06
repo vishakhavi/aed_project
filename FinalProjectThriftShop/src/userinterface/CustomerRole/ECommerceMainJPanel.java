@@ -5,6 +5,7 @@
  */
 package userinterface.CustomerRole;
 
+import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.Product.Product;
 import Business.UserAccount.UserAccount;
@@ -33,7 +34,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
     JPanel rightSystemAdminPanel;
     UserAccount userAccount;
     EcoSystem ecosystem;
-    private static final Object[] columnNames = {"Product Name","Price","Photo"};
+    Customer customer;
     public ECommerceMainJPanel(JPanel rightSystemAdminPanel, UserAccount userAccount, EcoSystem ecosystem){
         initComponents();
         this.rightSystemAdminPanel = rightSystemAdminPanel;
@@ -43,6 +44,14 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         jComboCategory.addItem("Mobiles");
         jComboCategory.addItem("Furniture");
         tblProducts.setAutoCreateRowSorter(true);
+        /*for(Customer c : ecosystem.getCustomerDirectory().getCustomerList())
+        {
+            if(c.getEmployee().equals(userAccount.getEmployee()))
+            {
+                this.customer = c;
+            }
+        }
+        System.out.println(this.customer);*/
         populateTable("All");
     }
     
@@ -112,7 +121,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
         jLabel1.setText("e-Commerce Products");
 
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
@@ -257,7 +266,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         if (tblProducts.getSelectedRow() != -1) 
         {
                     Product prod = (Product) tblProducts.getValueAt(tblProducts.getSelectedRow(), 0);
-                    ECommerceProductPanel cspj = new ECommerceProductPanel(rightSystemAdminPanel, prod);
+                    ECommerceProductPanel cspj = new ECommerceProductPanel(rightSystemAdminPanel, prod, userAccount, ecosystem);
                     rightSystemAdminPanel.add("eCommerceProductPanel", cspj);
                     CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
                     layout.next(rightSystemAdminPanel);

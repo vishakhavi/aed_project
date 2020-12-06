@@ -5,6 +5,7 @@ package userinterface.CustomerRole;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+import Business.Customer.Customer;
 import Business.EcoSystem;
 
 import Business.UserAccount.UserAccount;
@@ -23,7 +24,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem ecosystem;
     UserAccount userAccount;
-
+    Customer customer;
     public CustomerWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem ecosystem) {
         //this.set
 
