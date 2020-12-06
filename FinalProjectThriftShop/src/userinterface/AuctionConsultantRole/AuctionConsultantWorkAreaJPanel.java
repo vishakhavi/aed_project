@@ -7,16 +7,19 @@ package userinterface.AuctionConsultantRole;
 
 import Business.Auction.AuctionProduct;
 import Business.Auction.AuctionProductDirectory;
+import Business.Dealer.Dealer;
 import userinterface.wholeSaleSupplierRole.*;
 import Business.EcoSystem;
 import Business.Product.Product;
 
 import Business.UserAccount.UserAccount;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.WorkQueue.CustomerWorkOrder;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.ImageIcon;
@@ -62,11 +65,12 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for (Product p : this.ecosystem.getProductDirectory().getProducts()) {
-                Object row[] = new Object[4];
+                Object row[] = new Object[5];
                 row[0] = p.getId();
                 row[1] = p;
                 row[2] = p.getPrice();
                 row[3] = p.getQty();
+                row[4] = p.getDealer();
                 model.addRow(row); 
         }
     }
@@ -145,17 +149,17 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Inventory"
+                "ID", "Product Name", "Price", "Inventory", "Dealer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -308,11 +312,6 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void addToAuctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToAuctionActionPerformed
-//        CreateSupProductsJPanel cspj = new CreateSupProductsJPanel(userProcessContainer, this.supplier);
-//        userProcessContainer.add("createSupProducts", cspj);
-//        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
-//        layout.next(userProcessContainer);   
-
         int selectedProdRow = productsJTable.getSelectedRow();
         String qtyText = jTxtAuctionQty.getText().trim();
         
@@ -322,6 +321,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
              Product selectedProduct = (Product) productsJTable.getValueAt(selectedProdRow, 1);
              AuctionProductDirectory apd = this.ecosystem.getAuctionProductDirectory();
              
+             //Create one Auction Product per count of qty, in ProductDirectory when looped through
              for (int i =0; i < Integer.parseInt(qtyText); i++) {
                  AuctionProduct ap = new AuctionProduct();
                  ap.setName(selectedProduct.getName());
@@ -370,7 +370,42 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
     private void sellToCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellToCustomerActionPerformed
-        // TODO add your handling code here:
+        // Create a work request for the Customer. Update inventory count of the dealer. Remove item from AuctionProductsDirectory
+        int selectedAuctionProductRow = auctionProductsJTable.getSelectedRow();
+        
+        if (selectedAuctionProductRow >= 0){
+            try {
+                UserAccount customerUserAccount = (UserAccount) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 5);
+                AuctionProduct selectedAuctionProduct = (AuctionProduct) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 1);
+                
+                CustomerWorkOrder cwo = new CustomerWorkOrder();
+                
+                cwo.setAuctionProduct(selectedAuctionProduct);
+                cwo.setStatus("NEW");
+                cwo.setRequestDate(new Date());
+                cwo.setSender(this.userAccount);
+                
+                customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo);
+                
+                //Update Dealer Inventory
+                Dealer dealer = selectedAuctionProduct.getDealer();
+                Product prodRecord = dealer.getProductDirectory().findProduct(selectedAuctionProduct.getName());
+                prodRecord.setQty(prodRecord.getQty() - 1);
+                
+                //Delete record from Auction product list.
+                this.ecosystem.getAuctionProductDirectory().removeAuctionProduct(selectedAuctionProduct);
+                
+                JOptionPane.showMessageDialog(null, "Sold the chosen Auction Product successfully !!!");
+                
+                //Reload Auction Products Table
+                populateAuctionProducts();
+                jLabelAuctionProdPicture.setIcon(null);   
+            } catch(Exception e) {
+                JOptionPane.showMessageDialog(null,"A Customer is not assigned yet to this row, please choose a different one to sell", "Warning", JOptionPane.WARNING_MESSAGE);
+            }  
+        } else {
+            JOptionPane.showMessageDialog(null,"Please select a an Auction Item to sell to a customer", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
     }//GEN-LAST:event_sellToCustomerActionPerformed
 
     private void resetAuctionListButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetAuctionListButtonActionPerformed

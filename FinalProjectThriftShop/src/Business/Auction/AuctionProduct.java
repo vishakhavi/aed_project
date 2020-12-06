@@ -9,6 +9,7 @@ import Business.Product.*;
 import Business.Dealer.Dealer;
 import Business.Employee.*;
 import Business.Organization.AuctionUnitOrganization;
+import Business.UserAccount.UserAccount;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 
 /**
@@ -27,7 +28,7 @@ public class AuctionProduct {
     private String category;
     private String productImagePath;
     private AuctionUnitOrganization auctionCompany;
-    private Customer bidWinCustomer = null; //This will be updated based on the the bid asked customer.
+    private UserAccount bidWinCustomer; //This will be updated based on the the bid asked customer.
     private Dealer dealer;
 
     public Dealer getDealer() {
@@ -47,11 +48,11 @@ public class AuctionProduct {
         AuctionProduct.count = count;
     }
     
-    public Customer getBidWinCustomer() {
+    public UserAccount getBidWinCustomer() {
         return bidWinCustomer;
     }
 
-    public void setBidWinCustomer(Customer bidWinCustomer) {
+    public void setBidWinCustomer(UserAccount bidWinCustomer) {
         this.bidWinCustomer = bidWinCustomer;
     }
 

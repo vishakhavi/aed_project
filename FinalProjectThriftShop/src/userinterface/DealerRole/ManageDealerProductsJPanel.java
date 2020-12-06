@@ -416,16 +416,26 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
 
         //Logic for new Products alone.
         for(DealerCart c : cart) {
-            Product p = new Product();
-            p.setDealer(this.dealer);
-            p.setName(c.getName());
-            p.setPrice(EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
-            p.setQty(c.getQty());
-            p.setCategory(c.getCategory());
-            p.setProductImagePath(c.getProductImagePath());
+            Product dealerProduct = new Product();
+            Product globalDirectoryProduct = new Product(); //Make sure to have another Copy.. this helps during separate update process
             
-            addProductToDirectory(p, dealerPd);
-            addProductToDirectory(p, globalPd);
+            dealerProduct.setDealer(this.dealer);
+            dealerProduct.setName(c.getName());
+            dealerProduct.setPrice(EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
+            dealerProduct.setQty(c.getQty());
+            dealerProduct.setCategory(c.getCategory());
+            dealerProduct.setProductImagePath(c.getProductImagePath());
+            
+            //Update Global Product directory with same params
+            globalDirectoryProduct.setDealer(this.dealer);
+            globalDirectoryProduct.setName(c.getName());
+            globalDirectoryProduct.setPrice(EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
+            globalDirectoryProduct.setQty(c.getQty());
+            globalDirectoryProduct.setCategory(c.getCategory());
+            globalDirectoryProduct.setProductImagePath(c.getProductImagePath());
+            
+            addProductToDirectory(dealerProduct, dealerPd);
+            addProductToDirectory(globalDirectoryProduct, globalPd);
         }
 
         JOptionPane.showMessageDialog(null, "Added Products to Dealer Inventory successfully !!!");
@@ -450,13 +460,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
 
     
     private void addProductToDirectory(Product product, ProductDirectory productDirectory) { //Check if product already exists, if so add the qty alone and if not, create the product itself
-        Product foundProduct = null;
-        
-        for (Product p : productDirectory.getProducts()) {
-            if (p.getName().equals(product.getName())) {
-                foundProduct = p;
-            }
-        }
+        Product foundProduct = productDirectory.findProductBasedOnDealer(product.getName(), product.getDealer().getName());
         
         if (foundProduct != null) {
             foundProduct.setQty(foundProduct.getQty() + product.getQty());
