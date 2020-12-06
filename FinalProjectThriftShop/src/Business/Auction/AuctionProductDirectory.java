@@ -43,4 +43,13 @@ public class AuctionProductDirectory {
         }
         return null;
     }
+    
+    public void removeAuctionProduct(AuctionProduct ap) {
+        for(AuctionProduct aucProd : auctionProducts) {
+            if (aucProd.equals(ap)) {
+                auctionProducts.remove(aucProd);
+                break;
+            }
+        }
+    }
 }

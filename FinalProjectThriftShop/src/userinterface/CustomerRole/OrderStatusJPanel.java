@@ -5,6 +5,7 @@
  */
 package userinterface.CustomerRole;
 
+import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 
@@ -28,7 +29,6 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem ecosystem;
     private UserAccount account;
-    private List<WorkRequest> workRequestList;
 
     public OrderStatusJPanel(JPanel userProcessContainer, EcoSystem ecosystem, UserAccount account) {
         initComponents();
@@ -46,7 +46,7 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
         //workRequestList = ecosystem.getWorkQueue().getWorkRequestListCustomer(account);
 
 
-        for (WorkRequest request : workRequestList) {
+        for (WorkRequest request : this.account.getWorkQueue().getWorkRequestList()) {
             Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
             row[0] = request;
            // row[1] = request.getRestaurant();
