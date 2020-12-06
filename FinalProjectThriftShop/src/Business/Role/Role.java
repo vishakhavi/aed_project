@@ -18,9 +18,7 @@ public abstract class Role {
     
     public enum RoleType{
         Admin("Admin"),
-        CustomerRole("CustomerRole"),
-        Doctor("Doctor"),
-        LabAssistant("Lab Assistant");
+        CustomerRole("CustomerRole");
         
         private String value;
         private RoleType(String value){
@@ -37,7 +35,7 @@ public abstract class Role {
         }
     }
     
-    public abstract JPanel createWorkArea(JPanel userProcessContainer, 
+public abstract JPanel createWorkArea(JPanel userProcessContainer, 
             UserAccount account, 
             Organization organization, 
             Enterprise enterprise, 

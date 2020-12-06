@@ -7,27 +7,28 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Ads;
 import Business.Customer.Customer;
+import Business.Customer.CustomerDirectory;
 import Business.Customer.Post;
 import Business.EcoSystem;
+import Business.Role.CustomerRole;
+import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BuyerBidPriceWorkRequest;
+import Business.WorkQueue.WorkQueue;
+import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.List;
-import java.awt.image.BufferedImage;
 import java.io.File;
-import java.net.URL;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -37,6 +38,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount userAccount;
     private Customer customer;
+    private CustomerDirectory customerDirectory;
     private Ads adsList;
     private DefaultTableModel viewTable;
     private EcoSystem ecosystem;
@@ -53,7 +55,9 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.ecosystem = ecosystem;
+       
         adsList = ecosystem.getAdsList();
+        customerDirectory = ecosystem.getCustomerDirectory();
        
         
        
@@ -75,16 +79,21 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         try{
         viewTable.setRowCount(0);
         //createAddToCartButton();
-        /*for(Customer cust: ecosystem.getCustomerDirectory().getCustomerList()){
-            if(cust.equals(userAccount.getUsername())){
-               adsList = cust.getAdsList();
-            }
-        }*/
-        if(adsList != null){
+         System.out.println("customer size"+ecosystem.getUserAccountDirectory().getUserAccountList().size());
+         /*for(UserAccount ua : ecosystem.getUserAccountDirectory().getUserAccountList()){
+             System.out.println("username==>"+ua.getUsername());
+             System.out.println("role==>"+ua.getRole());
+             if(ua.getRole() instanceof CustomerRole){
+                 customer = (Customer) ua;
+             }
+             customerDirectory.addCustomer(customer);
+         }*/
+        if(adsList != null ){
         List<Post> posts = adsList.getAdsList();
         
         for (Post post : posts) {
             Object[] row = new Object[viewTable.getColumnCount()];
+            
             row[0] = post;
             row[1] = post.getPrice();
             row[2] = post.getCategory(); 
@@ -93,7 +102,9 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             Image newImg = product.getScaledInstance(170, 110, Image.SCALE_AREA_AVERAGING);
             ImageIcon icon = new ImageIcon(newImg);
             row[4] = icon;
+            //row[5] = post.getPostId();
             viewTable.addRow(row);   
+            System.out.println("post id"+post.getId());
             
         }
         jTableViewAds.setRowHeight(150);
@@ -101,7 +112,9 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         }else{
             JOptionPane.showMessageDialog(null, "No Posts available");
         }
-        }catch(Exception e){
+        
+}
+        catch(Exception e){
             
             System.err.println("Error while setting the image"+e.getMessage());
         }
@@ -126,6 +139,8 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         jTextFieldProductName = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("View Ads ");
 
@@ -136,7 +151,15 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             new String [] {
                 "Product Name", "Price", "Category", "Description", "Image"
             }
-        ));
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, true
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         jScrollPane1.setViewportView(jTableViewAds);
 
         jLabel2.setText("Proposed price :");
@@ -216,14 +239,31 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             return;
         }
         
-       /* BuyerBidPriceWorkRequest request = (LabTestWorkRequest)jScrollPane1.getValueAt(selectedRow, 0);
-     
-        request.setStatus("Processing");
+        BuyerBidPriceWorkRequest request = new BuyerBidPriceWorkRequest() ;
+        WorkQueue workQueue = new WorkQueue();
+        request.setProductName(jTableViewAds.getValueAt(selectedRow, 0).toString());
+        request.setStatus("Proposed");
+        request.setMessage("Amount Proposed");
+        request.setBidPrice(Double.parseDouble(jTextFieldBidAmount.getText()));
+        request.setSender(userAccount);
         
-        ProcessWorkRequestJPanel processWorkRequestJPanel = new ProcessWorkRequestJPanel(userProcessContainer, request);
-        userProcessContainer.add("processWorkRequestJPanel", processWorkRequestJPanel);
+        /* if (customer != null) {
+                request.setCustomer(customer);
+            } else {
+                System.out.println("Customer is null");
+                return ;
+            }*/
+           
+            request.setRequestDate(new Date());
+            workQueue.addWorkRequest(request);
+            ecosystem.getWorkQueue().addWorkRequest(request);
+            ecosystem.getUserAccountDirectory().getUserAccountList().add(userAccount);
+            userAccount.getWorkQueue().getWorkRequestList().add(request);
+       // System.out.println("work queue"+ecosystem.getWorkQueue().getWorkRequestList().size());
+        MyAdsJPanel myAdsJPanel = new MyAdsJPanel(userProcessContainer,userAccount,ecosystem);
+        userProcessContainer.add("MyAdsJPanel", myAdsJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);*/
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
 
 

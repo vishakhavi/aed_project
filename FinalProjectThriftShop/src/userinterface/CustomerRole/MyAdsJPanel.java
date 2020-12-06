@@ -10,22 +10,22 @@ import Business.Customer.Customer;
 import Business.Customer.Post;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
-import java.awt.Image;
+import Business.WorkQueue.BuyerBidPriceWorkRequest;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
 import java.util.List;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.net.URL;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
+import java.util.Properties;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
 
 /**
  *
@@ -39,69 +39,211 @@ public class MyAdsJPanel extends javax.swing.JPanel {
     private DefaultTableModel viewTable;
     private EcoSystem ecosystem;
     private double price = 0;
+    private String biderName;
+    private BuyerBidPriceWorkRequest request;
+    private List<WorkRequest> workRequestList;
     private static final Object[][] rowData = {};
-    private static final Object[] columnNames = {"Product Name","Price","Category","Description","Image"};
+    private static final Object[] columnNames = {"Product Name","User Name","Status","Proposed Price"};
 
     /**
      * Creates new form ViewAdsJPanel
      */
-    public MyAdsJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem) {
+    public MyAdsJPanel(JPanel userProcessContainer,  UserAccount account,EcoSystem ecoSystem) {
         initComponents();
-        initListerners();
+        initListners();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
-        this.ecosystem = ecosystem;
-        adsList = ecosystem.getAdsList();
+        this.ecosystem = ecoSystem;
        
-        
-       
-       // viewTable = new DefaultTableModel(rowData, columnNames);
-        viewTable =  new DefaultTableModel(null,columnNames){
-            @Override
-            public Class<?> getColumnClass(int column) {
-                if (column==4) return Icon.class;
-                return Object.class;
-            }
-        };
-       // viewTable.addRow(rowData);
-        //viewTable.addColumn(columnNames);
+        viewTable = (DefaultTableModel)jTableViewAds.getModel();
         populateTable();
         
        
     }
+     private void initListners() {
+        jTableViewAds.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            public void valueChanged(ListSelectionEvent event) {
+                int selectedRow = jTableViewAds.getSelectedRow();
+                if (selectedRow >= 0) {
+                    String status = jTableViewAds.getValueAt(selectedRow, 2).toString();
+                    WorkRequest request = (WorkRequest) jTableViewAds.getValueAt(selectedRow, 0);
+                    System.out.println("status"+status);
+                        if (status != null) {
+                            int response = JOptionPane.showConfirmDialog(null, "Accept or Reject Offer");
+                            System.out.println("response==>"+response);
+                        switch (response) {
+                            case 0:
+                                //orderWorkRequest.setStatus("Accepted");
+                                jTableViewAds.setValueAt("Accepted", selectedRow, 2);
+                                request.setStatus("Accepted");
+                                sendEmailMessage("v.vishakha22@gmail.com");
+                                sendTextMessage("v.vishakha22@gmail.com");
+                                break;
+                            case 1:
+                                jTableViewAds.setValueAt("Rejected", selectedRow, 2);
+                                request.setStatus("Rejected");
+                                break;
+                            default:
+                                jTableViewAds.setValueAt("Waiting for Response", selectedRow, 2);
+                                request.setStatus("Waiting for Response");
+                                break;
+                        }
+                    }
+
+                }
+            }
+        });
+    }
+    public static void sendEmailMessage(String emailId) {
+// Recipient's email ID needs to be mentioned.
+        String to = emailId;
+        String from = "donotreplythriftshopers@gmail.com";
+        String pass = "neuthrift";
+// Assuming you are sending email from localhost
+// String host = "192.168.0.16";
+
+// Get system properties
+        Properties properties = System.getProperties();
+        String host = "smtp.gmail.com";
+
+        properties.put("mail.smtp.starttls.enable", "true");
+
+        properties.put("mail.smtp.ssl.trust", host);
+        properties.put("mail.smtp.user", from);
+        //properties.put("mail.smtp.password", pass);
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+
+// Setup mail server
+// properties.setProperty("mail.smtp.host", host);
+// properties.put("mail.smtp.starttls.enable", "true");
+// Get the default Session object.
+        Session session = Session.getDefaultInstance(properties);
+
+        try {
+// Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+// Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+// Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+// Set Subject: header field
+            message.setSubject("Volunteer Registration");
+            message.setText("Thank you for registering with us. Your account will be activated within 24 hours. We will keep you posted in case of emergencies.");
+// Send message
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Invalid email id");
+        }
+    }
+
+    public static void sendTextMessage(String contact) {
+        // Recipient's email ID needs to be mentioned.
+        String to = contact;
+        System.out.println(contact);
+        String from = "donotreplythriftshopers@gmail.com";
+        String pass = "neuthrift";
+        // Assuming you are sending email from localhost
+        // String host = "192.168.0.16";
+        // Get system properties
+        Properties properties = System.getProperties();
+        String host = "smtp.gmail.com";
+        properties.put("mail.smtp.starttls.enable", "true");
+        properties.put("mail.smtp.ssl.trust", host);
+        properties.put("mail.smtp.user", from);
+        // properties.put("mail.smtp.password", pass);
+        properties.put("mail.smtp.port", "587");
+        properties.put("mail.smtp.auth", "true");
+        // Setup mail server
+        // properties.setProperty("mail.smtp.host", host);
+        //  properties.put("mail.smtp.starttls.enable", "true");
+        // Get the default Session object.
+        Session session = Session.getDefaultInstance(properties);
+        //       final PasswordAuthentication auth = new PasswordAuthentication(from, pass);
+//Session session = Session.getDefaultInstance(properties, new Authenticator() {
+//    @Override
+//    protected PasswordAuthentication getPasswordAuthentication() { return auth; }
+//});
+//Session session = Session.getInstance(properties);
+        try {
+            // Create a default MimeMessage object.
+            MimeMessage message = new MimeMessage(session);
+
+            // Set From: header field of the header.
+            message.setFrom(new InternetAddress(from));
+
+            // Set To: header field of the header.
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+
+            // Set Subject: header field
+            message.setSubject("Volunteer Registration");
+            message.setText("Thank you for registering with us. Your account will be activated within 24 hours. We will keep you posted in case of emergencies.");
+            // Send message
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, from, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+            System.out.println("Sent message successfully....");
+        } catch (MessagingException mex) {
+            mex.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Invalid email id");
+        }
+    }
+
     public void populateTable(){
         try{
         viewTable.setRowCount(0);
         //createAddToCartButton();
-        /*for(Customer cust: ecosystem.getCustomerDirectory().getCustomerList()){
-            if(cust.equals(userAccount.getUsername())){
+       /* for(Customer cust: ecosystem.getCustomerDirectory().getCustomerList()){
+            if(cust.getUsername().equals(userAccount.getUsername())){
                adsList = cust.getAdsList();
             }
         }*/
-        if(adsList != null){
-        List<Post> posts = adsList.getAdsList();
         
-        for (Post post : posts) {
-            Object[] row = new Object[viewTable.getColumnCount()];
-            row[0] = post;
-            row[1] = post.getPrice();
-            row[2] = post.getCategory(); 
-            row[3] = post.getDescription();
-            Image product = ImageIO.read(new File(post.getPicture()));
-            Image newImg = product.getScaledInstance(170, 110, Image.SCALE_AREA_AVERAGING);
-            ImageIcon icon = new ImageIcon(newImg);
-            row[4] = icon;
-            viewTable.addRow(row);   
+        //List<Post> posts = adsList.getAdsList();
+         System.out.println("workRequestList "+ecosystem.getWorkQueue().getWorkRequestList().size());
+        workRequestList = ecosystem.getWorkQueue().getWorkRequestList();
+            System.out.println("workRequestList size"+workRequestList.size());
+        if(!workRequestList.isEmpty() ){
             
+        for (WorkRequest request : workRequestList) {
+            if(!request.getSender().getUsername().equals(userAccount.getUsername())){
+            Object[] row = new Object[jTableViewAds.getColumnCount()];
+            row[0] = request;
+            row[1] = request.getSender().getUsername();
+            String result = ((WorkRequest) request).getStatus();
+            row[2] = result == null ? "Waiting for confirmation" : result;
+            row[3] = request.getBidPrice();
+            row[4] = request.getRequestDate();
+            
+            viewTable.addRow(row);
+            }
         }
-        jTableViewAds.setRowHeight(150);
-        jTableViewAds.setModel(viewTable);
-        }else{
-            JOptionPane.showMessageDialog(null, "No Posts available");
+        /*workRequestList = userAccount.getWorkQueue().getWorkRequestList();
+        if(workRequestList != null){
+        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
+            Object[] row = new Object[jTableViewAds.getColumnCount()];
+            row[0] = request.getMessage();
+            row[1] = request.getReceiver();
+            row[2] = request.getStatus();
+            String result = ((BuyerBidPriceWorkRequest) request).getBidStatus();
+            row[3] = result == null ? "Waiting" : result;
+             row[4] = request.getRequestDate(); 
+            viewTable.addRow(row);
+        
+        }*/
         }
         }catch(Exception e){
             
-            System.err.println("Error while setting the image"+e.getMessage());
+            System.err.println("Error while retriving work request"+e.getMessage());
         }
         
     }
@@ -118,10 +260,8 @@ public class MyAdsJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableViewAds = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jTextFieldBidAmount = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        jTextFieldProductName = new javax.swing.JTextField();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("My Ads ");
@@ -131,20 +271,10 @@ public class MyAdsJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "Product Name", "Price", "Category", "Description", "Image"
+                "Product Name", "User Name", "Status", "Price", "Proposed Date"
             }
         ));
         jScrollPane1.setViewportView(jTableViewAds);
-
-        jLabel2.setText("Proposed price :");
-
-        jLabel3.setText("Product Name: ");
-
-        jTextFieldProductName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldProductNameActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -157,15 +287,6 @@ public class MyAdsJPanel extends javax.swing.JPanel {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(128, 128, 128)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jTextFieldBidAmount, javax.swing.GroupLayout.DEFAULT_SIZE, 85, Short.MAX_VALUE)
-                            .addComponent(jTextFieldProductName)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(128, 128, 128)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(256, Short.MAX_VALUE))
         );
@@ -176,55 +297,16 @@ public class MyAdsJPanel extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addGap(41, 41, 41)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTextFieldProductName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(jTextFieldBidAmount, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(31, 31, 31)
-                        .addComponent(jLabel3)))
-                .addContainerGap(224, Short.MAX_VALUE))
+                .addContainerGap(307, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jTextFieldProductNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldProductNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldProductNameActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableViewAds;
-    private javax.swing.JTextField jTextFieldBidAmount;
-    private javax.swing.JTextField jTextFieldProductName;
     // End of variables declaration//GEN-END:variables
 
-    private void initListerners() {
-        jTableViewAds.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                int selectedRow = jTableViewAds.getSelectedRow();
-                if (selectedRow >= 0) {
-                    double post = (Double)jTableViewAds.getValueAt(selectedRow, 1);
-                    if (post != 0) {
-                        String response = JOptionPane.showInputDialog("Please propose a price");
-                        try {
-                            price = Integer.parseInt(response);
-                        } catch (NumberFormatException e) {
 
-                        }
-                        if (price != 0) {
-                            jTextFieldBidAmount.setText(response);
-                            jTextFieldProductName.setText(jTableViewAds.getValueAt(selectedRow, 0).toString());
-                        }
-
-                    }
-                }
-            }
-        });
-    }
 }

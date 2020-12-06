@@ -19,6 +19,7 @@ import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
+import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,11 @@ public class EcoSystem extends Organization{
     private DealerDirectory dealerDir;
     private Ads adsDirectory;
     private CustomerDirectory customerDirectory;
+
+    
+    private WorkQueue workQueue;
+
+
     private ProductDirectory productDirectory;
     private AuctionUnitOrganization auctionUnitOrg;
     private AuctionProductDirectory auctionProductDirectory;
@@ -52,6 +58,7 @@ public class EcoSystem extends Organization{
     public void setAuctionUnitOrg(AuctionUnitOrganization auctionUnitOrg) {
         this.auctionUnitOrg = auctionUnitOrg;
     }
+
 
     public DealerDirectory getDealerDir() {
         return dealerDir;
@@ -101,9 +108,10 @@ public class EcoSystem extends Organization{
         networkList=new ArrayList<Network>();
         
         //Initialize a Global - Product Directory
-        //TODO - REMOVE THIS AND DO IT USING SUPPLIER-DEALER WORKFLOW (Talk to Arthi)
-        //REASON: The Supplier Dealer workflow populates more fields that will be required for Customer Work requests creation.
         this.productDirectory = new ProductDirectory();
+        
+        //Initialize a Global - Auction Product Directory
+        this.auctionProductDirectory = new AuctionProductDirectory();
 
         //Test Data - Suppliers
         //Add a couple of suppliers
@@ -134,7 +142,9 @@ public class EcoSystem extends Organization{
     public void setNetworkList(ArrayList<Network> networkList) {
         this.networkList = networkList;
     }
-    
+    public static void setInstance(EcoSystem system) {
+        business = system;
+    }
     public boolean checkIfUserIsUnique(String userName){
         if(!this.getUserAccountDirectory().checkIfUsernameIsUnique(userName)){
             return false;
@@ -143,5 +153,14 @@ public class EcoSystem extends Organization{
             
         }
         return true;
+    }
+    
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        long factor = (long) Math.pow(10, places);
+        value = value * factor;
+        long tmp = Math.round(value);
+        return (double) tmp / factor;
     }
 }

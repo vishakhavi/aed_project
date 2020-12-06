@@ -26,6 +26,7 @@ public abstract class Organization {
     private Ads adsList;
     private CustomerDirectory customerDirectory;
     private static int counter=0;
+   
     
     public enum Type{
         Admin("Admin Organization"), CustomerService("Customer Service Organization"), 
@@ -47,10 +48,14 @@ public abstract class Organization {
         workQueue = new WorkQueue();
         employeeDirectory = new EmployeeDirectory();
         userAccountDirectory = new UserAccountDirectory();
+        customerDirectory = new CustomerDirectory();
+        adsList = new Ads();
         organizationID = counter;
         ++counter;
     }
-
+    /*public Organization(){
+        
+    }*/
     public abstract ArrayList<Role> getSupportedRole();
     
     public UserAccountDirectory getUserAccountDirectory() {
@@ -87,7 +92,7 @@ public abstract class Organization {
     public void setAdsList(Ads adsList) {
         this.adsList = adsList;
     }
-     public CustomerDirectory getCustomerDirectory(){
+    public CustomerDirectory getCustomerDirectory(){
         return customerDirectory;
     }
 
