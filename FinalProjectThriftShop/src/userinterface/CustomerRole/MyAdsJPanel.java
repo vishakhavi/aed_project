@@ -48,7 +48,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
     /**
      * Creates new form ViewAdsJPanel
      */
-    public MyAdsJPanel(JPanel userProcessContainer, EcoSystem ecoSystem, UserAccount account) {
+    public MyAdsJPanel(JPanel userProcessContainer,  UserAccount account,EcoSystem ecoSystem) {
         initComponents();
         initListners();
         this.userProcessContainer = userProcessContainer;
@@ -260,6 +260,8 @@ public class MyAdsJPanel extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTableViewAds = new javax.swing.JTable();
+
+        setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("My Ads ");

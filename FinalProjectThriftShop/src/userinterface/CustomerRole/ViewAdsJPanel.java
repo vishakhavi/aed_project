@@ -139,6 +139,8 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         jTextFieldProductName = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
 
+        setBackground(new java.awt.Color(255, 255, 255));
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("View Ads ");
 
@@ -258,7 +260,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             ecosystem.getUserAccountDirectory().getUserAccountList().add(userAccount);
             userAccount.getWorkQueue().getWorkRequestList().add(request);
        // System.out.println("work queue"+ecosystem.getWorkQueue().getWorkRequestList().size());
-        MyAdsJPanel myAdsJPanel = new MyAdsJPanel(userProcessContainer, ecosystem,userAccount);
+        MyAdsJPanel myAdsJPanel = new MyAdsJPanel(userProcessContainer,userAccount,ecosystem);
         userProcessContainer.add("MyAdsJPanel", myAdsJPanel);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.next(userProcessContainer);
