@@ -59,6 +59,10 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         orderStatusLabel = new javax.swing.JLabel();
         eAuctionButtonPanel = new javax.swing.JPanel();
         eAuctionLabel = new javax.swing.JLabel();
+        ecommerceButtonPanel = new javax.swing.JPanel();
+        ecommerceLabel = new javax.swing.JLabel();
+        myAdsButtonPanel = new javax.swing.JPanel();
+        myAdsLabel = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(31, 50, 97));
@@ -229,8 +233,8 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             eAuctionButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, eAuctionButtonPanelLayout.createSequentialGroup()
                 .addContainerGap(79, Short.MAX_VALUE)
-                .addComponent(eAuctionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74))
+                .addComponent(eAuctionLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(88, 88, 88))
         );
         eAuctionButtonPanelLayout.setVerticalGroup(
             eAuctionButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -241,6 +245,82 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         );
 
         jPanel1.add(eAuctionButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 230, 280, 50));
+
+        ecommerceButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
+        ecommerceButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ecommerceButtonPanelMousePressed(evt);
+            }
+        });
+
+        ecommerceLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ecommerceLabel.setText("Ecommerce Main");
+        ecommerceLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ecommerceLabelMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout ecommerceButtonPanelLayout = new javax.swing.GroupLayout(ecommerceButtonPanel);
+        ecommerceButtonPanel.setLayout(ecommerceButtonPanelLayout);
+        ecommerceButtonPanelLayout.setHorizontalGroup(
+            ecommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+            .addGroup(ecommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, ecommerceButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap(85, Short.MAX_VALUE)
+                    .addComponent(ecommerceLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(78, Short.MAX_VALUE)))
+        );
+        ecommerceButtonPanelLayout.setVerticalGroup(
+            ecommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(ecommerceButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(ecommerceButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(ecommerceLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jPanel1.add(ecommerceButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 280, 270, 40));
+
+        myAdsButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
+        myAdsButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                myAdsButtonPanelMousePressed(evt);
+            }
+        });
+
+        myAdsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        myAdsLabel.setText("My Ads");
+        myAdsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                myAdsLabelMousePressed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout myAdsButtonPanelLayout = new javax.swing.GroupLayout(myAdsButtonPanel);
+        myAdsButtonPanel.setLayout(myAdsButtonPanelLayout);
+        myAdsButtonPanelLayout.setHorizontalGroup(
+            myAdsButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 270, Short.MAX_VALUE)
+            .addGroup(myAdsButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, myAdsButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap(75, Short.MAX_VALUE)
+                    .addComponent(myAdsLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(78, Short.MAX_VALUE)))
+        );
+        myAdsButtonPanelLayout.setVerticalGroup(
+            myAdsButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+            .addGroup(myAdsButtonPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(myAdsButtonPanelLayout.createSequentialGroup()
+                    .addContainerGap()
+                    .addComponent(myAdsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, 18, Short.MAX_VALUE)
+                    .addContainerGap()))
+        );
+
+        jPanel1.add(myAdsButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 190, 270, 40));
 
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(940, 808));
         rightSystemAdminPanel.setLayout(new java.awt.CardLayout());
@@ -331,19 +411,19 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         orderStatus();
     }//GEN-LAST:event_orderStatusButtonPanelMousePressed
 
-
-    private void myAdsLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsLabelMousePressed
+private void eCommerceLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceLabelMousePressed
         // TODO add your handling code here:
-        MyAdsJPanel myAdsJPanel = new MyAdsJPanel(rightSystemAdminPanel, ecosystem, userAccount);
-        rightSystemAdminPanel.add("MyAdsJPanel", myAdsJPanel);
-        CardLayout layout = (CardLayout)rightSystemAdminPanel.getLayout();
+        navigateToECommerce();
+    }//GEN-LAST:event_eCommerceLabelMousePressed
+
+private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceButtonPanelMousePressed
+        // TODO add your handling code here:
+        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        rightSystemAdminPanel.add("eCM", eCommerceMain);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
-    }//GEN-LAST:event_myAdsLabelMousePressed
-
-    private void myAdsButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsButtonPanelMousePressed
-        // TODO add your handling code here:
-        
-    }//GEN-LAST:event_myAdsButtonPanelMousePressed
+ }//GEN-LAST:event_eCommerceButtonPanelMousePressed
+                                             
 
     private void navigateToECommerce() {
          // TODO add your handling code here:
@@ -364,6 +444,31 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void eAuctionButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eAuctionButtonPanelMousePressed
         navigateToAuction();
     }//GEN-LAST:event_eAuctionButtonPanelMousePressed
+
+    private void ecommerceLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ecommerceLabelMousePressed
+        // TODO add your handling code here:
+               navigateToECommerce();
+
+    }//GEN-LAST:event_ecommerceLabelMousePressed
+
+    private void ecommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ecommerceButtonPanelMousePressed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_ecommerceButtonPanelMousePressed
+
+    private void myAdsLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsLabelMousePressed
+        // TODO add your handling code here:
+        
+        MyAdsJPanel myAdsJPanel = new MyAdsJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+       
+        rightSystemAdminPanel.add("MyAdsJPanel", myAdsJPanel);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel); 
+    }//GEN-LAST:event_myAdsLabelMousePressed
+
+    private void myAdsButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsButtonPanelMousePressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_myAdsButtonPanelMousePressed
 
     private void navigateToAuction() {
         if(this.currentVisitedPanel != null)
@@ -393,7 +498,11 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel eAuctionButtonPanel;
     private javax.swing.JLabel eAuctionLabel;
+    private javax.swing.JPanel ecommerceButtonPanel;
+    private javax.swing.JLabel ecommerceLabel;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel myAdsButtonPanel;
+    private javax.swing.JLabel myAdsLabel;
     private javax.swing.JPanel orderStatusButtonPanel;
     private javax.swing.JLabel orderStatusLabel;
     private javax.swing.JPanel postAdButtonPanel;

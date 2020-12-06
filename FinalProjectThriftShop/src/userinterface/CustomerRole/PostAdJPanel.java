@@ -55,7 +55,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         this.ecosystem = ecosystem;
         adsList = ecosystem.getAdsList();
         userDirectory = ecosystem.getUserAccountDirectory().getUserAccountList();
-        this.customer = (Customer)account;
+     //   this.customer = (Customer)account;
        
         locationPoint = new LocationPoint();
         
@@ -100,6 +100,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jTextFieldItemLocation = new javax.swing.JTextField();
 
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         requestTestJButton.setText("Post");
@@ -215,6 +216,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         itemName.setText("");
         itemPrice.setText("");*/
         } else{
+             adsList = new Ads();
              adsList.addPost(post);
              ecosystem.setAdsList(adsList);
              customer = new Customer();
