@@ -34,7 +34,7 @@ public class OrganizationDirectory {
             organizationList.add(organization);
         }
         else if (type.getValue().equals(Type.Customer.getValue())){
-            organization = new AdsOrganization();
+            organization = new ThriftOrganization();
             organizationList.add(organization);
         }
         else if (type.getValue().equals(Type.CustomerService.getValue())){
