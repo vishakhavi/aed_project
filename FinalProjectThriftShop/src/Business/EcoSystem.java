@@ -31,11 +31,7 @@ public class EcoSystem extends Organization{
     private static EcoSystem business;
     private ArrayList<Network> networkList;
     private WholeSaleSupplierDirectory wholeSaleSupplierDir;
-    private DealerDirectory dealerDir;
-    private Ads adsDirectory;
-    private CustomerDirectory customerDirectory;
-
-    
+    private DealerDirectory dealerDir; 
     private WorkQueue workQueue;
 
 

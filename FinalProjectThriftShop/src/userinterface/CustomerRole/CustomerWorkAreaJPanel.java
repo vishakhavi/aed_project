@@ -7,6 +7,8 @@ package userinterface.CustomerRole;
  */
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
+import Business.Organization.Organization;
 
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -25,8 +27,9 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     EcoSystem ecosystem;
     UserAccount userAccount;
     JPanel currentVisitedPanel;
+    Organization organization;
 
-    public CustomerWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem ecosystem) {
+    public CustomerWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem ecosystem, Organization organization) {
         //this.set
 
         initComponents();
@@ -34,6 +37,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
         this.userAccount = userAccount;
+        this.organization = organization;
         this.currentVisitedPanel = null; //update this value everytime when we visit a right panel.
        // placeOrder();
     }
@@ -70,12 +74,14 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        postAdButtonPanel.setBackground(new java.awt.Color(51, 0, 204));
         postAdButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 postAdButtonPanelMousePressed(evt);
             }
         });
 
+        postAdLabel.setForeground(new java.awt.Color(255, 255, 255));
         postAdLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         postAdLabel.setText("Post Ad");
         postAdLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -350,11 +356,11 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void placeOrder() {
         // TODO add your handling code here:
         
-        if(this.currentVisitedPanel != null)
-            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
+      /*  if(this.currentVisitedPanel != null)
+            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); *///Remove previous visited JPanel
         
-        PostAdJPanel postAdJPanel = new PostAdJPanel(rightSystemAdminPanel, userAccount, ecosystem);
-        this.currentVisitedPanel = postAdJPanel; //Store the current visited information
+        PostAdJPanel postAdJPanel = new PostAdJPanel(rightSystemAdminPanel, userAccount, ecosystem,organization);
+        //this.currentVisitedPanel = postAdJPanel; //Store the current visited information
         rightSystemAdminPanel.add("PostAdJPanel", postAdJPanel);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);

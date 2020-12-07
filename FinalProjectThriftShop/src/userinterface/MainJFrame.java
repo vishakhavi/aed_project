@@ -4,6 +4,7 @@
  */
 package userinterface;
 
+import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.DB4OUtil.DB4OUtil;
 import Business.Enterprise.Enterprise;
@@ -57,9 +58,9 @@ public class MainJFrame extends javax.swing.JFrame {
 
         if (userAccount != null && userAccount.getRole() != null) {
             String greetings = "Hi";
-            if (userAccount.getRole() instanceof CustomerRole) {
+            if (userAccount instanceof Customer) {
                        
-                container.add("workArea", userAccount.getRole().createWorkArea(container, userAccount,inOrganization, inEnterprise, system));
+                container.add("workArea", userAccount.getRole().createWorkArea(container, (Customer)userAccount,inOrganization, inEnterprise, system));
             }else{
             
                 greetings = greetings + " " + userAccount.getUsername();
@@ -411,7 +412,7 @@ public class MainJFrame extends javax.swing.JFrame {
 
      // TODO add your handling code here:
         UserRegistrationJPanel panel = new UserRegistrationJPanel(container, system);
-        greetingUserLabel.setText( "WELCOME TO E-COMMERCE REGISTRATION!!!");
+        greetingUserLabel.setText( "WELCOME TO THRIFT SHOP REGISTRATION!!!");
         //emoRR panel = new demoRR(container, system);
         //container.add("UserRegistrationJPanel", panel);
             loginJPanel.setVisible(false);

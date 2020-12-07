@@ -23,6 +23,7 @@ public abstract class Organization {
     private EmployeeDirectory employeeDirectory;
     private UserAccountDirectory userAccountDirectory;
     private int organizationID;
+    public ArrayList<Role> roles;
     private Ads adsList;
     private CustomerDirectory customerDirectory;
     private static int counter=0;
@@ -69,7 +70,7 @@ public abstract class Organization {
     public EmployeeDirectory getEmployeeDirectory() {
         return employeeDirectory;
     }
-    
+  
     public String getName() {
         return name;
     }
