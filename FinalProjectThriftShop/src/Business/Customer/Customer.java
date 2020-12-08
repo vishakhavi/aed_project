@@ -76,10 +76,10 @@ public class Customer extends UserAccount{
         return customerName;
     }
     
-    public Cart newCart()
+    /*public Cart newCart()
     {
         Cart cart = new Cart();
         cart.setTotalPrice(0);
         return cart;
-    }
+    }*/
 }

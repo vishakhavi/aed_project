@@ -50,4 +50,12 @@ public class ProductDirectory {
         Product p = findProductBasedOnDealer(prodName, dealerName);
         p.setQty(p.getQty() + qty);
     }
+    
+    public Product deleteProduct(String name) {
+        for (Product p : this.products) {
+            if (p.getName().equals(name))
+                this.products.remove(p);
+        }
+        return null;
+    }
 }

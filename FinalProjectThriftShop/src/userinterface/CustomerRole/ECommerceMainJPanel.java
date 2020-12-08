@@ -16,10 +16,12 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -35,6 +37,8 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
     UserAccount userAccount;
     EcoSystem ecosystem;
     Customer customer;
+    private DefaultTableModel viewTable;
+    private static final Object[] columnNames = {"Product Name","Price","Photo"};
     public ECommerceMainJPanel(JPanel rightSystemAdminPanel, UserAccount userAccount, EcoSystem ecosystem){
         initComponents();
         this.rightSystemAdminPanel = rightSystemAdminPanel;
@@ -44,6 +48,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         jComboCategory.addItem("Mobiles");
         jComboCategory.addItem("Furniture");
         tblProducts.setAutoCreateRowSorter(true);
+        
         /*for(Customer c : ecosystem.getCustomerDirectory().getCustomerList())
         {
             if(c.getEmployee().equals(userAccount.getEmployee()))
@@ -51,7 +56,19 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                 this.customer = c;
             }
         }
+        
         System.out.println(this.customer);*/
+        //ecosystem.getProductDirectory().deleteProduct("Samsung");
+        //ecosystem.getProductDirectory().deleteProduct("iPhone");
+
+        viewTable =  new DefaultTableModel(null,columnNames){
+            @Override
+            public Class<?> getColumnClass(int column) {
+                if (column==2) return Icon.class;
+                return Object.class;
+            }
+        };
+        System.out.println(viewTable);
         populateTable("All");
     }
     
@@ -59,45 +76,72 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
     {
         if(!category.equals("All"))
         {
-            DefaultTableModel dtm = (DefaultTableModel)tblProducts.getModel();
-            dtm.setRowCount(0);
+            try{
+            viewTable.setRowCount(0);
             if(ecosystem.getProductDirectory().getProducts() != null)
             {
-                
-                    for(Product p : ecosystem.getProductDirectory().getProducts())
+                for(Product p : ecosystem.getProductDirectory().getProducts())
+                {
+                    if(p.getCategory().equals(category))
                     {
-                        if(p.getCategory().equals(category))
+                        Object[] row = new Object[viewTable.getColumnCount()];
+                        row[0] = p;
+                        row[1] = p.getPrice();
+                        String temp = p.getProductImagePath();
+                        if(temp != null)
                         {
-                            Object[] row = new Object[dtm.getColumnCount()];
-                            row[0] = p;
-                            row[1] = p.getPrice();
-                            row[2] = "Should have been an image";
-                            dtm.addRow(row);
+                            temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
+                            ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                            Image resizedImage = ii.getImage();
+                            ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
+                            row[2] = ii;
                         }
+                        else
+                        {    
+                            row[2] = "Should have been an image";
+                        }
+                        viewTable.addRow(row);
                     }
-                
+                }
+                tblProducts.setRowHeight(150);
+                tblProducts.setModel(viewTable);
+            }
+        }
+            catch(Exception e){
+            
+            System.err.println("Error while setting the image"+e.getMessage());
             }
         }
         else
         {
-       
-                DefaultTableModel dtm = (DefaultTableModel)tblProducts.getModel();
-                dtm.setRowCount(0);
-                if(ecosystem.getProductDirectory().getProducts() != null)
-                {
+            viewTable.setRowCount(0);
+            if(ecosystem.getProductDirectory().getProducts() != null)
+            {
                     for(Product p : ecosystem.getProductDirectory().getProducts())
                     {                   
-                        Object[] row = new Object[dtm.getColumnCount()];
+                        Object[] row = new Object[viewTable.getColumnCount()];
                         row[0] = p;
                         row[1] = p.getPrice();
-                        row[2] = "Should have been an image";
+                        String temp = p.getProductImagePath();
+                        if(temp != null)
+                        {
+                            temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
+                            ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                            Image resizedImage = ii.getImage();
+                            ii = new ImageIcon(resizedImage.getScaledInstance(160, 160, Image.SCALE_SMOOTH));
+                            row[2] = ii;
+                        }
+                        else
+                        {    
+                            row[2] = "Should have been an image";
+                        }
                         //row[2] = p.getProductImagePath();
-                        dtm.addRow(row);                   
+                        viewTable.addRow(row);                   
                     }
-                }
-            
-            
-        }
+                    tblProducts.setRowHeight(150);
+                    tblProducts.setModel(viewTable);
+            }  
+        } 
     }
     
     /**
@@ -118,6 +162,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         jComboCategory = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -182,37 +227,43 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Click column head to sort");
 
+        jButton1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        jButton1.setText("Cart");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(27, 27, 27)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(27, 27, 27)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSearch))
-                            .addComponent(jScrollPane1)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(206, 206, 206)
-                        .addComponent(jLabel1)))
+                        .addComponent(jLabel3)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSearch)))
                 .addContainerGap(29, Short.MAX_VALUE))
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(206, 206, 206)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addComponent(jLabel1)
+                .addGap(14, 14, 14)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel1)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -228,16 +279,21 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCategoryActionPerformed
+    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
         // TODO add your handling code here:
-        populateTable(jComboCategory.getSelectedItem().toString());
-        //populateTable("Mobiles");
-    }//GEN-LAST:event_jComboCategoryActionPerformed
+        if (tblProducts.getSelectedRow() != -1)
+        {
+            Product prod = (Product) tblProducts.getValueAt(tblProducts.getSelectedRow(), 0);
+            ECommerceProductPanel cspj = new ECommerceProductPanel(rightSystemAdminPanel, prod, userAccount, ecosystem);
+            rightSystemAdminPanel.add("eCommerceProductPanel", cspj);
+            CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
+            layout.next(rightSystemAdminPanel);
+        }
+    }//GEN-LAST:event_tblProductsMouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        // TODO add your handling code here:
-        DefaultTableModel dtm = (DefaultTableModel)tblProducts.getModel();
-        dtm.setRowCount(0);
+        // TODO add your handling code here
+        viewTable.setRowCount(0);
         int count = 0;
         if(ecosystem.getProductDirectory().getProducts() != null)
         {
@@ -245,14 +301,28 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
             {
                 if (p.getName().toLowerCase().contains(txtSearch.getText().toLowerCase()))
                 {
-                    Object[] row = new Object[dtm.getColumnCount()];
+                    Object[] row = new Object[viewTable.getColumnCount()];
                     row[0] = p;
                     row[1] = p.getPrice();
-                    row[2] = "Should have been an image";
-                    dtm.addRow(row);
+                    String temp = p.getProductImagePath();
+                    if(temp != null)
+                    {
+                        temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
+                        ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                        Image resizedImage = ii.getImage();
+                        ii = new ImageIcon(resizedImage.getScaledInstance(160, 160, Image.SCALE_SMOOTH));
+                        row[2] = ii;
+                    }
+                    else
+                    {
+                        row[2] = "Should have been an image";
+                    }
+                    viewTable.addRow(row);
                     count++;
                 }
             }
+            tblProducts.setRowHeight(150);
+            tblProducts.setModel(viewTable);
         }
         if(count == 0)
         {
@@ -261,17 +331,11 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_btnSearchActionPerformed
 
-    private void tblProductsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProductsMouseClicked
+    private void jComboCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCategoryActionPerformed
         // TODO add your handling code here:
-        if (tblProducts.getSelectedRow() != -1) 
-        {
-                    Product prod = (Product) tblProducts.getValueAt(tblProducts.getSelectedRow(), 0);
-                    ECommerceProductPanel cspj = new ECommerceProductPanel(rightSystemAdminPanel, prod, userAccount, ecosystem);
-                    rightSystemAdminPanel.add("eCommerceProductPanel", cspj);
-                    CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
-                    layout.next(rightSystemAdminPanel);
-        }
-    }//GEN-LAST:event_tblProductsMouseClicked
+        //populateTable(jComboCategory.getSelectedItem().toString());
+        //populateTable("Mobiles");
+    }//GEN-LAST:event_jComboCategoryActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
         // TODO add your handling code here:
@@ -286,6 +350,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnSearch;
+    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
