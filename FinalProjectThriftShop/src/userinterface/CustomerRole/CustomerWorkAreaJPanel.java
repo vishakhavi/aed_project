@@ -26,10 +26,13 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     JPanel userProcessContainer;
     EcoSystem ecosystem;
     UserAccount userAccount;
+    Customer customer;
     JPanel currentVisitedPanel;
+
     Organization organization;
 
     public CustomerWorkAreaJPanel(JPanel userProcessContainer, UserAccount userAccount, EcoSystem ecosystem, Organization organization) {
+
         //this.set
 
         initComponents();
