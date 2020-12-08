@@ -463,17 +463,24 @@ private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//
     }//GEN-LAST:event_ecommerceButtonPanelMousePressed
 
     private void myAdsLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsLabelMousePressed
+        navigateToMyAdsPanel();
+    }//GEN-LAST:event_myAdsLabelMousePressed
+
+    
+    private void navigateToMyAdsPanel() {
         // TODO add your handling code here:
+        if(this.currentVisitedPanel != null)
+           this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
         
         MyAdsJPanel myAdsJPanel = new MyAdsJPanel(rightSystemAdminPanel, userAccount, ecosystem);
-       
+        this.currentVisitedPanel = myAdsJPanel; //Store the current visited information
         rightSystemAdminPanel.add("MyAdsJPanel", myAdsJPanel);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel); 
-    }//GEN-LAST:event_myAdsLabelMousePressed
-
+    }
+    
     private void myAdsButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_myAdsButtonPanelMousePressed
-        // TODO add your handling code here:
+        navigateToMyAdsPanel();
     }//GEN-LAST:event_myAdsButtonPanelMousePressed
 
     private void navigateToAuction() {
