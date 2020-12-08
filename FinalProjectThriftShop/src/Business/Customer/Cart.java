@@ -7,6 +7,7 @@ package Business.Customer;
 
 import Business.Product.Product;
 import Business.Product.ProductDirectory;
+import Business.UserAccount.UserAccount;
 
 /**
  *
@@ -14,6 +15,7 @@ import Business.Product.ProductDirectory;
  */
 public class Cart {
     private int cartId;
+    //private UserAccount userAccount;
     private ProductDirectory prodDir;
     private double totalPrice;
     public static int idCounter = 1;
@@ -22,6 +24,8 @@ public class Cart {
         this.cartId = idCounter;
         idCounter ++;
         this.prodDir = new ProductDirectory();
+        //this.setUserAccount(useracc);
+        this.setTotalPrice(0);
     }
 
     public ProductDirectory getProdDir() {
@@ -44,13 +48,27 @@ public class Cart {
         return cartId;
     }
     
-    public double calculateTotalPrice()
+    public void calculateTotalPrice()
     {
         double sum = 0.0;
-        for(Product prod : this.getProdDir().getProducts())
+        if(this.getProdDir().getProducts() != null)
         {
-            sum = (sum + (prod.getQty()*prod.getPrice()));
+            for(Product prod : this.getProdDir().getProducts())
+            {
+                sum = (sum + (prod.getQty()*prod.getPrice()));
+            }
         }
-        return sum;
+        this.setTotalPrice(sum);
+    }
+
+    public void emptyCart()
+    {
+        this.getProdDir().getProducts().clear();
+        this.setTotalPrice(0.0);
+    }
+    
+    public void addToCart(Product p)
+    {
+        this.getProdDir().getProducts().add(p);
     }
 }
