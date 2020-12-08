@@ -17,17 +17,6 @@ public class Customer extends UserAccount{
     private String address;
     private String phone;
     private Ads adsList;
-    private Cart cart;
-    private WorkQueue workQueue;
-
-    public WorkQueue getWorkQueue() {
-        return workQueue;
-    }
-
-    public void setWorkQueue(WorkQueue workQueue) {
-        this.workQueue = workQueue;
-    }
-
    
     public String getPhone() {
         return phone;
@@ -60,10 +49,6 @@ public class Customer extends UserAccount{
 
     public void setAdsList(Ads adsList) {
         this.adsList = adsList;
-    }
-    
-    public Customer() {
-        this.workQueue = new WorkQueue();
     }
 
 

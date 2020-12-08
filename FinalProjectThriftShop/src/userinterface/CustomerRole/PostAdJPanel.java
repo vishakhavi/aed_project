@@ -10,7 +10,10 @@ import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
 import Business.Customer.Post;
 import Business.EcoSystem;
+import Business.Enterprise.Enterprise;
 import Business.Location.LocationPoint;
+import Business.Organization.Organization;
+import Business.Role.CustomerRole;
 import Business.UserAccount.UserAccount;
 import com.teamdev.jxbrowser.browser.Browser;
 import com.teamdev.jxbrowser.engine.Engine;
@@ -27,6 +30,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import userinterface.GoogleMAP.OrganizationLocationJPanel;
 
 /**
  *
@@ -41,34 +45,28 @@ public class PostAdJPanel extends javax.swing.JPanel {
     private Customer customer;
     LocationPoint locationPoint;
     Browser browser;
-    private ArrayList<Customer> customerDirectory;
+    private CustomerDirectory customerDirectory;
+    private ArrayList<Customer> customerList;
     private ArrayList<UserAccount> userDirectory;
     private EcoSystem ecosystem;
+    private Organization organization;
 
     /**
      * Creates new form PostAdJPanel
      */
-    public PostAdJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem) {
+    public PostAdJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem,Organization organization) {
         initComponents();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.ecosystem = ecosystem;
         adsList = ecosystem.getAdsList();
         userDirectory = ecosystem.getUserAccountDirectory().getUserAccountList();
-     //   this.customer = (Customer)account;
-       
+        customer = (Customer)account;
+        this.organization = organization;
+       //customerDirectory = organization.getCustomerDirectory();
         locationPoint = new LocationPoint();
+      //  System.out.println("enterprise-->"+enterprise.getOrganizationDirectory().getOrganizationList().size);
         
-      /*  EngineOptions options =
-                EngineOptions.newBuilder(RenderingMode.OFF_SCREEN).licenseKey("6P83ACG409I01JKYU6UO3NWI53G7VD8PTT8UBCKWRB0F3Z7FDMS0HSOKNDD95S0LOO1I").build();
-        
-        Engine engine = Engine.newInstance(options);
-        System.setProperty("teamdev.license.info", "6P83ACG409I01JKYU6UO3NWI53G7VD8PTT8UBCKWRB0F3Z7FDMS0HSOKNDD95S0LOO1I");
-        browser = engine.newBrowser();
-        BrowserView view = BrowserView.newInstance(browser);
-        browser.navigation().loadUrl("https://www.google.com/maps");
-        
-        mapCanvas.add(view);*/
         
     }
 
@@ -179,14 +177,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "please enter all mandatory fields");
             return;
         }
-        /*if(customer.getAdsList() != null){
-        for (Post post : customer.getAdsList().getAdsList()) {
-            if (jTextFieldProductName.getText().equals(post.getName())) {
-                JOptionPane.showMessageDialog(null, " Duplicate Items not allowed");
-                return;
-            }
-        }
-        }*/
+        
         double price = 0.0;
         try {
             price = Double.valueOf(jTextFieldProductPrice.getText());
@@ -198,51 +189,26 @@ public class PostAdJPanel extends javax.swing.JPanel {
         Post post = new Post(jTextFieldProductName.getText(), Double.valueOf(jTextFieldProductPrice.getText()),
         jTextFieldProductCategory.getText(),jTextAreaProductDescription.getText(),
         filepathValue);
-
-        // ecosystem.getItemList().addItem(item);
-       /* for(UserAccount ua: userDirectory){
-            if(cust.getUsername().equals(userAccount.getUsername())){
-               customer = cust;
-            }
-            }*/
-        if(ecosystem.getAdsList() != null){
-            adsList.addPost(post);
             
-            ecosystem.setAdsList(adsList);
-            customer.setAdsList(adsList);
-            //customerDirectory.getCustomerList().add(customer);
-            //ecosystem.setCustomerDirectory(customerDirectory);
-        /*populateTable();
-        itemName.setText("");
-        itemPrice.setText("");*/
-        } else{
-             adsList = new Ads();
-             adsList.addPost(post);
-             ecosystem.setAdsList(adsList);
-             customer = new Customer();
-             customer.setAdsList(adsList);
-             //customerDirectory = new CustomerDirectory();
-             //customerDirectory.addCustomer(customer);
-             //ecosystem.setCustomerDirectory(customerDirectory);
-             
-             
+         if(adsList != null && customer.getAdsList() != null){
+           
+            customer.getAdsList().addPost(post);
+            ecosystem.getUserAccountDirectory().addUserAccount(customer);
+ 
+        } else if(customer.getAdsList() == null && adsList != null){
+            Ads ads = new Ads();
+            ads.addPost(post);
+            customer.setAdsList(ads);
+            ecosystem.getUserAccountDirectory().addUserAccount(customer);
             
+        }else if(adsList != null){
+            Ads ads = new Ads();
+            ads.addPost(post);
+            customer.setAdsList(ads);
+            ecosystem.getUserAccountDirectory().addUserAccount(customer);
+         
         }
-        
         JOptionPane.showMessageDialog(null, "Ad posted Successfully!!");
-        ViewAdsJPanel viewAdsJPanel = new ViewAdsJPanel(userProcessContainer, userAccount,ecosystem);
-        userProcessContainer.add("ViewAdsJPanel", viewAdsJPanel);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
-        
-        
-        /*if (createOrder()) {
-            JOptionPane.showMessageDialog(null, "Ordered Placed Successfully");
-            OrderStatusJPanel orderStatusJPanel = new OrderStatusJPanel(userProcessContainer, ecosystem, customer);
-            userProcessContainer.add("OrderStatusJPanel", orderStatusJPanel);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            layout.next(userProcessContainer);
-        }*/
 
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
@@ -265,18 +231,10 @@ public class PostAdJPanel extends javax.swing.JPanel {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        if (browser.url()!= null) {
-
-                System.out.println(browser.url());
-                String[] a = browser.url().split("!3d", 0);
-                String[] b = a[1].split("!4d");
-                System.out.println("Lat" + b[0] + "  " + "Lon" + b[1]);
-                double lat = Double.parseDouble(b[0]);
-                double lon = Double.parseDouble(b[1]);
-                locationPoint.setLatitude(lat);
-                locationPoint.setLongitude(lon);
-            }
-            System.out.println("Lat" + locationPoint.getLatitude() + locationPoint.getLongitude());
+        OrganizationLocationJPanel muajp = new OrganizationLocationJPanel(userProcessContainer);
+        userProcessContainer.add("OrganizationLocationJPanel", muajp);
+        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
     public void populateLongituteLatitude(LocationPoint locationPoint) {
         this.locationPoint = locationPoint;

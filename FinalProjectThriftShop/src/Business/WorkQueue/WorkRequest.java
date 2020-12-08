@@ -101,6 +101,6 @@ public abstract class WorkRequest {
     }
     @Override
     public String toString(){
-        return this.productName;
+        return this.message;
     }
 }

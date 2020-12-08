@@ -54,7 +54,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
         this.ecosystem = ecoSystem;
-       
+        customer = (Customer) account;
         viewTable = (DefaultTableModel)jTableViewAds.getModel();
         populateTable();
         
@@ -68,7 +68,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
                     String status = jTableViewAds.getValueAt(selectedRow, 2).toString();
                     WorkRequest request = (WorkRequest) jTableViewAds.getValueAt(selectedRow, 0);
                     System.out.println("status"+status);
-                        if (status != null) {
+                        if (status != null && !(request.getSender().getUsername().equals(userAccount.getUsername()))) {
                             int response = JOptionPane.showConfirmDialog(null, "Accept or Reject Offer");
                             System.out.println("response==>"+response);
                         switch (response) {
@@ -76,8 +76,8 @@ public class MyAdsJPanel extends javax.swing.JPanel {
                                 //orderWorkRequest.setStatus("Accepted");
                                 jTableViewAds.setValueAt("Accepted", selectedRow, 2);
                                 request.setStatus("Accepted");
-                                sendEmailMessage("v.vishakha22@gmail.com");
-                                sendTextMessage("v.vishakha22@gmail.com");
+                                //sendEmailMessage(customer.ge);
+                                //sendTextMessage("v.vishakha22@gmail.com");
                                 break;
                             case 1:
                                 jTableViewAds.setValueAt("Rejected", selectedRow, 2);
@@ -216,6 +216,16 @@ public class MyAdsJPanel extends javax.swing.JPanel {
             
         for (WorkRequest request : workRequestList) {
             if(!request.getSender().getUsername().equals(userAccount.getUsername())){
+            Object[] row = new Object[jTableViewAds.getColumnCount()];
+            row[0] = request;
+            row[1] = request.getSender().getUsername();
+            String result = ((WorkRequest) request).getStatus();
+            row[2] = result == null ? "Waiting for confirmation" : result;
+            row[3] = request.getBidPrice();
+            row[4] = request.getRequestDate();
+            
+            viewTable.addRow(row);
+            }else if(request.getSender().getUsername().equals(userAccount.getUsername())){
             Object[] row = new Object[jTableViewAds.getColumnCount()];
             row[0] = request;
             row[1] = request.getSender().getUsername();

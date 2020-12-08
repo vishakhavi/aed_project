@@ -147,7 +147,7 @@ public class UserRegistrationJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(25, 56, 82));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("E-commerce User Registration");
+        jLabel1.setText("Thrift Shop User Registration");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -219,7 +219,7 @@ public class UserRegistrationJPanel extends javax.swing.JPanel {
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         jLabel6.setForeground(new java.awt.Color(25, 56, 82));
-        jLabel6.setText("State");
+        jLabel6.setText("Network");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 300, -1, 20));
 
         uCity.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
@@ -275,10 +275,10 @@ public class UserRegistrationJPanel extends javax.swing.JPanel {
         uLocation.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         uLocation.setForeground(new java.awt.Color(25, 56, 82));
         uLocation.addInputMethodListener(new java.awt.event.InputMethodListener() {
+            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
+            }
             public void inputMethodTextChanged(java.awt.event.InputMethodEvent evt) {
                 uLocationInputMethodTextChanged(evt);
-            }
-            public void caretPositionChanged(java.awt.event.InputMethodEvent evt) {
             }
         });
         uLocation.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
@@ -477,6 +477,7 @@ public class UserRegistrationJPanel extends javax.swing.JPanel {
             registrationRequest.setStatus("Requested");
             registrationRequest.setUserContact(uContact.getText());
             registrationRequest.setUserLocationPoint(locationPoint);
+           
             String contact = "";
 
             if (contactCarrier.getSelectedItem().equals("ATT")) {
@@ -497,7 +498,7 @@ public class UserRegistrationJPanel extends javax.swing.JPanel {
             sendTextMessage(contact);
             for (Network network1 : system.getNetworkList()) {
                 for (Enterprise enterprise : network1.getEnterpriseDirectory().getEnterpriseList()) {
-                    if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Ecommerce) {
+                    if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.ThriftShop) {
                         if (enterprise.getWorkQueue() == null) {
                             enterprise.setWorkQueue(new WorkQueue());
                         }
@@ -707,7 +708,7 @@ public class UserRegistrationJPanel extends javax.swing.JPanel {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 // Set Subject: header field
-            message.setSubject("Volunteer Registration");
+            message.setSubject("Thrift Shop Registration");
             message.setText("Thank you for registering with us. Your account will be activated within 24 hours. We will keep you posted in case of emergencies.");
 // Send message
             Transport transport = session.getTransport("smtp");

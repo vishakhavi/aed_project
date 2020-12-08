@@ -10,6 +10,7 @@ import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
 import Business.Customer.Post;
 import Business.EcoSystem;
+import Business.Organization.Organization;
 import Business.Role.CustomerRole;
 import Business.Role.Role;
 import Business.UserAccount.UserAccount;
@@ -20,6 +21,8 @@ import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.List;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
@@ -42,22 +45,27 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
     private Ads adsList;
     private DefaultTableModel viewTable;
     private EcoSystem ecosystem;
+    private Organization organization;
     private double price = 0;
     private static final Object[][] rowData = {};
+
     private static final Object[] columnNames = {"Product Name","Price","Category","Description","Image"};
 
     /**
      * Creates new form ViewAdsJPanel
      */
-    public ViewAdsJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecosystem) {
+    public ViewAdsJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem ecoSystem) {
         initComponents();
         initListerners();
         this.userProcessContainer = userProcessContainer;
         this.userAccount = account;
-        this.ecosystem = ecosystem;
-       
+        this.ecosystem = ecoSystem;
         adsList = ecosystem.getAdsList();
-        customerDirectory = ecosystem.getCustomerDirectory();
+        customer = (Customer) account;
+        
+      
+        
+        
        
         
        
@@ -76,22 +84,26 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
        
     }
     public void populateTable(){
+        List<Post> posts;
         try{
         viewTable.setRowCount(0);
-        //createAddToCartButton();
-         System.out.println("customer size"+ecosystem.getUserAccountDirectory().getUserAccountList().size());
-         /*for(UserAccount ua : ecosystem.getUserAccountDirectory().getUserAccountList()){
-             System.out.println("username==>"+ua.getUsername());
-             System.out.println("role==>"+ua.getRole());
-             if(ua.getRole() instanceof CustomerRole){
-                 customer = (Customer) ua;
-             }
-             customerDirectory.addCustomer(customer);
-         }*/
-        if(adsList != null ){
-        List<Post> posts = adsList.getAdsList();
+        if(ecosystem.getAdsList() != null){
+            List<Post> totalPosts = ecosystem.getAdsList().getAdsList();
+            System.out.println("total ads-->"+totalPosts.size());
+            List<Post> viewAds = new ArrayList<>(totalPosts);
+        if(customer.getAdsList() != null){
+        posts = customer.getAdsList().getAdsList();
+        System.out.println("customer ads-->"+customer.getName()+posts.size());
+         viewAds.removeAll(posts);
+        }
         
-        for (Post post : posts) {
+        
+        
+      
+       
+        if(!viewAds.isEmpty() ){
+                
+        for (Post post : viewAds) {
             Object[] row = new Object[viewTable.getColumnCount()];
             
             row[0] = post;
@@ -109,10 +121,14 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         }
         jTableViewAds.setRowHeight(150);
         jTableViewAds.setModel(viewTable);
+        
+        
         }else{
             JOptionPane.showMessageDialog(null, "No Posts available");
         }
-        
+        }else{
+            JOptionPane.showMessageDialog(null, "No ads for view");
+        }
 }
         catch(Exception e){
             
@@ -247,18 +263,11 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         request.setBidPrice(Double.parseDouble(jTextFieldBidAmount.getText()));
         request.setSender(userAccount);
         
-        /* if (customer != null) {
-                request.setCustomer(customer);
-            } else {
-                System.out.println("Customer is null");
-                return ;
-            }*/
-           
-            request.setRequestDate(new Date());
-            workQueue.addWorkRequest(request);
-            ecosystem.getWorkQueue().addWorkRequest(request);
-            ecosystem.getUserAccountDirectory().getUserAccountList().add(userAccount);
-            userAccount.getWorkQueue().getWorkRequestList().add(request);
+        request.setRequestDate(new Date());
+        workQueue.addWorkRequest(request);
+        ecosystem.getWorkQueue().addWorkRequest(request);
+        ecosystem.getUserAccountDirectory().getUserAccountList().add(userAccount);
+        userAccount.getWorkQueue().getWorkRequestList().add(request);
        // System.out.println("work queue"+ecosystem.getWorkQueue().getWorkRequestList().size());
         MyAdsJPanel myAdsJPanel = new MyAdsJPanel(userProcessContainer,userAccount,ecosystem);
         userProcessContainer.add("MyAdsJPanel", myAdsJPanel);
