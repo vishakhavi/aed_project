@@ -7,6 +7,7 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Organization.Organization;
 import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -37,27 +38,31 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
     UserAccount userAccount;
     EcoSystem ecosystem;
     Customer customer;
+    Organization organization;
     private DefaultTableModel viewTable;
     private static final Object[] columnNames = {"Product Name","Price","Photo"};
-    public ECommerceMainJPanel(JPanel rightSystemAdminPanel, UserAccount userAccount, EcoSystem ecosystem){
+    public ECommerceMainJPanel(JPanel rightSystemAdminPanel, UserAccount userAccount, EcoSystem ecosystem, Organization organization){
         initComponents();
         this.rightSystemAdminPanel = rightSystemAdminPanel;
         this.userAccount = userAccount;
         this.ecosystem = ecosystem;
+        this.organization = organization;
         jComboCategory.addItem("All");
         jComboCategory.addItem("Mobiles");
         jComboCategory.addItem("Furniture");
         tblProducts.setAutoCreateRowSorter(true);
-        
-        /*for(Customer c : ecosystem.getCustomerDirectory().getCustomerList())
+        this.customer = (Customer) this.userAccount;
+        //System.out.println(this.customer);
+        /*for(Customer c : this.organization.getCustomerDirectory().getCustomerList())
         {
-            if(c.getEmployee().equals(userAccount.getEmployee()))
+            if(c.getUsername().equals(userAccount.getUsername()))
             {
                 this.customer = c;
             }
         }
         
         System.out.println(this.customer);*/
+        //System.out.println(this.ecosystem.getCustomerDirectory().getCustomerList().size());
         //ecosystem.getProductDirectory().deleteProduct("Samsung");
         //ecosystem.getProductDirectory().deleteProduct("iPhone");
 
@@ -68,12 +73,17 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                 return Object.class;
             }
         };
-        System.out.println(viewTable);
+        //System.out.println(viewTable);
         populateTable("All");
+        
     }
     
     public void populateTable(String category)
     {
+        /*if(customer.getCart() == null || customer.getCart().getProdDir().getProducts().size() == 0)
+        {
+            btnCustomerCart.setEnabled(false);
+        }*/
         if(!category.equals("All"))
         {
             try{
@@ -126,9 +136,10 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                         if(temp != null)
                         {
                             temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
+                            //System.out.println(temp);
                             ImageIcon ii = new ImageIcon(getClass().getResource(temp));
                             Image resizedImage = ii.getImage();
-                            ii = new ImageIcon(resizedImage.getScaledInstance(160, 160, Image.SCALE_SMOOTH));
+                            ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
                             row[2] = ii;
                         }
                         else
@@ -162,7 +173,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         jComboCategory = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnCustomerCart = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -227,8 +238,13 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 
         jLabel4.setText("Click column head to sort");
 
-        jButton1.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
-        jButton1.setText("Cart");
+        btnCustomerCart.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        btnCustomerCart.setText("Cart");
+        btnCustomerCart.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCustomerCartActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -241,30 +257,31 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSearch)))
-                .addContainerGap(29, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnSearch)))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(206, 206, 206)
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnCustomerCart)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(22, 22, 22)
+                    .addComponent(btnCustomerCart, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
@@ -274,7 +291,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 440, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -284,7 +301,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         if (tblProducts.getSelectedRow() != -1)
         {
             Product prod = (Product) tblProducts.getValueAt(tblProducts.getSelectedRow(), 0);
-            ECommerceProductPanel cspj = new ECommerceProductPanel(rightSystemAdminPanel, prod, userAccount, ecosystem);
+            ECommerceProductPanel cspj = new ECommerceProductPanel(rightSystemAdminPanel, prod, customer, ecosystem);
             rightSystemAdminPanel.add("eCommerceProductPanel", cspj);
             CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
             layout.next(rightSystemAdminPanel);
@@ -310,7 +327,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                         temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
                         ImageIcon ii = new ImageIcon(getClass().getResource(temp));
                         Image resizedImage = ii.getImage();
-                        ii = new ImageIcon(resizedImage.getScaledInstance(160, 160, Image.SCALE_SMOOTH));
+                        ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
                         row[2] = ii;
                     }
                     else
@@ -347,10 +364,18 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         txtSearch.setText("");
     }//GEN-LAST:event_txtSearchMouseClicked
 
+    private void btnCustomerCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerCartActionPerformed
+        // TODO add your handling code here:
+        ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
+        rightSystemAdminPanel.add("eCommerceProductPanel", eccc);
+        CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
+        layout.next(rightSystemAdminPanel);
+    }//GEN-LAST:event_btnCustomerCartActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCustomerCart;
     private javax.swing.JButton btnSearch;
-    private javax.swing.JButton jButton1;
     private javax.swing.JComboBox<String> jComboCategory;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

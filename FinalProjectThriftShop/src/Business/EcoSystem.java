@@ -19,6 +19,7 @@ import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
+import Business.WorkQueue.OrderWorkQueue;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
 
@@ -33,6 +34,7 @@ public class EcoSystem extends Organization{
     private WholeSaleSupplierDirectory wholeSaleSupplierDir;
     private DealerDirectory dealerDir; 
     private WorkQueue workQueue;
+    private OrderWorkQueue orderWorkQueue;
 
 
     private ProductDirectory productDirectory;
@@ -129,6 +131,9 @@ public class EcoSystem extends Organization{
         
         //Test Data - Add one Auction consultant
         this.auctionUnitOrg = new AuctionUnitOrganization("Phoenix Auction Consultants", this);
+        
+        //Initialize order work queue globally for orders
+        this.orderWorkQueue = new OrderWorkQueue();
     }
 
     public ArrayList<Network> getNetworkList() {
@@ -158,5 +163,9 @@ public class EcoSystem extends Organization{
         value = value * factor;
         long tmp = Math.round(value);
         return (double) tmp / factor;
+    }
+
+    public OrderWorkQueue getOrderWorkQueue() {
+        return orderWorkQueue;
     }
 }

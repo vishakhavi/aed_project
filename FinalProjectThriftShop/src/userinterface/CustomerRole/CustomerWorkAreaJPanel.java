@@ -412,7 +412,7 @@ private void eCommerceLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FI
 
 private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceButtonPanelMousePressed
         // TODO add your handling code here:
-        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem, organization);
         rightSystemAdminPanel.add("eCM", eCommerceMain);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
@@ -424,7 +424,7 @@ private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//
         if(this.currentVisitedPanel != null)
             this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
         
-        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem, organization);
         this.currentVisitedPanel = eCommerceMain; //Store the current visited information
         rightSystemAdminPanel.add("eCM", eCommerceMain);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();

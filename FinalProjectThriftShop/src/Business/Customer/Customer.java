@@ -17,7 +17,12 @@ public class Customer extends UserAccount{
     private String address;
     private String phone;
     private Ads adsList;
-   
+    private Cart cart;
+
+    public Customer() {
+        this.cart = new Cart();
+    }
+  
     public String getPhone() {
         return phone;
     }
@@ -51,15 +56,12 @@ public class Customer extends UserAccount{
         this.adsList = adsList;
     }
 
-
-    public Cart getCart() {
-        return cart;
-    }
     
     @Override
     public String toString() {
         return customerName;
     }
+    
     
     /*public Cart newCart()
     {
@@ -67,4 +69,8 @@ public class Customer extends UserAccount{
         cart.setTotalPrice(0);
         return cart;
     }*/
+
+    public Cart getCart() {
+        return cart;
+    }
 }
