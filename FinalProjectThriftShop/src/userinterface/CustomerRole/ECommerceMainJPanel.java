@@ -100,8 +100,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                         String temp = p.getProductImagePath();
                         if(temp != null)
                         {
-                            temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
-                            ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                            ImageIcon ii = new ImageIcon(temp);
                             Image resizedImage = ii.getImage();
                             ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
                             row[2] = ii;
@@ -135,9 +134,10 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                         String temp = p.getProductImagePath();
                         if(temp != null)
                         {
-                            temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
+                            //temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
                             //System.out.println(temp);
-                            ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                            //ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                            ImageIcon ii = new ImageIcon(temp);
                             Image resizedImage = ii.getImage();
                             ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
                             row[2] = ii;
@@ -324,8 +324,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                     String temp = p.getProductImagePath();
                     if(temp != null)
                     {
-                        temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
-                        ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                        ImageIcon ii = new ImageIcon(temp);
                         Image resizedImage = ii.getImage();
                         ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
                         row[2] = ii;
