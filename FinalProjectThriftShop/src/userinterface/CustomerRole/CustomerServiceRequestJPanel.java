@@ -10,11 +10,17 @@ import Business.Customer.Customer;
 import Business.Customer.Post;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.CustomerWorkOrder;
+import Business.WorkQueue.WorkRequest;
+import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.List;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.net.URL;
+import static java.time.Clock.system;
+import java.util.ArrayList;
+import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -24,6 +30,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import userinterface.wholeSaleSupplierRole.CreateSupProductsJPanel;
 
 /**
  *
@@ -48,8 +55,27 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         this.userAccount = account;
         this.ecosystem = ecosystem;
        
+        jTextAreaCustServiceComments.setLineWrap(true);
+        jTextAreaCustServiceComments.setWrapStyleWord(true);
+        
+        populateOrders();
     }
    
+    public void populateOrders() {
+        DefaultTableModel model = (DefaultTableModel)tblCustomerOrderStatus.getModel();
+        model.setRowCount(0);
+        Customer c = (Customer) this.userAccount;
+
+        for (WorkRequest wr :  c.getWorkQueue().getWorkRequestList()) {
+            Object row[] = new Object[tblCustomerOrderStatus.getColumnCount()];
+            CustomerWorkOrder cwo = (CustomerWorkOrder) wr;
+            row[0] = cwo;
+            row[1] = cwo.getRequestDate();
+            row[2] = cwo.getStatus();
+            row[3] = cwo.getResolveDate();
+            model.addRow(row); 
+        }
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -61,42 +87,59 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        requestTestJButton = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        productStatusTextfield = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
+        jBtnSubmitCustServiceRequest = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaProductDescription = new javax.swing.JTextArea();
-        jComboBoxOrderId = new javax.swing.JComboBox<>();
-        SubmitButton = new javax.swing.JButton();
+        tblCustomerOrderStatus = new javax.swing.JTable();
+        jLabel4 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextAreaCustServiceComments = new javax.swing.JTextArea();
+        viewFullOrder = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Customer Service Request");
 
-        requestTestJButton.setText("Post");
-        requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSubmitCustServiceRequest.setText("Submit Request");
+        jBtnSubmitCustServiceRequest.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                requestTestJButtonActionPerformed(evt);
+                jBtnSubmitCustServiceRequestActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Order no:");
+        tblCustomerOrderStatus.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
 
-        jLabel3.setText("Current Status :");
+            },
+            new String [] {
+                "Ecommerce/Auction Product", "Request Date", "Status", "Resolved Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
 
-        jLabel5.setText("Issue Description:");
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
-        jTextAreaProductDescription.setColumns(20);
-        jTextAreaProductDescription.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaProductDescription);
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblCustomerOrderStatus);
 
-        jComboBoxOrderId.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jLabel4.setText("Post comments on the issue with the order");
 
-        SubmitButton.setText("Submit");
-        SubmitButton.addActionListener(new java.awt.event.ActionListener() {
+        jTextAreaCustServiceComments.setColumns(20);
+        jTextAreaCustServiceComments.setRows(5);
+        jScrollPane2.setViewportView(jTextAreaCustServiceComments);
+
+        viewFullOrder.setText("View Full Cust Service Conversation");
+        viewFullOrder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SubmitButtonActionPerformed(evt);
+                viewFullOrderActionPerformed(evt);
             }
         });
 
@@ -105,101 +148,93 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(295, 295, 295)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(viewFullOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(39, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(216, 216, 216)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(205, 205, 205)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(51, 51, 51)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(SubmitButton)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(productStatusTextfield)
-                                .addComponent(jComboBoxOrderId, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap(350, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(161, 819, Short.MAX_VALUE)
-                    .addComponent(requestTestJButton)
-                    .addGap(0, 0, Short.MAX_VALUE)))
+                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(27, 27, 27)
+                                .addComponent(jBtnSubmitCustServiceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(39, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
-                .addComponent(jLabel1)
-                .addGap(49, 49, 49)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBoxOrderId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(productStatusTextfield)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel1)
+                        .addGap(40, 40, 40))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(viewFullOrder)
+                        .addGap(18, 18, 18)))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(39, 39, 39)
-                .addComponent(SubmitButton)
-                .addContainerGap(314, Short.MAX_VALUE))
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(layout.createSequentialGroup()
-                    .addContainerGap(575, Short.MAX_VALUE)
-                    .addComponent(requestTestJButton)
-                    .addGap(0, 59, Short.MAX_VALUE)))
+                    .addComponent(jBtnSubmitCustServiceRequest)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-        if (productStatusTextfield.getText().isEmpty() || jTextAreaProductDescription.getText().isEmpty() ) {
-            JOptionPane.showMessageDialog(null, "please enter all mandatory fields");
-            return;
-        }
-        /*if(customer.getAdsList() != null){
-            for (Post post : customer.getAdsList().getAdsList()) {
-                if (jTextFieldProductName.getText().equals(post.getName())) {
-                    JOptionPane.showMessageDialog(null, " Duplicate Items not allowed");
-                    return;
-                }
+    private void jBtnSubmitCustServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitCustServiceRequestActionPerformed
+       int selectedOrder = tblCustomerOrderStatus.getSelectedRow();
+       String customerServiceComments = jTextAreaCustServiceComments.getText().trim();
+       
+       if (selectedOrder >= 0 && !customerServiceComments.isEmpty()){
+         
+           
+            CustomerWorkOrder selectedWorkOrder = (CustomerWorkOrder) tblCustomerOrderStatus.getValueAt(selectedOrder, 0);
+            
+            if (selectedWorkOrder.getCustomerServiceComments() == null || selectedWorkOrder.getCustomerServiceComments().isEmpty()) {
+                selectedWorkOrder.setCustomerServiceComments(this.userAccount.getUsername() + "-" + new Date() + ": " + customerServiceComments);
+            } else {
+                selectedWorkOrder.setCustomerServiceComments(selectedWorkOrder.getCustomerServiceComments() + "\n" + this.userAccount.getUsername() + "-" + new Date() + ": " + customerServiceComments);
             }
-        }*/
+            selectedWorkOrder.setRequireCustomerService(true); //Enabling this will show the list of orders requiring service.
+            
+            JOptionPane.showMessageDialog(null, "Requested Customer Service support succesfully !!!");
+            populateOrders();
+       } else {
+            JOptionPane.showMessageDialog(null,"Please select an Order, choose Request customer service flag, and enter yoour comments", "Warning", JOptionPane.WARNING_MESSAGE);
+       }
+    }//GEN-LAST:event_jBtnSubmitCustServiceRequestActionPerformed
+
+    private void viewFullOrderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewFullOrderActionPerformed
+        int selectedOrder = tblCustomerOrderStatus.getSelectedRow();
         
-
-        /*if (createOrder()) {
-            JOptionPane.showMessageDialog(null, "Ordered Placed Successfully");
-            OrderStatusJPanel orderStatusJPanel = new OrderStatusJPanel(userProcessContainer, ecosystem, customer);
-            userProcessContainer.add("OrderStatusJPanel", orderStatusJPanel);
-            CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-            layout.next(userProcessContainer);
-        }*/
-    }//GEN-LAST:event_requestTestJButtonActionPerformed
-
-    private void SubmitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SubmitButtonActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_SubmitButtonActionPerformed
+         if (selectedOrder >= 0 ){
+             CustomerWorkOrder selectedWorkOrder = (CustomerWorkOrder) tblCustomerOrderStatus.getValueAt(selectedOrder, 0);
+             
+            ViewCustomerServiceConvoJPanel vcscj = new ViewCustomerServiceConvoJPanel(userProcessContainer, selectedWorkOrder);
+            userProcessContainer.add("ViewCustomerRepConvo", vcscj);
+            CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+            layout.next(userProcessContainer);  
+         }else {
+            JOptionPane.showMessageDialog(null,"Please select an Order to view Customer Service conversation", "Warning", JOptionPane.WARNING_MESSAGE);
+       }
+    }//GEN-LAST:event_viewFullOrderActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton SubmitButton;
-    private javax.swing.JComboBox<String> jComboBoxOrderId;
+    private javax.swing.JButton jBtnSubmitCustServiceRequest;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaProductDescription;
-    private javax.swing.JTextField productStatusTextfield;
-    private javax.swing.JButton requestTestJButton;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextAreaCustServiceComments;
+    private javax.swing.JTable tblCustomerOrderStatus;
+    private javax.swing.JButton viewFullOrder;
     // End of variables declaration//GEN-END:variables
 }
