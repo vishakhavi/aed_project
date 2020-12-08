@@ -388,6 +388,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 cwo.setStatus("NEW");
                 cwo.setRequestDate(new Date());
                 cwo.setSender(this.userAccount);
+                cwo.setRequireCustomerService(false);
                 
                 customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo);
                 
