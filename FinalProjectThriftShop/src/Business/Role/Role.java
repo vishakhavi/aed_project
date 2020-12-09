@@ -19,6 +19,7 @@ public abstract class Role {
     public enum RoleType{
         Admin("Admin"),
         ThriftShopAdmin("ThriftShopAdmin"),
+        ManufacturerAdmin("ManufacturerAdmin"),
         CustomerRole("CustomerRole");
         
         private String value;
