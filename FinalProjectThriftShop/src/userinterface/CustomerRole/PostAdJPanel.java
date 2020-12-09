@@ -185,26 +185,30 @@ public class PostAdJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, " Please enter a decimal number for Item Price!!");
             return;
         }
-
+        
         Post post = new Post(jTextFieldProductName.getText(), Double.valueOf(jTextFieldProductPrice.getText()),
         jTextFieldProductCategory.getText(),jTextAreaProductDescription.getText(),
-        filepathValue);
+        filepathValue,locationPoint);
+        
             
          if(adsList != null && customer.getAdsList() != null){
            
             customer.getAdsList().addPost(post);
+            ecosystem.getAdsList().addPost(post);
             ecosystem.getUserAccountDirectory().addUserAccount(customer);
  
         } else if(customer.getAdsList() == null && adsList != null){
             Ads ads = new Ads();
             ads.addPost(post);
             customer.setAdsList(ads);
+            ecosystem.getAdsList().addPost(post);
             ecosystem.getUserAccountDirectory().addUserAccount(customer);
             
         }else if(adsList != null){
             Ads ads = new Ads();
             ads.addPost(post);
             customer.setAdsList(ads);
+            ecosystem.getAdsList().addPost(post);
             ecosystem.getUserAccountDirectory().addUserAccount(customer);
          
         }

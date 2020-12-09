@@ -6,6 +6,7 @@ package Business.WorkQueue;
 
 import Business.Customer.Customer;
 import Business.DeliveryMan.DeliveryMan;
+import Business.Manufacturer.Manufacturer;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
 
@@ -24,6 +25,15 @@ public abstract class WorkRequest {
     private double bidPrice;
     private String productName;
     private DeliveryMan deliverMan;
+    private Manufacturer manufacturer;
+
+    public Manufacturer getManufacturer() {
+        return manufacturer;
+    }
+
+    public void setManufacturer(Manufacturer manufacturer) {
+        this.manufacturer = manufacturer;
+    }
 
     public String getProductName() {
         return productName;

@@ -6,19 +6,19 @@
 package Business;
 
 import Business.Auction.AuctionProductDirectory;
-import Business.Customer.Ads;
-import Business.Customer.CustomerDirectory;
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
 import Business.DeliveryMan.DeliveryManDirectory;
+import Business.Manufacturer.Manufacturer;
+import Business.Manufacturer.ManufacturerDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
 import Business.Organization.CustomerServiceOrganization;
 import Business.Organization.MaintenanceOrganization;
+import Business.Organization.ManufacturingUnitOrganization;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.Organization.ShippingUnitOrganization;
-import Business.Product.Product;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
@@ -45,9 +45,19 @@ public class EcoSystem extends Organization{
     private ProductDirectory productDirectory;
     private AuctionUnitOrganization auctionUnitOrg;
     private CustomerServiceOrganization customerServiceOrg;
+
+    private ManufacturerDirectory manufacturerDirectory;
     private OrganizationDirectory shippingCompanies;
     private OrganizationDirectory maintenanceOperators;
     private AuctionProductDirectory auctionProductDirectory;
+
+    public ManufacturerDirectory getManufacturerDirectory() {
+        return manufacturerDirectory;
+    }
+
+    public void setManufacturerDirectory(ManufacturerDirectory manufacturerDirectory) {
+        this.manufacturerDirectory = manufacturerDirectory;
+    }
 
     public OrganizationDirectory getMaintenanceOperators() {
         return maintenanceOperators;
@@ -179,8 +189,17 @@ public class EcoSystem extends Organization{
         //Test Data - Add one CustomerService roled person
         this.customerServiceOrg = new CustomerServiceOrganization("Customer Service 1", this);
         
+        //Test Data - Add one Manufacturing Unit roled person
+        //this.manufacturingUnitOrganization = new ManufacturingUnitOrganization();
+        this.manufacturerDirectory = new ManufacturerDirectory();
+        
+        this.getManufacturerDirectory().addManufacturer(new Manufacturer("Home Town",this));
+        this.getManufacturerDirectory().addManufacturer(new Manufacturer("Make At Home",this));
+        
         //Test Data - Add a few Shipping companies.
         this.shippingCompanies = new OrganizationDirectory();
+        
+        
         
         this.getShippingCompanies().getOrganizationList().add(new ShippingUnitOrganization("FEDEX", this));
         this.getShippingCompanies().getOrganizationList().add(new ShippingUnitOrganization("USPS", this));
