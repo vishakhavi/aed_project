@@ -6,6 +6,7 @@ package Business.WorkQueue;
 
 import Business.Customer.Customer;
 import Business.Product.ProductDirectory;
+import java.util.Date;
 
 /**
  *
@@ -19,10 +20,13 @@ public class OrderWorkRequest {
     private double totalPrice;
     private String paymentType;
     public static int idCounter = 1;
+    private Date orderDate;
+    private Date deliveryDate;
 
    public OrderWorkRequest() {
         this.orderId = idCounter;
         idCounter ++;
+        this.orderDate = new Date();
     }
 
     public int getOrderId() {
@@ -64,6 +68,16 @@ public class OrderWorkRequest {
     public void setPaymentType(String paymentType) {
         this.paymentType = paymentType;
     }
-   
-   
+
+    public Date getOrderDate() {
+        return orderDate;
+    }
+
+    public Date getDeliveryDate() {
+        return deliveryDate;
+    }
+
+    public void setDeliveryDate(Date deliveryDate) {
+        this.deliveryDate = deliveryDate;
+    }
 }

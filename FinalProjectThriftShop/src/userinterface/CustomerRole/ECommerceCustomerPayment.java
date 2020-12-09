@@ -7,6 +7,7 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Product.Product;
 import Business.WorkQueue.OrderWorkRequest;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -237,9 +238,14 @@ public class ECommerceCustomerPayment extends javax.swing.JPanel {
         orderWorkRequest.setProdDir(customer.getCart().getProdDir());
         orderWorkRequest.setTotalPrice(customer.getCart().getTotalPrice());
         ecosystem.getOrderWorkQueue().addOrderWorkRequest(orderWorkRequest);
+        for(Product prodInCart : customer.getCart().getProdDir().getProducts())
+        {
+            Product prodInShop = ecosystem.getProductDirectory().findProduct(prodInCart.getName());
+            prodInShop.setQty(prodInShop.getQty() - prodInCart.getQty());
+        }
         customer.getCart().emptyCart();
         JOptionPane.showMessageDialog(null, "Payment Successful for Order ID: " + orderWorkRequest.getOrderId());
-        //System.out.println(ecosystem.getOrderWorkQueue().getWorkRequestList().size());
+        //for(Product prod : ecosystem.getProductDirectory().findProduct(TOOL_TIP_TEXT_KEY))
     }//GEN-LAST:event_btnPaymentActionPerformed
 
 
