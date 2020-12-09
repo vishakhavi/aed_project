@@ -9,6 +9,7 @@ import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.Product.Product;
 import Business.WorkQueue.OrderWorkRequest;
+import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -110,6 +111,11 @@ public class ECommerceCustomerPayment extends javax.swing.JPanel {
         });
 
         jButton2.setText("<<");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Email:");
 
@@ -247,6 +253,13 @@ public class ECommerceCustomerPayment extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Payment Successful for Order ID: " + orderWorkRequest.getOrderId());
         //for(Product prod : ecosystem.getProductDirectory().findProduct(TOOL_TIP_TEXT_KEY))
     }//GEN-LAST:event_btnPaymentActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        rightSystemAdminPanel.remove(this);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.previous(rightSystemAdminPanel);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
