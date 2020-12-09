@@ -12,7 +12,11 @@ import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
+import Business.Organization.CustomerServiceOrganization;
+import Business.Organization.MaintenanceOrganization;
 import Business.Organization.Organization;
+import Business.Organization.OrganizationDirectory;
+import Business.Organization.ShippingUnitOrganization;
 import Business.Product.Product;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
@@ -39,7 +43,37 @@ public class EcoSystem extends Organization{
 
     private ProductDirectory productDirectory;
     private AuctionUnitOrganization auctionUnitOrg;
+    private CustomerServiceOrganization customerServiceOrg;
+    private OrganizationDirectory shippingCompanies;
+    private OrganizationDirectory maintenanceOperators;
     private AuctionProductDirectory auctionProductDirectory;
+
+    public OrganizationDirectory getMaintenanceOperators() {
+        return maintenanceOperators;
+    }
+
+    public void setMaintenanceOperators(OrganizationDirectory maintenanceOperators) {
+        this.maintenanceOperators = maintenanceOperators;
+    }
+    
+
+    public OrganizationDirectory getShippingCompanies() {
+        return shippingCompanies;
+    }
+
+    public void setShippingCompanies(OrganizationDirectory shippingCompanies) {
+        this.shippingCompanies = shippingCompanies;
+    }
+   
+
+    public CustomerServiceOrganization getCustomerServiceOrg() {
+        return customerServiceOrg;
+    }
+
+    public void setCustomerServiceOrg(CustomerServiceOrganization customerServiceOrg) {
+        this.customerServiceOrg = customerServiceOrg;
+    }
+    
 
     public AuctionProductDirectory getAuctionProductDirectory() {
         return auctionProductDirectory;
@@ -134,6 +168,23 @@ public class EcoSystem extends Organization{
         
         //Initialize order work queue globally for orders
         this.orderWorkQueue = new OrderWorkQueue();
+        
+        //Test Data - Add one CustomerService roled person
+        this.customerServiceOrg = new CustomerServiceOrganization("Customer Service 1", this);
+        
+        //Test Data - Add a few Shipping companies.
+        this.shippingCompanies = new OrganizationDirectory();
+        
+        this.getShippingCompanies().getOrganizationList().add(new ShippingUnitOrganization("FEDEX", this));
+        this.getShippingCompanies().getOrganizationList().add(new ShippingUnitOrganization("USPS", this));
+        this.getShippingCompanies().getOrganizationList().add(new ShippingUnitOrganization("UPS", this));
+        
+        //Test Data - Add a few Maintenance Operators to get started with.
+        this.maintenanceOperators = new OrganizationDirectory();
+        
+        this.getMaintenanceOperators().getOrganizationList().add(new MaintenanceOrganization("Fiery Maintenance Operators", this));
+        this.getMaintenanceOperators().getOrganizationList().add(new MaintenanceOrganization("Sharon Maintenance Consultancy", this));
+        this.getMaintenanceOperators().getOrganizationList().add(new MaintenanceOrganization("Vantage Maintenance Agency", this));
     }
 
     public ArrayList<Network> getNetworkList() {
@@ -168,4 +219,6 @@ public class EcoSystem extends Organization{
     public OrderWorkQueue getOrderWorkQueue() {
         return orderWorkQueue;
     }
+    
+    
 }

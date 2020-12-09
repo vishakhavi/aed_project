@@ -8,6 +8,9 @@ package userinterface.CustomerRole;
 import Business.Auction.AuctionProduct;
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Organization.MaintenanceOrganization;
+import Business.Organization.OrganizationDirectory;
+import Business.Organization.ShippingUnitOrganization;
 import Business.Product.Product;
 import Business.UserAccount.UserAccount;
 import java.awt.CardLayout;
@@ -37,18 +40,18 @@ public class EAuctionJPanel extends javax.swing.JPanel {
     JPanel rightSystemAdminPanel;
     UserAccount userAccount;
     EcoSystem ecosystem;
-    private static final Object[] columnNames = {"Product Name","Price","Photo"};
+    private DefaultTableModel viewTable;
+    
+    private static final Object[] columnNames = {"Product Name","Dealer","Base Price", "Last bid Price", "Image"};
     public EAuctionJPanel(JPanel rightSystemAdminPanel, UserAccount userAccount, EcoSystem ecosystem){
         initComponents();
         this.rightSystemAdminPanel = rightSystemAdminPanel;
         this.userAccount = userAccount;
         this.ecosystem = ecosystem;
         //Find all product categories and add here
-        
         populateProductCategories();
         tbAuctionlProducts.setAutoCreateRowSorter(true);
         
-        setListenerForTableSelection();
         populateTable();
     }
     
@@ -67,34 +70,23 @@ public class EAuctionJPanel extends javax.swing.JPanel {
             jComboCategory.addItem(cat);
     }
     
-    private void setListenerForTableSelection() {
-       tbAuctionlProducts.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-           public void valueChanged(ListSelectionEvent event) {
-               if (tbAuctionlProducts.getSelectedRow() != -1) {
-                   AuctionProduct prod = (AuctionProduct) tbAuctionlProducts.getValueAt(tbAuctionlProducts.getSelectedRow(), 0);
-                   jLabelProductPicture.setIcon(finalImage(prod.getProductImagePath()));
-               }
-           }
-       });
-    }
-    
-    private ImageIcon finalImage(String imagePath) {
-      ImageIcon image  = new ImageIcon(imagePath);
-      Image img = image.getImage();
-      Image modifiedImg = img.getScaledInstance(jLabelProductPicture.getWidth(), jLabelProductPicture.getHeight(), Image.SCALE_SMOOTH);
-      ImageIcon finalImage = new ImageIcon(modifiedImg);
-      return finalImage;
-    }
-    
     public void populateTable()
     {
+        
+         viewTable =  new DefaultTableModel(null,columnNames){
+           @Override
+           public Class<?> getColumnClass(int column) {
+               if (column==4) return Icon.class;
+               return Object.class;
+            }
+        };
+        
         String category = (String) this.jComboCategory.getSelectedItem();
         String searchText = txtSearch.getText().trim();
         boolean invalidSearchText = !searchText.isEmpty() && !searchText.equals("Enter a search string");
         
         if(!category.equals("All") || invalidSearchText) { //Search logic
-            DefaultTableModel dtm = (DefaultTableModel)tbAuctionlProducts.getModel();
-            dtm.setRowCount(0);
+            viewTable.setRowCount(0);
                  
             for(AuctionProduct ap : this.ecosystem.getAuctionProductDirectory().getAuctionProducts())
             {                
@@ -104,30 +96,60 @@ public class EAuctionJPanel extends javax.swing.JPanel {
                     ((category.equals("All") && invalidSearchText) && ap.getName().toLowerCase().contains(searchText.toLowerCase())) //when only searchText is not empty
                     )
                 {
-                   Object[] row = new Object[dtm.getColumnCount()];
+                   Object[] row = new Object[viewTable.getColumnCount()];
                     row[0] = ap;
                     row[1] = ap.getDealer();
                     row[2] = ap.getBidPrice();
                     row[3] = ap.getMaxBidAskPrice();
-                    dtm.addRow(row); 
+                    
+                    String temp = ap.getProductImagePath();
+                    if(temp != null)
+                    {
+                        ImageIcon ii = new ImageIcon(temp);
+                        Image resizedImage = ii.getImage();
+                        ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                        row[4] = ii;
+                    }
+                    else
+                    {    
+                        row[4] = "Should have been an image";
+                    }
+                    
+                    viewTable.addRow(row); 
                 }
             }
                
         }
         else //For usual load of this screen
         {
-            DefaultTableModel dtm = (DefaultTableModel)tbAuctionlProducts.getModel();
-            dtm.setRowCount(0);
+            viewTable.setRowCount(0);
             for(AuctionProduct ap : this.ecosystem.getAuctionProductDirectory().getAuctionProducts())
             {                   
-                Object[] row = new Object[dtm.getColumnCount()];
+                Object[] row = new Object[viewTable.getColumnCount()];
                 row[0] = ap;
                 row[1] = ap.getDealer();
                 row[2] = ap.getBidPrice();
                 row[3] = ap.getMaxBidAskPrice();
-                dtm.addRow(row);                   
+                String temp = ap.getProductImagePath();
+                if(temp != null)
+                {
+                    ImageIcon ii = new ImageIcon(temp);
+                    Image resizedImage = ii.getImage();
+                    ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                    row[4] = ii;
+                }
+                else
+                {    
+                    row[4] = "Should have been an image";
+                }
+                viewTable.addRow(row);                   
             }          
         }
+        
+    
+        tbAuctionlProducts.setRowHeight(80);
+        tbAuctionlProducts.setModel(viewTable);
+
     }
     
     /**
@@ -147,7 +169,6 @@ public class EAuctionJPanel extends javax.swing.JPanel {
         jComboCategory = new javax.swing.JComboBox<>();
         btnSearch = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
-        jLabelProductPicture = new javax.swing.JLabel();
         jTxtBidAskPrice = new java.awt.TextField();
         jLabel5 = new javax.swing.JLabel();
         jBtnPlaceBid = new javax.swing.JButton();
@@ -162,14 +183,14 @@ public class EAuctionJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Product Name", "Dealer", "Base Price", "Last Bid Price"
+                "Product Name", "Dealer", "Base Price", "Last Bid Price", "Product Image"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Double.class, java.lang.Double.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -247,27 +268,21 @@ public class EAuctionJPanel extends javax.swing.JPanel {
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel3)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(109, 109, 109)
-                                                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(layout.createSequentialGroup()
-                                                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(24, 24, 24)
-                                                .addComponent(jTxtBidAskPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                .addGap(57, 57, 57)
-                                                .addComponent(jBtnPlaceBid, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 482, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(46, 46, 46)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabelProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(btnSearch))))))
-                .addContainerGap(44, Short.MAX_VALUE))
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(109, 109, 109)
+                                        .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(24, 24, 24)
+                                        .addComponent(jTxtBidAskPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(57, 57, 57)
+                                        .addComponent(jBtnPlaceBid, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(124, 124, 124)
+                                .addComponent(btnSearch))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -282,13 +297,8 @@ public class EAuctionJPanel extends javax.swing.JPanel {
                     .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(66, 66, 66)
-                        .addComponent(jLabelProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jBtnPlaceBid, javax.swing.GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
@@ -296,8 +306,6 @@ public class EAuctionJPanel extends javax.swing.JPanel {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(70, Short.MAX_VALUE))
         );
-
-        jLabelProductPicture.setBounds(10, 10, 650, 250);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCategoryActionPerformed
@@ -359,7 +367,6 @@ public class EAuctionJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabelProductPicture;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.TextField jTxtBidAskPrice;
     private javax.swing.JTable tbAuctionlProducts;
