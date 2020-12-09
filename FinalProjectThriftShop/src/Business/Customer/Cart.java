@@ -71,4 +71,21 @@ public class Cart {
     {
         this.getProdDir().getProducts().add(p);
     }
+    
+    public Product checkIfProductInCart(Product p)
+    {
+        for(Product foundProd : this.getProdDir().getProducts())
+        {
+            if(p.getName().equals(foundProd.getName()))
+            {
+                return foundProd;
+            }
+        }
+        return null;
+    }
+    
+    public void deleteProductfromCart(Product p)
+    {
+        this.getProdDir().getProducts().remove(p);
+    }
 }

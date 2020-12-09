@@ -50,7 +50,6 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
         populateTable();
         this.customer.getCart().calculateTotalPrice();
         txtTotalPrice.setText(Double.toString((this.customer.getCart().getTotalPrice())));
-        setListenerForTotalPrice();
     }
 
     public void populateTable()
@@ -67,9 +66,7 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                 String temp = p.getProductImagePath();
                 if(temp != null)
                 {
-                    temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
-                    System.out.println(temp);
-                    ImageIcon ii = new ImageIcon(getClass().getResource(temp));
+                    ImageIcon ii = new ImageIcon(temp);
                     Image resizedImage = ii.getImage();
                     ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
                     row[3] = ii;
@@ -83,30 +80,10 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
             tblCart.setRowHeight(150);
             tblCart.setModel(viewTable);
         }
+        
     }
     
     // Listen for changes in the text
-    private void setListenerForTotalPrice(){
-        txtTotalPrice.getDocument().addDocumentListener(new DocumentListener() {
-          public void changedUpdate(DocumentEvent e) {
-            warn();
-          }
-          public void removeUpdate(DocumentEvent e) {
-            warn();
-          }
-          public void insertUpdate(DocumentEvent e) {
-            warn();
-          }
-
-          public void warn() {
-             if (Double.parseDouble(txtTotalPrice.getText())<=0){
-               JOptionPane.showMessageDialog(null,
-                  "Total price is 0!", "Error Message",
-                  JOptionPane.ERROR_MESSAGE);
-             }
-          }
-        });
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -164,8 +141,18 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
         });
 
         btnDelete.setText("Delete Product");
+        btnDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDeleteActionPerformed(evt);
+            }
+        });
 
         btnUpdate.setText("Update Quantity");
+        btnUpdate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUpdateActionPerformed(evt);
+            }
+        });
 
         jSpinnerQty.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
@@ -187,7 +174,6 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                                 .addComponent(btnBack)
                                 .addGap(0, 0, Short.MAX_VALUE))
@@ -209,6 +195,7 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                                 .addComponent(btnDelete)))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -236,6 +223,10 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         rightSystemAdminPanel.remove(this);
+        Component[] componentArray = rightSystemAdminPanel.getComponents();
+        Component component = componentArray[componentArray.length - 1];
+        ECommerceProductPanel eCommProd = (ECommerceProductPanel) component;
+        eCommProd.enableCartBtn();
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.previous(rightSystemAdminPanel);
     }//GEN-LAST:event_btnBackActionPerformed
@@ -248,6 +239,56 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
         layout.next(rightSystemAdminPanel);
         
     }//GEN-LAST:event_btnPayActionPerformed
+
+    private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblCart.getSelectedRow();
+
+        if (selectedRow >= 0) 
+        {
+            Product product = (Product) tblCart.getValueAt(selectedRow, 0);
+            //Product foundProduct = customer.getCart().checkIfProductInCart(product);
+            product.setQty((Integer)jSpinnerQty.getValue());
+            System.out.println(customer.getCart().getProdDir().getProducts().size());
+            JOptionPane.showMessageDialog(null, "Product " + product.getName() + " quantity updated to " + product.getQty());
+            viewTable.removeRow(tblCart.getSelectedRow());
+            populateTable();
+            this.customer.getCart().calculateTotalPrice();
+            txtTotalPrice.setText(Double.toString((this.customer.getCart().getTotalPrice())));
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Choose a product to update first!");
+            return;
+        }
+        
+    }//GEN-LAST:event_btnUpdateActionPerformed
+
+    private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
+        // TODO add your handling code here:
+        int selectedRow = tblCart.getSelectedRow();
+
+        if (selectedRow >= 0) 
+        {
+            Product product = (Product) tblCart.getValueAt(selectedRow, 0);
+            customer.getCart().deleteProductfromCart(product);
+            JOptionPane.showMessageDialog(null, "Product " + product.getName() + " removed from cart successfully!");
+            viewTable.removeRow(tblCart.getSelectedRow());
+            populateTable();
+            this.customer.getCart().calculateTotalPrice();
+            txtTotalPrice.setText(Double.toString((this.customer.getCart().getTotalPrice())));
+            if(Double.parseDouble(txtTotalPrice.getText()) == 0.0)
+            {
+                btnPay.setEnabled(false);
+            }
+        } 
+        else 
+        {
+            JOptionPane.showMessageDialog(null, "Choose a product to update first!");
+            return;
+        }
+        
+    }//GEN-LAST:event_btnDeleteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

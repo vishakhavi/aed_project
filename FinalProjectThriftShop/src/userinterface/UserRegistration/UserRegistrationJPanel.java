@@ -494,8 +494,8 @@ public class UserRegistrationJPanel extends javax.swing.JPanel {
                 contact = uContact.getText() + "@tmomail.net";
             }
             registrationRequest.setContactCarrierName(contact);
-            sendEmailMessage(uEmail.getText());
-            sendTextMessage(contact);
+            //sendEmailMessage(uEmail.getText());
+            //sendTextMessage(contact);
             for (Network network1 : system.getNetworkList()) {
                 for (Enterprise enterprise : network1.getEnterpriseDirectory().getEnterpriseList()) {
                     if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.ThriftShop) {
