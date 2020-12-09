@@ -9,6 +9,7 @@ import Business.Employee.Employee;
 import Business.Product.ProductDirectory;
 import Business.Role.DealerRole;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.WorkQueue;
 
 /**
  *
@@ -21,6 +22,15 @@ public class Dealer {
     private static int count = 1;
     private UserAccount userAccountAssoc;
     private ProductDirectory productDirectory;
+    private WorkQueue workQueue;
+
+    public WorkQueue getWorkQueue() {
+        return workQueue;
+    }
+
+    public void setWorkQueue(WorkQueue workQueue) {
+        this.workQueue = workQueue;
+    }
 
     public ProductDirectory getProductDirectory() {
         return productDirectory;
@@ -43,6 +53,7 @@ public class Dealer {
         
         //Empty List of products - TODO
         this.productDirectory = new ProductDirectory();
+        this.workQueue = new WorkQueue();
         
         count++;
     }
@@ -57,6 +68,7 @@ public class Dealer {
         
         //Empty List of products - TODO
         this.productDirectory = new ProductDirectory();
+        this.workQueue = new WorkQueue();
         
         count++;
     }
