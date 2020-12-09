@@ -6,7 +6,7 @@ package Business.WorkQueue;
 
 /**
  *
- * @author raunak
+ * @author Vishakha
  */
 public class BuyerBidPriceWorkRequest extends WorkRequest{
     

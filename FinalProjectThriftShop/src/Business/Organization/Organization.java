@@ -6,6 +6,7 @@ package Business.Organization;
 
 import Business.Customer.Ads;
 import Business.Customer.CustomerDirectory;
+import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Employee.EmployeeDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
@@ -27,6 +28,7 @@ public abstract class Organization {
     private Ads adsList;
     private CustomerDirectory customerDirectory;
     private static int counter=0;
+    private DeliveryManDirectory deliveryManDirectory;
    
     
     public enum Type{
@@ -51,6 +53,7 @@ public abstract class Organization {
         userAccountDirectory = new UserAccountDirectory();
         customerDirectory = new CustomerDirectory();
         adsList = new Ads();
+        deliveryManDirectory = new DeliveryManDirectory();
         organizationID = counter;
         ++counter;
     }

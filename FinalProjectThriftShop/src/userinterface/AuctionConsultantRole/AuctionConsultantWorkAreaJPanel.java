@@ -390,6 +390,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 cwo.setRequestDate(new Date());
                 cwo.setSender(this.userAccount);
                 cwo.setRequireCustomerService(false);
+                cwo.setBestBidCustomer(auctionProductsJTable.getValueAt(selectedAuctionProductRow, 5).toString());
                 
                 customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo); //Adding to customer WRs.
                 selectedAuctionProduct.getDealer().getWorkQueue().addWorkRequest(cwo); //Adding the order to a dealer.
@@ -398,6 +399,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 Dealer dealer = selectedAuctionProduct.getDealer();
                 Product prodRecord = dealer.getProductDirectory().findProduct(selectedAuctionProduct.getName());
                 prodRecord.setQty(prodRecord.getQty() - 1);
+                ecosystem.getWorkQueue().getWorkRequestList().add(cwo);
                 
                 //Delete record from Auction product list.
                 this.ecosystem.getAuctionProductDirectory().removeAuctionProduct(selectedAuctionProduct);

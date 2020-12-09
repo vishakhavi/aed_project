@@ -22,6 +22,15 @@ public class CustomerWorkOrder extends WorkRequest{
     private String customerServiceHistoryComments;
     private String latestCustomerComment;
     private ShippingUnitOrganization shippingAssigned;
+    private String bestBidCustomer;
+
+    public String getBestBidCustomer() {
+        return bestBidCustomer;
+    }
+
+    public void setBestBidCustomer(String bestBidCustomer) {
+        this.bestBidCustomer = bestBidCustomer;
+    }
 
     public ShippingUnitOrganization getShippingAssigned() {
         return shippingAssigned;

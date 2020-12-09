@@ -10,6 +10,7 @@ import Business.Customer.Ads;
 import Business.Customer.CustomerDirectory;
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
+import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
 import Business.Organization.CustomerServiceOrganization;
@@ -39,7 +40,7 @@ public class EcoSystem extends Organization{
     private DealerDirectory dealerDir; 
     private WorkQueue workQueue;
     private OrderWorkQueue orderWorkQueue;
-
+    private DeliveryManDirectory deliveryManDirectory;
 
     private ProductDirectory productDirectory;
     private AuctionUnitOrganization auctionUnitOrg;
@@ -116,7 +117,13 @@ public class EcoSystem extends Organization{
     public void setWholeSaleSupplierDir(WholeSaleSupplierDirectory wholeSaleSupplierDir) {
         this.wholeSaleSupplierDir = wholeSaleSupplierDir;
     }
-    
+    public DeliveryManDirectory getDeliveryManDirectory() {
+        return deliveryManDirectory;
+    }
+
+    public void setDeliveryManDirectory(DeliveryManDirectory deliveryManDirectory) {
+        this.deliveryManDirectory = deliveryManDirectory;
+    }
     public static EcoSystem getInstance(){
         if(business==null){
             business=new EcoSystem();
