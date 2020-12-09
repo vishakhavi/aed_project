@@ -6,6 +6,8 @@ package Business.WorkQueue;
 
 
 import Business.Auction.AuctionProduct;
+import Business.Organization.MaintenanceOrganization;
+import Business.Organization.ShippingUnitOrganization;
 import Business.Product.Product;
 import java.util.Date;
 
@@ -17,7 +19,34 @@ public class CustomerWorkOrder extends WorkRequest{
     private Product product;
     private AuctionProduct auctionProduct;
     private boolean requireCustomerService;
-    private String customerServiceComments;
+    private String customerServiceHistoryComments;
+    private String latestCustomerComment;
+    private ShippingUnitOrganization shippingAssigned;
+
+    public ShippingUnitOrganization getShippingAssigned() {
+        return shippingAssigned;
+    }
+
+    public void setShippingAssigned(ShippingUnitOrganization shippingAssigned) {
+        this.shippingAssigned = shippingAssigned;
+    }
+
+    public MaintenanceOrganization getMaintenanceOpAssigned() {
+        return maintenanceOpAssigned;
+    }
+
+    public void setMaintenanceOpAssigned(MaintenanceOrganization maintenanceOpAssigned) {
+        this.maintenanceOpAssigned = maintenanceOpAssigned;
+    }
+    private MaintenanceOrganization maintenanceOpAssigned;
+
+    public String getLatestCustomerComment() {
+        return latestCustomerComment;
+    }
+
+    public void setLatestCustomerComment(String latestCustomerComment) {
+        this.latestCustomerComment = latestCustomerComment;
+    }
 
     public boolean isRequireCustomerService() {
         return requireCustomerService;
@@ -27,12 +56,12 @@ public class CustomerWorkOrder extends WorkRequest{
         this.requireCustomerService = requireCustomerService;
     }
 
-    public String getCustomerServiceComments() {
-        return customerServiceComments;
+    public String getCustomerServiceHistoryComments() {
+        return customerServiceHistoryComments;
     }
 
-    public void setCustomerServiceComments(String customerServiceComments) {
-        this.customerServiceComments = customerServiceComments;
+    public void setCustomerServiceHistoryComments(String customerServiceHistoryComments) {
+        this.customerServiceHistoryComments = customerServiceHistoryComments;
     }
    
 
