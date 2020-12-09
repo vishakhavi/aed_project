@@ -21,6 +21,7 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import userinterface.CustomerServiceRole.CustomerServiceWorkAreaJPanel;
 
 /**
  *
@@ -29,20 +30,22 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class ViewCustomerServiceConvoJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
+    JPanel callingJPanel;
     CustomerWorkOrder customerWorkOrder;
     /**
      * Creates new form CreateResaurantJPanel
      */
-    public ViewCustomerServiceConvoJPanel(JPanel upc, CustomerWorkOrder cwo) {
+    public ViewCustomerServiceConvoJPanel(JPanel upc, CustomerWorkOrder cwo, JPanel sourceCall) {
         this.userProcessContainer = upc;
         this.customerWorkOrder = cwo;
+        this.callingJPanel = sourceCall;
         initComponents();
         
         jTextAreaCustomerServiceConvo.setLineWrap(true);
         jTextAreaCustomerServiceConvo.setWrapStyleWord(true);
         
         //Set the value of the convo
-        jTextAreaCustomerServiceConvo.setText(cwo.getCustomerServiceComments());
+        jTextAreaCustomerServiceConvo.setText(cwo.getCustomerServiceHistoryComments());
     }
 
     /**
@@ -115,9 +118,13 @@ public class ViewCustomerServiceConvoJPanel extends javax.swing.JPanel {
         
          //        Restore prev screen's state
         Component[] comps = userProcessContainer.getComponents();
-
+        String sourceCallJpanelName = this.callingJPanel.getClass().getName();
+        
           for (Component comp : comps){
-            if (comp instanceof CustomerServiceRequestJPanel){
+            if (sourceCallJpanelName.equals("CustomerServiceWorkAreaJPanel") && (comp instanceof CustomerServiceWorkAreaJPanel) ){
+                CustomerServiceWorkAreaJPanel customerServicePanel = (CustomerServiceWorkAreaJPanel) comp;
+                customerServicePanel.populateOrders();
+            } else if (sourceCallJpanelName.equals("CustomerServiceRequestJPanel") && (comp instanceof CustomerServiceRequestJPanel) ) { //Source has to be CustomerServiceRequestJPanel
                 CustomerServiceRequestJPanel customerServicePanel = (CustomerServiceRequestJPanel) comp;
                 customerServicePanel.populateOrders();
             }

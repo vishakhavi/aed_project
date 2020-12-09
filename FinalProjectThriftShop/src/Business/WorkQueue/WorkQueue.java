@@ -35,7 +35,9 @@ public class WorkQueue {
         }
         return workRequestListCustomer;
     }
-     public void addWorkRequest(WorkRequest workRequest){
-       workRequestList.add(workRequest); 
-    }
+    
+    public void addWorkRequest(WorkRequest workRequest){         
+        if (!workRequestList.contains(workRequest)) //Add only if the WR doesnt exist
+            workRequestList.add(workRequest);
+    }  
 }

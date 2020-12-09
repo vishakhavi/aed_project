@@ -375,6 +375,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
     private void sellToCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellToCustomerActionPerformed
         // Create a work request for the Customer. Update inventory count of the dealer. Remove item from AuctionProductsDirectory
+        //Finally add the work request, to the Dealer WorkQueue too.
         int selectedAuctionProductRow = auctionProductsJTable.getSelectedRow();
         
         if (selectedAuctionProductRow >= 0){
@@ -390,7 +391,8 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 cwo.setSender(this.userAccount);
                 cwo.setRequireCustomerService(false);
                 
-                customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo);
+                customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo); //Adding to customer WRs.
+                selectedAuctionProduct.getDealer().getWorkQueue().addWorkRequest(cwo); //Adding the order to a dealer.
                 
                 //Update Dealer Inventory
                 Dealer dealer = selectedAuctionProduct.getDealer();

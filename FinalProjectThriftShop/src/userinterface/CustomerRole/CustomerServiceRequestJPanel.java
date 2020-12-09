@@ -9,6 +9,7 @@ import Business.Customer.Ads;
 import Business.Customer.Customer;
 import Business.Customer.Post;
 import Business.EcoSystem;
+import Business.Organization.CustomerServiceOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.CustomerWorkOrder;
 import Business.WorkQueue.WorkRequest;
@@ -73,6 +74,7 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
             row[1] = cwo.getRequestDate();
             row[2] = cwo.getStatus();
             row[3] = cwo.getResolveDate();
+            row[4] = cwo.getLatestCustomerComment();
             model.addRow(row); 
         }
     }
@@ -110,14 +112,14 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Ecommerce/Auction Product", "Request Date", "Status", "Resolved Date"
+                "Ecommerce/Auction Product", "Request Date", "Status", "Resolved Date", "Latest comment"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -197,12 +199,16 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
            
             CustomerWorkOrder selectedWorkOrder = (CustomerWorkOrder) tblCustomerOrderStatus.getValueAt(selectedOrder, 0);
             
-            if (selectedWorkOrder.getCustomerServiceComments() == null || selectedWorkOrder.getCustomerServiceComments().isEmpty()) {
-                selectedWorkOrder.setCustomerServiceComments(this.userAccount.getUsername() + "-" + new Date() + ": " + customerServiceComments);
+            if (selectedWorkOrder.getCustomerServiceHistoryComments() == null || selectedWorkOrder.getCustomerServiceHistoryComments().isEmpty()) {
+                selectedWorkOrder.setCustomerServiceHistoryComments(this.userAccount.getUsername() + "-" + new Date() + ": " + customerServiceComments);
             } else {
-                selectedWorkOrder.setCustomerServiceComments(selectedWorkOrder.getCustomerServiceComments() + "\n" + this.userAccount.getUsername() + "-" + new Date() + ": " + customerServiceComments);
+                selectedWorkOrder.setCustomerServiceHistoryComments(selectedWorkOrder.getCustomerServiceHistoryComments() + "\n\n" + this.userAccount.getUsername() + "-" + new Date() + ": " + customerServiceComments);
             }
+            selectedWorkOrder.setLatestCustomerComment("Cust: " + customerServiceComments);
             selectedWorkOrder.setRequireCustomerService(true); //Enabling this will show the list of orders requiring service.
+            
+            //Add this to customer Service queue
+            this.ecosystem.getCustomerServiceOrg().getWorkQueue().addWorkRequest(selectedWorkOrder);
             
             JOptionPane.showMessageDialog(null, "Requested Customer Service support succesfully !!!");
             populateOrders();
@@ -217,7 +223,7 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
          if (selectedOrder >= 0 ){
              CustomerWorkOrder selectedWorkOrder = (CustomerWorkOrder) tblCustomerOrderStatus.getValueAt(selectedOrder, 0);
              
-            ViewCustomerServiceConvoJPanel vcscj = new ViewCustomerServiceConvoJPanel(userProcessContainer, selectedWorkOrder);
+            ViewCustomerServiceConvoJPanel vcscj = new ViewCustomerServiceConvoJPanel(userProcessContainer, selectedWorkOrder, this);
             userProcessContainer.add("ViewCustomerRepConvo", vcscj);
             CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
             layout.next(userProcessContainer);  
