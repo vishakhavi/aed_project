@@ -13,7 +13,10 @@ import java.util.ArrayList;
  */
 public class Ads {
        
-    ArrayList<Post> adsList = new ArrayList<Post>();
+    ArrayList<Post> adsList;
+    public Ads() {
+        adsList = new ArrayList<>();
+    }
     
     public ArrayList<Post> getAdsList() {
         return adsList;

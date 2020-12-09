@@ -203,6 +203,9 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
                 customer.setPhone(request.getUserContact());
                 customer.setUsername(request.getUserName());
                 customer.setPassword(request.getUserPassword());
+                customer.setEmailAddress(request.getUserEmailId());
+                customer.setLocation(request.getUserLocationPoint());
+                customer.setAddress(request.getUserCity());
                 customer.setRole(new CustomerRole());
                 Organization org = organizationDirectory.createOrganization(Organization.Type.Customer);
                 business.getUserAccountDirectory().addUserAccount(customer);

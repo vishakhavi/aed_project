@@ -35,6 +35,18 @@ public class WorkQueue {
         }
         return workRequestListCustomer;
     }
+     public List<WorkRequest> getWorkRequestListManufacturer(UserAccount account){
+        List<WorkRequest> workRequestListManufacturer = new ArrayList();
+        for(WorkRequest workRequest : workRequestList){
+            if(workRequest.getManufacturer() != null){
+                UserAccount restuarantAccount = workRequest.getManufacturer();
+                if(restuarantAccount.getUsername().equals(account.getUsername())){
+                    workRequestListManufacturer.add(workRequest);
+                }
+            }
+        }
+        return workRequestListManufacturer;
+    }
     
     public void addWorkRequest(WorkRequest workRequest){         
         if (!workRequestList.contains(workRequest)) //Add only if the WR doesnt exist

@@ -10,6 +10,7 @@ import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
 import Business.Customer.Post;
 import Business.EcoSystem;
+import Business.Location.LocationPoint;
 import Business.Organization.Organization;
 import Business.Role.CustomerRole;
 import Business.Role.Role;
@@ -21,6 +22,7 @@ import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.List;
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -48,8 +50,9 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
     private Organization organization;
     private double price = 0;
     private static final Object[][] rowData = {};
+    private static DecimalFormat df = new DecimalFormat("0.00");
 
-    private static final Object[] columnNames = {"Product Name","Price","Category","Description","Image"};
+    private static final Object[] columnNames = {"Product Name","Price","Category","Description","Image","Distance"};
 
     /**
      * Creates new form ViewAdsJPanel
@@ -114,6 +117,8 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             Image newImg = product.getScaledInstance(170, 110, Image.SCALE_AREA_AVERAGING);
             ImageIcon icon = new ImageIcon(newImg);
             row[4] = icon;
+            if(post.getLocationPoint() != null && customer.getLocation() != null)
+            row[5] = df.format(getDistanceForPickUp(post.getLocationPoint(),customer.getLocation()))+" km";
             //row[5] = post.getPostId();
             viewTable.addRow(row);   
             System.out.println("post id"+post.getId());
@@ -136,7 +141,21 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         }
         
     }
-    
+    public double getDistanceForPickUp(LocationPoint postLocation, LocationPoint customerLocation) {
+        double postLatitude = postLocation.getLatitude();
+        double postLongitude = postLocation.getLongitude();
+        double customerLatitude = customerLocation.getLatitude();
+        double customerLongitude = customerLocation.getLongitude();
+        
+        double theta = postLongitude - customerLongitude;
+			double dist = Math.sin(Math.toRadians(postLatitude)) * Math.sin(Math.toRadians(customerLatitude)) + Math.cos(Math.toRadians(postLatitude)) * Math.cos(Math.toRadians(customerLatitude)) * Math.cos(Math.toRadians(theta));
+			dist = Math.acos(dist);
+			dist = Math.toDegrees(dist);
+			dist = dist * 60 * 1.1515;
+        
+        
+        return dist;
+    }    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -162,14 +181,14 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
 
         jTableViewAds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null}
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Product Name", "Price", "Category", "Description", "Image"
+                "Product Name", "Price", "Category", "Description", "Image", "Distance"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true
+                false, false, false, false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -262,6 +281,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         request.setMessage("Amount Proposed");
         request.setBidPrice(Double.parseDouble(jTextFieldBidAmount.getText()));
         request.setSender(userAccount);
+        
         
         request.setRequestDate(new Date());
         workQueue.addWorkRequest(request);

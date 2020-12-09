@@ -5,8 +5,8 @@
  */
 package Business.Customer;
 
+import Business.Location.LocationPoint;
 import Business.UserAccount.UserAccount;
-import Business.WorkQueue.WorkQueue;
 
 /**
  *
@@ -18,9 +18,16 @@ public class Customer extends UserAccount{
     private String phone;
     private Ads adsList;
     private Cart cart;
+    private String emailAddress;
+    private LocationPoint location;
+
+ 
+    
+   
 
     public Customer() {
         this.cart = new Cart();
+        this.location = new LocationPoint();
     }
   
     public String getPhone() {
@@ -55,14 +62,27 @@ public class Customer extends UserAccount{
     public void setAdsList(Ads adsList) {
         this.adsList = adsList;
     }
+    public String getEmailAddress() {
+        return emailAddress;
+    }
 
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
     
     @Override
     public String toString() {
         return customerName;
     }
     
-    
+    public LocationPoint getLocation() {
+        return location;
+    }
+
+    public void setLocation(LocationPoint location) {
+        this.location = location;
+    }
+
     /*public Cart newCart()
     {
         Cart cart = new Cart();
