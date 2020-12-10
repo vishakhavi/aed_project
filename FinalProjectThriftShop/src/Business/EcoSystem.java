@@ -22,6 +22,7 @@ import Business.Organization.ShippingUnitOrganization;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
+import Business.SysAdmin.SysAdminLogs;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
 import Business.WorkQueue.OrderWorkQueue;
@@ -50,6 +51,15 @@ public class EcoSystem extends Organization{
     private OrganizationDirectory shippingCompanies;
     private OrganizationDirectory maintenanceOperators;
     private AuctionProductDirectory auctionProductDirectory;
+    
+    private ArrayList<SysAdminLogs> sysAdminLogList;
+    
+    public void addLog(String data)
+    {
+        SysAdminLogs sysAdminLog = new SysAdminLogs();
+        sysAdminLog.setActivity(data);
+        this.sysAdminLogList.add(sysAdminLog);
+    }
 
     public ManufacturerDirectory getManufacturerDirectory() {
         return manufacturerDirectory;
@@ -156,6 +166,7 @@ public class EcoSystem extends Organization{
         super(null);
         networkList=new ArrayList<Network>();
         
+        this.sysAdminLogList = new ArrayList<SysAdminLogs>();
         //Initialize a Global - Product Directory
         this.productDirectory = new ProductDirectory();
         
@@ -245,6 +256,8 @@ public class EcoSystem extends Organization{
     public OrderWorkQueue getOrderWorkQueue() {
         return orderWorkQueue;
     }
-    
-    
+
+    public ArrayList<SysAdminLogs> getSysAdminLogList() {
+        return sysAdminLogList;
+    }
 }
