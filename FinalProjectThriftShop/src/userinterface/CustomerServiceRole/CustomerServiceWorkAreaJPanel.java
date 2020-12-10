@@ -32,16 +32,19 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
+import javax.swing.table.TableModel;
 import userinterface.wholeSaleSupplierRole.CreateSupProductsJPanel;
 
 /**
  *
  * @author Arthi
  */
-public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
+public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements TableModelListener {
     private JPanel userProcessContainer;
     private EcoSystem ecosystem;
     private UserAccount userAccount;
@@ -61,7 +64,22 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
         populateOrders();
         populateShippingCompanies();
         populateMaintenanceOperators();
+        
+        tblCustomerServiceOrders.getModel().addTableModelListener(this);
     }
+    
+        public void tableChanged(TableModelEvent e) {
+            int row = e.getFirstRow();
+            int column = e.getColumn();
+            TableModel model = (TableModel)e.getSource();
+            String columnName = model.getColumnName(column);
+            
+            if  (columnName.equals("Status")) {
+                JOptionPane.showMessageDialog(null,"This will not update the record yet, please click \"Submit Response\" if you intend to save the information", "Warning", JOptionPane.WARNING_MESSAGE);
+            }
+        
+        }
+
    
     public void populateOrders() {
         DefaultTableModel model = (DefaultTableModel)tblCustomerServiceOrders.getModel();
@@ -130,6 +148,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         tblMaintenanceOperators = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Welcome  - Customer Service");
@@ -153,7 +172,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
                 java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
+                false, false, true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -232,6 +251,8 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane4.setViewportView(tblMaintenanceOperators);
 
         jLabel3.setText("Choose a Maintenance to assign to an order");
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CustomerServiceRequest.jpg"))); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -327,6 +348,18 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
                 selectedWorkOrder.setCustomerServiceHistoryComments(selectedWorkOrder.getCustomerServiceHistoryComments() + "\n\n" + this.ecosystem.getCustomerServiceOrg().getName() + "-" + new Date() + ": " + customerServiceComments);
             }  
             selectedWorkOrder.setLatestCustomerComment("CustRep: " + customerServiceComments);
+            
+            if (!selectedWorkOrder.getStatus().equals((String) tblCustomerServiceOrders.getValueAt(selectedOrder, 2))) {
+                String status = (String) tblCustomerServiceOrders.getValueAt(selectedOrder, 2);
+                selectedWorkOrder.setStatus(status);
+                
+                if (status.equals("Complete")) {
+                    selectedWorkOrder.setResolveDate(new Date());
+                }
+            }
+                
+                
+                
             selectedWorkOrder.setRequireCustomerService(false); //Disable when answered
             
             JOptionPane.showMessageDialog(null, "Responded to the customer Request succesfully !!!");
@@ -359,10 +392,15 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
             CustomerWorkOrder selectedOrder = (CustomerWorkOrder) tblCustomerServiceOrders.getValueAt(selectedOrderRow, 0);
             ShippingUnitOrganization selectedShipping = (ShippingUnitOrganization) tblShippingCompanies.getValueAt(selectedShipperRow, 0);
             
+            //Delete the existing shipping company's order first
+            if (selectedOrder.getShippingAssigned() != null)
+                selectedOrder.getShippingAssigned().getWorkQueue().getWorkRequestList().remove(selectedOrder);
+            
             //Assign Shipping to Order, Add order under Shipping, Update Work Order status - "To Be Shipped"
             selectedOrder.setShippingAssigned(selectedShipping);
             selectedShipping.getWorkQueue().addWorkRequest(selectedOrder);
             selectedOrder.setStatus("To Be Shipped");
+            
             
             JOptionPane.showMessageDialog(null, "Added Shipping Company for the chosen order!!!");
             
@@ -379,6 +417,10 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
         if (selectedOrderRow >= 0 && selectedMaintenanceOpRow >=0 ) {
             CustomerWorkOrder selectedOrder = (CustomerWorkOrder) tblCustomerServiceOrders.getValueAt(selectedOrderRow, 0);
             MaintenanceOrganization selectedMaintenanceOp = (MaintenanceOrganization) tblMaintenanceOperators.getValueAt(selectedMaintenanceOpRow, 0);
+            
+             //Delete the existing Maintenance Op's order first
+            if (selectedOrder.getMaintenanceOpAssigned() != null)
+                selectedOrder.getMaintenanceOpAssigned().getWorkQueue().getWorkRequestList().remove(selectedOrder);
             
             //Assign Maintenance Op to Order, Add order under Maintenance Op, Update Work Order status - "Assigned Maintenance"
             selectedOrder.setMaintenanceOpAssigned(selectedMaintenanceOp);
@@ -402,6 +444,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

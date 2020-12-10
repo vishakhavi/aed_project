@@ -144,7 +144,7 @@
               <Table columnCount="7" rowCount="0">
                 <Column editable="false" title="Ecommerce/Auction Product" type="java.lang.Object"/>
                 <Column editable="false" title="Request Date" type="java.lang.String"/>
-                <Column editable="false" title="Status" type="java.lang.String"/>
+                <Column editable="true" title="Status" type="java.lang.String"/>
                 <Column editable="false" title="Customer comment" type="java.lang.String"/>
                 <Column editable="false" title="Shipping Company" type="java.lang.Object"/>
                 <Column editable="false" title="Maintenance Op" type="java.lang.Object"/>
@@ -309,6 +309,13 @@
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="text" type="java.lang.String" value="Choose a Maintenance to assign to an order"/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/images/CustomerServiceRequest.jpg"/>
+        </Property>
       </Properties>
     </Component>
   </SubComponents>

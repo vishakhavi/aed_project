@@ -61,9 +61,15 @@ public class ViewCustomerServiceConvoJPanel extends javax.swing.JPanel {
         jBtnCreateProduct = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextAreaCustomerServiceConvo = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Customer Service Conversation");
+        add(jLabel1);
+        jLabel1.setBounds(260, 85, 388, 22);
 
         jBtnCreateProduct.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBtnCreateProduct.setText("<< Back");
@@ -72,43 +78,20 @@ public class ViewCustomerServiceConvoJPanel extends javax.swing.JPanel {
                 jBtnCreateProductActionPerformed(evt);
             }
         });
+        add(jBtnCreateProduct);
+        jBtnCreateProduct.setBounds(20, 30, 91, 34);
 
+        jTextAreaCustomerServiceConvo.setEditable(false);
         jTextAreaCustomerServiceConvo.setColumns(20);
         jTextAreaCustomerServiceConvo.setRows(5);
-        jTextAreaCustomerServiceConvo.setEnabled(false);
         jScrollPane1.setViewportView(jTextAreaCustomerServiceConvo);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(jBtnCreateProduct)
-                        .addGap(109, 109, 109)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 388, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(251, 251, 251)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(239, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(56, 56, 56)
-                        .addComponent(jBtnCreateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(55, 55, 55))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1)
-                        .addGap(38, 38, 38)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(146, Short.MAX_VALUE))
-        );
+        add(jScrollPane1);
+        jScrollPane1.setBounds(251, 145, 410, 309);
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/imgonline-com-ua-resize-aakrNhJm4H.jpg"))); // NOI18N
+        add(jLabel4);
+        jLabel4.setBounds(50, 160, 1780, 600);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreateProductActionPerformed
@@ -137,6 +120,7 @@ public class ViewCustomerServiceConvoJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnCreateProduct;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextAreaCustomerServiceConvo;
     // End of variables declaration//GEN-END:variables
