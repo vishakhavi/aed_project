@@ -57,6 +57,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void changePanel1() {
 
         if (userAccount != null && userAccount.getRole() != null) {
+            system.addLog(userAccount.getUsername() + " logged in.");
             String greetings = "Hi";
             if (userAccount instanceof Customer) {
                        
@@ -66,6 +67,7 @@ public class MainJFrame extends javax.swing.JFrame {
                 greetings = greetings + " " + userAccount.getUsername();
                 container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
             }
+            
             greetingUserLabel.setText(greetings + " !!!");
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
