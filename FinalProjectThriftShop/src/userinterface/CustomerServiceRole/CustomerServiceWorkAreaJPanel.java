@@ -148,10 +148,16 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         jScrollPane4 = new javax.swing.JScrollPane();
         tblMaintenanceOperators = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Welcome  - Customer Service");
+        add(jLabel1);
+        jLabel1.setBounds(390, 90, 214, 17);
 
         jBtnSubmitCustServiceRequest.setText("Submit Response");
         jBtnSubmitCustServiceRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -159,6 +165,8 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
                 jBtnSubmitCustServiceRequestActionPerformed(evt);
             }
         });
+        add(jBtnSubmitCustServiceRequest);
+        jBtnSubmitCustServiceRequest.setBounds(1100, 240, 134, 23);
 
         tblCustomerServiceOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -185,11 +193,19 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         });
         jScrollPane1.setViewportView(tblCustomerServiceOrders);
 
+        add(jScrollPane1);
+        jScrollPane1.setBounds(200, 140, 790, 180);
+
         jLabel4.setText("respond back to Customer with comments");
+        add(jLabel4);
+        jLabel4.setBounds(1050, 90, 210, 23);
 
         jTextAreaCustServiceComments.setColumns(20);
         jTextAreaCustServiceComments.setRows(5);
         jScrollPane2.setViewportView(jTextAreaCustServiceComments);
+
+        add(jScrollPane2);
+        jScrollPane2.setBounds(1050, 140, 216, 78);
 
         viewFullOrder.setText("View History");
         viewFullOrder.addActionListener(new java.awt.event.ActionListener() {
@@ -197,6 +213,8 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
                 viewFullOrderActionPerformed(evt);
             }
         });
+        add(viewFullOrder);
+        viewFullOrder.setBounds(730, 90, 262, 23);
 
         tblShippingCompanies.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -216,14 +234,21 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         });
         jScrollPane3.setViewportView(tblShippingCompanies);
 
+        add(jScrollPane3);
+        jScrollPane3.setBounds(280, 440, 242, 94);
+
         jBtnAssignShipping.setText("Assign Shipping");
         jBtnAssignShipping.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnAssignShippingActionPerformed(evt);
             }
         });
+        add(jBtnAssignShipping);
+        jBtnAssignShipping.setBounds(280, 570, 246, 23);
 
         jLabel2.setText("Choose a Shipping company to assign to an order");
+        add(jLabel2);
+        jLabel2.setBounds(280, 400, 237, 19);
 
         jBtnAssignMaintenance.setText("Assign Maintenance");
         jBtnAssignMaintenance.addActionListener(new java.awt.event.ActionListener() {
@@ -231,6 +256,8 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
                 jBtnAssignMaintenanceActionPerformed(evt);
             }
         });
+        add(jBtnAssignMaintenance);
+        jBtnAssignMaintenance.setBounds(660, 570, 246, 23);
 
         tblMaintenanceOperators.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -250,87 +277,21 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         });
         jScrollPane4.setViewportView(tblMaintenanceOperators);
 
+        add(jScrollPane4);
+        jScrollPane4.setBounds(660, 440, 242, 94);
+
         jLabel3.setText("Choose a Maintenance to assign to an order");
+        add(jLabel3);
+        jLabel3.setBounds(660, 400, 230, 19);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/CustomerServiceRequest.jpg"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-how-can-we-help-you customer service (1).jpg"))); // NOI18N
+        add(jLabel6);
+        jLabel6.setBounds(10, 10, 120, 120);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewFullOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addComponent(jBtnSubmitCustServiceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jBtnAssignShipping, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2))
-                .addGap(41, 41, 41)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnAssignMaintenance, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 2, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 307, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel1)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(viewFullOrder)
-                        .addGap(18, 18, 18)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(7, 7, 7)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(33, 33, 33)
-                        .addComponent(jBtnSubmitCustServiceRequest)))
-                .addGap(64, 64, 64)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(jBtnAssignShipping))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 11, 11)
-                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 94, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(13, 13, 13)
-                        .addComponent(jBtnAssignMaintenance)))
-                .addContainerGap(60, Short.MAX_VALUE))
-        );
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-CustomerService Request.png"))); // NOI18N
+        jLabel5.setText("jLabel5");
+        add(jLabel5);
+        jLabel5.setBounds(340, 280, 750, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSubmitCustServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitCustServiceRequestActionPerformed
@@ -445,6 +406,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

@@ -64,7 +64,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         DefaultTableModel model = (DefaultTableModel)productsJTable.getModel();
         model.setRowCount(0);
         
-        for (Product p : this.ecosystem.getProductDirectory().getProducts()) {
+        for (Product p : this.ecosystem.leastBoughtProductDirectory().getProducts()) {
                 Object row[] = new Object[5];
                 row[0] = p.getId();
                 row[1] = p;
@@ -146,6 +146,11 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         sellToCustomer = new javax.swing.JButton();
         jLabelAuctionProdPicture = new javax.swing.JLabel();
         resetAuctionListButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -168,12 +173,17 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(productsJTable);
 
+        add(jScrollPane1);
+        jScrollPane1.setBounds(230, 460, 729, 90);
+
         addToAuction.setText("Add to Auction List");
         addToAuction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addToAuctionActionPerformed(evt);
             }
         });
+        add(addToAuction);
+        addToAuction.setBounds(460, 620, 196, 31);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -181,15 +191,30 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 refreshTestJButtonActionPerformed(evt);
             }
         });
+        add(refreshTestJButton);
+        refreshTestJButton.setBounds(980, 80, 100, 23);
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Auction Consultant Company Name");
+        add(enterpriseLabel);
+        enterpriseLabel.setBounds(230, 80, 334, 30);
 
         auctionCompNameLabel.setText("<value>");
+        add(auctionCompNameLabel);
+        auctionCompNameLabel.setBounds(590, 80, 219, 26);
+        add(jLabelGlobalProdPicture);
+        jLabelGlobalProdPicture.setBounds(890, 453, 128, 90);
+        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
 
         jLabel1.setText("List of Products - that qualify for auctioning (Less than 2 Orders placed)");
+        add(jLabel1);
+        jLabel1.setBounds(230, 420, 545, 14);
+        add(jTxtAuctionQty);
+        jTxtAuctionQty.setBounds(380, 570, 155, 30);
 
         jLabel2.setText("# of Units to Add to Auction");
+        add(jLabel2);
+        jLabel2.setBounds(230, 580, 167, 14);
 
         auctionProductsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -212,7 +237,12 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(auctionProductsJTable);
 
+        add(jScrollPane2);
+        jScrollPane2.setBounds(230, 160, 729, 163);
+
         jLabel3.setText("Auction Products");
+        add(jLabel3);
+        jLabel3.setBounds(230, 130, 545, 14);
 
         sellToCustomer.setText("Sell to best-bid Customer");
         sellToCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +250,11 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 sellToCustomerActionPerformed(evt);
             }
         });
+        add(sellToCustomer);
+        sellToCustomer.setBounds(460, 350, 187, 31);
+        add(jLabelAuctionProdPicture);
+        jLabelAuctionProdPicture.setBounds(890, 153, 128, 90);
+        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
 
         resetAuctionListButton.setText("Reset Auction List");
         resetAuctionListButton.addActionListener(new java.awt.event.ActionListener() {
@@ -227,92 +262,16 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 resetAuctionListButtonActionPerformed(evt);
             }
         });
+        add(resetAuctionListButton);
+        resetAuctionListButton.setBounds(810, 80, 147, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTxtAuctionQty, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(202, 202, 202))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(477, 477, 477)
-                                        .addComponent(resetAuctionListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(refreshTestJButton)
-                                        .addGap(34, 34, 34))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addComponent(jLabelAuctionProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(212, 212, 212)
-                                        .addComponent(sellToCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(188, 188, 188)
-                                        .addComponent(addToAuction, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGlobalProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(auctionCompNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(auctionCompNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetAuctionListButton)
-                    .addComponent(refreshTestJButton))
-                .addGap(3, 3, 3)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelAuctionProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(sellToCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelGlobalProdPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtAuctionQty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
-                .addComponent(addToAuction, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-online auction.jpg"))); // NOI18N
+        add(jLabel4);
+        jLabel4.setBounds(0, 0, 120, 120);
 
-        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
-        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction.png"))); // NOI18N
+        add(jLabel5);
+        jLabel5.setBounds(430, 300, 810, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addToAuctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToAuctionActionPerformed
@@ -461,6 +420,8 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabelAuctionProdPicture;
     private javax.swing.JLabel jLabelGlobalProdPicture;
     private javax.swing.JScrollPane jScrollPane1;

@@ -148,7 +148,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(refreshTestJButton);
-        refreshTestJButton.setBounds(980, 100, 71, 23);
+        refreshTestJButton.setBounds(1000, 100, 90, 23);
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Supplier");
@@ -165,9 +165,9 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         jLabelSupProdPicture.setBounds(972, 70, 164, 102);
         jLabelSupProdPicture.setBounds(10, 10, 650, 250);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/supplier Icon on top.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-supplier Icon on top.PNG"))); // NOI18N
         add(jLabel2);
-        jLabel2.setBounds(30, 30, 150, 120);
+        jLabel2.setBounds(10, 10, 120, 120);
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Whole sale supplier.png"))); // NOI18N
         add(jLabel1);

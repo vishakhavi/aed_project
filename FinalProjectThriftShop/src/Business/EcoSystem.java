@@ -6,6 +6,8 @@
 package Business;
 
 import Business.Auction.AuctionProductDirectory;
+import Business.Customer.Customer;
+import Business.Customer.CustomerDirectory;
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
 import Business.Dealer.ThriftDealer;
@@ -17,15 +19,20 @@ import Business.Organization.MaintenanceOrganization;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.Organization.ShippingUnitOrganization;
+import Business.Product.Product;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.SysAdmin.SysAdminLogs;
+import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
 import Business.WorkQueue.OrderWorkQueue;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -249,5 +256,41 @@ public class EcoSystem extends Organization{
 
     public ArrayList<SysAdminLogs> getSysAdminLogList() {
         return sysAdminLogList;
+    }
+public CustomerDirectory getGlobalCustomerDirectory() {
+        CustomerDirectory custDir = new CustomerDirectory();
+        
+        for (UserAccount ua : this.getUserAccountDirectory().getUserAccountList()) {
+            if (ua instanceof Customer)
+                custDir.addCustomer((Customer) ua);
+        } 
+        
+        return custDir;
+    }
+    
+    public ProductDirectory leastBoughtProductDirectory() {//Return products in a product directory, which were bought lesser than 2 times by customers
+        ProductDirectory leastBoughtPD = new ProductDirectory(); //Start with global list of Products
+
+        for (Product globalProduct : this.getProductDirectory().getProducts())
+            leastBoughtPD.getProducts().add(globalProduct);
+                
+        //First get a map of Products in Work orders, and add a count to it
+        HashMap<Product, Integer> productListCountMap = new HashMap<Product, Integer>();
+
+        //A Map of Product and how many times the product - dealer combo based Product was bought by customers
+        for (Customer cust : getGlobalCustomerDirectory().getCustomerList()) {
+            productListCountMap = cust.getWorkQueue().updateProductMapBasedOnOrders(productListCountMap, this.getProductDirectory());
+        }
+        
+        //Find the lesser than 2 count product from map, and then add all those into PD.. so better start with global directory, and delete the more than count 2 items.
+        for (Map.Entry<Product,Integer> entry : productListCountMap.entrySet())  {
+           
+            //Remove the products from this directory, which were bought more than 2 times
+            if (entry.getValue() >= 2) {
+               leastBoughtPD.getProducts().remove(entry.getKey());
+           } 
+        }
+
+        return leastBoughtPD;
     }
 }
