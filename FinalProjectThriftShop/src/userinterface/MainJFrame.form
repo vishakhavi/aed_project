@@ -251,7 +251,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jLabel3" min="-2" pref="47" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="userNameJTextField" pref="241" max="32767" attributes="0"/>
+                      <Component id="userNameJTextField" pref="243" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

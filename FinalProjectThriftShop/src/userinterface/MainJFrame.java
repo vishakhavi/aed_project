@@ -61,7 +61,8 @@ public class MainJFrame extends javax.swing.JFrame {
             if (userAccount instanceof Customer) {
                        
                 container.add("workArea", userAccount.getRole().createWorkArea(container, (Customer)userAccount,inOrganization, inEnterprise, system));
-            }else{
+            }
+            else{
             
                 greetings = greetings + " " + userAccount.getUsername();
                 container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
@@ -190,7 +191,7 @@ public class MainJFrame extends javax.swing.JFrame {
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(userNameJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 241, Short.MAX_VALUE))
+                .addComponent(userNameJTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
