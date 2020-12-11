@@ -45,6 +45,13 @@ public class ProductDirectory {
         }
         return null;
     }
+    public Product findProductBasedOnThriftDealer(String name, String dealerName) {
+         for (Product p : this.products) {
+            if (p.getName().equals(name) && p.getThriftDealer().getName().equals(dealerName))
+                return p;
+        }
+        return null;
+    }
     
     public void addProductQuantity(String prodName, String dealerName, int qty) {
         Product p = findProductBasedOnDealer(prodName, dealerName);

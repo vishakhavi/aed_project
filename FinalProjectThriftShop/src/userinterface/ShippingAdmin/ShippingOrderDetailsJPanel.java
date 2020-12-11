@@ -37,7 +37,6 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel {
     UserAccount account;
     public ShippingOrderDetailsJPanel(JPanel userProcessContainer, UserAccount account,EcoSystem ecosystem) {
         initComponents();
-        initListners();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
         this.account = account;
@@ -61,15 +60,19 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel {
         workRequestList = ecosystem.getWorkQueue().getWorkRequestList();
          for (WorkRequest wr :  workRequestList) {
             Object row[] = new Object[tblShippingWorkRequest.getColumnCount()];
+            if(wr instanceof CustomerWorkOrder){
             CustomerWorkOrder cwo = (CustomerWorkOrder) wr;
+          if(cwo.getShippingAssigned() != null && cwo.getShippingAssigned().getName().equals(account.getUsername()) ){
             row[0] = cwo;
             row[1] = cwo.getBestBidCustomer();
-            row[2] = (cwo.getDeliverMan() != null) ? cwo.getDeliverMan().getDeliveryManName() : "Not Assigned";
+            row[2] = (cwo.getShippingAssigned() != null) ? cwo.getShippingAssigned().getName() : "Not Assigned";
             row[3] = cwo.getRequestDate();
           
             
             
             model.addRow(row); 
+          }
+            }
         }
      }
     /**
@@ -94,7 +97,7 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Product Name", "Customer Name", "Delivery Man", "Request Date"
+                "Product Name", "Customer Name", "Shipping Company", "Request Date"
             }
         ) {
             Class[] types = new Class [] {
@@ -138,28 +141,7 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel {
                 .addContainerGap(87, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
-        private void initListners() {
-        tblShippingWorkRequest.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                int selectedRow = tblShippingWorkRequest.getSelectedRow();
-                if (selectedRow >= 0) {
-                    WorkRequest request = (WorkRequest) tblShippingWorkRequest.getValueAt(selectedRow, 0);
-                    if (request instanceof WorkRequest) {
-                        CustomerWorkOrder orderWorkRequest = (CustomerWorkOrder) tblShippingWorkRequest.getValueAt(selectedRow, 0);
-                       
-                                
-                        if (orderWorkRequest != null) {
-                           ShippingRequestDetailsJPanel manageOrderDetailsJPanel = new ShippingRequestDetailsJPanel(userProcessContainer,ecosystem,account,orderWorkRequest);
-                           userProcessContainer.add("ManageOrderDetailsJPanel", manageOrderDetailsJPanel);
-                           CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-                           layout.next(userProcessContainer);
-                        }
-                    }
-
-                }
-            }
-        });
-    }
+    
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
