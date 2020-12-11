@@ -10,6 +10,7 @@ import Business.Employee.Employee;
 import Business.Role.CustomerServiceRole;
 import Business.Role.DeliveryManRole;
 import Business.Role.Role;
+import Business.Role.ShippingAdminRole;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
@@ -25,13 +26,7 @@ public class ShippingUnitOrganization extends Organization{
     private UserAccount userAccountAssoc;
     private WorkQueue workQueue;
     
-     public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+    
 
     public int getId() {
         return id;
@@ -51,7 +46,7 @@ public class ShippingUnitOrganization extends Organization{
     }
     
     public ShippingUnitOrganization(String name, EcoSystem system) {
-        super(Organization.Type.DeliveryMan.getValue());
+        super(Organization.Type.ShippingCompany.getValue());
 
         id = count;
         this.name = name;
@@ -66,19 +61,20 @@ public class ShippingUnitOrganization extends Organization{
         count++;
     }
     
-    public ShippingUnitOrganization() {
-        super(Organization.Type.DeliveryMan.getValue());
+    public ShippingUnitOrganization(String name) {
+        super(name);
     }
     
     @Override
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
         roles.add(new DeliveryManRole());
+        roles.add(new ShippingAdminRole());
         return roles;
     }
     
-    @Override
-    public String toString() {
-        return name;
-    }
+   
+    public Type getType() {
+        return Organization.Type.ShippingCompany;
+    }  
 }

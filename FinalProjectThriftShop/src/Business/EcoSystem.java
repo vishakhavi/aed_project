@@ -8,20 +8,19 @@ package Business;
 import Business.Auction.AuctionProductDirectory;
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
+import Business.Dealer.ThriftDealer;
 import Business.DeliveryMan.DeliveryManDirectory;
-import Business.Manufacturer.Manufacturer;
-import Business.Manufacturer.ManufacturerDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
 import Business.Organization.CustomerServiceOrganization;
 import Business.Organization.MaintenanceOrganization;
-import Business.Organization.ManufacturingUnitOrganization;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.Organization.ShippingUnitOrganization;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
+import Business.SysAdmin.SysAdminLogs;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
 import Business.WorkQueue.OrderWorkQueue;
@@ -46,19 +45,21 @@ public class EcoSystem extends Organization{
     private AuctionUnitOrganization auctionUnitOrg;
     private CustomerServiceOrganization customerServiceOrg;
 
-    private ManufacturerDirectory manufacturerDirectory;
+   
     private OrganizationDirectory shippingCompanies;
     private OrganizationDirectory maintenanceOperators;
     private AuctionProductDirectory auctionProductDirectory;
-
-    public ManufacturerDirectory getManufacturerDirectory() {
-        return manufacturerDirectory;
+    
+    private ArrayList<SysAdminLogs> sysAdminLogList;
+    
+    public void addLog(String data)
+    {
+        SysAdminLogs sysAdminLog = new SysAdminLogs();
+        sysAdminLog.setActivity(data);
+        this.sysAdminLogList.add(sysAdminLog);
     }
 
-    public void setManufacturerDirectory(ManufacturerDirectory manufacturerDirectory) {
-        this.manufacturerDirectory = manufacturerDirectory;
-    }
-
+    
     public OrganizationDirectory getMaintenanceOperators() {
         return maintenanceOperators;
     }
@@ -156,6 +157,7 @@ public class EcoSystem extends Organization{
         super(null);
         networkList=new ArrayList<Network>();
         
+        this.sysAdminLogList = new ArrayList<SysAdminLogs>();
         //Initialize a Global - Product Directory
         this.productDirectory = new ProductDirectory();
         
@@ -191,10 +193,9 @@ public class EcoSystem extends Organization{
         
         //Test Data - Add one Manufacturing Unit roled person
         //this.manufacturingUnitOrganization = new ManufacturingUnitOrganization();
-        this.manufacturerDirectory = new ManufacturerDirectory();
-        
-        this.getManufacturerDirectory().addManufacturer(new Manufacturer("Home Town",this));
-        this.getManufacturerDirectory().addManufacturer(new Manufacturer("Make At Home",this));
+       
+        this.getDealerDir().getThriftDealersList().add(new ThriftDealer("Thrift Store Manufacturer", this));
+        //this.getManufacturerDirectory().addManufacturer(new Manufacturer("Thrift Store Manufacturer",this));
         
         //Test Data - Add a few Shipping companies.
         this.shippingCompanies = new OrganizationDirectory();
@@ -245,6 +246,8 @@ public class EcoSystem extends Organization{
     public OrderWorkQueue getOrderWorkQueue() {
         return orderWorkQueue;
     }
-    
-    
+
+    public ArrayList<SysAdminLogs> getSysAdminLogList() {
+        return sysAdminLogList;
+    }
 }

@@ -7,27 +7,27 @@ package Business.Role;
 
 import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
-import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import userinterface.ThriftShopUnitWorkArea.ThriftShopUnitWorkRequestJPanel;
+import userinterface.ShippingAdmin.ShippingUnitWorkAreaJPanel;
 
 
 /**
  *
  * @author Vishakha
  */
-public class ThriftShopAdmin extends Role{
+public class ShippingAdminRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem ecosystem) {
         //throw new Volun("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-        return new ThriftShopUnitWorkRequestJPanel(userProcessContainer, account, enterprise, ecosystem);
+       // return new ShippingAdminWorkAreaJPanel(userProcessContainer, account, ecosystem,organization);
+    return new ShippingUnitWorkAreaJPanel(userProcessContainer, enterprise, ecosystem, organization);
     }
   
     @Override
     public String toString(){
-        return (RoleType.ThriftShopAdmin.getValue());
+        return (RoleType.ShippingAdmin.getValue());
     }
 }

@@ -66,7 +66,7 @@
               <Table columnCount="4" rowCount="0">
                 <Column editable="false" title="Product Name" type="java.lang.String"/>
                 <Column editable="false" title="Customer Name" type="java.lang.String"/>
-                <Column editable="false" title="Delivery Man" type="java.lang.String"/>
+                <Column editable="false" title="Shipping Company" type="java.lang.String"/>
                 <Column editable="false" title="Request Date" type="java.lang.String"/>
               </Table>
             </Property>
