@@ -77,4 +77,9 @@ public class ShippingUnitOrganization extends Organization{
     public Type getType() {
         return Organization.Type.ShippingCompany;
     }  
+    
+    @Override
+    public String toString() {
+        return name;
+    }
 }

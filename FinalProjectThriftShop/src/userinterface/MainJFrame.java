@@ -57,7 +57,7 @@ public class MainJFrame extends javax.swing.JFrame {
     private void changePanel1() {
 
         if (userAccount != null && userAccount.getRole() != null) {
-            system.addLog(userAccount.getUsername() + " logged in.");
+//            system.addLog(userAccount.getUsername() + " logged in.");
             String greetings = "Hi";
             if (userAccount instanceof Customer) {
                        
