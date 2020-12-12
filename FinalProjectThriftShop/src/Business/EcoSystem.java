@@ -8,7 +8,6 @@ package Business;
 import Business.Auction.AuctionProductDirectory;
 import Business.Dealer.Dealer;
 import Business.Dealer.DealerDirectory;
-import Business.Dealer.ThriftDealer;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
@@ -170,6 +169,7 @@ public class EcoSystem extends Organization{
         this.getDealerDir().getDealersList().add(new Dealer("Daves Store", this));
         this.getDealerDir().getDealersList().add(new Dealer("Joes Store", this));
         this.getDealerDir().getDealersList().add(new Dealer("Alwin Electronics", this));
+        this.getDealerDir().getDealersList().add(new Dealer("Thrift Store Manufacturer", this));
         
         //Test Data - Add one Auction consultant
         this.auctionUnitOrg = new AuctionUnitOrganization("Phoenix Auction Consultants", this);
@@ -183,9 +183,7 @@ public class EcoSystem extends Organization{
         //Test Data - Add one Manufacturing Unit roled person
         //this.manufacturingUnitOrganization = new ManufacturingUnitOrganization();
        
-        this.getDealerDir().getThriftDealersList().add(new ThriftDealer("Thrift Store Manufacturer", this));
-        //this.getManufacturerDirectory().addManufacturer(new Manufacturer("Thrift Store Manufacturer",this));
-        
+  
         //Test Data - Add a few Shipping companies.
         this.shippingCompanies = new OrganizationDirectory();
         

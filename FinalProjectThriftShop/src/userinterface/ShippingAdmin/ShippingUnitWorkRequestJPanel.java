@@ -132,7 +132,7 @@ public class ShippingUnitWorkRequestJPanel extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(25, 56, 82));
-        jLabel3.setText("MANAGE  INCIDENT SCENE");
+        jLabel3.setText("MANAGE SHIPPING COMPANY");
         add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(306, 13, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/IncidentOPAQUESCENE.png"))); // NOI18N

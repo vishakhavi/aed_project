@@ -5,8 +5,6 @@
 package Business.Product;
 
 import Business.Dealer.Dealer;
-import Business.Dealer.ThriftDealer;
-import Business.Employee.*;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 
 /**
@@ -24,15 +22,7 @@ public class Product {
     private WholeSaleSupplier supplier = null;
     private Dealer dealer = null;
     private String productImagePath;
-    private ThriftDealer thriftDealer = null;
-
-    public ThriftDealer getThriftDealer() {
-        return thriftDealer;
-    }
-
-    public void setThriftDealer(ThriftDealer thriftDealer) {
-        this.thriftDealer = thriftDealer;
-    }
+    
 
     public String getProductImagePath() {
         return productImagePath;
@@ -58,8 +48,6 @@ public class Product {
         this.qty = qty;
     }
     
-   
-
     public double getPrice() {
         return price;
     }

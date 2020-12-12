@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import userinterface.ManufacturerAdminRole.CreateManufacturerProductsJPanel;
 
 /**
  *
@@ -187,10 +188,17 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-        ManageDealerProductsJPanel mdpj = new ManageDealerProductsJPanel(userProcessContainer, this.dealer, this.ecosystem);
-        userProcessContainer.add("ManageDealerProducts", mdpj);
-        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
-        layout.next(userProcessContainer);   
+        if (userAccount.getUsername().equalsIgnoreCase("ThriftStoreManufacturer")){
+            CreateManufacturerProductsJPanel cmpjp = new CreateManufacturerProductsJPanel(userProcessContainer, dealer, ecosystem);
+            userProcessContainer.add("CreateManufacturerProductsJPanel", cmpjp);
+            CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }else{
+            ManageDealerProductsJPanel mdpj = new ManageDealerProductsJPanel(userProcessContainer, this.dealer, this.ecosystem);
+            userProcessContainer.add("ManageDealerProducts", mdpj);
+            CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+            layout.next(userProcessContainer); 
+        }
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
