@@ -32,7 +32,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
     EcoSystem ecosystem;
     WholeSaleSupplier supplier;
     /**
-     * Creates new form DoctorWorkAreaJPanel
+     * Creates new form WholeSaleSupplierWorkAreaJPanel
      */
     public WholeSaleSupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, WholeSaleSupplier s) {
         initComponents();
@@ -139,7 +139,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(requestTestJButton);
-        requestTestJButton.setBounds(560, 290, 123, 23);
+        requestTestJButton.setBounds(560, 290, 150, 23);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {

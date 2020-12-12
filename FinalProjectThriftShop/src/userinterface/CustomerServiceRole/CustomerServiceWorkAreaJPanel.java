@@ -284,7 +284,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         add(jLabel3);
         jLabel3.setBounds(660, 400, 230, 19);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-how-can-we-help-you customer service (1).jpg"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-support2 (1).jpg"))); // NOI18N
         add(jLabel6);
         jLabel6.setBounds(10, 10, 120, 120);
 

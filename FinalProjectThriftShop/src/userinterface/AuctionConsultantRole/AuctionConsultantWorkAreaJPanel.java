@@ -39,7 +39,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     EcoSystem ecosystem;
     /**
-     * Creates new form DoctorWorkAreaJPanel
+     * Creates new form AuctionConsultantWorkAreaJPanel
      */
     public AuctionConsultantWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system) {
         initComponents();
@@ -136,7 +136,6 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         auctionCompNameLabel = new javax.swing.JLabel();
-        jLabelGlobalProdPicture = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTxtAuctionQty = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -148,6 +147,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         resetAuctionListButton = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabelGlobalProdPicture = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
@@ -202,9 +202,6 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         auctionCompNameLabel.setText("<value>");
         add(auctionCompNameLabel);
         auctionCompNameLabel.setBounds(590, 80, 219, 26);
-        add(jLabelGlobalProdPicture);
-        jLabelGlobalProdPicture.setBounds(890, 453, 128, 90);
-        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
 
         jLabel1.setText("List of Products - that qualify for auctioning (Less than 2 Orders placed)");
         add(jLabel1);
@@ -267,11 +264,13 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-online auction.jpg"))); // NOI18N
         add(jLabel4);
-        jLabel4.setBounds(0, 0, 120, 120);
+        jLabel4.setBounds(10, 0, 120, 120);
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction.png"))); // NOI18N
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction1.png"))); // NOI18N
         add(jLabel5);
-        jLabel5.setBounds(430, 300, 810, 430);
+        jLabel5.setBounds(410, 300, 810, 430);
+        add(jLabelGlobalProdPicture);
+        jLabelGlobalProdPicture.setBounds(970, 460, 130, 90);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addToAuctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToAuctionActionPerformed
