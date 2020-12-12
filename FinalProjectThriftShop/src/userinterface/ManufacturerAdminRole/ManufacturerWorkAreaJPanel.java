@@ -7,7 +7,6 @@ package userinterface.ManufacturerAdminRole;
 
 import userinterface.DealerRole.*;
 import Business.Dealer.Dealer;
-import Business.Dealer.ThriftDealer;
 import Business.EcoSystem;
 import Business.Product.Product;
 
@@ -22,7 +21,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Arthi
+ * @author Vishakha
  */
 public class ManufacturerWorkAreaJPanel extends javax.swing.JPanel {
 
@@ -30,11 +29,11 @@ public class ManufacturerWorkAreaJPanel extends javax.swing.JPanel {
 
     private UserAccount userAccount;
     EcoSystem ecosystem;
-    ThriftDealer dealer;
+    Dealer dealer;
     /**
      * Creates new form DoctorWorkAreaJPanel
      */
-    public ManufacturerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, ThriftDealer deal) {
+    public ManufacturerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, Dealer deal) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
@@ -43,7 +42,7 @@ public class ManufacturerWorkAreaJPanel extends javax.swing.JPanel {
         this.ecosystem = system;
         this.dealer = deal;
         
-        valueLabel.setText(this.dealer.getName());
+        valueLabel.setText(this.userAccount.getUsername());
         
         setListenerForTableSelection();
         populateRequestTable();

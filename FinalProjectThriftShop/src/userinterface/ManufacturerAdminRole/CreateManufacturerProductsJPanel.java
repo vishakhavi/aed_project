@@ -5,15 +5,10 @@
  */
 package userinterface.ManufacturerAdminRole;
 
-import Business.Dealer.ThriftDealer;
-import userinterface.wholeSaleSupplierRole.*;
+import Business.Dealer.Dealer;
 import Business.EcoSystem;
-import Business.Employee.Employee;
 import Business.Product.Product;
 import Business.Product.ProductDirectory;
-import Business.Role.AdminRole;
-import Business.Role.SystemAdminRole;
-import Business.UserAccount.UserAccount;
 import Business.WholeSaleSupplier.WholeSaleSupplier;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -22,23 +17,24 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import userinterface.DealerRole.DealerWorkAreaJPanel;
 
 /**
  *
- * @author Arthishravan
+ * @author Vishakha
  */
 public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
     WholeSaleSupplier supplier;
-    ThriftDealer dealer;
+    Dealer dealer;
     EcoSystem ecoSystem;
     ProductDirectory dealerPd ;
     ProductDirectory globalPd;
     /**
      * Creates new form CreateResaurantJPanel
      */
-    public CreateManufacturerProductsJPanel(JPanel upc, ThriftDealer dealer, EcoSystem ecoSystem) {
+    public CreateManufacturerProductsJPanel(JPanel upc, Dealer dealer, EcoSystem ecoSystem) {
         this.userProcessContainer = upc;
         this.dealer = dealer;
         this.ecoSystem = ecoSystem;
@@ -193,7 +189,7 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
             Product dealerProduct = new Product();
             Product globalDirectoryProduct = new Product(); //Make sure to have another Copy.. this helps during separate update process
             
-            dealerProduct.setThriftDealer(this.dealer);
+            dealerProduct.setDealer(this.dealer);
             dealerProduct.setName(jTxtProductName.getText().trim());
             dealerProduct.setPrice(Double.parseDouble(jTxtProductPrice.getText().trim())); //Dealers sell at 10% profit
             dealerProduct.setQty(Integer.parseInt(jTxtProductQty.getText().trim()));
@@ -201,16 +197,17 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
             dealerProduct.setProductImagePath(jLabelImagePath.getText());
             
             //Update Global Product directory with same params
-           globalDirectoryProduct.setThriftDealer(this.dealer);
+           globalDirectoryProduct.setDealer(this.dealer);
             globalDirectoryProduct.setName(jTxtProductName.getText().trim());
             globalDirectoryProduct.setPrice(Double.parseDouble(jTxtProductPrice.getText().trim())); //Dealers sell at 10% profit
             globalDirectoryProduct.setQty(Integer.parseInt(jTxtProductQty.getText().trim()));
             globalDirectoryProduct.setCategory(jTxtProductCat.getText().trim());
             globalDirectoryProduct.setProductImagePath(jLabelImagePath.getText());
-           //addProductToDirectory(dealerProduct, dealerPd);
-            //addProductToDirectory(globalDirectoryProduct, globalPd);
+           addProductToDirectory(dealerProduct, dealerPd);
+            addProductToDirectory(globalDirectoryProduct, globalPd);
         //Add the product to the Supplier's inventory
-        this.ecoSystem.getProductDirectory().getProducts().add(dealerProduct);
+     //   this.dealer.getProductDirectory().getProducts().add(dealerProduct);
+      //   this.ecoSystem.getProductDirectory().getProducts().add(globalDirectoryProduct);
         
         JOptionPane.showMessageDialog(null, "Created Product successfully");
         
@@ -222,8 +219,8 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
         Component[] comps = userProcessContainer.getComponents();
 
           for (Component comp : comps){
-            if (comp instanceof ManufacturerWorkAreaJPanel ){
-                ManufacturerWorkAreaJPanel manageWS = (ManufacturerWorkAreaJPanel) comp;
+            if (comp instanceof DealerWorkAreaJPanel ){
+                DealerWorkAreaJPanel manageWS = (DealerWorkAreaJPanel) comp;
                 manageWS.populateRequestTable();
             }
         }
@@ -233,7 +230,7 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
  private void addProductToDirectory(Product product, ProductDirectory productDirectory) {
      //Check if product already exists, if so add the qty alone and if not, create the product itself
      if(productDirectory.getProducts() != null){
-        Product foundProduct = productDirectory.findProductBasedOnThriftDealer(product.getName(), product.getDealer().getName());
+        Product foundProduct = productDirectory.findProductBasedOnDealer(product.getName(), product.getDealer().getName());
         
         if (foundProduct != null) {
             
