@@ -31,7 +31,7 @@ public class ManufacturerWorkAreaJPanel extends javax.swing.JPanel {
     EcoSystem ecosystem;
     Dealer dealer;
     /**
-     * Creates new form DoctorWorkAreaJPanel
+     * Creates new form ManufacturerWorkAreaJPanel
      */
     public ManufacturerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, Dealer deal) {
         initComponents();

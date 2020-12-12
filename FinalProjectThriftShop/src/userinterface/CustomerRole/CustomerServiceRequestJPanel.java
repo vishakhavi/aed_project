@@ -96,6 +96,8 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaCustServiceComments = new javax.swing.JTextArea();
         viewFullOrder = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
@@ -103,7 +105,7 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Customer Service Request");
         add(jLabel1);
-        jLabel1.setBounds(295, 23, 201, 17);
+        jLabel1.setBounds(360, 70, 201, 17);
 
         jBtnSubmitCustServiceRequest.setText("Submit Request");
         jBtnSubmitCustServiceRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -112,7 +114,7 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
             }
         });
         add(jBtnSubmitCustServiceRequest);
-        jBtnSubmitCustServiceRequest.setBounds(630, 480, 134, 23);
+        jBtnSubmitCustServiceRequest.setBounds(740, 500, 134, 23);
 
         tblCustomerOrderStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -140,18 +142,18 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblCustomerOrderStatus);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(70, 80, 795, 369);
+        jScrollPane1.setBounds(160, 120, 710, 260);
 
         jLabel4.setText("Post comments on the issue with the order");
         add(jLabel4);
-        jLabel4.setBounds(70, 480, 246, 23);
+        jLabel4.setBounds(160, 500, 250, 23);
 
         jTextAreaCustServiceComments.setColumns(20);
         jTextAreaCustServiceComments.setRows(5);
         jScrollPane2.setViewportView(jTextAreaCustServiceComments);
 
         add(jScrollPane2);
-        jScrollPane2.setBounds(340, 480, 234, 119);
+        jScrollPane2.setBounds(440, 500, 234, 119);
 
         viewFullOrder.setText("View Full Cust Service Conversation");
         viewFullOrder.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +162,15 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
             }
         });
         add(viewFullOrder);
-        viewFullOrder.setBounds(572, 39, 262, 23);
+        viewFullOrder.setBounds(610, 70, 262, 23);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Support1.png"))); // NOI18N
+        add(jLabel2);
+        jLabel2.setBounds(320, 300, 600, 360);
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-how-can-we-help-you customer service (1).jpg"))); // NOI18N
+        add(jLabel6);
+        jLabel6.setBounds(10, 10, 120, 120);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSubmitCustServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitCustServiceRequestActionPerformed
@@ -209,7 +219,9 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnSubmitCustServiceRequest;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaCustServiceComments;
