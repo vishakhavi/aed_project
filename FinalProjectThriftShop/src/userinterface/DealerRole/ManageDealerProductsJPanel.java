@@ -294,6 +294,8 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
         Component component = componentArray[componentArray.length - 1];
         DealerWorkAreaJPanel dwajp = (DealerWorkAreaJPanel) component;
         dwajp.populateRequestTable();
+        dwajp.populateDealerWorkOrders();
+        dwajp.populateShippingCompanies();
         CardLayout layout = (CardLayout)userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed

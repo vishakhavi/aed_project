@@ -291,4 +291,19 @@ public CustomerDirectory getGlobalCustomerDirectory() {
 
         return leastBoughtPD;
     }
+    
+    public ShippingUnitOrganization findShippingCompany(UserAccount ua) {
+        ShippingUnitOrganization foundShippingCompany = null;
+        
+        for  (Organization org: this.getShippingCompanies().getOrganizationList()) {
+            ShippingUnitOrganization ship = (ShippingUnitOrganization) org;
+            
+            if (ship.getUserAccountAssoc().equals(ua)) {
+                foundShippingCompany = ship;
+                break;
+            }
+                
+        }
+        return foundShippingCompany;
+    }
 }

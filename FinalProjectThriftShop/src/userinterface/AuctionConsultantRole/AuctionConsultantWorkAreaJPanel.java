@@ -65,12 +65,11 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for (Product p : this.ecosystem.leastBoughtProductDirectory().getProducts()) {
-                Object row[] = new Object[5];
-                row[0] = p.getId();
-                row[1] = p;
-                row[2] = p.getPrice();
-                row[3] = p.getQty();
-                row[4] = p.getDealer();
+                Object row[] = new Object[4];
+                row[0] = p;
+                row[1] = p.getPrice();
+                row[2] = p.getQty();
+                row[3] = p.getDealer();
                 model.addRow(row); 
         }
     }
@@ -80,13 +79,12 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
         
         for (AuctionProduct p : this.ecosystem.getAuctionProductDirectory().getAuctionProducts()) {
-                Object row[] = new Object[model.getColumnCount()];;
-                row[0] = p.getId();
-                row[1] = p;
-                row[2] = p.getBidPrice();
-                row[3] = p.getBidCount();
-                row[4] = p.getMaxBidAskPrice();
-                row[5] = (p.getBidWinCustomer() != null) ? p.getBidWinCustomer() : "No Bids Yet";
+                Object row[] = new Object[model.getColumnCount()];
+                row[0] = p;
+                row[1] = p.getBidPrice();
+                row[2] = p.getBidCount();
+                row[3] = p.getMaxBidAskPrice();
+                row[4] = (p.getBidWinCustomer() != null) ? p.getBidWinCustomer() : "No Bids Yet";
                 model.addRow(row);
         }
     }
@@ -95,7 +93,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
       productsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
           public void valueChanged(ListSelectionEvent event) {
               if (productsJTable.getSelectedRow() != -1) {
-                  Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 1);
+                  Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 0);
                   jLabelGlobalProdPicture.setIcon(finalImage(prod.getProductImagePath()));
               }
           }
@@ -105,7 +103,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
        auctionProductsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
           public void valueChanged(ListSelectionEvent event) {
               if (auctionProductsJTable.getSelectedRow() != -1) {
-                  AuctionProduct prod = (AuctionProduct) auctionProductsJTable.getValueAt(auctionProductsJTable.getSelectedRow(), 1);
+                  AuctionProduct prod = (AuctionProduct) auctionProductsJTable.getValueAt(auctionProductsJTable.getSelectedRow(), 0);
                   jLabelAuctionProdPicture.setIcon(finalImage(prod.getProductImagePath()));
               }
           }
@@ -154,17 +152,17 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Inventory", "Dealer"
+                "Product Name", "Price", "Inventory", "Dealer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -215,17 +213,17 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         auctionProductsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Original Price", "Bids Asked Count", "Max Bid Price", "Best bid Customer"
+                "Product Name", "Original Price", "Bids Asked Count", "Max Bid Price", "Best bid Customer"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -280,7 +278,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         
          if (selectedProdRow >= 0 && !qtyText.isEmpty()){
              //TODO: Loop over the selected quantity of products and create Auction Products, add to the Auction Product directory. Keep refreshing the list..
-             Product selectedProduct = (Product) productsJTable.getValueAt(selectedProdRow, 1);
+             Product selectedProduct = (Product) productsJTable.getValueAt(selectedProdRow, 0);
              AuctionProductDirectory apd = this.ecosystem.getAuctionProductDirectory();
              
              //Create one Auction Product per count of qty, in ProductDirectory when looped through
@@ -338,17 +336,18 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         
         if (selectedAuctionProductRow >= 0){
             try {
-                UserAccount customerUserAccount = (UserAccount) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 5);
-                AuctionProduct selectedAuctionProduct = (AuctionProduct) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 1);
+                UserAccount customerUserAccount = (UserAccount) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 4);
+                AuctionProduct selectedAuctionProduct = (AuctionProduct) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 0);
                 
                 CustomerWorkOrder cwo = new CustomerWorkOrder();
                 
                 cwo.setAuctionProduct(selectedAuctionProduct);
-                cwo.setStatus("NEW");
+                cwo.setStatus("New");
                 cwo.setRequestDate(new Date());
-                cwo.setSender(this.userAccount);
+                cwo.setSender(customerUserAccount);
+                cwo.setReceiver(selectedAuctionProduct.getDealer().getUserAccountAssoc());
                 cwo.setRequireCustomerService(false);
-                cwo.setBestBidCustomer(auctionProductsJTable.getValueAt(selectedAuctionProductRow, 5).toString());
+                cwo.setBestBidCustomer(auctionProductsJTable.getValueAt(selectedAuctionProductRow, 4).toString());
                 
                 customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo); //Adding to customer WRs.
                 selectedAuctionProduct.getDealer().getWorkQueue().addWorkRequest(cwo); //Adding the order to a dealer.
