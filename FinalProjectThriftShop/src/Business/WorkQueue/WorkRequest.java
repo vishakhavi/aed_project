@@ -6,7 +6,7 @@ package Business.WorkQueue;
 
 import Business.Customer.Customer;
 import Business.DeliveryMan.DeliveryMan;
-import Business.Manufacturer.Manufacturer;
+import Business.Organization.ShippingUnitOrganization;
 import Business.UserAccount.UserAccount;
 import java.util.Date;
 
@@ -24,15 +24,16 @@ public abstract class WorkRequest {
     private Date resolveDate;
     private double bidPrice;
     private String productName;
+    private ShippingUnitOrganization shippingUnitOrganization;
     private DeliveryMan deliverMan;
-    private Manufacturer manufacturer;
+   
 
-    public Manufacturer getManufacturer() {
-        return manufacturer;
+    public ShippingUnitOrganization getShippingUnitOrganization() {
+        return shippingUnitOrganization;
     }
 
-    public void setManufacturer(Manufacturer manufacturer) {
-        this.manufacturer = manufacturer;
+    public void setShippingUnitOrganization(ShippingUnitOrganization shippingUnitOrganization) {
+        this.shippingUnitOrganization = shippingUnitOrganization;
     }
 
     public String getProductName() {

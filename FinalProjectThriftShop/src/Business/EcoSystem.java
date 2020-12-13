@@ -6,28 +6,30 @@
 package Business;
 
 import Business.Auction.AuctionProductDirectory;
-import Business.Dealer.Dealer;
-import Business.Dealer.DealerDirectory;
+import Business.Customer.Customer;
+import Business.Customer.CustomerDirectory;
+import Business.Organization.DealerOrganization;
 import Business.DeliveryMan.DeliveryManDirectory;
-import Business.Manufacturer.Manufacturer;
-import Business.Manufacturer.ManufacturerDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
 import Business.Organization.CustomerServiceOrganization;
 import Business.Organization.MaintenanceOrganization;
-import Business.Organization.ManufacturingUnitOrganization;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.Organization.ShippingUnitOrganization;
+import Business.Product.Product;
 import Business.Product.ProductDirectory;
 import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.SysAdmin.SysAdminLogs;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
-import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
+import Business.UserAccount.UserAccount;
+import Business.UserAccount.UserAccountDirectory;
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.WorkQueue.OrderWorkQueue;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  *
@@ -37,8 +39,8 @@ public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private ArrayList<Network> networkList;
-    private WholeSaleSupplierDirectory wholeSaleSupplierDir;
-    private DealerDirectory dealerDir; 
+    private OrganizationDirectory wholeSaleSupplierDir;
+    private OrganizationDirectory dealerDir; 
     private WorkQueue workQueue;
     private OrderWorkQueue orderWorkQueue;
     private DeliveryManDirectory deliveryManDirectory;
@@ -47,7 +49,7 @@ public class EcoSystem extends Organization{
     private AuctionUnitOrganization auctionUnitOrg;
     private CustomerServiceOrganization customerServiceOrg;
 
-    private ManufacturerDirectory manufacturerDirectory;
+   
     private OrganizationDirectory shippingCompanies;
     private OrganizationDirectory maintenanceOperators;
     private AuctionProductDirectory auctionProductDirectory;
@@ -61,14 +63,7 @@ public class EcoSystem extends Organization{
         this.sysAdminLogList.add(sysAdminLog);
     }
 
-    public ManufacturerDirectory getManufacturerDirectory() {
-        return manufacturerDirectory;
-    }
-
-    public void setManufacturerDirectory(ManufacturerDirectory manufacturerDirectory) {
-        this.manufacturerDirectory = manufacturerDirectory;
-    }
-
+    
     public OrganizationDirectory getMaintenanceOperators() {
         return maintenanceOperators;
     }
@@ -113,11 +108,11 @@ public class EcoSystem extends Organization{
     }
 
 
-    public DealerDirectory getDealerDir() {
+    public OrganizationDirectory getDealerDir() {
         return dealerDir;
     }
 
-    public void setDealerDir(DealerDirectory dealerDir) {
+    public void setDealerDir(OrganizationDirectory dealerDir) {
         this.dealerDir = dealerDir;
     }
    
@@ -130,11 +125,11 @@ public class EcoSystem extends Organization{
         this.productDirectory = productDirectory;
     }
 
-    public WholeSaleSupplierDirectory getWholeSaleSupplierDir() {
+    public OrganizationDirectory getWholeSaleSupplierDir() {
         return wholeSaleSupplierDir;
     }
 
-    public void setWholeSaleSupplierDir(WholeSaleSupplierDirectory wholeSaleSupplierDir) {
+    public void setWholeSaleSupplierDir(OrganizationDirectory wholeSaleSupplierDir) {
         this.wholeSaleSupplierDir = wholeSaleSupplierDir;
     }
     public DeliveryManDirectory getDeliveryManDirectory() {
@@ -175,21 +170,22 @@ public class EcoSystem extends Organization{
 
         //Test Data - Suppliers
         //Add a couple of suppliers
-        wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
+        wholeSaleSupplierDir = new OrganizationDirectory();
         
         
-        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("Lots WholeSale", this));
-        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("CostCo WholeSale", this));
-        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("Walmart WholeSale", this));
+        this.getWholeSaleSupplierDir().getOrganizationList().add(new WholeSaleSupplierOrganization("Lots WholeSale", this));
+        this.getWholeSaleSupplierDir().getOrganizationList().add(new WholeSaleSupplierOrganization("CostCo WholeSale", this));
+        this.getWholeSaleSupplierDir().getOrganizationList().add(new WholeSaleSupplierOrganization("Walmart WholeSale", this));
         
         
         //Test Data - Dealers
         //Add a couple of dealers
-        dealerDir = new DealerDirectory();
+        dealerDir = new OrganizationDirectory();
         
-        this.getDealerDir().getDealersList().add(new Dealer("Daves Store", this));
-        this.getDealerDir().getDealersList().add(new Dealer("Joes Store", this));
-        this.getDealerDir().getDealersList().add(new Dealer("Alwin Electronics", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Daves Store", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Joes Store", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Alwin Electronics", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Thrift Store Manufacturer", this));
         
         //Test Data - Add one Auction consultant
         this.auctionUnitOrg = new AuctionUnitOrganization("Phoenix Auction Consultants", this);
@@ -202,11 +198,8 @@ public class EcoSystem extends Organization{
         
         //Test Data - Add one Manufacturing Unit roled person
         //this.manufacturingUnitOrganization = new ManufacturingUnitOrganization();
-        this.manufacturerDirectory = new ManufacturerDirectory();
-        
-        this.getManufacturerDirectory().addManufacturer(new Manufacturer("Home Town",this));
-        this.getManufacturerDirectory().addManufacturer(new Manufacturer("Make At Home",this));
-        
+       
+  
         //Test Data - Add a few Shipping companies.
         this.shippingCompanies = new OrganizationDirectory();
         
@@ -259,5 +252,56 @@ public class EcoSystem extends Organization{
 
     public ArrayList<SysAdminLogs> getSysAdminLogList() {
         return sysAdminLogList;
+    }
+public CustomerDirectory getGlobalCustomerDirectory() {
+        CustomerDirectory custDir = new CustomerDirectory();
+        
+        for (UserAccount ua : this.getUserAccountDirectory().getUserAccountList()) {
+            if (ua instanceof Customer)
+                custDir.addCustomer((Customer) ua);
+        } 
+        
+        return custDir;
+    }
+    
+    public ProductDirectory leastBoughtProductDirectory() {//Return products in a product directory, which were bought lesser than 2 times by customers
+        ProductDirectory leastBoughtPD = new ProductDirectory(); //Start with global list of Products
+
+        for (Product globalProduct : this.getProductDirectory().getProducts())
+            leastBoughtPD.getProducts().add(globalProduct);
+                
+        //First get a map of Products in Work orders, and add a count to it
+        HashMap<Product, Integer> productListCountMap = new HashMap<Product, Integer>();
+
+        //A Map of Product and how many times the product - dealer combo based Product was bought by customers
+        for (Customer cust : getGlobalCustomerDirectory().getCustomerList()) {
+            productListCountMap = cust.getWorkQueue().updateProductMapBasedOnOrders(productListCountMap, this.getProductDirectory());
+        }
+        
+        //Find the lesser than 2 count product from map, and then add all those into PD.. so better start with global directory, and delete the more than count 2 items.
+        for (Map.Entry<Product,Integer> entry : productListCountMap.entrySet())  {
+           
+            //Remove the products from this directory, which were bought more than 2 times
+            if (entry.getValue() >= 2) {
+               leastBoughtPD.getProducts().remove(entry.getKey());
+           } 
+        }
+
+        return leastBoughtPD;
+    }
+    
+    public ShippingUnitOrganization findShippingCompany(UserAccount ua) {
+        ShippingUnitOrganization foundShippingCompany = null;
+        
+        for  (Organization org: this.getShippingCompanies().getOrganizationList()) {
+            ShippingUnitOrganization ship = (ShippingUnitOrganization) org;
+            
+            if (ship.getUserAccountAssoc().equals(ua)) {
+                foundShippingCompany = ship;
+                break;
+            }
+                
+        }
+        return foundShippingCompany;
     }
 }

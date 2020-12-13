@@ -9,6 +9,8 @@ import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Role.AdminRole;
+import Business.Role.ManufacturerAdminRole;
+import Business.Role.ShippingAdminRole;
 import Business.Role.ThriftShopAdmin;
 import Business.UserAccount.UserAccount;
 import Business.Utils.HeaderColors;
@@ -240,11 +242,11 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                 if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.ThriftShop) {
                     System.out.println("thrift admin user account");
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ThriftShopAdmin());
-                } /*else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.ThriftShop) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new IncidentUnitManager());
                 } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Manufacturing) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new VoluntaryUnitAdmin());
-                }else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Payment) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ManufacturerAdminRole());
+                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Ecommerce) {
+                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ShippingAdminRole());
+                }/*else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Payment) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new VoluntaryUnitAdmin());
                 }*/
                 else{

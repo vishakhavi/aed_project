@@ -16,7 +16,7 @@ import userinterface.ThriftShopUnitWorkArea.ThriftShopUnitWorkRequestJPanel;
 
 /**
  *
- * @author Mayank
+ * @author Vishakha
  */
 public class ThriftShopAdmin extends Role{
 

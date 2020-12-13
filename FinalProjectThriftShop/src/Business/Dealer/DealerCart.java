@@ -5,6 +5,7 @@
  */
 package Business.Dealer;
 
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkQueue;
 
@@ -18,6 +19,15 @@ public class DealerCart {
     private int qty;
     private String category;
     private String productImagePath;
+    private WholeSaleSupplierOrganization supplier;
+
+    public WholeSaleSupplierOrganization getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(WholeSaleSupplierOrganization supplier) {
+        this.supplier = supplier;
+    }
 
     public String getProductImagePath() {
         return productImagePath;
@@ -43,12 +53,13 @@ public class DealerCart {
         this.qty = qty;
     }
     
-    public DealerCart(String n, double p, int q, String cat, String productImage) {
+    public DealerCart(String n, double p, int q, String cat, String productImage, WholeSaleSupplierOrganization sup) {
         this.name = n;
         this.price = p;
         this.qty = q;
         this.category = cat;
         this.productImagePath = productImage;
+        this.supplier = sup;
     }
 
     public double getPrice() {

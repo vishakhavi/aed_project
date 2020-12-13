@@ -20,6 +20,7 @@ public abstract class Role {
         Admin("Admin"),
         ThriftShopAdmin("ThriftShopAdmin"),
         ManufacturerAdmin("ManufacturerAdmin"),
+        ShippingAdmin("ShippingAdmin"),
         CustomerRole("CustomerRole");
         
         private String value;

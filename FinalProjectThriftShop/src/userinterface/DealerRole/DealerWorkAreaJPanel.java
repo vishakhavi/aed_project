@@ -5,20 +5,26 @@
 package userinterface.DealerRole;
 
 
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import Business.EcoSystem;
+import Business.Organization.Organization;
+import Business.Organization.ShippingUnitOrganization;
 import Business.Product.Product;
 
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.CustomerWorkOrder;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
+import userinterface.ManufacturerAdminRole.CreateManufacturerProductsJPanel;
 
 /**
  *
@@ -30,11 +36,14 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
 
     private UserAccount userAccount;
     EcoSystem ecosystem;
-    Dealer dealer;
+    DealerOrganization dealer;
+    private DefaultTableModel viewTable;
+    
+    private static final Object[] columnNames = {"Product Name", "Price", "Category", "Quantity", "Product Image"};
     /**
-     * Creates new form DoctorWorkAreaJPanel
+     * Creates new form DealerWorkAreaJPanel
      */
-    public DealerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, Dealer deal) {
+    public DealerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, DealerOrganization deal) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
@@ -44,45 +53,78 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         this.dealer = deal;
         
         valueLabel.setText(this.dealer.getName());
+        totalRevenue.setText("$" + EcoSystem.round(this.dealer.getRevenue(), 2));
         
-        setListenerForTableSelection();
         populateRequestTable();
+        populateDealerWorkOrders();
+        populateShippingCompanies();
     }
     
     public void populateRequestTable(){
-        DefaultTableModel model = (DefaultTableModel)productsJTable.getModel();
-        model.setRowCount(0);
+        viewTable =  new DefaultTableModel(null,columnNames){
+          @Override
+          public Class<?> getColumnClass(int column) {
+              if (column==4) return Icon.class;
+              return Object.class;
+           }
+        };
+        
+        viewTable.setRowCount(0);
         
         for (Product p : this.dealer.getProductDirectory().getProducts()) {
-                Object row[] = new Object[5];
-                row[0] = p.getId();
-                row[1] = p;
-                row[2] = p.getPrice();
-                row[3] = p.getCategory();
-                row[4] = p.getQty();
-                model.addRow(row); 
+            Object row[] = new Object[5];
+            row[0] = p;
+            row[1] = p.getPrice();
+            row[2] = p.getCategory();
+            row[3] = p.getQty();
+
+            String temp = p.getProductImagePath();
+            if(temp != null)
+            {
+                ImageIcon ii = new ImageIcon(temp);
+                Image resizedImage = ii.getImage();
+                ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                row[4] = ii;
+            }
+            else
+            {    
+                row[4] = "No image";
+            }
+            
+            viewTable.addRow(row); 
+        }
+        
+        productsJTable.setRowHeight(80);
+        productsJTable.setModel(viewTable);
+    }
+    
+    public void populateDealerWorkOrders(){
+        DefaultTableModel model = (DefaultTableModel)tblDealerOrders.getModel();
+        model.setRowCount(0);
+
+        for (WorkRequest wr : this.dealer.getWorkQueue().getWorkRequestList()) {
+            CustomerWorkOrder cwo = (CustomerWorkOrder) wr;
+            Object row[] = new Object[5];
+            row[0] = cwo;
+            row[1] = cwo.getRequestDate();
+            row[2] = cwo.getStatus();
+            row[3] = (cwo.getShippingAssigned() != null) ? cwo.getShippingAssigned() : "Not Assigned";
+            row[4] = cwo.getResolveDate();
+            model.addRow(row); 
         }
     }
     
-      public ImageIcon finalImage(String imagePath) {
-        ImageIcon image  = new ImageIcon(imagePath);
-        Image img = image.getImage();
-        Image modifiedImg = img.getScaledInstance(jLabelProductPicture.getWidth(), jLabelProductPicture.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon finalImage = new ImageIcon(modifiedImg);
-        return finalImage;
+    public void populateShippingCompanies() {
+        DefaultTableModel model = (DefaultTableModel)tblShippingCompanies.getModel();
+        model.setRowCount(0);
+
+        for (Organization org :  this.ecosystem.getShippingCompanies().getOrganizationList()) {
+            Object row[] = new Object[tblShippingCompanies.getColumnCount()];
+            ShippingUnitOrganization shippingCompany = (ShippingUnitOrganization) org;
+            row[0] = shippingCompany;
+            model.addRow(row); 
+        }
     }
-      
-    private void setListenerForTableSelection() {
-        productsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                if (productsJTable.getSelectedRow() != -1) {
-                    Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 1);
-                    jLabelProductPicture.setIcon(finalImage(prod.getProductImagePath()));
-                }
-            }
-        });
-    }
-  
 
     
     /**
@@ -100,7 +142,16 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
-        jLabelProductPicture = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblDealerOrders = new javax.swing.JTable();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        tblShippingCompanies = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jBtnAssignShipping = new javax.swing.JButton();
+        enterpriseLabel1 = new javax.swing.JLabel();
+        totalRevenue = new javax.swing.JLabel();
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,15 +161,22 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Category", "Quantity"
+                "Product Name", "Price", "Category", "Quantity", "Product Image"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(productsJTable);
@@ -142,6 +200,67 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
 
         valueLabel.setText("<value>");
 
+        jLabel1.setText("Dealer - Shipping Management of assigned orders");
+
+        tblDealerOrders.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Ecommerce/Auction Product", "Request Date", "Status", "Shipping Company", "Resolved Date"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.String.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane2.setViewportView(tblDealerOrders);
+
+        tblShippingCompanies.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Shipping Company"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(tblShippingCompanies);
+
+        jLabel2.setText("Choose a Shipping company to assign to an order");
+
+        jLabel3.setText("Choose and order placed under this Dealer's products - Assign Shipping");
+
+        jBtnAssignShipping.setText("Assign Shipping");
+        jBtnAssignShipping.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnAssignShippingActionPerformed(evt);
+            }
+        });
+
+        enterpriseLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel1.setText("Total Revenue:");
+
+        totalRevenue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -149,63 +268,133 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(30, 30, 30)
-                        .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(164, 164, 164)
-                        .addComponent(refreshTestJButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabelProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(174, 174, 174))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(295, 295, 295)
-                        .addComponent(requestTestJButton)))
+                        .addComponent(requestTestJButton)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(128, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 617, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 446, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(110, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnAssignShipping, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30)
+                .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(164, 164, 164)
+                .addComponent(refreshTestJButton)
+                .addGap(115, 115, 115)
+                .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(totalRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addGap(22, 22, 22)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(valueLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(refreshTestJButton))
+                        .addComponent(refreshTestJButton)
+                        .addComponent(enterpriseLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(totalRevenue, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(requestTestJButton)
-                .addContainerGap(350, Short.MAX_VALUE))
+                .addGap(39, 39, 39)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(jBtnAssignShipping)
+                .addContainerGap(27, Short.MAX_VALUE))
         );
-
-        jLabelProductPicture.setBounds(10, 10, 650, 250);
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-        ManageDealerProductsJPanel mdpj = new ManageDealerProductsJPanel(userProcessContainer, this.dealer, this.ecosystem);
-        userProcessContainer.add("ManageDealerProducts", mdpj);
-        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
-        layout.next(userProcessContainer);   
+        if (userAccount.getUsername().equalsIgnoreCase("ThriftStoreManufacturer")){
+            CreateManufacturerProductsJPanel cmpjp = new CreateManufacturerProductsJPanel(userProcessContainer, dealer, ecosystem);
+            userProcessContainer.add("CreateManufacturerProductsJPanel", cmpjp);
+            CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }else{
+            ManageDealerProductsJPanel mdpj = new ManageDealerProductsJPanel(userProcessContainer, this.dealer, this.ecosystem);
+            userProcessContainer.add("ManageDealerProducts", mdpj);
+            CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+            layout.next(userProcessContainer); 
+        }
     }//GEN-LAST:event_requestTestJButtonActionPerformed
 
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
         populateRequestTable();
-        jLabelProductPicture.setIcon(null);
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
+
+    private void jBtnAssignShippingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAssignShippingActionPerformed
+        int selectedOrderRow = tblDealerOrders.getSelectedRow();
+        int selectedShipperRow = tblShippingCompanies.getSelectedRow();
+
+        if (selectedOrderRow >= 0 && selectedShipperRow >=0 ) {
+            CustomerWorkOrder selectedOrder = (CustomerWorkOrder) tblDealerOrders.getValueAt(selectedOrderRow, 0);
+            ShippingUnitOrganization selectedShipping = (ShippingUnitOrganization) tblShippingCompanies.getValueAt(selectedShipperRow, 0);
+
+            //Delete the existing shipping company's order first
+            if (selectedOrder.getShippingAssigned() != null)
+            selectedOrder.getShippingAssigned().getWorkQueue().getWorkRequestList().remove(selectedOrder);
+
+            //Assign Shipping to Order, Add order under Shipping, Update Work Order status - "To Be Shipped"
+            selectedOrder.setShippingAssigned(selectedShipping);
+            selectedShipping.getWorkQueue().addWorkRequest(selectedOrder);
+            selectedOrder.setStatus("To Be Shipped");
+
+            JOptionPane.showMessageDialog(null, "Added Shipping Company for the chosen order!!!");
+
+            populateDealerWorkOrders();
+        } else {
+            JOptionPane.showMessageDialog(null,"Please select an Order and a Shipping company", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }//GEN-LAST:event_jBtnAssignShippingActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel enterpriseLabel;
-    private javax.swing.JLabel jLabelProductPicture;
+    private javax.swing.JLabel enterpriseLabel1;
+    private javax.swing.JButton jBtnAssignShipping;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable productsJTable;
     private javax.swing.JButton refreshTestJButton;
     private javax.swing.JButton requestTestJButton;
+    private javax.swing.JTable tblDealerOrders;
+    private javax.swing.JTable tblShippingCompanies;
+    private javax.swing.JLabel totalRevenue;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

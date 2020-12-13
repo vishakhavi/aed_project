@@ -8,7 +8,6 @@ import Business.Customer.Ads;
 import Business.Customer.CustomerDirectory;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Employee.EmployeeDirectory;
-import Business.Manufacturer.ManufacturerDirectory;
 import Business.Role.Role;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.WorkQueue;
@@ -36,8 +35,9 @@ public abstract class Organization {
     public enum Type{
         Admin("Admin Organization"), CustomerService("Customer Service Organization"), 
         MaintenanceStaff("Maintenance Organization"), QualityCheckOfficer("Quality Check Organzation"),
-        ManufacturerAdmin("Manufacturing Unit Organization"),DeliveryMan("Shipping Unit Organization"),
+        ManufacturerAdmin("Manufacturing Unit Organization"),ShippingCompany("Shipping Unit Organization"),
         AuctionConsultant("Auction Unit Organization"), InsuranceManager("Insurance Organization"),
+        WholeSaleAdmin("Whole salers Organizaiton"), DealerAdmin("Dealers Organizaiton"),
         Customer("Ads Organization");
         private String value;
         private Type(String value) {
