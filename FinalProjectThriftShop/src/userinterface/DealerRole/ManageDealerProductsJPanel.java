@@ -344,7 +344,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             if (foundCartItem) { //Make sure to create one inventory of products and not add them over and over again.
                 foundCart.setQty(foundCart.getQty() + Integer.parseInt(qtyText));
             } else {
-                DealerCart cartItem = new DealerCart (selectedProduct.getName(), selectedProduct.getPrice(), Integer.parseInt(qtyText), selectedProduct.getCategory(), selectedProduct.getProductImagePath());
+                DealerCart cartItem = new DealerCart (selectedProduct.getName(), selectedProduct.getPrice(), Integer.parseInt(qtyText), selectedProduct.getCategory(), selectedProduct.getProductImagePath(), selectedProduct.getSupplier());
                 this.cart.add(cartItem);
             }
             
@@ -425,10 +425,11 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
         for(DealerCart c : cart) {
             Product dealerProduct = new Product();
             Product globalDirectoryProduct = new Product(); //Make sure to have another Copy.. this helps during separate update process
+            double profitPrice = EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2);
             
             dealerProduct.setDealer(this.dealer);
             dealerProduct.setName(c.getName());
-            dealerProduct.setPrice(EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
+            dealerProduct.setPrice(profitPrice); //Dealers sell at 10% profit
             dealerProduct.setQty(c.getQty());
             dealerProduct.setCategory(c.getCategory());
             dealerProduct.setProductImagePath(c.getProductImagePath());
@@ -436,13 +437,16 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             //Update Global Product directory with same params
             globalDirectoryProduct.setDealer(this.dealer);
             globalDirectoryProduct.setName(c.getName());
-            globalDirectoryProduct.setPrice(EcoSystem.round(c.getPrice() + (c.getPrice() * .1), 2)); //Dealers sell at 10% profit
+            globalDirectoryProduct.setPrice(profitPrice); //Dealers sell at 10% profit
             globalDirectoryProduct.setQty(c.getQty());
             globalDirectoryProduct.setCategory(c.getCategory());
             globalDirectoryProduct.setProductImagePath(c.getProductImagePath());
             
             addProductToDirectory(dealerProduct, dealerPd);
             addProductToDirectory(globalDirectoryProduct, globalPd);
+            
+            //Update Supplier Revenue
+            c.getSupplier().setRevenue(c.getSupplier().getRevenue() + (c.getPrice() * c.getQty()));
         }
 
         JOptionPane.showMessageDialog(null, "Added Products to Dealer Inventory successfully !!!");

@@ -48,6 +48,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         this.supplier = s;
         
         valueLabel.setText(this.supplier.getName());
+         totalRevenue.setText("$" + EcoSystem.round(this.supplier.getRevenue(), 2));
         
         populateProductsTable();
     }
@@ -107,6 +108,9 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         valueLabel = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        totalRevenue = new javax.swing.JLabel();
+        enterpriseLabel2 = new javax.swing.JLabel();
+        enterpriseLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(null);
@@ -177,6 +181,21 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Whole sale supplier.png"))); // NOI18N
         add(jLabel1);
         jLabel1.setBounds(310, 340, 790, 310);
+
+        totalRevenue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        totalRevenue.setText("Total Revenue:");
+        add(totalRevenue);
+        totalRevenue.setBounds(990, 20, 137, 30);
+
+        enterpriseLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel2.setText("Total Revenue:");
+        add(enterpriseLabel2);
+        enterpriseLabel2.setBounds(840, 20, 137, 30);
+
+        enterpriseLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        enterpriseLabel3.setText("Total Revenue:");
+        add(enterpriseLabel3);
+        enterpriseLabel3.setBounds(840, 20, 137, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
@@ -193,12 +212,15 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel enterpriseLabel;
+    private javax.swing.JLabel enterpriseLabel2;
+    private javax.swing.JLabel enterpriseLabel3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable productsJTable;
     private javax.swing.JButton refreshTestJButton;
     private javax.swing.JButton requestTestJButton;
+    private javax.swing.JLabel totalRevenue;
     private javax.swing.JLabel valueLabel;
     // End of variables declaration//GEN-END:variables
 }

@@ -24,6 +24,15 @@ public class WholeSaleSupplierOrganization extends Organization{
     private static int count = 1;
     private UserAccount userAccountAssoc;
     private ProductDirectory productDirectory;
+    private double revenue;
+
+    public double getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(double revenue) {
+        this.revenue = revenue;
+    }
 
     public ProductDirectory getProductDirectory() {
         return productDirectory;
@@ -64,6 +73,7 @@ public class WholeSaleSupplierOrganization extends Organization{
         
         //Empty List of products - TODO
         this.productDirectory = new ProductDirectory();
+        this.revenue = 0;
         
         count++;
     }
