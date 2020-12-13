@@ -68,17 +68,17 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         tblCustomerServiceOrders.getModel().addTableModelListener(this);
     }
     
-        public void tableChanged(TableModelEvent e) {
-            int row = e.getFirstRow();
-            int column = e.getColumn();
-            TableModel model = (TableModel)e.getSource();
-            String columnName = model.getColumnName(column);
-            
-            if  (columnName.equals("Status")) {
-                JOptionPane.showMessageDialog(null,"This will not update the record yet, please click \"Submit Response\" if you intend to save the information", "Warning", JOptionPane.WARNING_MESSAGE);
-            }
-        
+    public void tableChanged(TableModelEvent e) {
+        int row = e.getFirstRow();
+        int column = e.getColumn();
+        TableModel model = (TableModel)e.getSource();
+        String columnName = model.getColumnName(column);
+
+        if  (columnName.equals("Status")) {
+            JOptionPane.showMessageDialog(null,"This will not update the record yet, please click \"Submit Response\" if you intend to save the information", "Warning", JOptionPane.WARNING_MESSAGE);
         }
+
+    }
 
    
     public void populateOrders() {
@@ -104,7 +104,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         model.setRowCount(0);
 
         for (Organization org :  this.ecosystem.getShippingCompanies().getOrganizationList()) {
-            Object row[] = new Object[tblCustomerServiceOrders.getColumnCount()];
+            Object row[] = new Object[tblShippingCompanies.getColumnCount()];
             ShippingUnitOrganization shippingCompany = (ShippingUnitOrganization) org;
             row[0] = shippingCompany;
             model.addRow(row); 
@@ -299,32 +299,35 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
        String customerServiceComments = jTextAreaCustServiceComments.getText().trim();
        
        if (selectedOrder >= 0 && !customerServiceComments.isEmpty()){
-         
-           
             CustomerWorkOrder selectedWorkOrder = (CustomerWorkOrder) tblCustomerServiceOrders.getValueAt(selectedOrder, 0);
             
-            if (selectedWorkOrder.getCustomerServiceHistoryComments() == null || selectedWorkOrder.getCustomerServiceHistoryComments().isEmpty()) {
-                selectedWorkOrder.setCustomerServiceHistoryComments(this.ecosystem.getCustomerServiceOrg().getName() + "-" + new Date() + ": " + customerServiceComments);
-            } else {
-                selectedWorkOrder.setCustomerServiceHistoryComments(selectedWorkOrder.getCustomerServiceHistoryComments() + "\n\n" + this.ecosystem.getCustomerServiceOrg().getName() + "-" + new Date() + ": " + customerServiceComments);
-            }  
-            selectedWorkOrder.setLatestCustomerComment("CustRep: " + customerServiceComments);
             
-            if (!selectedWorkOrder.getStatus().equals((String) tblCustomerServiceOrders.getValueAt(selectedOrder, 2))) {
-                String status = (String) tblCustomerServiceOrders.getValueAt(selectedOrder, 2);
-                selectedWorkOrder.setStatus(status);
-                
-                if (status.equals("Complete")) {
-                    selectedWorkOrder.setResolveDate(new Date());
-                }
+            
+            if (selectedWorkOrder.getStatus().equals("Complete")) {
+                JOptionPane.showMessageDialog(null,"Cannot update a completed order", "Warning", JOptionPane.WARNING_MESSAGE);
+                populateOrders();
             }
+            else {
+                if (selectedWorkOrder.getCustomerServiceHistoryComments() == null || selectedWorkOrder.getCustomerServiceHistoryComments().isEmpty()) {
+                    selectedWorkOrder.setCustomerServiceHistoryComments(this.ecosystem.getCustomerServiceOrg().getName() + "-" + new Date() + ": " + customerServiceComments);
+                } else {
+                    selectedWorkOrder.setCustomerServiceHistoryComments(selectedWorkOrder.getCustomerServiceHistoryComments() + "\n\n" + this.ecosystem.getCustomerServiceOrg().getName() + "-" + new Date() + ": " + customerServiceComments);
+                }  
+                selectedWorkOrder.setLatestCustomerComment("CustRep: " + customerServiceComments);
                 
+                if (!selectedWorkOrder.getStatus().equals((String) tblCustomerServiceOrders.getValueAt(selectedOrder, 2))) {
+                    String status = (String) tblCustomerServiceOrders.getValueAt(selectedOrder, 2);
+                    selectedWorkOrder.setStatus(status);
+
+                    if (status.equals("Complete")) {
+                        selectedWorkOrder.setResolveDate(new Date());
+                    }
+                }
                 
-                
-            selectedWorkOrder.setRequireCustomerService(false); //Disable when answered
-            
-            JOptionPane.showMessageDialog(null, "Responded to the customer Request succesfully !!!");
-            populateOrders();
+                selectedWorkOrder.setRequireCustomerService(false); //Disable when answered
+                JOptionPane.showMessageDialog(null, "Responded to the customer Request succesfully !!!");
+                populateOrders();
+            }
        } else {
             JOptionPane.showMessageDialog(null,"Please select an Order, choose Request customer service flag, and enter yoour comments", "Warning", JOptionPane.WARNING_MESSAGE);
        }
