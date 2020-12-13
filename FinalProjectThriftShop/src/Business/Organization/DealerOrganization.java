@@ -25,6 +25,15 @@ public class DealerOrganization extends Organization {
     private UserAccount userAccountAssoc;
     private ProductDirectory productDirectory;
     private WorkQueue workQueue;
+    private double revenue;
+
+    public double getRevenue() {
+        return revenue;
+    }
+
+    public void setRevenue(double revenue) {
+        this.revenue = revenue;
+    }
 
     public WorkQueue getWorkQueue() {
         return workQueue;
@@ -75,6 +84,7 @@ public class DealerOrganization extends Organization {
         //Empty List of products - TODO
         this.productDirectory = new ProductDirectory();
         this.workQueue = new WorkQueue();
+        this.revenue = 0;
         
         count++;
     }

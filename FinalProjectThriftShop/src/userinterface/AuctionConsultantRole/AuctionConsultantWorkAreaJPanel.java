@@ -369,6 +369,9 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo); //Adding to customer WRs.
                 selectedAuctionProduct.getDealer().getWorkQueue().addWorkRequest(cwo); //Adding the order to a dealer.
                 
+                //Update Dealer Revenue
+                selectedAuctionProduct.getDealer().setRevenue(selectedAuctionProduct.getDealer().getRevenue() + selectedAuctionProduct.getMaxBidAskPrice());
+                
                 //Update DealerOrganization Inventory
                 DealerOrganization dealer = selectedAuctionProduct.getDealer();
                 Product prodRecord = dealer.getProductDirectory().findProduct(selectedAuctionProduct.getName());
