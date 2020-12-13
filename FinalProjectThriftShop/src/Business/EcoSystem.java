@@ -8,8 +8,7 @@ package Business;
 import Business.Auction.AuctionProductDirectory;
 import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
-import Business.Dealer.Dealer;
-import Business.Dealer.DealerDirectory;
+import Business.Organization.DealerOrganization;
 import Business.DeliveryMan.DeliveryManDirectory;
 import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
@@ -25,8 +24,7 @@ import Business.Role.SystemAdminRole;
 import Business.SysAdmin.SysAdminLogs;
 import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
-import Business.WholeSaleSupplier.WholeSaleSupplierDirectory;
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.WorkQueue.OrderWorkQueue;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
@@ -41,8 +39,8 @@ public class EcoSystem extends Organization{
     
     private static EcoSystem business;
     private ArrayList<Network> networkList;
-    private WholeSaleSupplierDirectory wholeSaleSupplierDir;
-    private DealerDirectory dealerDir; 
+    private OrganizationDirectory wholeSaleSupplierDir;
+    private OrganizationDirectory dealerDir; 
     private WorkQueue workQueue;
     private OrderWorkQueue orderWorkQueue;
     private DeliveryManDirectory deliveryManDirectory;
@@ -110,11 +108,11 @@ public class EcoSystem extends Organization{
     }
 
 
-    public DealerDirectory getDealerDir() {
+    public OrganizationDirectory getDealerDir() {
         return dealerDir;
     }
 
-    public void setDealerDir(DealerDirectory dealerDir) {
+    public void setDealerDir(OrganizationDirectory dealerDir) {
         this.dealerDir = dealerDir;
     }
    
@@ -127,11 +125,11 @@ public class EcoSystem extends Organization{
         this.productDirectory = productDirectory;
     }
 
-    public WholeSaleSupplierDirectory getWholeSaleSupplierDir() {
+    public OrganizationDirectory getWholeSaleSupplierDir() {
         return wholeSaleSupplierDir;
     }
 
-    public void setWholeSaleSupplierDir(WholeSaleSupplierDirectory wholeSaleSupplierDir) {
+    public void setWholeSaleSupplierDir(OrganizationDirectory wholeSaleSupplierDir) {
         this.wholeSaleSupplierDir = wholeSaleSupplierDir;
     }
     public DeliveryManDirectory getDeliveryManDirectory() {
@@ -172,22 +170,22 @@ public class EcoSystem extends Organization{
 
         //Test Data - Suppliers
         //Add a couple of suppliers
-        wholeSaleSupplierDir = new WholeSaleSupplierDirectory();
+        wholeSaleSupplierDir = new OrganizationDirectory();
         
         
-        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("Lots WholeSale", this));
-        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("CostCo WholeSale", this));
-        this.getWholeSaleSupplierDir().getwholeSaleSupplierList().add(new WholeSaleSupplier("Walmart WholeSale", this));
+        this.getWholeSaleSupplierDir().getOrganizationList().add(new WholeSaleSupplierOrganization("Lots WholeSale", this));
+        this.getWholeSaleSupplierDir().getOrganizationList().add(new WholeSaleSupplierOrganization("CostCo WholeSale", this));
+        this.getWholeSaleSupplierDir().getOrganizationList().add(new WholeSaleSupplierOrganization("Walmart WholeSale", this));
         
         
         //Test Data - Dealers
         //Add a couple of dealers
-        dealerDir = new DealerDirectory();
+        dealerDir = new OrganizationDirectory();
         
-        this.getDealerDir().getDealersList().add(new Dealer("Daves Store", this));
-        this.getDealerDir().getDealersList().add(new Dealer("Joes Store", this));
-        this.getDealerDir().getDealersList().add(new Dealer("Alwin Electronics", this));
-        this.getDealerDir().getDealersList().add(new Dealer("Thrift Store Manufacturer", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Daves Store", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Joes Store", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Alwin Electronics", this));
+        this.getDealerDir().getOrganizationList().add(new DealerOrganization("Thrift Store Manufacturer", this));
         
         //Test Data - Add one Auction consultant
         this.auctionUnitOrg = new AuctionUnitOrganization("Phoenix Auction Consultants", this);

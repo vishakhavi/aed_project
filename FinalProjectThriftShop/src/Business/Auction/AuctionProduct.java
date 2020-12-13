@@ -6,11 +6,11 @@ package Business.Auction;
 
 import Business.Customer.Customer;
 import Business.Product.*;
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import Business.Employee.*;
 import Business.Organization.AuctionUnitOrganization;
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 
 /**
  *
@@ -29,13 +29,13 @@ public class AuctionProduct {
     private String productImagePath;
     private AuctionUnitOrganization auctionCompany;
     private UserAccount bidWinCustomer; //This will be updated based on the the bid asked customer.
-    private Dealer dealer;
+    private DealerOrganization dealer;
 
-    public Dealer getDealer() {
+    public DealerOrganization getDealer() {
         return dealer;
     }
 
-    public void setDealer(Dealer dealer) {
+    public void setDealer(DealerOrganization dealer) {
         this.dealer = dealer;
     }
 

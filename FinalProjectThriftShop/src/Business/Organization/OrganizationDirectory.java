@@ -5,6 +5,7 @@
 package Business.Organization;
 
 import Business.Organization.Organization.Type;
+import Business.UserAccount.UserAccount;
 import java.util.ArrayList;
 
 /**
@@ -68,4 +69,30 @@ public class OrganizationDirectory {
         }
         return organization;
      }
+     
+    public WholeSaleSupplierOrganization getWholeSaleSupplierBasedOnUserName(UserAccount ua) {
+        WholeSaleSupplierOrganization supplier = null;
+
+            for (Organization org : this.organizationList) {
+                if ((org instanceof WholeSaleSupplierOrganization) && ((WholeSaleSupplierOrganization) org).getUserAccountAssoc().equals(ua)) {
+                        supplier = (WholeSaleSupplierOrganization) org;
+                        break;
+                }
+            }
+
+        return supplier;
+    }
+    
+    public DealerOrganization getDealerBasedOnUserName(UserAccount ua) {
+        DealerOrganization dealer = null;
+
+            for (Organization org : this.organizationList) {
+                if ((org instanceof DealerOrganization) && ((DealerOrganization) org).getUserAccountAssoc().equals(ua)) {
+                        dealer = (DealerOrganization) org;
+                        break;
+                }
+            }
+
+        return dealer;
+    }
 }

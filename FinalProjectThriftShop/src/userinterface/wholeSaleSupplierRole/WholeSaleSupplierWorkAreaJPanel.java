@@ -9,7 +9,7 @@ import Business.EcoSystem;
 import Business.Product.Product;
 
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Image;
@@ -30,11 +30,11 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private UserAccount userAccount;
     EcoSystem ecosystem;
-    WholeSaleSupplier supplier;
+    WholeSaleSupplierOrganization supplier;
     /**
      * Creates new form WholeSaleSupplierWorkAreaJPanel
      */
-    public WholeSaleSupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, WholeSaleSupplier s) {
+    public WholeSaleSupplierWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, WholeSaleSupplierOrganization s) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;

@@ -7,13 +7,13 @@ package userinterface.AuctionConsultantRole;
 
 import Business.Auction.AuctionProduct;
 import Business.Auction.AuctionProductDirectory;
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import userinterface.wholeSaleSupplierRole.*;
 import Business.EcoSystem;
 import Business.Product.Product;
 
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.WorkQueue.CustomerWorkOrder;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -301,7 +301,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
              selectedProduct.setQty(selectedProduct.getQty() - Integer.parseInt(qtyText));
              
              
-             //TODO - Update Dealer Inventory Count only when Customer gets the product*************************
+             //TODO - Update DealerOrganization Inventory Count only when Customer gets the product*************************
              
              JOptionPane.showMessageDialog(null, "Added Products to Auction Products Inventory successfully !!!");
              
@@ -331,7 +331,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
     private void sellToCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellToCustomerActionPerformed
         // Create a work request for the Customer. Update inventory count of the dealer. Remove item from AuctionProductsDirectory
-        //Finally add the work request, to the Dealer WorkQueue too.
+        //Finally add the work request, to the DealerOrganization WorkQueue too.
         int selectedAuctionProductRow = auctionProductsJTable.getSelectedRow();
         
         if (selectedAuctionProductRow >= 0){
@@ -352,8 +352,8 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo); //Adding to customer WRs.
                 selectedAuctionProduct.getDealer().getWorkQueue().addWorkRequest(cwo); //Adding the order to a dealer.
                 
-                //Update Dealer Inventory
-                Dealer dealer = selectedAuctionProduct.getDealer();
+                //Update DealerOrganization Inventory
+                DealerOrganization dealer = selectedAuctionProduct.getDealer();
                 Product prodRecord = dealer.getProductDirectory().findProduct(selectedAuctionProduct.getName());
                 prodRecord.setQty(prodRecord.getQty() - 1);
                 ecosystem.getWorkQueue().getWorkRequestList().add(cwo);

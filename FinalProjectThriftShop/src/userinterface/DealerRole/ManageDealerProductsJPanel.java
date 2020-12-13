@@ -5,16 +5,17 @@
  */
 package userinterface.DealerRole;
 
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import Business.Dealer.DealerCart;
 import Business.EcoSystem;
 import Business.Employee.Employee;
+import Business.Organization.Organization;
 import Business.Product.Product;
 import Business.Product.ProductDirectory;
 import Business.Role.AdminRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Component;
@@ -30,13 +31,13 @@ import javax.swing.table.DefaultTableModel;
 public class ManageDealerProductsJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
-    Dealer dealer;
+    DealerOrganization dealer;
     EcoSystem ecosystem;
     ArrayList<DealerCart> cart;
     /**
      * Creates new form CreateResaurantJPanel
      */
-    public ManageDealerProductsJPanel(JPanel upc, Dealer deal, EcoSystem system) {
+    public ManageDealerProductsJPanel(JPanel upc, DealerOrganization deal, EcoSystem system) {
         this.userProcessContainer = upc;
         this.dealer = deal;
         this.ecosystem = system;
@@ -51,7 +52,9 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
     DefaultTableModel model = (DefaultTableModel)tblManageDealerSupplier.getModel();
     model.setRowCount(0);
 
-        for (WholeSaleSupplier sup : this.ecosystem.getWholeSaleSupplierDir().getwholeSaleSupplierList()) {
+        for (Organization org : this.ecosystem.getWholeSaleSupplierDir().getOrganizationList()) {
+            WholeSaleSupplierOrganization sup = (WholeSaleSupplierOrganization) org;
+            
             Object row[] = new Object[2];
             row[0] = sup.getId();
             row[1] = sup;
@@ -59,7 +62,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
         }
     }
     
-    public void populateSupplierProductsTable(WholeSaleSupplier wss){
+    public void populateSupplierProductsTable(WholeSaleSupplierOrganization wss){
         DefaultTableModel model = (DefaultTableModel)tblManageSupProducts.getModel();
         model.setRowCount(0);
 
@@ -305,7 +308,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
         int selectedRow = tblManageDealerSupplier.getSelectedRow();
 
         if (selectedRow >= 0){
-            WholeSaleSupplier wholeSaleSupplierSelected = (WholeSaleSupplier) tblManageDealerSupplier.getValueAt(selectedRow, 1);
+            WholeSaleSupplierOrganization wholeSaleSupplierSelected = (WholeSaleSupplierOrganization) tblManageDealerSupplier.getValueAt(selectedRow, 1);
             populateSupplierProductsTable(wholeSaleSupplierSelected);
         } else {
             JOptionPane.showMessageDialog(null,"Please select a Whole Sale Dealer", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -321,7 +324,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
 
         if (selectedProdRow >= 0 && selectedSupRow >=0 && !qtyText.isEmpty()){
             Product selectedProduct = (Product) tblManageSupProducts.getValueAt(selectedProdRow, 1);
-            WholeSaleSupplier selectedSupplier = (WholeSaleSupplier) tblManageDealerSupplier.getValueAt(selectedSupRow, 1);
+            WholeSaleSupplierOrganization selectedSupplier = (WholeSaleSupplierOrganization) tblManageDealerSupplier.getValueAt(selectedSupRow, 1);
             
             //Check if Cart already has the order - product
             boolean foundCartItem = false;
@@ -385,7 +388,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
 
         if (selectedCartRow >= 0 && selectedSupRow>=0){
             DealerCart cartItem = (DealerCart) tblDealerCart.getValueAt(selectedCartRow, 0);
-            WholeSaleSupplier selectedSupplier = (WholeSaleSupplier) tblManageDealerSupplier.getValueAt(selectedSupRow, 1);
+            WholeSaleSupplierOrganization selectedSupplier = (WholeSaleSupplierOrganization) tblManageDealerSupplier.getValueAt(selectedSupRow, 1);
 
             this.cart.remove(cartItem);
             
@@ -406,7 +409,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
         int selectedRow = tblManageDealerSupplier.getSelectedRow();
 
         if (selectedRow >= 0){
-            WholeSaleSupplier supplier = (WholeSaleSupplier) tblManageDealerSupplier.getValueAt(selectedRow, 1);
+            WholeSaleSupplierOrganization supplier = (WholeSaleSupplierOrganization) tblManageDealerSupplier.getValueAt(selectedRow, 1);
         } else {
             JOptionPane.showMessageDialog(null,"Please select a Supplier to proceed saving...", "Warning", JOptionPane.WARNING_MESSAGE);
             return;

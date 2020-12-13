@@ -37,6 +37,7 @@ public abstract class Organization {
         MaintenanceStaff("Maintenance Organization"), QualityCheckOfficer("Quality Check Organzation"),
         ManufacturerAdmin("Manufacturing Unit Organization"),ShippingCompany("Shipping Unit Organization"),
         AuctionConsultant("Auction Unit Organization"), InsuranceManager("Insurance Organization"),
+        WholeSaleAdmin("Whole salers Organizaiton"), DealerAdmin("Dealers Organizaiton"),
         Customer("Ads Organization");
         private String value;
         private Type(String value) {

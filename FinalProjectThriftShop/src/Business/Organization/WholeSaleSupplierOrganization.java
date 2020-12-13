@@ -2,20 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.WholeSaleSupplier;
+package Business.Organization;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Product.ProductDirectory;
+import Business.Role.Role;
 import Business.Role.SystemAdminRole;
 import Business.Role.WholeSaleDealerRole;
 import Business.UserAccount.UserAccount;
+import java.util.ArrayList;
 
 /**
  *
  * @author Arthi Ganesan
  */
-public class WholeSaleSupplier {
+public class WholeSaleSupplierOrganization extends Organization{
     
     private String name;
     private int id;
@@ -39,7 +41,9 @@ public class WholeSaleSupplier {
         this.userAccountAssoc = userAccountAssoc;
     }
 
-    public WholeSaleSupplier() {
+    public WholeSaleSupplierOrganization() {
+        super(Organization.Type.WholeSaleAdmin.getValue());
+        
         id = count;
         
         //Empty List of products - TODO
@@ -48,7 +52,9 @@ public class WholeSaleSupplier {
         count++;
     }
     
-    public WholeSaleSupplier(String name, EcoSystem system) {
+    public WholeSaleSupplierOrganization(String name, EcoSystem system) {
+        super(Organization.Type.WholeSaleAdmin.getValue());
+        
         id = count;
         this.name = name;
         
@@ -79,6 +85,9 @@ public class WholeSaleSupplier {
     public String toString() {
         return name;
     }
-    
-    
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

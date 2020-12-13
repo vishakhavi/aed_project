@@ -6,7 +6,7 @@ package userinterface.ManufacturerAdminRole;
 
 
 import userinterface.DealerRole.*;
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import Business.EcoSystem;
 import Business.Product.Product;
 
@@ -29,11 +29,11 @@ public class ManufacturerWorkAreaJPanel extends javax.swing.JPanel {
 
     private UserAccount userAccount;
     EcoSystem ecosystem;
-    Dealer dealer;
+    DealerOrganization dealer;
     /**
      * Creates new form ManufacturerWorkAreaJPanel
      */
-    public ManufacturerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, Dealer deal) {
+    public ManufacturerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, DealerOrganization deal) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;
