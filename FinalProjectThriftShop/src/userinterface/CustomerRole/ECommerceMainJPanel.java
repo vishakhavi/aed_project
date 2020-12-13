@@ -50,7 +50,8 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         this.userAccount = userAccount;
         this.ecosystem = ecosystem;
         this.organization = organization;
-        this.customer = (Customer) this.userAccount;
+        this.customer = (Customer) this.userAccount;       
+        //checkoutCart(); //navigate to cart if items present
         jComboCategory.addItem("All");
         jComboCategory.addItem("Mobiles");
         jComboCategory.addItem("Furniture");
@@ -63,19 +64,6 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
             }
         };
         populateTable();
-        enableCartBtn();
-    }
-    
-    public void enableCartBtn()
-    {
-        if(this.customer.getCart().getProdDir().getProducts().size() <= 0)
-        {
-            btnCustomerCart.setEnabled(false);
-        }
-        else
-        {
-            btnCustomerCart.setEnabled(true);
-        }
     }
     
     public void populateTable()
@@ -105,6 +93,26 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
             }
             tblProducts.setRowHeight(150);
             tblProducts.setModel(viewTable);
+        }
+    }
+    
+    public void checkoutCart()
+    {
+        if (customer.getCart().getTotalPrice() > 0.0) 
+        {
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Your cart has some items, would you like to proceed to checkout?","Warning",dialogButton);
+            if(dialogResult == JOptionPane.YES_OPTION)
+            {
+                ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
+                rightSystemAdminPanel.add("eCommerceCustomerPanel", eccc);
+                CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
+                layout.next(rightSystemAdminPanel);
+            }
+//            else
+//            {
+//                remove(dialogButton);
+//            }
         }
     }
     
@@ -330,10 +338,18 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 
     private void btnCustomerCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerCartActionPerformed
         // TODO add your handling code here:
-        ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
-        rightSystemAdminPanel.add("eCommerceProductPanel", eccc);
-        CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
-        layout.next(rightSystemAdminPanel);
+        if(customer.getCart().getProdDir().getProducts().size() > 0)
+        {
+            ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
+            rightSystemAdminPanel.add("eCommerceProductPanel", eccc);
+            CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
+            layout.next(rightSystemAdminPanel);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Nothing in cart yet, please add products");
+            return;
+        }
     }//GEN-LAST:event_btnCustomerCartActionPerformed
 
 

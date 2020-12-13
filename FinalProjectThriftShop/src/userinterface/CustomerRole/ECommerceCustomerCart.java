@@ -50,6 +50,9 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
         populateTable();
         this.customer.getCart().calculateTotalPrice();
         txtTotalPrice.setText(Double.toString((this.customer.getCart().getTotalPrice())));
+        lblPleaseBuyMore.setVisible(true);
+        lblOff.setVisible(false);
+        checkDiscount();
     }
 
     public void populateTable()
@@ -83,6 +86,22 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
         
     }
     
+    public void checkDiscount()
+    {
+        Double actualPrice = customer.getCart().getTotalPrice();
+        if(actualPrice >= 100.0)
+        {
+            lblPleaseBuyMore.setVisible(false);
+            customer.getCart().setTotalPrice(actualPrice*0.85);
+            txtTotalPrice.setText(Double.toString((this.customer.getCart().getTotalPrice())));
+            lblOff.setVisible(true);
+        }
+        else
+        {
+            lblPleaseBuyMore.setVisible(true);
+            lblOff.setVisible(false);
+        }
+    }
     // Listen for changes in the text
     /**
      * This method is called from within the constructor to initialize the form.
@@ -103,12 +122,16 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
         btnUpdate = new javax.swing.JButton();
         jSpinnerQty = new javax.swing.JSpinner();
         btnPay = new javax.swing.JButton();
+        lblPleaseBuyMore = new javax.swing.JLabel();
+        lblOff = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
         lblName.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
+        tblCart.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        tblCart.setForeground(new java.awt.Color(0, 102, 255));
         tblCart.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -125,6 +148,7 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblCart.setSelectionBackground(new java.awt.Color(255, 204, 0));
         jScrollPane1.setViewportView(tblCart);
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
@@ -164,38 +188,45 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
             }
         });
 
+        lblPleaseBuyMore.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        lblPleaseBuyMore.setText("Add items of $100 or more to avail our 15% discount!");
+
+        lblOff.setText("15% off applied!");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(btnBack)
-                                .addGap(0, 0, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addGap(18, 18, 18)
+                        .addComponent(lblPleaseBuyMore)
+                        .addGap(0, 81, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jSpinnerQty, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnUpdate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 190, Short.MAX_VALUE)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(btnDelete)
+                                .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(224, 224, 224)
-                                .addComponent(btnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnDelete)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lblOff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(219, 219, 219)
+                .addComponent(btnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -203,7 +234,9 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(16, 16, 16)
-                .addComponent(btnBack)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnBack)
+                    .addComponent(lblPleaseBuyMore))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -212,22 +245,24 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                     .addComponent(jSpinnerQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnDelete)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblOff)
+                    .addComponent(btnDelete))
+                .addGap(7, 7, 7)
                 .addComponent(btnPay)
-                .addContainerGap(128, Short.MAX_VALUE))
+                .addContainerGap(133, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
         // TODO add your handling code here:
         rightSystemAdminPanel.remove(this);
-        Component[] componentArray = rightSystemAdminPanel.getComponents();
-        Component component = componentArray[componentArray.length - 1];
-        ECommerceProductPanel eCommProd = (ECommerceProductPanel) component;
-        eCommProd.enableCartBtn();
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+//        Component[] componentArray = rightSystemAdminPanel.getComponents();
+//        Component component = componentArray[componentArray.length - 1];
+//        ECommerceProductPanel eCommProd = (ECommerceProductPanel) component;
+//        eCommProd.enableCartBtn();  
         layout.previous(rightSystemAdminPanel);
     }//GEN-LAST:event_btnBackActionPerformed
 
@@ -249,12 +284,13 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
             Product product = (Product) tblCart.getValueAt(selectedRow, 0);
             //Product foundProduct = customer.getCart().checkIfProductInCart(product);
             product.setQty((Integer)jSpinnerQty.getValue());
-            System.out.println(customer.getCart().getProdDir().getProducts().size());
+            //System.out.println(customer.getCart().getProdDir().getProducts().size());
             JOptionPane.showMessageDialog(null, "Product " + product.getName() + " quantity updated to " + product.getQty());
             viewTable.removeRow(tblCart.getSelectedRow());
             populateTable();
             this.customer.getCart().calculateTotalPrice();
             txtTotalPrice.setText(Double.toString((this.customer.getCart().getTotalPrice())));
+            checkDiscount();
         } 
         else 
         {
@@ -277,6 +313,7 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
             populateTable();
             this.customer.getCart().calculateTotalPrice();
             txtTotalPrice.setText(Double.toString((this.customer.getCart().getTotalPrice())));
+            checkDiscount();
             if(Double.parseDouble(txtTotalPrice.getText()) == 0.0)
             {
                 btnPay.setEnabled(false);
@@ -300,6 +337,8 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinnerQty;
     private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblOff;
+    private javax.swing.JLabel lblPleaseBuyMore;
     private javax.swing.JTable tblCart;
     private javax.swing.JTextField txtTotalPrice;
     // End of variables declaration//GEN-END:variables
