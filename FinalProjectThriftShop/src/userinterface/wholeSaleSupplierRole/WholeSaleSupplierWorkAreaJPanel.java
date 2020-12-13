@@ -14,6 +14,7 @@ import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
@@ -31,6 +32,9 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     EcoSystem ecosystem;
     WholeSaleSupplierOrganization supplier;
+    private DefaultTableModel viewTable;
+    
+    private static final Object[] columnNames = {"Product Name", "Price", "Category", "Product Image"};
     /**
      * Creates new form WholeSaleSupplierWorkAreaJPanel
      */
@@ -45,44 +49,44 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         
         valueLabel.setText(this.supplier.getName());
         
-        setListenerForTableSelection();
-        populateRequestTable();
+        populateProductsTable();
     }
     
-    public void populateRequestTable(){
-        DefaultTableModel model = (DefaultTableModel)productsJTable.getModel();
-        model.setRowCount(0);
-        //int count = 1;
-        //Supplier supplier = (Supplier)suppComboBox1.getSelectedItem();
-        ArrayList<WorkRequest> wrTable = new ArrayList<WorkRequest>();
+    public void populateProductsTable(){
+        viewTable =  new DefaultTableModel(null,columnNames){
+          @Override
+          public Class<?> getColumnClass(int column) {
+              if (column==3) return Icon.class;
+              return Object.class;
+           }
+        };
+        
+        viewTable.setRowCount(0);
         
         for (Product p : this.supplier.getProductDirectory().getProducts()) {
-                Object row[] = new Object[4];
-                row[0] = p.getId();
-                row[1] = p;
-                row[2] = p.getPrice();
-                row[3] = p.getCategory();
-                model.addRow(row); 
+            Object row[] = new Object[4];
+            row[0] = p;
+            row[1] = p.getPrice();
+            row[2] = p.getCategory();
+
+            String temp = p.getProductImagePath();
+            if(temp != null)
+            {
+                ImageIcon ii = new ImageIcon(temp);
+                Image resizedImage = ii.getImage();
+                ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                row[3] = ii;
+            }
+            else
+            {    
+                row[3] = "No image";
+            }
+
+            viewTable.addRow(row); 
         }
-    }
-    
-    private void setListenerForTableSelection() {
-      productsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-          public void valueChanged(ListSelectionEvent event) {
-              if (productsJTable.getSelectedRow() != -1) {
-                  Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 1);
-                  jLabelSupProdPicture.setIcon(finalImage(prod.getProductImagePath()));
-              }
-          }
-      });
-    }
-    
-     public ImageIcon finalImage(String imagePath) {
-        ImageIcon image  = new ImageIcon(imagePath);
-        Image img = image.getImage();
-        Image modifiedImg = img.getScaledInstance(jLabelSupProdPicture.getWidth(), jLabelSupProdPicture.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon finalImage = new ImageIcon(modifiedImg);
-        return finalImage;
+        
+        productsJTable.setRowHeight(80);
+        productsJTable.setModel(viewTable);
     }
 
     
@@ -101,7 +105,6 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
-        jLabelSupProdPicture = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -116,21 +119,28 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Category"
+                "Product Name", "Price", "Category", "Product Image"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane1.setViewportView(productsJTable);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(300, 170, 790, 90);
+        jScrollPane1.setBounds(300, 170, 790, 160);
 
         requestTestJButton.setText("Add a new Product");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -139,7 +149,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(requestTestJButton);
-        requestTestJButton.setBounds(560, 290, 150, 23);
+        requestTestJButton.setBounds(570, 340, 150, 23);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -160,11 +170,6 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         add(valueLabel);
         valueLabel.setBounds(540, 100, 232, 26);
 
-        jLabelSupProdPicture.setBackground(new java.awt.Color(255, 153, 0));
-        add(jLabelSupProdPicture);
-        jLabelSupProdPicture.setBounds(972, 70, 164, 102);
-        jLabelSupProdPicture.setBounds(10, 10, 650, 250);
-
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-supplier Icon on top.PNG"))); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(10, 10, 120, 120);
@@ -183,15 +188,13 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
-        populateRequestTable();
-        jLabelSupProdPicture.setIcon(null);
+        populateProductsTable();
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel enterpriseLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabelSupProdPicture;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable productsJTable;
     private javax.swing.JButton refreshTestJButton;

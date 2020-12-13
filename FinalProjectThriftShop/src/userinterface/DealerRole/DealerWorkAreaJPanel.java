@@ -17,6 +17,7 @@ import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
 import java.awt.Image;
 import java.util.ArrayList;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -36,6 +37,9 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
     private UserAccount userAccount;
     EcoSystem ecosystem;
     DealerOrganization dealer;
+    private DefaultTableModel viewTable;
+    
+    private static final Object[] columnNames = {"Product Name", "Price", "Category", "Quantity", "Product Image"};
     /**
      * Creates new form DealerWorkAreaJPanel
      */
@@ -50,25 +54,47 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         
         valueLabel.setText(this.dealer.getName());
         
-        setListenerForTableSelection();
         populateRequestTable();
         populateDealerWorkOrders();
         populateShippingCompanies();
     }
     
     public void populateRequestTable(){
-        DefaultTableModel model = (DefaultTableModel)productsJTable.getModel();
-        model.setRowCount(0);
+        viewTable =  new DefaultTableModel(null,columnNames){
+          @Override
+          public Class<?> getColumnClass(int column) {
+              if (column==4) return Icon.class;
+              return Object.class;
+           }
+        };
+        
+        viewTable.setRowCount(0);
         
         for (Product p : this.dealer.getProductDirectory().getProducts()) {
-                Object row[] = new Object[5];
-                row[0] = p.getId();
-                row[1] = p;
-                row[2] = p.getPrice();
-                row[3] = p.getCategory();
-                row[4] = p.getQty();
-                model.addRow(row); 
+            Object row[] = new Object[5];
+            row[0] = p;
+            row[1] = p.getPrice();
+            row[2] = p.getCategory();
+            row[3] = p.getQty();
+
+            String temp = p.getProductImagePath();
+            if(temp != null)
+            {
+                ImageIcon ii = new ImageIcon(temp);
+                Image resizedImage = ii.getImage();
+                ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                row[4] = ii;
+            }
+            else
+            {    
+                row[4] = "No image";
+            }
+            
+            viewTable.addRow(row); 
         }
+        
+        productsJTable.setRowHeight(80);
+        productsJTable.setModel(viewTable);
     }
     
     public void populateDealerWorkOrders(){
@@ -98,26 +124,6 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
             model.addRow(row); 
         }
     }
-    
-    public ImageIcon finalImage(String imagePath) {
-      ImageIcon image  = new ImageIcon(imagePath);
-      Image img = image.getImage();
-      Image modifiedImg = img.getScaledInstance(jLabelProductPicture.getWidth(), jLabelProductPicture.getHeight(), Image.SCALE_SMOOTH);
-      ImageIcon finalImage = new ImageIcon(modifiedImg);
-      return finalImage;
-    }
-      
-    private void setListenerForTableSelection() {
-        productsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-            public void valueChanged(ListSelectionEvent event) {
-                if (productsJTable.getSelectedRow() != -1) {
-                    Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 1);
-                    jLabelProductPicture.setIcon(finalImage(prod.getProductImagePath()));
-                }
-            }
-        });
-    }
-  
 
     
     /**
@@ -135,7 +141,6 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         valueLabel = new javax.swing.JLabel();
-        jLabelProductPicture = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblDealerOrders = new javax.swing.JTable();
@@ -153,15 +158,22 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Category", "Quantity"
+                "Product Name", "Price", "Category", "Quantity", "Product Image"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
         jScrollPane1.setViewportView(productsJTable);
@@ -246,17 +258,11 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtnAssignShipping, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabelProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(174, 174, 174))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -280,9 +286,11 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
                             .addComponent(jLabel2)
                             .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 242, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(110, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jBtnAssignShipping, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 318, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -295,10 +303,8 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
                         .addComponent(refreshTestJButton))
                     .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabelProductPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(50, 50, 50)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(requestTestJButton)
                 .addGap(39, 39, 39)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -314,8 +320,6 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
                 .addComponent(jBtnAssignShipping)
                 .addContainerGap(23, Short.MAX_VALUE))
         );
-
-        jLabelProductPicture.setBounds(10, 10, 650, 250);
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
@@ -335,7 +339,6 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
     private void refreshTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshTestJButtonActionPerformed
 
         populateRequestTable();
-        jLabelProductPicture.setIcon(null);
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
     private void jBtnAssignShippingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnAssignShippingActionPerformed
@@ -369,7 +372,6 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelProductPicture;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
