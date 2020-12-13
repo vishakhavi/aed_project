@@ -210,7 +210,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(refreshTestJButton);
-        refreshTestJButton.setBounds(980, 80, 100, 23);
+        refreshTestJButton.setBounds(980, 80, 100, 29);
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Auction Consultant Company Name");
@@ -223,13 +223,13 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("List of Products - that qualify for auctioning (Less than 2 Orders placed)");
         add(jLabel1);
-        jLabel1.setBounds(230, 450, 545, 14);
+        jLabel1.setBounds(230, 450, 545, 16);
         add(jTxtAuctionQty);
         jTxtAuctionQty.setBounds(380, 690, 155, 30);
 
         jLabel2.setText("# of Units to Add to Auction");
         add(jLabel2);
-        jLabel2.setBounds(230, 700, 167, 14);
+        jLabel2.setBounds(200, 690, 180, 30);
 
         auctionProductsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -257,7 +257,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel3.setText("Auction Products");
         add(jLabel3);
-        jLabel3.setBounds(230, 130, 545, 14);
+        jLabel3.setBounds(230, 130, 545, 16);
 
         sellToCustomer.setText("Sell to best-bid Customer");
         sellToCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +275,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(resetAuctionListButton);
-        resetAuctionListButton.setBounds(810, 80, 147, 23);
+        resetAuctionListButton.setBounds(810, 80, 147, 29);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-online auction.jpg"))); // NOI18N
         add(jLabel4);
