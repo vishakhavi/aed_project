@@ -178,7 +178,7 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
           for (Component comp : comps){
             if (comp instanceof WholeSaleSupplierWorkAreaJPanel){
                 WholeSaleSupplierWorkAreaJPanel manageWS = (WholeSaleSupplierWorkAreaJPanel) comp;
-                manageWS.populateRequestTable();
+                manageWS.populateProductsTable();
             }
         }
           

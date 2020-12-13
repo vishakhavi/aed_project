@@ -30,7 +30,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author madhurimachatterjee
+ * @author Arthi
  */
 public class EAuctionJPanel extends javax.swing.JPanel {
 
@@ -73,12 +73,12 @@ public class EAuctionJPanel extends javax.swing.JPanel {
     public void populateTable()
     {
         
-         viewTable =  new DefaultTableModel(null,columnNames){
-           @Override
-           public Class<?> getColumnClass(int column) {
-               if (column==4) return Icon.class;
-               return Object.class;
-            }
+        viewTable =  new DefaultTableModel(null,columnNames){
+          @Override
+          public Class<?> getColumnClass(int column) {
+              if (column==4) return Icon.class;
+              return Object.class;
+           }
         };
         
         String category = (String) this.jComboCategory.getSelectedItem();

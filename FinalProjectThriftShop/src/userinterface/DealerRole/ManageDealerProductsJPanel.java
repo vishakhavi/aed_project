@@ -67,11 +67,10 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
         model.setRowCount(0);
 
         for (Product p : wss.getProductDirectory().getProducts()) {
-            Object row[] = new Object[4];
-            row[0] = p.getId();
-            row[1] = p;
-            row[2] = p.getPrice();
-            row[3] = p.getQty();
+            Object row[] = new Object[3];
+            row[0] = p;
+            row[1] = p.getPrice();
+            row[2] = p.getQty();
             model.addRow(row); 
         }
     }
@@ -134,6 +133,9 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
             }
         });
         jScrollPane2.setViewportView(tblManageDealerSupplier);
+        if (tblManageDealerSupplier.getColumnModel().getColumnCount() > 0) {
+            tblManageDealerSupplier.getColumnModel().getColumn(0).setHeaderValue("ID");
+        }
 
         jLabel2.setText("Choose a Whole Sale Dealer's inventory");
 
@@ -151,11 +153,11 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "ID", "Name", "Price per Unit", "No. of Units"
+                "Name", "Price per Unit", "No. of Units"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                true, false, true, true
+                false, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -323,7 +325,7 @@ public class ManageDealerProductsJPanel extends javax.swing.JPanel {
         
 
         if (selectedProdRow >= 0 && selectedSupRow >=0 && !qtyText.isEmpty()){
-            Product selectedProduct = (Product) tblManageSupProducts.getValueAt(selectedProdRow, 1);
+            Product selectedProduct = (Product) tblManageSupProducts.getValueAt(selectedProdRow, 0);
             WholeSaleSupplierOrganization selectedSupplier = (WholeSaleSupplierOrganization) tblManageDealerSupplier.getValueAt(selectedSupRow, 1);
             
             //Check if Cart already has the order - product
