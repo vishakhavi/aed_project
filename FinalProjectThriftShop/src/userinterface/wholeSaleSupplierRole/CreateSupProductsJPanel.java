@@ -11,7 +11,7 @@ import Business.Product.Product;
 import Business.Role.AdminRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.io.File;
@@ -27,11 +27,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class CreateSupProductsJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
-    WholeSaleSupplier supplier;
+    WholeSaleSupplierOrganization supplier;
     /**
      * Creates new form CreateResaurantJPanel
      */
-    public CreateSupProductsJPanel(JPanel upc, WholeSaleSupplier sup) {
+    public CreateSupProductsJPanel(JPanel upc, WholeSaleSupplierOrganization sup) {
         this.userProcessContainer = upc;
         this.supplier = sup;
         initComponents();

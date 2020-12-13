@@ -5,7 +5,7 @@
 package userinterface.DealerRole;
 
 
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import Business.EcoSystem;
 import Business.Organization.Organization;
 import Business.Organization.ShippingUnitOrganization;
@@ -35,11 +35,11 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
 
     private UserAccount userAccount;
     EcoSystem ecosystem;
-    Dealer dealer;
+    DealerOrganization dealer;
     /**
      * Creates new form DealerWorkAreaJPanel
      */
-    public DealerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, Dealer deal) {
+    public DealerWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system, DealerOrganization deal) {
         initComponents();
         
         this.userProcessContainer = userProcessContainer;

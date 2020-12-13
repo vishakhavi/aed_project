@@ -4,8 +4,8 @@
  */
 package Business.Product;
 
-import Business.Dealer.Dealer;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.DealerOrganization;
+import Business.Organization.WholeSaleSupplierOrganization;
 
 /**
  *
@@ -19,8 +19,8 @@ public class Product {
     private double price;
     private String category;
     private int qty = 0;
-    private WholeSaleSupplier supplier = null;
-    private Dealer dealer = null;
+    private WholeSaleSupplierOrganization supplier = null;
+    private DealerOrganization dealer = null;
     private String productImagePath;
     
 
@@ -32,11 +32,11 @@ public class Product {
         this.productImagePath = productImagePath;
     }
 
-    public Dealer getDealer() {
+    public DealerOrganization getDealer() {
         return dealer;
     }
 
-    public void setDealer(Dealer dealer) {
+    public void setDealer(DealerOrganization dealer) {
         this.dealer = dealer;
     }
 
@@ -64,11 +64,11 @@ public class Product {
         this.category = category;
     }
 
-    public WholeSaleSupplier getSupplier() {
+    public WholeSaleSupplierOrganization getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(WholeSaleSupplier supplier) {
+    public void setSupplier(WholeSaleSupplierOrganization supplier) {
         this.supplier = supplier;
     }
 

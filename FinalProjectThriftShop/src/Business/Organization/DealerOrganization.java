@@ -2,20 +2,22 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package Business.Dealer;
+package Business.Organization;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Product.ProductDirectory;
 import Business.Role.DealerRole;
+import Business.Role.Role;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkQueue;
+import java.util.ArrayList;
 
 /**
  *
  * @author Arthi Ganesan
  */
-public class Dealer {
+public class DealerOrganization extends Organization {
     
     private String name;
     private int id;
@@ -48,7 +50,9 @@ public class Dealer {
         this.userAccountAssoc = userAccountAssoc;
     }
 
-    public Dealer() {
+    public DealerOrganization() {
+        super(Organization.Type.DealerAdmin.getValue());
+        
         id = count;
         
         //Empty List of products - TODO
@@ -58,7 +62,9 @@ public class Dealer {
         count++;
     }
     
-    public Dealer(String name, EcoSystem system) {
+    public DealerOrganization(String name, EcoSystem system) {
+        super(Organization.Type.DealerAdmin.getValue());
+        
         id = count;
         this.name = name;
         
@@ -89,6 +95,11 @@ public class Dealer {
     @Override
     public String toString() {
         return name;
+    }
+
+    @Override
+    public ArrayList<Role> getSupportedRole() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
     

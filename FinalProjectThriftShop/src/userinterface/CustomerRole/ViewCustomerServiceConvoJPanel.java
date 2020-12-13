@@ -12,7 +12,7 @@ import Business.Product.Product;
 import Business.Role.AdminRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.WorkQueue.CustomerWorkOrder;
 import java.awt.CardLayout;
 import java.awt.Component;
