@@ -117,8 +117,8 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             Image newImg = product.getScaledInstance(170, 110, Image.SCALE_AREA_AVERAGING);
             ImageIcon icon = new ImageIcon(newImg);
             row[4] = icon;
-            if(post.getLocationPoint() != null && customer.getLocation() != null)
-            row[5] = df.format(getDistanceForPickUp(post.getLocationPoint(),customer.getLocation()))+" km";
+            if(post.getLocationPoint() != null && customer.getAddress() != null)
+            row[5] = df.format(getDistanceForPickUp(post.getLocationPoint(),customer))+" km";
             //row[5] = post.getPostId();
             viewTable.addRow(row);   
             System.out.println("post id"+post.getId());
@@ -141,7 +141,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         }
         
     }
-    public double getDistanceForPickUp(LocationPoint postLocation, LocationPoint customerLocation) {
+    public double getDistanceForPickUp(LocationPoint postLocation, Customer customerLocation) {
         double postLatitude = postLocation.getLatitude();
         double postLongitude = postLocation.getLongitude();
         double customerLatitude = customerLocation.getLatitude();

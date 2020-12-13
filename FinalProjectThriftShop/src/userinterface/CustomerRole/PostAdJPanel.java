@@ -30,7 +30,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import userinterface.GoogleMAP.OrganizationLocationJPanel;
 
 /**
  *
@@ -235,10 +234,10 @@ public class PostAdJPanel extends javax.swing.JPanel {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        OrganizationLocationJPanel muajp = new OrganizationLocationJPanel(userProcessContainer);
+      /*  OrganizationLocationJPanel muajp = new OrganizationLocationJPanel(userProcessContainer);
         userProcessContainer.add("OrganizationLocationJPanel", muajp);
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
-        layout.next(userProcessContainer);
+        layout.next(userProcessContainer);*/
     }//GEN-LAST:event_jButton1ActionPerformed
     public void populateLongituteLatitude(LocationPoint locationPoint) {
         this.locationPoint = locationPoint;

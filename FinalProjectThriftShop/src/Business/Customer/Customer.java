@@ -19,15 +19,12 @@ public class Customer extends UserAccount{
     private Ads adsList;
     private Cart cart;
     private String emailAddress;
-    private LocationPoint location;
+    private double longitude;
+    private double latitude;
 
- 
-    
-   
-
+  
     public Customer() {
         this.cart = new Cart();
-        this.location = new LocationPoint();
     }
   
     public String getPhone() {
@@ -69,20 +66,23 @@ public class Customer extends UserAccount{
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-    
-    @Override
-    public String toString() {
-        return customerName;
-    }
-    
-    public LocationPoint getLocation() {
-        return location;
+     
+    public double getLongitude() {
+        return longitude;
     }
 
-    public void setLocation(LocationPoint location) {
-        this.location = location;
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+ 
     /*public Cart newCart()
     {
         Cart cart = new Cart();
@@ -92,5 +92,9 @@ public class Customer extends UserAccount{
 
     public Cart getCart() {
         return cart;
+    }
+    @Override
+    public String toString() {
+        return customerName;
     }
 }
