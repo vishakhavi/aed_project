@@ -91,7 +91,7 @@ public class ViewCustomerServiceConvoJPanel extends javax.swing.JPanel {
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Capture2.png"))); // NOI18N
         add(jLabel4);
-        jLabel4.setBounds(50, 180, 1780, 600);
+        jLabel4.setBounds(0, 140, 1780, 600);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreateProductActionPerformed

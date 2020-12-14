@@ -14,7 +14,7 @@ import userinterface.AuctionConsultantRole.AuctionConsultantWorkAreaJPanel;
 
 /**
  *
- * @author raunak
+ * @author Arthi
  */
 public class AuctionConsultantRole extends Role{
 

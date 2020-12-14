@@ -105,7 +105,7 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Customer Service Request");
         add(jLabel1);
-        jLabel1.setBounds(360, 70, 201, 17);
+        jLabel1.setBounds(360, 60, 201, 17);
 
         jBtnSubmitCustServiceRequest.setText("Submit Request");
         jBtnSubmitCustServiceRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -114,7 +114,7 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
             }
         });
         add(jBtnSubmitCustServiceRequest);
-        jBtnSubmitCustServiceRequest.setBounds(740, 500, 134, 23);
+        jBtnSubmitCustServiceRequest.setBounds(720, 400, 134, 23);
 
         tblCustomerOrderStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -142,18 +142,18 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tblCustomerOrderStatus);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(160, 120, 710, 260);
+        jScrollPane1.setBounds(160, 110, 710, 260);
 
         jLabel4.setText("Post comments on the issue with the order");
         add(jLabel4);
-        jLabel4.setBounds(160, 500, 250, 23);
+        jLabel4.setBounds(170, 400, 250, 23);
 
         jTextAreaCustServiceComments.setColumns(20);
         jTextAreaCustServiceComments.setRows(5);
         jScrollPane2.setViewportView(jTextAreaCustServiceComments);
 
         add(jScrollPane2);
-        jScrollPane2.setBounds(440, 500, 234, 119);
+        jScrollPane2.setBounds(440, 400, 234, 119);
 
         viewFullOrder.setText("View Full Cust Service Conversation");
         viewFullOrder.addActionListener(new java.awt.event.ActionListener() {
@@ -162,11 +162,11 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
             }
         });
         add(viewFullOrder);
-        viewFullOrder.setBounds(610, 70, 262, 23);
+        viewFullOrder.setBounds(610, 60, 262, 23);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Support1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Support1_600x300.png"))); // NOI18N
         add(jLabel2);
-        jLabel2.setBounds(320, 300, 600, 360);
+        jLabel2.setBounds(230, 350, 600, 360);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-how-can-we-help-you customer service (1).jpg"))); // NOI18N
         add(jLabel6);

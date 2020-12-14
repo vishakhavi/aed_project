@@ -14,7 +14,6 @@ import java.awt.CardLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -53,10 +52,9 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.customer = (Customer) this.userAccount;       
         //checkoutCart(); //navigate to cart if items present
-        //jComboCategory.addItem("All");
-        //jComboCategory.addItem("Mobiles");
-        //jComboCategory.addItem("Furniture");
-        populateProductCategories();
+        jComboCategory.addItem("All");
+        jComboCategory.addItem("Mobiles");
+        jComboCategory.addItem("Furniture");
         tblProducts.setAutoCreateRowSorter(true);
         viewTable =  new DefaultTableModel(null,columnNames){
             @Override
@@ -98,7 +96,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         }
     }
     
-    /*public void checkoutCart()
+    public void checkoutCart()
     {
         if (customer.getCart().getTotalPrice() > 0.0) 
         {
@@ -116,21 +114,6 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 //                remove(dialogButton);
 //            }
         }
-    }*/
-    
-    private void populateProductCategories() {
-        ArrayList<String> catList = new ArrayList <String>();
-        
-        for(Product ap : ecosystem.getProductDirectory().getProducts()) {
-            if (!catList.contains(ap.getCategory())) {
-                catList.add(ap.getCategory());
-            }
-        }
-        
-        jComboCategory.addItem("ALL");
-        
-        for(String cat : catList) 
-            jComboCategory.addItem(cat);
     }
     
     /**
@@ -270,7 +253,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 340, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 679, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -332,12 +315,12 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         //populateTable(jComboCategory.getSelectedItem().toString());
         //populateTable("Mobiles");
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) tblProducts.getModel()));
-        if(!jComboCategory.getSelectedItem().toString().equals("ALL"))
+        if(!jComboCategory.getSelectedItem().toString().equals("All"))
         {
-            sorter.setRowFilter(RowFilter.regexFilter("(?i)" + jComboCategory.getSelectedItem().toString()));
+            sorter.setRowFilter(RowFilter.regexFilter(jComboCategory.getSelectedItem().toString()));
             tblProducts.setRowSorter(sorter);
         }
-        else//All
+        else
         {
             tblProducts.setRowSorter(null);
         }
