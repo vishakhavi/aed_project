@@ -43,6 +43,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1.setBackground(Color.WHITE);
         container.setVisible(false);
         welcomeMsgPanel.setVisible(false);
+        setResizable(false);
     }
 
     /**
@@ -243,6 +244,7 @@ public class MainJFrame extends javax.swing.JFrame {
             jPasswordField.setText("");
               if (userAccount != null && userAccount.getRole() != null) {
             String greetings = "Hi";
+            system.addLog(userAccount.getUsername() + " logged in.");
             if (userAccount instanceof Customer) {
                        
                 container.add("workArea", userAccount.getRole().createWorkArea(container, (Customer)userAccount,inOrganization, inEnterprise, system));
@@ -262,14 +264,18 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        system.addLog(userAccount.getUsername() + " logged out.");
         logout();
     }//GEN-LAST:event_jButton3ActionPerformed
     private void logout() {
-        container.removeAll();
-        dB4OUtil.storeSystem(system);
         jPanel1.setVisible(true);
         container.setVisible(false);
         welcomeMsgPanel.setVisible(false);
+        container.removeAll();
+        dB4OUtil.storeSystem(system);
+//        jPanel1.setVisible(true);
+//        container.setVisible(false);
+//        welcomeMsgPanel.setVisible(false);
     }
 
     /**
