@@ -14,6 +14,7 @@ import Business.Network.Network;
 import Business.Organization.AuctionUnitOrganization;
 import Business.Organization.CustomerServiceOrganization;
 import Business.Organization.MaintenanceOrganization;
+import Business.Organization.OrderManagementOrganization;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.Organization.ShippingUnitOrganization;
@@ -55,6 +56,8 @@ public class EcoSystem extends Organization{
     private AuctionProductDirectory auctionProductDirectory;
     
     private ArrayList<SysAdminLogs> sysAdminLogList;
+    
+    private OrganizationDirectory orderManagement;
     
     public void addLog(String data)
     {
@@ -215,6 +218,10 @@ public class EcoSystem extends Organization{
         this.getMaintenanceOperators().getOrganizationList().add(new MaintenanceOrganization("Fiery Maintenance Operators", this));
         this.getMaintenanceOperators().getOrganizationList().add(new MaintenanceOrganization("Sharon Maintenance Consultancy", this));
         this.getMaintenanceOperators().getOrganizationList().add(new MaintenanceOrganization("Vantage Maintenance Agency", this));
+        
+        this.orderManagement = new OrganizationDirectory();
+        this.getOrderManagement().getOrganizationList().add(new OrderManagementOrganization("Order Management", this));
+        
     }
 
     public ArrayList<Network> getNetworkList() {
@@ -304,4 +311,14 @@ public CustomerDirectory getGlobalCustomerDirectory() {
         }
         return foundShippingCompany;
     }
+
+    public OrganizationDirectory getOrderManagement() {
+        return orderManagement;
+    }
+
+    public void setOrderManagement(OrganizationDirectory orderManagement) {
+        this.orderManagement = orderManagement;
+    }
+    
+    
 }

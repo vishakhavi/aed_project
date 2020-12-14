@@ -14,6 +14,7 @@ import java.awt.CardLayout;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -52,9 +53,9 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         this.organization = organization;
         this.customer = (Customer) this.userAccount;       
         //checkoutCart(); //navigate to cart if items present
-        jComboCategory.addItem("All");
-        jComboCategory.addItem("Mobiles");
-        jComboCategory.addItem("Furniture");
+//        jComboCategory.addItem("All");
+//        jComboCategory.addItem("Mobiles");
+//        jComboCategory.addItem("Furniture");
         tblProducts.setAutoCreateRowSorter(true);
         viewTable =  new DefaultTableModel(null,columnNames){
             @Override
@@ -63,6 +64,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                 return Object.class;
             }
         };
+        populateProductCategories();
         populateTable();
     }
     
@@ -96,7 +98,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         }
     }
     
-    public void checkoutCart()
+    /*public void checkoutCart()
     {
         if (customer.getCart().getTotalPrice() > 0.0) 
         {
@@ -104,6 +106,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
             int dialogResult = JOptionPane.showConfirmDialog (null, "Your cart has some items, would you like to proceed to checkout?","Warning",dialogButton);
             if(dialogResult == JOptionPane.YES_OPTION)
             {
+                rightSystemAdminPanel.remove(this);
                 ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
                 rightSystemAdminPanel.add("eCommerceCustomerPanel", eccc);
                 CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
@@ -114,6 +117,21 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 //                remove(dialogButton);
 //            }
         }
+    }*/
+    
+    private void populateProductCategories() {
+        ArrayList<String> catList = new ArrayList <String>();
+        
+        for(Product p : ecosystem.getProductDirectory().getProducts()) {
+            if (!catList.contains(p.getCategory())) {
+                catList.add(p.getCategory());
+            }
+        }
+        
+        jComboCategory.addItem("All");
+        
+        for(String cat : catList) 
+            jComboCategory.addItem(cat);
     }
     
     /**
@@ -139,8 +157,10 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         setBackground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("e-Commerce Products");
 
+        tblProducts.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
         tblProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -198,9 +218,12 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
             }
         });
 
+        jLabel4.setFont(new java.awt.Font("Lucida Grande", 2, 13)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(153, 153, 153));
         jLabel4.setText("Click column head to sort");
 
-        btnCustomerCart.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        btnCustomerCart.setBackground(new java.awt.Color(153, 204, 255));
+        btnCustomerCart.setFont(new java.awt.Font("Lucida Grande", 1, 14)); // NOI18N
         btnCustomerCart.setText("Cart");
         btnCustomerCart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -212,28 +235,32 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 598, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 193, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnCustomerCart))
+                    .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnSearch)))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnCustomerCart)
+                                .addComponent(btnSearch))
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel4)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -250,9 +277,9 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                     .addComponent(btnSearch)
                     .addComponent(jLabel3)
                     .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel4)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 327, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -317,7 +344,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) tblProducts.getModel()));
         if(!jComboCategory.getSelectedItem().toString().equals("All"))
         {
-            sorter.setRowFilter(RowFilter.regexFilter(jComboCategory.getSelectedItem().toString()));
+            sorter.setRowFilter(RowFilter.regexFilter("(?i)" +jComboCategory.getSelectedItem().toString()));
             tblProducts.setRowSorter(sorter);
         }
         else

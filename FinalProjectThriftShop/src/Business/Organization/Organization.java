@@ -38,7 +38,7 @@ public abstract class Organization {
         ManufacturerAdmin("Manufacturing Unit Organization"),ShippingCompany("Shipping Unit Organization"),
         AuctionConsultant("Auction Unit Organization"), InsuranceManager("Insurance Organization"),
         WholeSaleAdmin("Whole salers Organizaiton"), DealerAdmin("Dealers Organizaiton"),
-        Customer("Ads Organization");
+        Customer("Ads Organization"), OrderManagement("Order Management Organization");
         private String value;
         private Type(String value) {
             this.value = value;

@@ -13,7 +13,7 @@ import userinterface.CustomerRole.CustomerWorkAreaJPanel;
 
 /**
  *
- * @author raunak
+ * @author madhurima
  */
 public class CustomerRole extends Role{
 

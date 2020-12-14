@@ -67,6 +67,10 @@ public class OrganizationDirectory {
             organization = new ShippingUnitOrganization(name);
             organizationList.add(organization);
         }
+        else if (type.getValue().equals(Type.OrderManagement.getValue())){
+            organization = new OrderManagementOrganization(name);
+            organizationList.add(organization);
+        }
         return organization;
      }
      
