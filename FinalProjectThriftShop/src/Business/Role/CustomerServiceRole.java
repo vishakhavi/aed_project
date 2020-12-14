@@ -14,7 +14,7 @@ import userinterface.CustomerServiceRole.CustomerServiceWorkAreaJPanel;
 
 /**
  *
- * @author raunak
+ * @author Arthi
  */
 public class CustomerServiceRole extends Role{
 

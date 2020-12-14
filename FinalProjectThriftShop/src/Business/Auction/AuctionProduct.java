@@ -14,7 +14,7 @@ import Business.Organization.WholeSaleSupplierOrganization;
 
 /**
  *
- * @author raunak
+ * @author Arthi
  */
 public class AuctionProduct {
     

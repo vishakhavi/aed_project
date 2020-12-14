@@ -16,7 +16,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author raunak
+ * @author Arthi
  */
 public class ShippingManageOrganizationJPanel extends javax.swing.JPanel {
 
