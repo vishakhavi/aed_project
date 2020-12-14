@@ -61,9 +61,8 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
                 row[0] = workRequest;
                 row[1] = ((CustomerAccountActivationRequest) workRequest).getStatus();
                 row[2] = ((CustomerAccountActivationRequest) workRequest).getUserName();
-                row[3] = ((CustomerAccountActivationRequest) workRequest).getName();
-                row[4] = ((CustomerAccountActivationRequest) workRequest).getUserEmailId();
-                row[5] = ((CustomerAccountActivationRequest) workRequest).getArea();
+                row[3] = ((CustomerAccountActivationRequest) workRequest).getUserEmailId();
+                row[4] = ((CustomerAccountActivationRequest) workRequest).getArea();
                 model.addRow(row);
             }
         }
@@ -79,34 +78,39 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
         processJButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1058, 840));
         setPreferredSize(new java.awt.Dimension(1058, 840));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/opaque_activte.png"))); // NOI18N
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 54, 630, 590));
+
         workRequestJTable.setFont(new java.awt.Font("SansSerif", 1, 12)); // NOI18N
         workRequestJTable.setForeground(new java.awt.Color(25, 56, 82));
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Request #", "Status", "UserName", "Name", "Email ID", "Area"
+                "Name", "Status", "UserName", "Email ID", "Area"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -117,10 +121,10 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        workRequestJTable.setSelectionBackground(new java.awt.Color(56, 90, 174));
+        workRequestJTable.setSelectionBackground(new java.awt.Color(0, 102, 51));
         jScrollPane1.setViewportView(workRequestJTable);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 854, 170));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, 854, 170));
 
         processJButton.setBackground(new java.awt.Color(255, 255, 255));
         processJButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
@@ -134,10 +138,13 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
         add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(25, 56, 82));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("MANAGE THRIFT SHOP USER REGISTRATION");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 41, 431, -1));
+
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/activateUserIcon.png"))); // NOI18N
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 10, 140, 120));
     }// </editor-fold>//GEN-END:initComponents
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
@@ -171,7 +178,7 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Customer account has been activated successfully");
             populateTable();
             String subject = "Thrift Shop Customer Activation";
-            String message = "Your customer account is activated with Thrift Shop. Now you can start shopping, selling!!";
+            String message = "Your customer account is activated with Thrift Shop. Now you can enjoy shopping, selling!!";
             Email.sendEmailMessage(request.getUserEmailId(), subject, message);
             
         } else {
@@ -183,6 +190,8 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton processJButton;
     private javax.swing.JTable workRequestJTable;

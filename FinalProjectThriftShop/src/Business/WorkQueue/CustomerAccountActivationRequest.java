@@ -74,4 +74,8 @@ public class CustomerAccountActivationRequest extends WorkRequest{
     public void setArea(String area) {
         this.area = area;
     }
+    @Override
+    public String toString(){
+        return this.name;
+    }
 }

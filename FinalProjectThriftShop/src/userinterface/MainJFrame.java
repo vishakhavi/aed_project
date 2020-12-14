@@ -136,9 +136,9 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel3.setBackground(new java.awt.Color(255, 255, 255));
         jLabel3.setForeground(new java.awt.Color(255, 255, 255));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/thriftStore_480x470.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/160745888733156195_3_500x600.png"))); // NOI18N
         jLabel3.setText("jLabel1");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 600, 780));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -90, 600, 780));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 64, 1340, 780));
 
@@ -148,7 +148,7 @@ public class MainJFrame extends javax.swing.JFrame {
         container.setLayout(new java.awt.CardLayout());
         getContentPane().add(container, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 61, -1, 780));
 
-        welcomeMsgPanel.setBackground(new java.awt.Color(244, 242, 227));
+        welcomeMsgPanel.setBackground(new java.awt.Color(255, 255, 255));
         welcomeMsgPanel.setMinimumSize(new java.awt.Dimension(780, 60));
         welcomeMsgPanel.setPreferredSize(new java.awt.Dimension(1338, 60));
         welcomeMsgPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
