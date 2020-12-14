@@ -164,9 +164,9 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         add(viewFullOrder);
         viewFullOrder.setBounds(610, 60, 262, 23);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Support1.png"))); // NOI18N
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Support1_600x300.png"))); // NOI18N
         add(jLabel2);
-        jLabel2.setBounds(40, 340, 600, 360);
+        jLabel2.setBounds(230, 350, 600, 360);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-how-can-we-help-you customer service (1).jpg"))); // NOI18N
         add(jLabel6);
