@@ -29,4 +29,33 @@ public class ProductDirectory {
         products.add(product);
         return product;
     }
+    
+    public Product findProduct(String name) {
+        for (Product p : this.products) {
+            if (p.getName().equals(name))
+                return p;
+        }
+        return null;
+    }
+    
+    public Product findProductBasedOnDealer(String name, String dealerName) {
+         for (Product p : this.products) {
+            if (p.getName().equals(name) && p.getDealer().getName().equals(dealerName))
+                return p;
+        }
+        return null;
+    }
+    
+    public void addProductQuantity(String prodName, String dealerName, int qty) {
+        Product p = findProductBasedOnDealer(prodName, dealerName);
+        p.setQty(p.getQty() + qty);
+    }
+    
+    public Product deleteProduct(String name) {
+        for (Product p : this.products) {
+            if (p.getName().equals(name))
+                this.products.remove(p);
+        }
+        return null;
+    }
 }

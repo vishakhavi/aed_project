@@ -35,6 +35,10 @@ public class EnterpriseDirectory {
             enterprise=new EcommerceEnterprise(name);
             enterpriseList.add(enterprise);
         }
+        if(type==Enterprise.EnterpriseType.ThriftShop){
+            enterprise=new ThriftShopEnterprise(name);
+            enterpriseList.add(enterprise);
+        }
         if(type==Enterprise.EnterpriseType.Payment){
             enterprise=new EcommerceEnterprise(name);
             enterpriseList.add(enterprise);

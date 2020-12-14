@@ -4,6 +4,7 @@
  */
 package Business.UserAccount;
 
+import Business.Customer.Cart;
 import Business.Employee.Employee;
 import Business.Role.Role;
 import Business.WorkQueue.WorkQueue;
@@ -19,12 +20,11 @@ public class UserAccount {
     private Employee employee;
     private Role role;
     private WorkQueue workQueue;
+    
 
     public UserAccount() {
         workQueue = new WorkQueue();
     }
-    
-    
     
     public String getUsername() {
         return username;
@@ -61,8 +61,6 @@ public class UserAccount {
     public WorkQueue getWorkQueue() {
         return workQueue;
     }
-
-    
     
     @Override
     public String toString() {
