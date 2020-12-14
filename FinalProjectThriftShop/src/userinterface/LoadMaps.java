@@ -21,6 +21,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.WindowConstants;
+import userinterface.CustomerRole.PostAdJPanel;
 
 /**
  *
@@ -179,20 +180,24 @@ public class LoadMaps extends javax.swing.JPanel {
                 String[] b = a[1].split("!4d");
                 String postion = a[0].substring(a[0].indexOf("place/")+6, a[0].indexOf("/@"));
                 location = postion.replaceAll("[^a-zA-Z0-9]", " ");
-               
+                
                 System.out.println("position"+location);
-              
                 System.out.println("Lat" + b[0] + "  " + "Lon" + b[1]);
                 double latitude = Double.parseDouble(b[0]);
                 double longitude = Double.parseDouble(b[1]);
                 container.remove(this);
                 Component[] componentArray = container.getComponents();
                 if(container.getComponent(componentArray.length - 1) instanceof CustomerSignUp){
-                    CustomerSignUp customerSignUp = new CustomerSignUp(container,ecoSystem);
+                    CustomerSignUp customerSignUp = (CustomerSignUp) container.getComponent(componentArray.length - 1);
                     customerSignUp.populateLocation(location,longitude,latitude);
+                }else if(container.getComponent(componentArray.length - 1) instanceof PostAdJPanel){
+                    PostAdJPanel postAdJPanel = (PostAdJPanel) container.getComponent(componentArray.length - 1);
+                    postAdJPanel.populateLocation(location,longitude,latitude);
                 }
-               
+                CardLayout layout = (CardLayout) container.getLayout();
+                layout.previous(container);
          }
+             
     }//GEN-LAST:event_jButton1ActionPerformed
 
 
