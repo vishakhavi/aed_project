@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author MyPC1
+ * @author Vishakha
  */
 public class EcommerceEnterprise extends Enterprise {
     

@@ -23,8 +23,7 @@ public abstract class Enterprise extends Organization{
     
     public enum EnterpriseType{
         ThriftShop("ThriftShop"),
-        Ecommerce("Ecommerce"),Payment("Payment"), Manufacturing("Manufacturing"),
-        Insurance("Insurance");
+        Ecommerce("Ecommerce"),Payment("Payment"), Shipping("Shipping");
         
         private String value;
         
