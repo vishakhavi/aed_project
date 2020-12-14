@@ -192,7 +192,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(productsJTable);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(230, 430, 729, 180);
+        jScrollPane1.setBounds(230, 480, 729, 180);
 
         addToAuction.setText("Add to Auction List");
         addToAuction.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +201,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(addToAuction);
-        addToAuction.setBounds(620, 630, 196, 31);
+        addToAuction.setBounds(460, 740, 196, 31);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -210,26 +210,26 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(refreshTestJButton);
-        refreshTestJButton.setBounds(990, 20, 100, 23);
+        refreshTestJButton.setBounds(980, 80, 100, 29);
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Auction Consultant Company Name");
         add(enterpriseLabel);
-        enterpriseLabel.setBounds(230, 20, 334, 30);
+        enterpriseLabel.setBounds(230, 80, 334, 30);
 
         auctionCompNameLabel.setText("<value>");
         add(auctionCompNameLabel);
-        auctionCompNameLabel.setBounds(580, 20, 219, 26);
+        auctionCompNameLabel.setBounds(590, 80, 219, 26);
 
         jLabel1.setText("List of Products - that qualify for auctioning (Less than 2 Orders placed)");
         add(jLabel1);
-        jLabel1.setBounds(240, 400, 545, 14);
+        jLabel1.setBounds(230, 450, 545, 16);
         add(jTxtAuctionQty);
-        jTxtAuctionQty.setBounds(420, 630, 155, 30);
+        jTxtAuctionQty.setBounds(380, 690, 155, 30);
 
         jLabel2.setText("# of Units to Add to Auction");
         add(jLabel2);
-        jLabel2.setBounds(230, 630, 180, 30);
+        jLabel2.setBounds(200, 690, 180, 30);
 
         auctionProductsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -253,11 +253,11 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(auctionProductsJTable);
 
         add(jScrollPane2);
-        jScrollPane2.setBounds(230, 110, 729, 210);
+        jScrollPane2.setBounds(230, 160, 729, 210);
 
         jLabel3.setText("Auction Products");
         add(jLabel3);
-        jLabel3.setBounds(230, 80, 545, 14);
+        jLabel3.setBounds(230, 130, 545, 16);
 
         sellToCustomer.setText("Sell to best-bid Customer");
         sellToCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(sellToCustomer);
-        sellToCustomer.setBounds(520, 340, 187, 31);
+        sellToCustomer.setBounds(460, 380, 187, 31);
 
         resetAuctionListButton.setText("Reset Auction List");
         resetAuctionListButton.addActionListener(new java.awt.event.ActionListener() {
@@ -275,7 +275,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(resetAuctionListButton);
-        resetAuctionListButton.setBounds(810, 20, 147, 23);
+        resetAuctionListButton.setBounds(810, 80, 147, 29);
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-online auction.jpg"))); // NOI18N
         add(jLabel4);
@@ -283,7 +283,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction1.png"))); // NOI18N
         add(jLabel5);
-        jLabel5.setBounds(260, 280, 810, 430);
+        jLabel5.setBounds(410, 300, 810, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addToAuctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToAuctionActionPerformed

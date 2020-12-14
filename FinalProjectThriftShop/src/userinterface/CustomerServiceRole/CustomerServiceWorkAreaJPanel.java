@@ -198,7 +198,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
 
         jLabel4.setText("respond back to Customer with comments");
         add(jLabel4);
-        jLabel4.setBounds(1050, 90, 250, 23);
+        jLabel4.setBounds(1050, 90, 210, 23);
 
         jTextAreaCustServiceComments.setColumns(20);
         jTextAreaCustServiceComments.setRows(5);
@@ -248,7 +248,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
 
         jLabel2.setText("Choose a Shipping company to assign to an order");
         add(jLabel2);
-        jLabel2.setBounds(280, 400, 290, 19);
+        jLabel2.setBounds(280, 400, 237, 19);
 
         jBtnAssignMaintenance.setText("Assign Maintenance");
         jBtnAssignMaintenance.addActionListener(new java.awt.event.ActionListener() {
@@ -282,11 +282,11 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
 
         jLabel3.setText("Choose a Maintenance to assign to an order");
         add(jLabel3);
-        jLabel3.setBounds(660, 400, 250, 19);
+        jLabel3.setBounds(660, 400, 230, 19);
 
-        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/customerservice_smile1_120x120.jpg"))); // NOI18N
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-support2 (1).jpg"))); // NOI18N
         add(jLabel6);
-        jLabel6.setBounds(0, 0, 120, 120);
+        jLabel6.setBounds(10, 10, 120, 120);
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-CustomerService Request.png"))); // NOI18N
         jLabel5.setText("jLabel5");

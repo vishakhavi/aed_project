@@ -134,22 +134,14 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
         });
         add(btnCancel);
         btnCancel.setBounds(323, 487, 162, 34);
-
-        jErrorName.setForeground(new java.awt.Color(255, 0, 0));
         add(jErrorName);
         jErrorName.setBounds(508, 180, 251, 20);
-
-        jErrorPrice.setForeground(new java.awt.Color(255, 0, 0));
         add(jErrorPrice);
         jErrorPrice.setBounds(508, 248, 251, 20);
-
-        jErrorCategory.setForeground(new java.awt.Color(255, 0, 0));
         add(jErrorCategory);
         jErrorCategory.setBounds(508, 316, 251, 20);
-
-        jErrorQuantity.setForeground(new java.awt.Color(255, 0, 0));
         add(jErrorQuantity);
-        jErrorQuantity.setBounds(510, 390, 251, 20);
+        jErrorQuantity.setBounds(508, 378, 251, 20);
 
         jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Supplier1.png"))); // NOI18N
         add(jLabel6);
@@ -161,67 +153,7 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreateProductActionPerformed
-           //Validation code starts
-        
-         if(jTxtProductName.getText().trim().isEmpty() && 
-            jTxtProductPrice.getText().trim().isEmpty() &&
-            jTxtProductCat.getText().trim().isEmpty() &&
-            jTxtProductQty.getText().trim().isEmpty())
-        {
-            
-           JOptionPane.showMessageDialog(null, "Please Enter data to proceed!", "WARNING", JOptionPane.WARNING_MESSAGE);
-            return;
-        } // Name, Price, Category, Product Quantity are Empty
-         
-         else {
-             jErrorName.setText("");
-             jErrorPrice.setText("");
-             jErrorCategory.setText("");
-             jErrorQuantity.setText("");
              
-            boolean error = false;
-            
-            if (jTxtProductName.getText().trim().isEmpty()) {
-                jErrorName.setText("Product Name cannot be empty");
-                error = true;
-            }
-            
-             try { //To validate if  Price is actually a number
-                Double price  = Double.parseDouble(jTxtProductPrice.getText().trim());
-            } catch (NumberFormatException nfe) {
-                if (jTxtProductPrice.getText().trim().isEmpty()) {
-                   jErrorPrice.setText("Product Price cannot be empty");
-                } else {
-                    jErrorPrice.setText(" Product Price is not in Double format");
-                }
-                error = true;
-            }
-             
-             if (jTxtProductCat.getText().trim().isEmpty()) {
-                jErrorCategory.setText("Product Category cannot be empty");
-                error = true;
-            }
-             
-             try { //To validate if Quantity is actually a number
-                Integer productQuantity = Integer.parseInt(jTxtProductQty.getText().trim());
-            } catch (NumberFormatException nfe) {
-                if (jTxtProductQty.getText().trim().isEmpty()) {
-                    jErrorQuantity.setText("Product Quantity cannot be empty");
-                }else {
-                     jErrorQuantity.setText("Product Quantity is not a number");
-                }
-               
-                error = true;
-            }
-                
-            if (error) {
-                return;
-            }
-        }
-        
-        
-         // Validation code - End     
-         
         Product product = new Product();
         
         product.setName(jTxtProductName.getText().trim());

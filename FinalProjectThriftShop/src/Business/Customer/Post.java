@@ -5,6 +5,7 @@
  */
 package Business.Customer;
 
+import Business.Location.LocationPoint;
 import java.util.UUID;
 
 /**
@@ -19,20 +20,19 @@ public class Post {
     private String category;
     private String picture;
     private String id;
-    private double longitude;
-    private double latitude;
-    private String location;
+    private LocationPoint locationPoint;
 
-    public Post(String name, double price,String category, String description, 
-            String filePath, double longitude, double latitude,String location) {
+    
+    
+  
+
+    public Post(String name, double price,String category, String description, String filePath, LocationPoint locationPoint) {
         this.name = name;
         this.price = price;
         this.category = category;
         this.description = description;
         this.picture = filePath;
-        this.longitude = longitude;
-        this.latitude = latitude;
-        this.location = location;
+        this.locationPoint = locationPoint;
         UUID uuid = UUID.randomUUID();
         id = uuid.toString();
     }
@@ -78,29 +78,14 @@ public class Post {
     public void setPicture(String picture) {
         this.picture = picture;
     }
-     public double getLongitude() {
-        return longitude;
+    public LocationPoint getLocationPoint() {
+        return locationPoint;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setLocationPoint(LocationPoint locationPoint) {
+        this.locationPoint = locationPoint;
     }
-
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-  
+   
     @Override
     public String toString() {
         return this.name;
