@@ -291,7 +291,7 @@ public class CustomerServiceWorkAreaJPanel extends javax.swing.JPanel implements
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-CustomerService Request.png"))); // NOI18N
         jLabel5.setText("jLabel5");
         add(jLabel5);
-        jLabel5.setBounds(340, 290, 750, 430);
+        jLabel5.setBounds(340, 280, 750, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSubmitCustServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitCustServiceRequestActionPerformed
