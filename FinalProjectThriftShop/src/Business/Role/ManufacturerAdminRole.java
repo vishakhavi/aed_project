@@ -10,11 +10,11 @@ import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
 import javax.swing.JPanel;
-import userinterface.ManufacturerAdminRole.ManufacturerWorkAreaJPanel;
+import userinterface.DealerRole.DealerWorkAreaJPanel;
 
 /**
  *
- * @author raunak
+ * @author Vishakha
  */
 public class ManufacturerAdminRole extends Role{
 
@@ -23,7 +23,7 @@ public class ManufacturerAdminRole extends Role{
         //ToDo: ************Make sure to create the Jpanel for this role and write appropriate code***********
         DealerOrganization dealer = business.getDealerDir().getDealerBasedOnUserName(account);
         
-        return new ManufacturerWorkAreaJPanel(userProcessContainer, account, business, dealer);
+        return new DealerWorkAreaJPanel(userProcessContainer, account, business, dealer);
     }
   
     @Override
