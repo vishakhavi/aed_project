@@ -144,7 +144,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(productsJTable);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(300, 170, 790, 180);
+        jScrollPane1.setBounds(300, 170, 790, 160);
 
         requestTestJButton.setText("Add a new Product");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -153,7 +153,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(requestTestJButton);
-        requestTestJButton.setBounds(570, 370, 150, 23);
+        requestTestJButton.setBounds(570, 340, 150, 23);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -180,7 +180,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Whole sale supplier.png"))); // NOI18N
         add(jLabel1);
-        jLabel1.setBounds(310, 360, 790, 310);
+        jLabel1.setBounds(310, 340, 790, 310);
 
         totalRevenue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalRevenue.setText("Total Revenue:");

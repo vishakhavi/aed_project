@@ -171,16 +171,11 @@ public class EAuctionJPanel extends javax.swing.JPanel {
         jTxtBidAskPrice = new java.awt.TextField();
         jLabel5 = new javax.swing.JLabel();
         jBtnPlaceBid = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel1.setText("Welcome to the e-Auction Page");
-        add(jLabel1);
-        jLabel1.setBounds(350, 20, 339, 32);
 
         tbAuctionlProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -216,9 +211,6 @@ public class EAuctionJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tbAuctionlProducts);
 
-        add(jScrollPane1);
-        jScrollPane1.setBounds(140, 110, 768, 317);
-
         txtSearch.setText("Enter a search string");
         txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -230,20 +222,14 @@ public class EAuctionJPanel extends javax.swing.JPanel {
                 txtSearchActionPerformed(evt);
             }
         });
-        add(txtSearch);
-        txtSearch.setBounds(610, 70, 158, 30);
 
         jLabel3.setText("Search by category: ");
-        add(jLabel3);
-        jLabel3.setBounds(140, 70, 130, 20);
 
         jComboCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboCategoryActionPerformed(evt);
             }
         });
-        add(jComboCategory);
-        jComboCategory.setBounds(290, 70, 150, 20);
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -251,16 +237,10 @@ public class EAuctionJPanel extends javax.swing.JPanel {
                 btnSearchActionPerformed(evt);
             }
         });
-        add(btnSearch);
-        btnSearch.setBounds(820, 70, 80, 23);
 
         jTxtBidAskPrice.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
-        add(jTxtBidAskPrice);
-        jTxtBidAskPrice.setBounds(350, 450, 124, 30);
 
         jLabel5.setText("Enter a higher Bid Price");
-        add(jLabel5);
-        jLabel5.setBounds(150, 450, 136, 30);
 
         jBtnPlaceBid.setText("Place Bid");
         jBtnPlaceBid.addActionListener(new java.awt.event.ActionListener() {
@@ -268,17 +248,60 @@ public class EAuctionJPanel extends javax.swing.JPanel {
                 jBtnPlaceBidActionPerformed(evt);
             }
         });
-        add(jBtnPlaceBid);
-        jBtnPlaceBid.setBounds(520, 450, 111, 30);
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download_120x120.jpg"))); // NOI18N
-        add(jLabel2);
-        jLabel2.setBounds(0, 0, 120, 120);
-        jLabel2.getAccessibleContext().setAccessibleDescription("");
-
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction_ecommerce_4_720x400_1_720x290.png"))); // NOI18N
-        add(jLabel4);
-        jLabel4.setBounds(150, 360, 720, 340);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(233, 233, 233)
+                        .addComponent(jLabel1)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 768, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel3)
+                .addGap(30, 30, 30)
+                .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(90, 90, 90)
+                .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(58, 58, 58)
+                .addComponent(btnSearch)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(66, 66, 66)
+                .addComponent(jTxtBidAskPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(131, 131, 131)
+                .addComponent(jBtnPlaceBid, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(58, 58, 58)
+                .addComponent(jLabel1)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jComboCategory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSearch, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnSearch))
+                .addGap(20, 20, 20)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 317, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jBtnPlaceBid, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTxtBidAskPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(51, Short.MAX_VALUE))
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCategoryActionPerformed
@@ -337,9 +360,7 @@ public class EAuctionJPanel extends javax.swing.JPanel {
     private javax.swing.JButton jBtnPlaceBid;
     private javax.swing.JComboBox<String> jComboCategory;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private java.awt.TextField jTxtBidAskPrice;

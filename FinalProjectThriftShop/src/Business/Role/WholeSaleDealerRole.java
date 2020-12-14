@@ -15,7 +15,7 @@ import userinterface.wholeSaleSupplierRole.WholeSaleSupplierWorkAreaJPanel;
 
 /**
  *
- * @author Arthi
+ * @author raunak
  */
 public class WholeSaleDealerRole extends Role{
 

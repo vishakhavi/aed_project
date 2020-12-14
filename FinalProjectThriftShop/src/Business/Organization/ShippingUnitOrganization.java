@@ -7,8 +7,10 @@ package Business.Organization;
 
 import Business.EcoSystem;
 import Business.Employee.Employee;
+import Business.Role.CustomerServiceRole;
 import Business.Role.DeliveryManRole;
 import Business.Role.Role;
+import Business.Role.ShippingAdminRole;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.WorkQueue;
 import java.util.ArrayList;
@@ -67,6 +69,7 @@ public class ShippingUnitOrganization extends Organization{
     public ArrayList<Role> getSupportedRole() {
         ArrayList<Role> roles = new ArrayList();
         roles.add(new DeliveryManRole());
+        roles.add(new ShippingAdminRole());
         return roles;
     }
     

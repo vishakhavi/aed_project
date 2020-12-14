@@ -5,11 +5,12 @@
  */
 package Business.Customer;
 
+import Business.Location.LocationPoint;
 import Business.UserAccount.UserAccount;
 
 /**
  *
- * @author Vishakha
+ * @author harold
  */
 public class Customer extends UserAccount{
     private String customerName;
@@ -18,12 +19,15 @@ public class Customer extends UserAccount{
     private Ads adsList;
     private Cart cart;
     private String emailAddress;
-    private double longitude;
-    private double latitude;
+    private LocationPoint location;
 
-  
+ 
+    
+   
+
     public Customer() {
         this.cart = new Cart();
+        this.location = new LocationPoint();
     }
   
     public String getPhone() {
@@ -65,23 +69,20 @@ public class Customer extends UserAccount{
     public void setEmailAddress(String emailAddress) {
         this.emailAddress = emailAddress;
     }
-     
-    public double getLongitude() {
-        return longitude;
+    
+    @Override
+    public String toString() {
+        return customerName;
+    }
+    
+    public LocationPoint getLocation() {
+        return location;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
+    public void setLocation(LocationPoint location) {
+        this.location = location;
     }
 
-    public double getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
- 
     /*public Cart newCart()
     {
         Cart cart = new Cart();
@@ -91,9 +92,5 @@ public class Customer extends UserAccount{
 
     public Cart getCart() {
         return cart;
-    }
-    @Override
-    public String toString() {
-        return customerName;
     }
 }
