@@ -5,6 +5,7 @@
  */
 package Business.Enterprise;
 
+import Business.Role.DeliveryManRole;
 import Business.Role.Role;
 import java.util.ArrayList;
 
@@ -12,14 +13,16 @@ import java.util.ArrayList;
  *
  * @author MyPC1
  */
-public class InsuranceEnterprise extends Enterprise {
+public class ShippingEnterprise extends Enterprise {
     
-    public InsuranceEnterprise(String name){
-        super(name,EnterpriseType.Insurance);
+    public ShippingEnterprise(String name){
+        super(name,EnterpriseType.Shipping);
     }
     @Override
     public ArrayList<Role> getSupportedRole() {
-        return null;
+         roles = new ArrayList<Role>();
+        roles.add(new DeliveryManRole());
+        return roles;
     }
     
 }

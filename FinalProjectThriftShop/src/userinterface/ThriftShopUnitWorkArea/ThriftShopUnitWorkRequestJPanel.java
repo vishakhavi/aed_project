@@ -171,7 +171,7 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Customer account has been activated successfully");
             populateTable();
             String subject = "Thrift Shop Customer Activation";
-            String message = "Your customer account is activated with Thrift Shop. Now you can start shopping, selling!!";
+            String message = "Your customer account is activated with Thrift Shop. Now you can enjoy shopping, selling!!";
             Email.sendEmailMessage(request.getUserEmailId(), subject, message);
             
         } else {

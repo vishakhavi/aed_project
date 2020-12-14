@@ -18,7 +18,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author raunak
+ * @author Vishakha
  */
 public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
@@ -95,9 +95,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         passwordJPasswordField = new javax.swing.JPasswordField();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         btnSubmit = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setPreferredSize(new java.awt.Dimension(1058, 840));
@@ -185,10 +183,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         jLabel6.setText("MANAGE ENTERPRISE ADMIN");
         add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(173, 6, 680, -1));
 
-        jLabel7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/administratorBig.png"))); // NOI18N
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 12, 161, 129));
-
         btnSubmit.setBackground(new java.awt.Color(255, 255, 255));
         btnSubmit.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         btnSubmit.setForeground(new java.awt.Color(25, 56, 82));
@@ -201,11 +195,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             }
         });
         add(btnSubmit, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 370, 138, 35));
-
-        jLabel8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/opaquesysadmin.png"))); // NOI18N
-        jLabel8.setPreferredSize(new java.awt.Dimension(1058, 840));
-        add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 200, 620, 590));
     }// </editor-fold>//GEN-END:initComponents
 
     private void networkJComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_networkJComboBoxActionPerformed
@@ -220,7 +209,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
     private void btnSubmitMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSubmitMousePressed
         // TODO add your handling code here:
-        Enterprise enterprise = (Enterprise) enterpriseJComboBox.getSelectedItem();
+         Enterprise enterprise = (Enterprise) enterpriseJComboBox.getSelectedItem();
         
         String username = usernameJTextField.getText();
         String password = String.valueOf(passwordJPasswordField.getPassword());
@@ -233,16 +222,19 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
         
             if (system.checkIfUserIsUnique(username)) {
                 UserAccount account = null;
-                if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.ThriftShop) {
-                    System.out.println("thrift admin user account");
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ThriftShopAdmin());
-                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Manufacturing) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ManufacturerAdminRole());
-                } /*else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Payment) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new VoluntaryUnitAdmin());
-                }*/
-                else{
+                if (null == enterprise.getEnterpriseType()) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee,new AdminRole());
+                } else switch (enterprise.getEnterpriseType()) {
+                    case ThriftShop:
+                        System.out.println("thrift admin user account");
+                        account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ThriftShopAdmin());
+                        break;
+                    case Shipping:
+                        account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ManufacturerAdminRole());
+                        break;
+                    default:
+                        account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee,new AdminRole());
+                        break;
                 }
                 usernameJTextField.setText("");
                 passwordJPasswordField.setText("");
@@ -254,7 +246,8 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
             }else {
                 JOptionPane.showMessageDialog(null, "Please enter unique username", "Warning", JOptionPane.WARNING_MESSAGE);
             }
-        }
+        
+    }          
     }//GEN-LAST:event_btnSubmitMousePressed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -267,8 +260,6 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField nameJTextField;
     private javax.swing.JComboBox networkJComboBox;
