@@ -148,7 +148,9 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        tblCart.setSelectionBackground(new java.awt.Color(255, 204, 0));
+        tblCart.setSelectionBackground(new java.awt.Color(102, 204, 255));
+        tblCart.setSelectionForeground(new java.awt.Color(0, 0, 0));
+        tblCart.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tblCart);
 
         jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 15)); // NOI18N
@@ -180,6 +182,7 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
 
         jSpinnerQty.setModel(new javax.swing.SpinnerNumberModel(1, 1, null, 1));
 
+        btnPay.setBackground(new java.awt.Color(153, 204, 255));
         btnPay.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         btnPay.setText("Proceed to Payment");
         btnPay.addActionListener(new java.awt.event.ActionListener() {
@@ -189,8 +192,12 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
         });
 
         lblPleaseBuyMore.setFont(new java.awt.Font("Lucida Grande", 0, 14)); // NOI18N
+        lblPleaseBuyMore.setForeground(new java.awt.Color(0, 204, 102));
+        lblPleaseBuyMore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblPleaseBuyMore.setText("Add items of $100 or more to avail our 15% discount!");
 
+        lblOff.setForeground(new java.awt.Color(0, 204, 204));
+        lblOff.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblOff.setText("15% off applied!");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -200,12 +207,7 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addComponent(btnBack)
-                        .addGap(18, 18, 18)
-                        .addComponent(lblPleaseBuyMore)
-                        .addGap(0, 81, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -213,20 +215,22 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(btnUpdate)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(btnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(btnDelete)
                                 .addGap(0, 0, Short.MAX_VALUE)))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lblOff, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtTotalPrice, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                            .addComponent(lblOff, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnBack)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lblPleaseBuyMore, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addComponent(lblName, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(219, 219, 219)
-                .addComponent(btnPay, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -244,14 +248,13 @@ public class ECommerceCustomerCart extends javax.swing.JPanel {
                     .addComponent(btnUpdate)
                     .addComponent(jSpinnerQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTotalPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnPay))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblOff)
                     .addComponent(btnDelete))
-                .addGap(7, 7, 7)
-                .addComponent(btnPay)
-                .addContainerGap(133, Short.MAX_VALUE))
+                .addContainerGap(170, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 

@@ -45,12 +45,16 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
     public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) tblCustomerOrderStatus.getModel();
         model.setRowCount(0);
-        for (OrderWorkRequest request : ecosystem.getOrderWorkQueue().getWorkRequestList()) {
-            Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
-            row[0] = request;
-            row[1] = request.getOrderDate();
-            row[2] = request.getTotalPrice();
-            model.addRow(row);
+        for (OrderWorkRequest request : ecosystem.getOrderWorkQueue().getWorkRequestList()) 
+        {
+            if(request.getCustomer().getName().equals(customer.getName()))
+            {
+                Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
+                row[0] = request;
+                row[1] = request.getOrderDate();
+                row[2] = request.getTotalPrice();
+                model.addRow(row);
+            }
         }
     }
 

@@ -54,6 +54,18 @@ public class OrganizationDirectory {
         }
         return organization;
     }
+     public Organization createOrganization(Type type,String name){
+        Organization organization = null;
+        if (type.getValue().equals(Type.ShippingCompany.getValue())){
+            organization = new ShippingUnitOrganization(name);
+            organizationList.add(organization);
+        }
+        else if (type.getValue().equals(Type.OrderManagement.getValue())){
+            organization = new OrderManagementOrganization(name);
+            organizationList.add(organization);
+        }
+        return organization;
+     }
      
     public WholeSaleSupplierOrganization getWholeSaleSupplierBasedOnUserName(UserAccount ua) {
         WholeSaleSupplierOrganization supplier = null;

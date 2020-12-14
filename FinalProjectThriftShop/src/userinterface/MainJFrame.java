@@ -43,6 +43,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jPanel1.setBackground(Color.WHITE);
         container.setVisible(false);
         welcomeMsgPanel.setVisible(false);
+        setResizable(false);
     }
 
     /**
@@ -67,8 +68,8 @@ public class MainJFrame extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         container = new javax.swing.JPanel();
         welcomeMsgPanel = new javax.swing.JPanel();
-        jButton3 = new javax.swing.JButton();
         welcomeLabel = new javax.swing.JLabel();
+        jButton3 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(0, 0, 153));
@@ -152,6 +153,10 @@ public class MainJFrame extends javax.swing.JFrame {
         welcomeMsgPanel.setPreferredSize(new java.awt.Dimension(1338, 60));
         welcomeMsgPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        welcomeLabel.setBackground(new java.awt.Color(255, 255, 255));
+        welcomeLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
+        welcomeMsgPanel.add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 60));
+
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/back.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -161,9 +166,6 @@ public class MainJFrame extends javax.swing.JFrame {
         welcomeMsgPanel.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(1240, 10, 60, -1));
 
         getContentPane().add(welcomeMsgPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
-
-        welcomeLabel.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
-        getContentPane().add(welcomeLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 930, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -243,16 +245,18 @@ public class MainJFrame extends javax.swing.JFrame {
             jPasswordField.setText("");
               if (userAccount != null && userAccount.getRole() != null) {
             String greetings = "Hi";
+            system.addLog(userAccount.getUsername() + " logged in.");
             if (userAccount instanceof Customer) {
-                       
+                greetings = greetings + " " + userAccount.getUsername();
+                welcomeLabel.setText(greetings + " !!!");       
                 container.add("workArea", userAccount.getRole().createWorkArea(container, (Customer)userAccount,inOrganization, inEnterprise, system));
             }
             else{
-            
                 greetings = greetings + " " + userAccount.getUsername();
+                welcomeLabel.setText(greetings + " !!!");
                 container.add("workArea",userAccount.getRole().createWorkArea(container, userAccount, inOrganization, inEnterprise, system));
             }
-            welcomeLabel.setText(greetings + " !!!");
+            //welcomeLabel.setText(greetings + " !!!");
             CardLayout layout = (CardLayout) container.getLayout();
             layout.next(container);
         }
@@ -262,14 +266,18 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        system.addLog(userAccount.getUsername() + " logged out.");
         logout();
     }//GEN-LAST:event_jButton3ActionPerformed
     private void logout() {
-        container.removeAll();
-        dB4OUtil.storeSystem(system);
         jPanel1.setVisible(true);
         container.setVisible(false);
         welcomeMsgPanel.setVisible(false);
+        container.removeAll();
+        dB4OUtil.storeSystem(system);
+//        jPanel1.setVisible(true);
+//        container.setVisible(false);
+//        welcomeMsgPanel.setVisible(false);
     }
 
     /**
