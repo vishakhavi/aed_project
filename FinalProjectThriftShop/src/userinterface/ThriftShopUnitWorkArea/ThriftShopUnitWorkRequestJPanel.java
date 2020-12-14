@@ -6,27 +6,25 @@
 package userinterface.ThriftShopUnitWorkArea;
 
 import Business.Customer.Customer;
-import Business.Customer.CustomerDirectory;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
+import Business.Helper.Email;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
 import Business.Role.CustomerRole;
 
 import Business.UserAccount.UserAccount;
-import Business.Utils.HeaderColors;
-import Business.WorkQueue.UserRegistrationRequest;
+import Business.WorkQueue.CustomerAccountActivationRequest;
 import Business.WorkQueue.WorkRequest;
-import java.awt.CardLayout;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author shivibhatt
+ * @author Vishakha
  */
 public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
 
@@ -47,29 +45,25 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
      
         this.business = system;
         this.organizationDirectory = enterprise.getOrganizationDirectory();
-         workRequestJTable.getTableHeader().setDefaultRenderer(new HeaderColors());
+        
         populateTable();
     }
     
     public void populateTable() {
-        workRequestJTable.getTableHeader().setDefaultRenderer(new HeaderColors());
         DefaultTableModel model = (DefaultTableModel) workRequestJTable.getModel();
 
         model.setRowCount(0);
 
-        for (WorkRequest workRequest : enterprise.getWorkQueue().getWorkRequestList()) {
+        for (WorkRequest workRequest : business.getWorkQueue().getWorkRequestList()) {
 
-            if (workRequest instanceof UserRegistrationRequest) {
+            if (workRequest instanceof CustomerAccountActivationRequest) {
                 Object[] row = new Object[model.getColumnCount()];
                 row[0] = workRequest;
-                row[1] = ((UserRegistrationRequest) workRequest).getStatus();
-                row[2] = ((UserRegistrationRequest) workRequest).getUserName();
-                row[3] = ((UserRegistrationRequest) workRequest).getName();
-                row[4] = ((UserRegistrationRequest) workRequest).getUserEmailId();
-                row[5] = ((UserRegistrationRequest) workRequest).getUserCity();
-                row[6] = ((UserRegistrationRequest) workRequest).getOrgType();
-                row[7] = ((UserRegistrationRequest) workRequest).getNetwork();
-
+                row[1] = ((CustomerAccountActivationRequest) workRequest).getStatus();
+                row[2] = ((CustomerAccountActivationRequest) workRequest).getUserName();
+                row[3] = ((CustomerAccountActivationRequest) workRequest).getName();
+                row[4] = ((CustomerAccountActivationRequest) workRequest).getUserEmailId();
+                row[5] = ((CustomerAccountActivationRequest) workRequest).getArea();
                 model.addRow(row);
             }
         }
@@ -87,11 +81,8 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         workRequestJTable = new javax.swing.JTable();
-        assignJButton = new javax.swing.JButton();
         processJButton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setMinimumSize(new java.awt.Dimension(1058, 840));
@@ -102,20 +93,20 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
         workRequestJTable.setForeground(new java.awt.Color(25, 56, 82));
         workRequestJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Request #", "Status", "UserName", "Name", "Email ID", "City", "Organization Type", "Network"
+                "Request #", "Status", "UserName", "Name", "Email ID", "Area"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false
+                false, false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -131,81 +122,40 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
 
         add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, 854, 170));
 
-        assignJButton.setBackground(new java.awt.Color(255, 255, 255));
-        assignJButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
-        assignJButton.setForeground(new java.awt.Color(25, 56, 82));
-        assignJButton.setText("Assign to me");
-        assignJButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                assignJButtonActionPerformed(evt);
-            }
-        });
-        add(assignJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(415, 387, -1, -1));
-
         processJButton.setBackground(new java.awt.Color(255, 255, 255));
         processJButton.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         processJButton.setForeground(new java.awt.Color(25, 56, 82));
-        processJButton.setText("Process");
+        processJButton.setText("Activate");
         processJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 processJButtonActionPerformed(evt);
             }
         });
-        add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(558, 387, -1, -1));
+        add(processJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, -1, -1));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 18)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(25, 56, 82));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("MANAGE THRIFT SHOP USER REGISTRATION");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(303, 41, 431, -1));
-
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/VolunteerOPaque512x.png"))); // NOI18N
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 260, 520, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/collaboration.png"))); // NOI18N
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
-
-    private void assignJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_assignJButtonActionPerformed
-
-        int selectedRow = workRequestJTable.getSelectedRow();
-
-        if (selectedRow >= 0) {
-            WorkRequest request = (WorkRequest) workRequestJTable.getValueAt(selectedRow, 0);
-            if (request.getStatus().equalsIgnoreCase("Completed")) {
-                JOptionPane.showMessageDialog(null, "Request already processed.");
-                return;
-            } else {
-                request.setReceiver(userAccount);
-                request.setStatus("Pending");
-                populateTable();
-                JOptionPane.showMessageDialog(null, "Request has successfully assigned");
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "Choose a request to process.");
-            return;
-        }
-    }//GEN-LAST:event_assignJButtonActionPerformed
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
 
-        int selectedRow = workRequestJTable.getSelectedRow();
+         int selectedRow = workRequestJTable.getSelectedRow();
 
         if (selectedRow >= 0) {
-            UserRegistrationRequest request = (UserRegistrationRequest) workRequestJTable.getValueAt(selectedRow, 0);
-            /*Employee emp = new Employee();
-            emp.setName(request.getName());*/
-            if (request.getOrgType() == Organization.Type.Customer) {
-                System.out.println("UserInterfacengo");
+            CustomerAccountActivationRequest request = (CustomerAccountActivationRequest) workRequestJTable.getValueAt(selectedRow, 0);
+            
                 //Organization org = organizationDirectory.createOrganization(request.getOrgType(), request.getName(), request.getUserLocationPoint());
                 Customer customer = new Customer();
                 customer.setName(request.getName());
-                customer.setPhone(request.getUserContact());
                 customer.setUsername(request.getUserName());
                 customer.setPassword(request.getUserPassword());
                 customer.setEmailAddress(request.getUserEmailId());
-                customer.setLocation(request.getUserLocationPoint());
-                customer.setAddress(request.getUserCity());
+                customer.setLatitude(request.getLatitude());
+                customer.setLongitude(request.getLongitude());
+                customer.setAddress(request.getArea());
                 customer.setRole(new CustomerRole());
                 Organization org = organizationDirectory.createOrganization(Organization.Type.Customer);
                 business.getUserAccountDirectory().addUserAccount(customer);
@@ -215,11 +165,15 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
                 //CustomerDirectory customerDirectory= org.getCustomerDirectory().addCustomer(customer).;
      
                // org.getCustomerDirectory().addCustomer(customer);
-            } 
+            
 
             request.setStatus("Completed");
-            JOptionPane.showMessageDialog(null, "User account has been activated successfully");
+            JOptionPane.showMessageDialog(null, "Customer account has been activated successfully");
             populateTable();
+            String subject = "Thrift Shop Customer Activation";
+            String message = "Your customer account is activated with Thrift Shop. Now you can start shopping, selling!!";
+            Email.sendEmailMessage(request.getUserEmailId(), subject, message);
+            
         } else {
             JOptionPane.showMessageDialog(null, "Please select a request message to process.");
             return;
@@ -228,10 +182,7 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton assignJButton;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton processJButton;
     private javax.swing.JTable workRequestJTable;

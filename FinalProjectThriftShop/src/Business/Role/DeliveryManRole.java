@@ -13,7 +13,7 @@ import userinterface.ShippingAdmin.ShippingOrderDetailsJPanel;
 
 /**
  *
- * @author raunak
+ * @author Arthi
  */
 public class DeliveryManRole extends Role{
 

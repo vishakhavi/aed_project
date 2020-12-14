@@ -29,12 +29,12 @@ import javax.swing.table.TableModel;
 
 /**
  *
- * @author Vishakha
+ * @author Arthi
  */
 public class ShippingOrderDetailsJPanel extends javax.swing.JPanel implements TableModelListener {
 
     /**
-     * Creates new form ManageOrderJPanel
+     * Creates new form ShippingOrderDetailsJPanel
      */
     JPanel userProcessContainer;
     EcoSystem ecosystem;
@@ -95,10 +95,17 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel implements Ta
         jScrollPane2 = new javax.swing.JScrollPane();
         tblShippingOrders = new javax.swing.JTable();
         jBtnUpdateStatus = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Shipping Order Requests");
+        add(jLabel1);
+        jLabel1.setBounds(240, 10, 813, 24);
 
         tblShippingOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -125,42 +132,25 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel implements Ta
         });
         jScrollPane2.setViewportView(tblShippingOrders);
 
+        add(jScrollPane2);
+        jScrollPane2.setBounds(270, 50, 784, 140);
+
         jBtnUpdateStatus.setText("Update Status");
         jBtnUpdateStatus.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jBtnUpdateStatusActionPerformed(evt);
             }
         });
+        add(jBtnUpdateStatus);
+        jBtnUpdateStatus.setBounds(530, 230, 276, 44);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 784, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jBtnUpdateStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 276, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
-                .addComponent(jBtnUpdateStatus, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Shipping_order_request_1_710x390.png"))); // NOI18N
+        add(jLabel2);
+        jLabel2.setBounds(280, 270, 780, 390);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/order-status_120x120.png"))); // NOI18N
+        add(jLabel3);
+        jLabel3.setBounds(0, 0, 120, 120);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateStatusActionPerformed
@@ -198,6 +188,8 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel implements Ta
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnUpdateStatus;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblShippingOrders;
     // End of variables declaration//GEN-END:variables
