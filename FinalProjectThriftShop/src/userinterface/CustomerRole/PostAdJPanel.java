@@ -10,18 +10,11 @@ import Business.Customer.Customer;
 import Business.Customer.CustomerDirectory;
 import Business.Customer.Post;
 import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
-import Business.Location.LocationPoint;
 import Business.Organization.Organization;
-import Business.Role.CustomerRole;
 import Business.UserAccount.UserAccount;
 import com.teamdev.jxbrowser.browser.Browser;
-import com.teamdev.jxbrowser.engine.Engine;
-import com.teamdev.jxbrowser.engine.EngineOptions;
-import com.teamdev.jxbrowser.engine.RenderingMode;
-import com.teamdev.jxbrowser.view.swing.BrowserView;
-
 import java.awt.CardLayout;
+import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
 import java.util.ArrayList;
@@ -30,7 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import userinterface.GoogleMAP.OrganizationLocationJPanel;
+import userinterface.LoadMaps;
 
 /**
  *
@@ -43,7 +36,9 @@ public class PostAdJPanel extends javax.swing.JPanel {
     private Ads adsList;
     private String filepathValue;
     private Customer customer;
-    LocationPoint locationPoint;
+    String location;
+    double longitude;
+    double latitude;
     Browser browser;
     private CustomerDirectory customerDirectory;
     private ArrayList<Customer> customerList;
@@ -64,7 +59,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         customer = (Customer)account;
         this.organization = organization;
        //customerDirectory = organization.getCustomerDirectory();
-        locationPoint = new LocationPoint();
+       
       //  System.out.println("enterprise-->"+enterprise.getOrganizationDirectory().getOrganizationList().size);
         
         
@@ -188,7 +183,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         
         Post post = new Post(jTextFieldProductName.getText(), Double.valueOf(jTextFieldProductPrice.getText()),
         jTextFieldProductCategory.getText(),jTextAreaProductDescription.getText(),
-        filepathValue,locationPoint);
+        filepathValue,longitude, latitude,location);
         
             
          if(adsList != null && customer.getAdsList() != null){
@@ -235,14 +230,19 @@ public class PostAdJPanel extends javax.swing.JPanel {
     }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        OrganizationLocationJPanel muajp = new OrganizationLocationJPanel(userProcessContainer);
-        userProcessContainer.add("OrganizationLocationJPanel", muajp);
-        CardLayout layout = (CardLayout) userProcessContainer.getLayout();
+        LoadMaps loadMaps = new LoadMaps(userProcessContainer,ecosystem,location);
+        userProcessContainer.add("LoadMaps", loadMaps);
+        CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
         layout.next(userProcessContainer);
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void populateLongituteLatitude(LocationPoint locationPoint) {
-        this.locationPoint = locationPoint;
-        jTextFieldItemLocation.setText(locationPoint.getLatitude() + ", " + locationPoint.getLongitude());
+    public void populateLocation(String location,double longitude, double latitude) {
+        
+        jTextFieldItemLocation.setForeground(Color.BLACK);
+        this.location = location;
+        this.longitude = longitude;
+        this.latitude = latitude;
+        jTextFieldItemLocation.setText(location);  
+        
     }
         
     // Variables declaration - do not modify//GEN-BEGIN:variables

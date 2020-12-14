@@ -10,12 +10,8 @@ import Business.Enterprise.Enterprise;
 import Business.Network.Network;
 import Business.Role.AdminRole;
 import Business.Role.ManufacturerAdminRole;
-import Business.Role.ShippingAdminRole;
 import Business.Role.ThriftShopAdmin;
 import Business.UserAccount.UserAccount;
-import Business.Utils.HeaderColors;
-import java.awt.CardLayout;
-import java.awt.Component;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
@@ -37,13 +33,11 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
 
         this.userProcessContainer = userProcessContainer;
         this.system = system;
- enterpriseJTable.getTableHeader().setDefaultRenderer(new HeaderColors());
         populateTable();
         populateNetworkComboBox();
     }
 
     private void populateTable() {
-        enterpriseJTable.getTableHeader().setDefaultRenderer(new HeaderColors());
         DefaultTableModel model = (DefaultTableModel) enterpriseJTable.getModel();
 
         model.setRowCount(0);
@@ -244,9 +238,7 @@ public class ManageEnterpriseAdminJPanel extends javax.swing.JPanel {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ThriftShopAdmin());
                 } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Manufacturing) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ManufacturerAdminRole());
-                } else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Ecommerce) {
-                    account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new ShippingAdminRole());
-                }/*else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Payment) {
+                } /*else if (enterprise.getEnterpriseType() == Enterprise.EnterpriseType.Payment) {
                     account = enterprise.getUserAccountDirectory().createUserAccount(username, password, employee, new VoluntaryUnitAdmin());
                 }*/
                 else{
