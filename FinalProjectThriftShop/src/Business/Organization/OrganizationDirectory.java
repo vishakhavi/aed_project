@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author raunak
+ * @author Vishakha
  */
 public class OrganizationDirectory {
     
@@ -43,32 +43,17 @@ public class OrganizationDirectory {
             organizationList.add(organization);
         }
         
-        else if (type.getValue().equals(Type.QualityCheckOfficer.getValue())){
-            organization = new QualityCheckOrganization();
-            organizationList.add(organization);
-        }
         else if (type.getValue().equals(Type.ManufacturerAdmin.getValue())){
             organization = new ManufacturingUnitOrganization();
             organizationList.add(organization);
         }
-        else if (type.getValue().equals(Type.InsuranceManager.getValue())){
-            organization = new InsuranceOrganization();
-            organizationList.add(organization);
-        }
+        
         else if (type.getValue().equals(Type.AuctionConsultant.getValue())){
             organization = new AuctionUnitOrganization();
             organizationList.add(organization);
         }
         return organization;
     }
-     public Organization createOrganization(Type type,String name){
-        Organization organization = null;
-        if (type.getValue().equals(Type.ShippingCompany.getValue())){
-            organization = new ShippingUnitOrganization(name);
-            organizationList.add(organization);
-        }
-        return organization;
-     }
      
     public WholeSaleSupplierOrganization getWholeSaleSupplierBasedOnUserName(UserAccount ua) {
         WholeSaleSupplierOrganization supplier = null;

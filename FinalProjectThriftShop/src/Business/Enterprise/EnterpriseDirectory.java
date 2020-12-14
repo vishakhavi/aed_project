@@ -40,15 +40,11 @@ public class EnterpriseDirectory {
             enterpriseList.add(enterprise);
         }
         if(type==Enterprise.EnterpriseType.Payment){
-            enterprise=new EcommerceEnterprise(name);
+            enterprise=new PaymentEnterprise(name);
             enterpriseList.add(enterprise);
         }
-        if(type==Enterprise.EnterpriseType.Manufacturing){
-            enterprise=new EcommerceEnterprise(name);
-            enterpriseList.add(enterprise);
-        }
-        if(type==Enterprise.EnterpriseType.Insurance){
-            enterprise=new EcommerceEnterprise(name);
+        if(type==Enterprise.EnterpriseType.Shipping){
+            enterprise=new ShippingEnterprise(name);
             enterpriseList.add(enterprise);
         }
         return enterprise;
