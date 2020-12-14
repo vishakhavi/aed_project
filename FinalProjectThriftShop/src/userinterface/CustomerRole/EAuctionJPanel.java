@@ -180,7 +180,7 @@ public class EAuctionJPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 24)); // NOI18N
         jLabel1.setText("Welcome to the e-Auction Page");
         add(jLabel1);
-        jLabel1.setBounds(360, 60, 339, 32);
+        jLabel1.setBounds(350, 20, 339, 32);
 
         tbAuctionlProducts.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -217,7 +217,7 @@ public class EAuctionJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(tbAuctionlProducts);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(130, 170, 768, 317);
+        jScrollPane1.setBounds(140, 110, 768, 317);
 
         txtSearch.setText("Enter a search string");
         txtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -231,11 +231,11 @@ public class EAuctionJPanel extends javax.swing.JPanel {
             }
         });
         add(txtSearch);
-        txtSearch.setBounds(600, 120, 158, 30);
+        txtSearch.setBounds(610, 70, 158, 30);
 
         jLabel3.setText("Search by category: ");
         add(jLabel3);
-        jLabel3.setBounds(130, 130, 130, 20);
+        jLabel3.setBounds(140, 70, 130, 20);
 
         jComboCategory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -243,7 +243,7 @@ public class EAuctionJPanel extends javax.swing.JPanel {
             }
         });
         add(jComboCategory);
-        jComboCategory.setBounds(270, 130, 150, 20);
+        jComboCategory.setBounds(290, 70, 150, 20);
 
         btnSearch.setText("Search");
         btnSearch.addActionListener(new java.awt.event.ActionListener() {
@@ -252,15 +252,15 @@ public class EAuctionJPanel extends javax.swing.JPanel {
             }
         });
         add(btnSearch);
-        btnSearch.setBounds(830, 130, 80, 23);
+        btnSearch.setBounds(820, 70, 80, 23);
 
         jTxtBidAskPrice.setCursor(new java.awt.Cursor(java.awt.Cursor.TEXT_CURSOR));
         add(jTxtBidAskPrice);
-        jTxtBidAskPrice.setBounds(340, 510, 124, 30);
+        jTxtBidAskPrice.setBounds(350, 450, 124, 30);
 
         jLabel5.setText("Enter a higher Bid Price");
         add(jLabel5);
-        jLabel5.setBounds(140, 510, 136, 30);
+        jLabel5.setBounds(150, 450, 136, 30);
 
         jBtnPlaceBid.setText("Place Bid");
         jBtnPlaceBid.addActionListener(new java.awt.event.ActionListener() {
@@ -269,16 +269,16 @@ public class EAuctionJPanel extends javax.swing.JPanel {
             }
         });
         add(jBtnPlaceBid);
-        jBtnPlaceBid.setBounds(560, 510, 111, 30);
+        jBtnPlaceBid.setBounds(520, 450, 111, 30);
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/download_120x120.jpg"))); // NOI18N
         add(jLabel2);
         jLabel2.setBounds(0, 0, 120, 120);
         jLabel2.getAccessibleContext().setAccessibleDescription("");
 
-        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction_ecommerce_4_720x400.png"))); // NOI18N
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction_ecommerce_4_720x400_1_720x290.png"))); // NOI18N
         add(jLabel4);
-        jLabel4.setBounds(140, 480, 720, 430);
+        jLabel4.setBounds(150, 360, 720, 340);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboCategoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboCategoryActionPerformed
