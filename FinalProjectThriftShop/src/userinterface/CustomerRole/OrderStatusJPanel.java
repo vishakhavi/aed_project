@@ -7,7 +7,9 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Product.Product;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.OrderWorkRequest;
 
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -29,54 +31,27 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private EcoSystem ecosystem;
     private UserAccount account;
-
+    private Customer customer;
     public OrderStatusJPanel(JPanel userProcessContainer, EcoSystem ecosystem, UserAccount account) {
         initComponents();
-        initListners();
+        //initListners();
         this.userProcessContainer = userProcessContainer;
         this.ecosystem = ecosystem;
         this.account = account;
+        this.customer = (Customer) this.account;
         populateRequestTable();
     }
 
     public void populateRequestTable() {
-        //Menu itemList = ecosystem.getItemList();
         DefaultTableModel model = (DefaultTableModel) tblCustomerOrderStatus.getModel();
         model.setRowCount(0);
-        //workRequestList = ecosystem.getWorkQueue().getWorkRequestListCustomer(account);
-
-
-        for (WorkRequest request : this.account.getWorkQueue().getWorkRequestList()) {
+        for (OrderWorkRequest request : ecosystem.getOrderWorkQueue().getWorkRequestList()) {
             Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
             row[0] = request;
-           // row[1] = request.getRestaurant();
-            String result = ((WorkRequest) request).getStatus();
-            row[2] = result == null ? "Waiting for confirmation" : result;
-            row[3] = request.getRequestDate();
+            row[1] = request.getOrderDate();
+            row[2] = request.getTotalPrice();
             model.addRow(row);
         }
-
-    }
-
-    private void initListners() {
-        tblCustomerOrderStatus.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            public void valueChanged(ListSelectionEvent event) {
-                int selectedRow = tblCustomerOrderStatus.getSelectedRow();
-                if (selectedRow >= 0) {
-                    WorkRequest request = (WorkRequest) tblCustomerOrderStatus.getValueAt(selectedRow, 0);
-                   /* if (request instanceof WorkOrderRequest) {
-                        WorkOrderRequest orderWorkRequest = (WorkOrderRequest) tblCustomerOrderStatus.getValueAt(selectedRow, 0);
-                        if (orderWorkRequest != null) {
-                           OrderDetailsJPanel orderDetailsJPanel = new OrderDetailsJPanel(userProcessContainer,ecosystem,account,orderWorkRequest);
-                           userProcessContainer.add("OrderDetailsJPanel", orderDetailsJPanel);
-                           CardLayout layout = (CardLayout)userProcessContainer.getLayout();
-                           layout.next(userProcessContainer);
-                        }
-                    }*/
-
-                }
-            }
-        });
     }
 
     /**
@@ -104,28 +79,39 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Message", "Restaurant name", "Status", "Request Date"
+                "Order ID", "Order Date", "Price"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
-            };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
+        tblCustomerOrderStatus.getTableHeader().setReorderingAllowed(false);
+        tblCustomerOrderStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustomerOrderStatusMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tblCustomerOrderStatus);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 790, 350));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 840, 350));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblCustomerOrderStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerOrderStatusMouseClicked
+        // TODO add your handling code here:
+        if (tblCustomerOrderStatus.getSelectedRow() != -1)
+        {
+            OrderWorkRequest order = (OrderWorkRequest) tblCustomerOrderStatus.getValueAt(tblCustomerOrderStatus.getSelectedRow(), 0);
+            CustomerReciept cr = new CustomerReciept(userProcessContainer, order);
+            userProcessContainer.add("customerReciept", cr);
+            CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
+            layout.next(userProcessContainer);
+        }
+    }//GEN-LAST:event_tblCustomerOrderStatusMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

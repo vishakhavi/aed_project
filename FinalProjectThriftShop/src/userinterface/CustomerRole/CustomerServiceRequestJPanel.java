@@ -96,9 +96,16 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextAreaCustServiceComments = new javax.swing.JTextArea();
         viewFullOrder = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Customer Service Request");
+        add(jLabel1);
+        jLabel1.setBounds(360, 60, 201, 17);
 
         jBtnSubmitCustServiceRequest.setText("Submit Request");
         jBtnSubmitCustServiceRequest.addActionListener(new java.awt.event.ActionListener() {
@@ -106,6 +113,8 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
                 jBtnSubmitCustServiceRequestActionPerformed(evt);
             }
         });
+        add(jBtnSubmitCustServiceRequest);
+        jBtnSubmitCustServiceRequest.setBounds(720, 400, 134, 23);
 
         tblCustomerOrderStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -132,11 +141,19 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(tblCustomerOrderStatus);
 
+        add(jScrollPane1);
+        jScrollPane1.setBounds(160, 110, 710, 260);
+
         jLabel4.setText("Post comments on the issue with the order");
+        add(jLabel4);
+        jLabel4.setBounds(170, 400, 250, 23);
 
         jTextAreaCustServiceComments.setColumns(20);
         jTextAreaCustServiceComments.setRows(5);
         jScrollPane2.setViewportView(jTextAreaCustServiceComments);
+
+        add(jScrollPane2);
+        jScrollPane2.setBounds(440, 400, 234, 119);
 
         viewFullOrder.setText("View Full Cust Service Conversation");
         viewFullOrder.addActionListener(new java.awt.event.ActionListener() {
@@ -144,50 +161,16 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
                 viewFullOrderActionPerformed(evt);
             }
         });
+        add(viewFullOrder);
+        viewFullOrder.setBounds(610, 60, 262, 23);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(295, 295, 295)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewFullOrder, javax.swing.GroupLayout.PREFERRED_SIZE, 262, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(39, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 246, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
-                                .addComponent(jBtnSubmitCustServiceRequest, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 795, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel1)
-                        .addGap(40, 40, 40))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(viewFullOrder)
-                        .addGap(18, 18, 18)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 369, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnSubmitCustServiceRequest)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(59, Short.MAX_VALUE))
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Support1.png"))); // NOI18N
+        add(jLabel2);
+        jLabel2.setBounds(40, 340, 600, 360);
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-how-can-we-help-you customer service (1).jpg"))); // NOI18N
+        add(jLabel6);
+        jLabel6.setBounds(10, 10, 120, 120);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnSubmitCustServiceRequestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSubmitCustServiceRequestActionPerformed
@@ -236,7 +219,9 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBtnSubmitCustServiceRequest;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextArea jTextAreaCustServiceComments;

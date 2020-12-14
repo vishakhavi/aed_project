@@ -8,71 +8,78 @@ package userinterface.ShippingAdmin;
 import Business.Customer.Customer;
 import Business.DeliveryMan.DeliveryMan;
 import Business.EcoSystem;
+import Business.Organization.ShippingUnitOrganization;
 import Business.UserAccount.UserAccount;
 import Business.UserAccount.UserAccountDirectory;
 import Business.WorkQueue.CustomerWorkOrder;
 import Business.WorkQueue.OrderWorkRequest;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
+import java.util.Date;
 import java.util.List;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
 
 /**
  *
- * @author Vishakha
+ * @author Arthi
  */
-public class ShippingOrderDetailsJPanel extends javax.swing.JPanel {
+public class ShippingOrderDetailsJPanel extends javax.swing.JPanel implements TableModelListener {
 
     /**
-     * Creates new form ManageOrderJPanel
+     * Creates new form ShippingOrderDetailsJPanel
      */
     JPanel userProcessContainer;
     EcoSystem ecosystem;
     UserAccountDirectory userAccountList;
     private List<WorkRequest> workRequestList;
     UserAccount account;
+    ShippingUnitOrganization shippingOrg;
+    
     public ShippingOrderDetailsJPanel(JPanel userProcessContainer, UserAccount account,EcoSystem ecosystem) {
         initComponents();
         this.userProcessContainer=userProcessContainer;
         this.ecosystem=ecosystem;
         this.account = account;
+        this.shippingOrg = this.ecosystem.findShippingCompany(account);
         populateShippingOrderRequestTable();
         
-      
-       
-       /* DeliveryMan deliveryMan = new DeliveryMan();
-        deliveryMan.setDeliveryManName("Raj");
-        deliveryMan.setDeliveryManPhone("8877775522");
-       
-        Customer customer = new Customer();
-        customer.setAddress("Best Nagar");
-        customer.setPhone("22222228888");
-        req1.setCustomer(customer);
-        ecosystem.getWorkQueue().addWorkRequest(req1);*/
+        tblShippingOrders.getModel().addTableModelListener(this);
     }
+    
+    public void tableChanged(TableModelEvent e) {
+        int row = e.getFirstRow();
+        int column = e.getColumn();
+        TableModel model = (TableModel)e.getSource();
+        String columnName = model.getColumnName(column);
+
+        if  (columnName.equals("Status")) {
+            JOptionPane.showMessageDialog(null,"This will not update the record yet, please click \"Update Status\" if you intend to save the information", "Warning", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+    
      private void populateShippingOrderRequestTable(){
-        DefaultTableModel model = (DefaultTableModel) tblShippingWorkRequest.getModel();
+        DefaultTableModel model = (DefaultTableModel) tblShippingOrders.getModel();
         model.setRowCount(0);
-        workRequestList = ecosystem.getWorkQueue().getWorkRequestList();
+        workRequestList = this.shippingOrg.getWorkQueue().getWorkRequestList();
+        
          for (WorkRequest wr :  workRequestList) {
-            Object row[] = new Object[tblShippingWorkRequest.getColumnCount()];
-            if(wr instanceof CustomerWorkOrder){
+            Object row[] = new Object[tblShippingOrders.getColumnCount()];
+            
             CustomerWorkOrder cwo = (CustomerWorkOrder) wr;
-          if(cwo.getShippingAssigned() != null && cwo.getShippingAssigned().getName().equals(account.getUsername()) ){
             row[0] = cwo;
-            row[1] = cwo.getBestBidCustomer();
-            row[2] = (cwo.getShippingAssigned() != null) ? cwo.getShippingAssigned().getName() : "Not Assigned";
-            row[3] = cwo.getRequestDate();
-          
-            
-            
-            model.addRow(row); 
-          }
-            }
+            row[1] = cwo.getSender();
+            row[2] = cwo.getRequestDate();
+            row[3] = cwo.getStatus();
+            row[4] = cwo.getResolveDate();
+            model.addRow(row);  
         }
      }
     /**
@@ -85,26 +92,34 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblShippingWorkRequest = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblShippingOrders = new javax.swing.JTable();
+        jBtnUpdateStatus = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Shipping Order Requests");
+        add(jLabel1);
+        jLabel1.setBounds(240, 10, 813, 24);
 
-        tblShippingWorkRequest.setModel(new javax.swing.table.DefaultTableModel(
+        tblShippingOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "Product Name", "Customer Name", "Shipping Company", "Request Date"
+                "Ecommerce/Auction Product", "Customer", "Request Date", "Status", "Resolved Date"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Object.class, java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -115,38 +130,67 @@ public class ShippingOrderDetailsJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(tblShippingWorkRequest);
+        jScrollPane2.setViewportView(tblShippingOrders);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 813, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(81, 81, 81)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 705, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(43, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 372, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(87, Short.MAX_VALUE))
-        );
+        add(jScrollPane2);
+        jScrollPane2.setBounds(270, 50, 784, 140);
+
+        jBtnUpdateStatus.setText("Update Status");
+        jBtnUpdateStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jBtnUpdateStatusActionPerformed(evt);
+            }
+        });
+        add(jBtnUpdateStatus);
+        jBtnUpdateStatus.setBounds(530, 230, 276, 44);
+
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Shipping_order_request_1_710x390.png"))); // NOI18N
+        add(jLabel2);
+        jLabel2.setBounds(280, 270, 780, 390);
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/order-status_120x120.png"))); // NOI18N
+        add(jLabel3);
+        jLabel3.setBounds(0, 0, 120, 120);
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jBtnUpdateStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnUpdateStatusActionPerformed
+       int selectedOrder = tblShippingOrders.getSelectedRow();
+       
+       if (selectedOrder >= 0){
+            CustomerWorkOrder selectedWorkOrder = (CustomerWorkOrder) tblShippingOrders.getValueAt(selectedOrder, 0);
+            
+            if (selectedWorkOrder.getStatus().equals("Complete")) {
+                JOptionPane.showMessageDialog(null,"Cannot update a completed order", "Warning", JOptionPane.WARNING_MESSAGE);
+                populateShippingOrderRequestTable();
+            }
+            else {
+                if (!selectedWorkOrder.getStatus().equals((String) tblShippingOrders.getValueAt(selectedOrder, 3))) {
+                    String status = (String) tblShippingOrders.getValueAt(selectedOrder, 3);
+                    selectedWorkOrder.setStatus(status);
+
+                    if (status.equals("Complete")) {
+                        selectedWorkOrder.setResolveDate(new Date());
+                    }
+
+                    JOptionPane.showMessageDialog(null, "Shipping Status updated succesfully !!!");
+                    populateShippingOrderRequestTable();
+                } else {
+                    JOptionPane.showMessageDialog(null,"Please update the status field for a selected order!!!", "Warning", JOptionPane.WARNING_MESSAGE);
+                }
+            }            
+       } else {
+            JOptionPane.showMessageDialog(null,"Please select an Order", "Warning", JOptionPane.WARNING_MESSAGE);
+       }
+    }//GEN-LAST:event_jBtnUpdateStatusActionPerformed
     
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jBtnUpdateStatus;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblShippingWorkRequest;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblShippingOrders;
     // End of variables declaration//GEN-END:variables
 }

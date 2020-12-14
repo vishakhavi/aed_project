@@ -5,12 +5,11 @@
  */
 package Business.Customer;
 
-import Business.Location.LocationPoint;
 import Business.UserAccount.UserAccount;
 
 /**
  *
- * @author harold
+ * @author Vishakha
  */
 public class Customer extends UserAccount{
     private String customerName;

@@ -27,6 +27,7 @@ public class OrderWorkRequest {
         this.orderId = idCounter;
         idCounter ++;
         this.orderDate = new Date();
+        this.prodDir = new ProductDirectory();
     }
 
     public int getOrderId() {
@@ -79,5 +80,10 @@ public class OrderWorkRequest {
 
     public void setDeliveryDate(Date deliveryDate) {
         this.deliveryDate = deliveryDate;
+    }
+    
+    @Override
+    public String toString() {
+        return Integer.toString(orderId);
     }
 }

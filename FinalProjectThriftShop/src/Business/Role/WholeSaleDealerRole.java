@@ -8,20 +8,20 @@ import Business.EcoSystem;
 import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import userinterface.SystemAdminWorkArea.SystemAdminWorkAreaJPanel;
 import javax.swing.JPanel;
 import userinterface.wholeSaleSupplierRole.WholeSaleSupplierWorkAreaJPanel;
 
 /**
  *
- * @author raunak
+ * @author Arthi
  */
 public class WholeSaleDealerRole extends Role{
 
     @Override
     public JPanel createWorkArea(JPanel userProcessContainer, UserAccount account, Organization organization, Enterprise enterprise, EcoSystem system) {
-        WholeSaleSupplier supplier = system.getWholeSaleSupplierDir().getWholeSaleSupplierBasedOnUserName(account);
+        WholeSaleSupplierOrganization supplier = system.getWholeSaleSupplierDir().getWholeSaleSupplierBasedOnUserName(account);
         
         return new WholeSaleSupplierWorkAreaJPanel(userProcessContainer, account, system, supplier);
     }

@@ -5,11 +5,11 @@
  */
 package userinterface.ManufacturerAdminRole;
 
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import Business.EcoSystem;
 import Business.Product.Product;
 import Business.Product.ProductDirectory;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.io.File;
@@ -26,15 +26,15 @@ import userinterface.DealerRole.DealerWorkAreaJPanel;
 public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
-    WholeSaleSupplier supplier;
-    Dealer dealer;
+    WholeSaleSupplierOrganization supplier;
+    DealerOrganization dealer;
     EcoSystem ecoSystem;
     ProductDirectory dealerPd ;
     ProductDirectory globalPd;
     /**
      * Creates new form CreateResaurantJPanel
      */
-    public CreateManufacturerProductsJPanel(JPanel upc, Dealer dealer, EcoSystem ecoSystem) {
+    public CreateManufacturerProductsJPanel(JPanel upc, DealerOrganization dealer, EcoSystem ecoSystem) {
         this.userProcessContainer = upc;
         this.dealer = dealer;
         this.ecoSystem = ecoSystem;

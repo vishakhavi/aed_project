@@ -20,10 +20,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.RowFilter;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -40,119 +43,77 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
     Customer customer;
     Organization organization;
     private DefaultTableModel viewTable;
-    private static final Object[] columnNames = {"Product Name","Price","Photo"};
+    private static final Object[] columnNames = {"Product Name","Category", "Price","Photo"};
     public ECommerceMainJPanel(JPanel rightSystemAdminPanel, UserAccount userAccount, EcoSystem ecosystem, Organization organization){
         initComponents();
         this.rightSystemAdminPanel = rightSystemAdminPanel;
         this.userAccount = userAccount;
         this.ecosystem = ecosystem;
         this.organization = organization;
+        this.customer = (Customer) this.userAccount;       
+        //checkoutCart(); //navigate to cart if items present
         jComboCategory.addItem("All");
         jComboCategory.addItem("Mobiles");
         jComboCategory.addItem("Furniture");
         tblProducts.setAutoCreateRowSorter(true);
-        this.customer = (Customer) this.userAccount;
-        //System.out.println(this.customer);
-        /*for(Customer c : this.organization.getCustomerDirectory().getCustomerList())
-        {
-            if(c.getUsername().equals(userAccount.getUsername()))
-            {
-                this.customer = c;
-            }
-        }
-        
-        System.out.println(this.customer);*/
-        //System.out.println(this.ecosystem.getCustomerDirectory().getCustomerList().size());
-        //ecosystem.getProductDirectory().deleteProduct("Samsung");
-        //ecosystem.getProductDirectory().deleteProduct("iPhone");
-
         viewTable =  new DefaultTableModel(null,columnNames){
             @Override
             public Class<?> getColumnClass(int column) {
-                if (column==2) return Icon.class;
+                if (column==3) return Icon.class;
                 return Object.class;
             }
         };
-        //System.out.println(viewTable);
-        populateTable("All");
-        
+        populateTable();
     }
     
-    public void populateTable(String category)
+    public void populateTable()
     {
-        /*if(customer.getCart() == null || customer.getCart().getProdDir().getProducts().size() == 0)
+        viewTable.setRowCount(0);
+        if(ecosystem.getProductDirectory().getProducts() != null)
         {
-            btnCustomerCart.setEnabled(false);
-        }*/
-        if(!category.equals("All"))
-        {
-            try{
-            viewTable.setRowCount(0);
-            if(ecosystem.getProductDirectory().getProducts() != null)
-            {
-                for(Product p : ecosystem.getProductDirectory().getProducts())
+            for(Product p : ecosystem.getProductDirectory().getProducts())
+            {   
+                Object[] row = new Object[viewTable.getColumnCount()];
+                row[0] = p;
+                row[1] = p.getCategory();
+                row[2] = p.getPrice();
+                String temp = p.getProductImagePath();
+                if(temp != null)
                 {
-                    if(p.getCategory().equals(category))
-                    {
-                        Object[] row = new Object[viewTable.getColumnCount()];
-                        row[0] = p;
-                        row[1] = p.getPrice();
-                        String temp = p.getProductImagePath();
-                        if(temp != null)
-                        {
-                            ImageIcon ii = new ImageIcon(temp);
-                            Image resizedImage = ii.getImage();
-                            ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
-                            row[2] = ii;
-                        }
-                        else
-                        {    
-                            row[2] = "Should have been an image";
-                        }
-                        viewTable.addRow(row);
-                    }
+                    ImageIcon ii = new ImageIcon(temp);
+                    Image resizedImage = ii.getImage();
+                    ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
+                    row[3] = ii;
                 }
-                tblProducts.setRowHeight(150);
-                tblProducts.setModel(viewTable);
+                else
+                {
+                    row[3] = "Should have been an image";
+                }
+                viewTable.addRow(row); 
             }
+            tblProducts.setRowHeight(150);
+            tblProducts.setModel(viewTable);
         }
-            catch(Exception e){
-            
-            System.err.println("Error while setting the image"+e.getMessage());
-            }
-        }
-        else
+    }
+    
+    public void checkoutCart()
+    {
+        if (customer.getCart().getTotalPrice() > 0.0) 
         {
-            viewTable.setRowCount(0);
-            if(ecosystem.getProductDirectory().getProducts() != null)
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogResult = JOptionPane.showConfirmDialog (null, "Your cart has some items, would you like to proceed to checkout?","Warning",dialogButton);
+            if(dialogResult == JOptionPane.YES_OPTION)
             {
-                    for(Product p : ecosystem.getProductDirectory().getProducts())
-                    {                   
-                        Object[] row = new Object[viewTable.getColumnCount()];
-                        row[0] = p;
-                        row[1] = p.getPrice();
-                        String temp = p.getProductImagePath();
-                        if(temp != null)
-                        {
-                            //temp = temp.replace("/Users/madhurimachatterjee/Downloads/ProductImages", "/icon");
-                            //System.out.println(temp);
-                            //ImageIcon ii = new ImageIcon(getClass().getResource(temp));
-                            ImageIcon ii = new ImageIcon(temp);
-                            Image resizedImage = ii.getImage();
-                            ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
-                            row[2] = ii;
-                        }
-                        else
-                        {    
-                            row[2] = "Should have been an image";
-                        }
-                        //row[2] = p.getProductImagePath();
-                        viewTable.addRow(row);                   
-                    }
-                    tblProducts.setRowHeight(150);
-                    tblProducts.setModel(viewTable);
-            }  
-        } 
+                ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
+                rightSystemAdminPanel.add("eCommerceCustomerPanel", eccc);
+                CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
+                layout.next(rightSystemAdminPanel);
+            }
+//            else
+//            {
+//                remove(dialogButton);
+//            }
+        }
     }
     
     /**
@@ -185,11 +146,11 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Product Name", "Price", "Photo"
+                "Product Name", "Category", "Price", "Photo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -200,6 +161,7 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         tblProducts.setSelectionForeground(new java.awt.Color(0, 204, 204));
         tblProducts.setShowHorizontalLines(false);
         tblProducts.setShowVerticalLines(false);
+        tblProducts.getTableHeader().setReorderingAllowed(false);
         tblProducts.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblProductsMouseClicked(evt);
@@ -320,18 +282,19 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
                 {
                     Object[] row = new Object[viewTable.getColumnCount()];
                     row[0] = p;
-                    row[1] = p.getPrice();
+                    row[1] = p.getCategory();
+                    row[2] = p.getPrice();
                     String temp = p.getProductImagePath();
                     if(temp != null)
                     {
                         ImageIcon ii = new ImageIcon(temp);
                         Image resizedImage = ii.getImage();
                         ii = new ImageIcon(resizedImage.getScaledInstance(170, 170, Image.SCALE_SMOOTH));
-                        row[2] = ii;
+                        row[3] = ii;
                     }
                     else
                     {
-                        row[2] = "Should have been an image";
+                        row[3] = "Should have been an image";
                     }
                     viewTable.addRow(row);
                     count++;
@@ -351,6 +314,16 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
         //populateTable(jComboCategory.getSelectedItem().toString());
         //populateTable("Mobiles");
+        TableRowSorter<TableModel> sorter = new TableRowSorter<TableModel>(((DefaultTableModel) tblProducts.getModel()));
+        if(!jComboCategory.getSelectedItem().toString().equals("All"))
+        {
+            sorter.setRowFilter(RowFilter.regexFilter(jComboCategory.getSelectedItem().toString()));
+            tblProducts.setRowSorter(sorter);
+        }
+        else
+        {
+            tblProducts.setRowSorter(null);
+        }
     }//GEN-LAST:event_jComboCategoryActionPerformed
 
     private void txtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchActionPerformed
@@ -365,10 +338,18 @@ public class ECommerceMainJPanel extends javax.swing.JPanel {
 
     private void btnCustomerCartActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCustomerCartActionPerformed
         // TODO add your handling code here:
-        ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
-        rightSystemAdminPanel.add("eCommerceProductPanel", eccc);
-        CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
-        layout.next(rightSystemAdminPanel);
+        if(customer.getCart().getProdDir().getProducts().size() > 0)
+        {
+            ECommerceCustomerCart eccc = new ECommerceCustomerCart(rightSystemAdminPanel, customer, ecosystem);
+            rightSystemAdminPanel.add("eCommerceProductPanel", eccc);
+            CardLayout layout = (CardLayout)this.rightSystemAdminPanel.getLayout();
+            layout.next(rightSystemAdminPanel);
+        }
+        else
+        {
+            JOptionPane.showMessageDialog(null, "Nothing in cart yet, please add products");
+            return;
+        }
     }//GEN-LAST:event_btnCustomerCartActionPerformed
 
 

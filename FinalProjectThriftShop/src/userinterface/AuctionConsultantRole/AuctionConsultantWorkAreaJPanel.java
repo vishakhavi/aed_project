@@ -7,13 +7,13 @@ package userinterface.AuctionConsultantRole;
 
 import Business.Auction.AuctionProduct;
 import Business.Auction.AuctionProductDirectory;
-import Business.Dealer.Dealer;
+import Business.Organization.DealerOrganization;
 import userinterface.wholeSaleSupplierRole.*;
 import Business.EcoSystem;
 import Business.Product.Product;
 
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import Business.WorkQueue.CustomerWorkOrder;
 import Business.WorkQueue.WorkRequest;
 import java.awt.CardLayout;
@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,8 +39,12 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
     private JPanel userProcessContainer;
     private UserAccount userAccount;
     EcoSystem ecosystem;
+    private DefaultTableModel viewTable;
+    
+    private static final Object[] columnNamesAuctionProducts = {"Product Name", "Original Price", "Bids Asked Count", "Max Bid Price", "Best Bid Customer", "Product Image"};
+    private static final Object[] columnNamesProductsElig = {"Product Name", "Price", "Inventory", "Dealer", "Product Image"};
     /**
-     * Creates new form DoctorWorkAreaJPanel
+     * Creates new form AuctionConsultantWorkAreaJPanel
      */
     public AuctionConsultantWorkAreaJPanel(JPanel userProcessContainer, UserAccount account, EcoSystem system) {
         initComponents();
@@ -54,70 +59,85 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         //Setting Sort setting on tables
         productsJTable.setAutoCreateRowSorter(true);
         auctionProductsJTable.setAutoCreateRowSorter(true);
-        
-        setListenerForTableSelection();
         populateEligProductsTable();
         populateAuctionProducts();
     }
     
     public void populateEligProductsTable(){
-        DefaultTableModel model = (DefaultTableModel)productsJTable.getModel();
-        model.setRowCount(0);
+        viewTable =  new DefaultTableModel(null,columnNamesProductsElig){
+          @Override
+          public Class<?> getColumnClass(int column) {
+              if (column==4) return Icon.class;
+              return Object.class;
+           }
+        };
         
-        for (Product p : this.ecosystem.getProductDirectory().getProducts()) {
-                Object row[] = new Object[5];
-                row[0] = p.getId();
-                row[1] = p;
-                row[2] = p.getPrice();
-                row[3] = p.getQty();
-                row[4] = p.getDealer();
-                model.addRow(row); 
+        viewTable.setRowCount(0);
+        
+        for (Product p : this.ecosystem.leastBoughtProductDirectory().getProducts()) {
+            Object row[] = new Object[5];
+            row[0] = p;
+            row[1] = p.getPrice();
+            row[2] = p.getQty();
+            row[3] = p.getDealer();
+                
+            String temp = p.getProductImagePath();
+            if(temp != null)
+            {
+                ImageIcon ii = new ImageIcon(temp);
+                Image resizedImage = ii.getImage();
+                ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                row[4] = ii;
+            }
+            else
+            {    
+                row[4] = "No image";
+            }
+                
+            viewTable.addRow(row); 
         }
+        
+        productsJTable.setRowHeight(80);
+        productsJTable.setModel(viewTable);
     }
     
      public void populateAuctionProducts(){
-        DefaultTableModel model = (DefaultTableModel)auctionProductsJTable.getModel();
-        model.setRowCount(0);
+         viewTable =  new DefaultTableModel(null,columnNamesAuctionProducts){
+          @Override
+          public Class<?> getColumnClass(int column) {
+              if (column==5) return Icon.class;
+              return Object.class;
+           }
+        };
+         
+        viewTable.setRowCount(0);
         
         for (AuctionProduct p : this.ecosystem.getAuctionProductDirectory().getAuctionProducts()) {
-                Object row[] = new Object[model.getColumnCount()];;
-                row[0] = p.getId();
-                row[1] = p;
-                row[2] = p.getBidPrice();
-                row[3] = p.getBidCount();
-                row[4] = p.getMaxBidAskPrice();
-                row[5] = (p.getBidWinCustomer() != null) ? p.getBidWinCustomer() : "No Bids Yet";
-                model.addRow(row);
+            Object row[] = new Object[viewTable.getColumnCount()];
+            row[0] = p;
+            row[1] = p.getBidPrice();
+            row[2] = p.getBidCount();
+            row[3] = p.getMaxBidAskPrice();
+            row[4] = (p.getBidWinCustomer() != null) ? p.getBidWinCustomer() : "No Bids Yet";
+                
+            String temp = p.getProductImagePath();
+            if(temp != null)
+            {
+                ImageIcon ii = new ImageIcon(temp);
+                Image resizedImage = ii.getImage();
+                ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+                row[5] = ii;
+            }
+            else
+            {    
+                row[5] = "No image";
+            }
+                
+            viewTable.addRow(row);
         }
-    }
-    
-    private void setListenerForTableSelection() {
-      productsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-          public void valueChanged(ListSelectionEvent event) {
-              if (productsJTable.getSelectedRow() != -1) {
-                  Product prod = (Product) productsJTable.getValueAt(productsJTable.getSelectedRow(), 1);
-                  jLabelGlobalProdPicture.setIcon(finalImage(prod.getProductImagePath()));
-              }
-          }
-      });
-      
-      //For Auction Products List
-       auctionProductsJTable.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-          public void valueChanged(ListSelectionEvent event) {
-              if (auctionProductsJTable.getSelectedRow() != -1) {
-                  AuctionProduct prod = (AuctionProduct) auctionProductsJTable.getValueAt(auctionProductsJTable.getSelectedRow(), 1);
-                  jLabelAuctionProdPicture.setIcon(finalImage(prod.getProductImagePath()));
-              }
-          }
-      });
-    }
-    
-     public ImageIcon finalImage(String imagePath) {
-        ImageIcon image  = new ImageIcon(imagePath);
-        Image img = image.getImage();
-        Image modifiedImg = img.getScaledInstance(jLabelGlobalProdPicture.getWidth(), jLabelGlobalProdPicture.getHeight(), Image.SCALE_SMOOTH);
-        ImageIcon finalImage = new ImageIcon(modifiedImg);
-        return finalImage;
+        
+        auctionProductsJTable.setRowHeight(80);
+        auctionProductsJTable.setModel(viewTable);
     }
 
     
@@ -136,7 +156,6 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         refreshTestJButton = new javax.swing.JButton();
         enterpriseLabel = new javax.swing.JLabel();
         auctionCompNameLabel = new javax.swing.JLabel();
-        jLabelGlobalProdPicture = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jTxtAuctionQty = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
@@ -144,8 +163,12 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         auctionProductsJTable = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
         sellToCustomer = new javax.swing.JButton();
-        jLabelAuctionProdPicture = new javax.swing.JLabel();
         resetAuctionListButton = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         productsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -155,11 +178,11 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Price", "Inventory", "Dealer"
+                "Product Name", "Price", "Inventory", "Dealer", "Product Image"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -168,12 +191,17 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane1.setViewportView(productsJTable);
 
+        add(jScrollPane1);
+        jScrollPane1.setBounds(230, 480, 729, 180);
+
         addToAuction.setText("Add to Auction List");
         addToAuction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addToAuctionActionPerformed(evt);
             }
         });
+        add(addToAuction);
+        addToAuction.setBounds(460, 740, 196, 31);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -181,15 +209,27 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 refreshTestJButtonActionPerformed(evt);
             }
         });
+        add(refreshTestJButton);
+        refreshTestJButton.setBounds(980, 80, 100, 29);
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Auction Consultant Company Name");
+        add(enterpriseLabel);
+        enterpriseLabel.setBounds(230, 80, 334, 30);
 
         auctionCompNameLabel.setText("<value>");
+        add(auctionCompNameLabel);
+        auctionCompNameLabel.setBounds(590, 80, 219, 26);
 
         jLabel1.setText("List of Products - that qualify for auctioning (Less than 2 Orders placed)");
+        add(jLabel1);
+        jLabel1.setBounds(230, 450, 545, 16);
+        add(jTxtAuctionQty);
+        jTxtAuctionQty.setBounds(380, 690, 155, 30);
 
         jLabel2.setText("# of Units to Add to Auction");
+        add(jLabel2);
+        jLabel2.setBounds(200, 690, 180, 30);
 
         auctionProductsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -199,11 +239,11 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Product Name", "Original Price", "Bids Asked Count", "Max Bid Price", "Best bid Customer"
+                "Product Name", "Original Price", "Bids Asked Count", "Max Bid Price", "Best bid Customer", "Product Image"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.Double.class, java.lang.Integer.class, java.lang.Double.class, java.lang.Object.class, java.lang.Object.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -212,7 +252,12 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(auctionProductsJTable);
 
+        add(jScrollPane2);
+        jScrollPane2.setBounds(230, 160, 729, 210);
+
         jLabel3.setText("Auction Products");
+        add(jLabel3);
+        jLabel3.setBounds(230, 130, 545, 16);
 
         sellToCustomer.setText("Sell to best-bid Customer");
         sellToCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -220,6 +265,8 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 sellToCustomerActionPerformed(evt);
             }
         });
+        add(sellToCustomer);
+        sellToCustomer.setBounds(460, 380, 187, 31);
 
         resetAuctionListButton.setText("Reset Auction List");
         resetAuctionListButton.addActionListener(new java.awt.event.ActionListener() {
@@ -227,92 +274,16 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 resetAuctionListButtonActionPerformed(evt);
             }
         });
+        add(resetAuctionListButton);
+        resetAuctionListButton.setBounds(810, 80, 147, 29);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(24, 24, 24)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTxtAuctionQty, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 545, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(202, 202, 202))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(477, 477, 477)
-                                        .addComponent(resetAuctionListButton, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(refreshTestJButton)
-                                        .addGap(34, 34, 34))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)))
-                                .addComponent(jLabelAuctionProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 729, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(212, 212, 212)
-                                        .addComponent(sellToCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                        .addGap(188, 188, 188)
-                                        .addComponent(addToAuction, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabelGlobalProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(21, 21, 21)
-                        .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 334, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(35, 35, 35)
-                        .addComponent(auctionCompNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(27, 27, 27)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(auctionCompNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(enterpriseLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(28, 28, 28)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetAuctionListButton)
-                    .addComponent(refreshTestJButton))
-                .addGap(3, 3, 3)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabelAuctionProdPicture, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16)
-                .addComponent(sellToCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabelGlobalProdPicture, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtAuctionQty, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(33, 33, 33)
-                .addComponent(addToAuction, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
-        );
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-online auction.jpg"))); // NOI18N
+        add(jLabel4);
+        jLabel4.setBounds(10, 0, 120, 120);
 
-        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
-        jLabelGlobalProdPicture.setBounds(10, 10, 650, 250);
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction1.png"))); // NOI18N
+        add(jLabel5);
+        jLabel5.setBounds(410, 300, 810, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addToAuctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToAuctionActionPerformed
@@ -322,41 +293,45 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         
          if (selectedProdRow >= 0 && !qtyText.isEmpty()){
              //TODO: Loop over the selected quantity of products and create Auction Products, add to the Auction Product directory. Keep refreshing the list..
-             Product selectedProduct = (Product) productsJTable.getValueAt(selectedProdRow, 1);
+             Product selectedProduct = (Product) productsJTable.getValueAt(selectedProdRow, 0);
              AuctionProductDirectory apd = this.ecosystem.getAuctionProductDirectory();
              
-             //Create one Auction Product per count of qty, in ProductDirectory when looped through
-             for (int i =0; i < Integer.parseInt(qtyText); i++) {
-                 AuctionProduct ap = new AuctionProduct();
-                 ap.setName(selectedProduct.getName());
-                 ap.setBidPrice(EcoSystem.round(selectedProduct.getPrice() - (selectedProduct.getPrice() * 0.4), 2)); //Start Auction with 40% reduced price
-                 ap.setProductImagePath(selectedProduct.getProductImagePath());
-                 ap.setAuctionCompany(this.ecosystem.getAuctionUnitOrg());
-                 ap.setDealer(selectedProduct.getDealer());
-                 ap.setCategory(selectedProduct.getCategory());
-                 ap.setBidCount(0);
-                 ap.setBidWinCustomer(null); //Initially no customer would have bid anything
-                 ap.setMaxBidAskPrice(0.00); //Initially no bids would be placed, the the amount will be 0 and no customers bid info
-                 
-                 apd.getAuctionProducts().add(ap);
+             
+             if (Integer.parseInt(qtyText) > selectedProduct.getQty()) {
+                 JOptionPane.showMessageDialog(null,"# of units greater than available inventory - Cannot Add", "Warning", JOptionPane.WARNING_MESSAGE);
+             } else {
+                //Create one Auction Product per count of qty, in ProductDirectory when looped through
+                for (int i =0; i < Integer.parseInt(qtyText); i++) {
+                    AuctionProduct ap = new AuctionProduct();
+                    ap.setName(selectedProduct.getName());
+                    ap.setBidPrice(EcoSystem.round(selectedProduct.getPrice() - (selectedProduct.getPrice() * 0.4), 2)); //Start Auction with 40% reduced price
+                    ap.setProductImagePath(selectedProduct.getProductImagePath());
+                    ap.setAuctionCompany(this.ecosystem.getAuctionUnitOrg());
+                    ap.setDealer(selectedProduct.getDealer());
+                    ap.setCategory(selectedProduct.getCategory());
+                    ap.setBidCount(0);
+                    ap.setBidWinCustomer(null); //Initially no customer would have bid anything
+                    ap.setMaxBidAskPrice(0.00); //Initially no bids would be placed, the the amount will be 0 and no customers bid info
+
+                    apd.getAuctionProducts().add(ap);
+                }
+
+                //Update Global Inventory Count
+                selectedProduct.setQty(selectedProduct.getQty() - Integer.parseInt(qtyText));
+
+
+                //TODO - Update DealerOrganization Inventory Count only when Customer gets the product*************************
+
+                JOptionPane.showMessageDialog(null, "Added Products to Auction Products Inventory successfully !!!");
+
+                //Refresh Product Inventory
+                populateEligProductsTable();
+                //Refresh Auction Lists automatically
+                populateAuctionProducts();
              }
              
-             //Update Global Inventory Count
-             selectedProduct.setQty(selectedProduct.getQty() - Integer.parseInt(qtyText));
+            
              
-             
-             //TODO - Update Dealer Inventory Count only when Customer gets the product*************************
-             
-             JOptionPane.showMessageDialog(null, "Added Products to Auction Products Inventory successfully !!!");
-             
-             //Refresh Product Inventory
-             populateEligProductsTable();
-             //Refresh Auction Lists automatically
-             populateAuctionProducts();
-             
-             //Refresh the image labels in case they were showing
-             jLabelAuctionProdPicture.setIcon(null);
-             jLabelGlobalProdPicture.setIcon(null);
              
          }else {
             JOptionPane.showMessageDialog(null,"Please select a Product and # of units to add to Auction", "Warning", JOptionPane.WARNING_MESSAGE);
@@ -369,34 +344,36 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         populateEligProductsTable();
         populateAuctionProducts();
-        jLabelGlobalProdPicture.setIcon(null);
-        jLabelAuctionProdPicture.setIcon(null);
     }//GEN-LAST:event_refreshTestJButtonActionPerformed
 
     private void sellToCustomerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sellToCustomerActionPerformed
         // Create a work request for the Customer. Update inventory count of the dealer. Remove item from AuctionProductsDirectory
-        //Finally add the work request, to the Dealer WorkQueue too.
+        //Finally add the work request, to the DealerOrganization WorkQueue too.
         int selectedAuctionProductRow = auctionProductsJTable.getSelectedRow();
         
         if (selectedAuctionProductRow >= 0){
             try {
-                UserAccount customerUserAccount = (UserAccount) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 5);
-                AuctionProduct selectedAuctionProduct = (AuctionProduct) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 1);
+                UserAccount customerUserAccount = (UserAccount) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 4);
+                AuctionProduct selectedAuctionProduct = (AuctionProduct) auctionProductsJTable.getValueAt(selectedAuctionProductRow, 0);
                 
                 CustomerWorkOrder cwo = new CustomerWorkOrder();
                 
                 cwo.setAuctionProduct(selectedAuctionProduct);
-                cwo.setStatus("NEW");
+                cwo.setStatus("New");
                 cwo.setRequestDate(new Date());
-                cwo.setSender(this.userAccount);
+                cwo.setSender(customerUserAccount);
+                cwo.setReceiver(selectedAuctionProduct.getDealer().getUserAccountAssoc());
                 cwo.setRequireCustomerService(false);
-                cwo.setBestBidCustomer(auctionProductsJTable.getValueAt(selectedAuctionProductRow, 5).toString());
+                cwo.setBestBidCustomer(auctionProductsJTable.getValueAt(selectedAuctionProductRow, 4).toString());
                 
                 customerUserAccount.getWorkQueue().getWorkRequestList().add(cwo); //Adding to customer WRs.
                 selectedAuctionProduct.getDealer().getWorkQueue().addWorkRequest(cwo); //Adding the order to a dealer.
                 
-                //Update Dealer Inventory
-                Dealer dealer = selectedAuctionProduct.getDealer();
+                //Update Dealer Revenue
+                selectedAuctionProduct.getDealer().setRevenue(selectedAuctionProduct.getDealer().getRevenue() + selectedAuctionProduct.getMaxBidAskPrice());
+                
+                //Update DealerOrganization Inventory
+                DealerOrganization dealer = selectedAuctionProduct.getDealer();
                 Product prodRecord = dealer.getProductDirectory().findProduct(selectedAuctionProduct.getName());
                 prodRecord.setQty(prodRecord.getQty() - 1);
                 ecosystem.getWorkQueue().getWorkRequestList().add(cwo);
@@ -408,7 +385,6 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
                 
                 //Reload Auction Products Table
                 populateAuctionProducts();
-                jLabelAuctionProdPicture.setIcon(null);   
             } catch(Exception e) {
                 JOptionPane.showMessageDialog(null,"A Customer is not assigned yet to this row, please choose a different one to sell", "Warning", JOptionPane.WARNING_MESSAGE);
             }  
@@ -448,9 +424,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         
         //Populate tables again
         populateAuctionProducts();
-        jLabelAuctionProdPicture.setIcon(null);
         populateEligProductsTable();
-        jLabelGlobalProdPicture.setIcon(null);
     }//GEN-LAST:event_resetAuctionListButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -461,8 +435,8 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabelAuctionProdPicture;
-    private javax.swing.JLabel jLabelGlobalProdPicture;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTxtAuctionQty;

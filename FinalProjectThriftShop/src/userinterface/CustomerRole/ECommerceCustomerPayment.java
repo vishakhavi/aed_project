@@ -7,7 +7,10 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Customer;
 import Business.EcoSystem;
+import Business.Product.Product;
 import Business.WorkQueue.OrderWorkRequest;
+import java.awt.CardLayout;
+import java.util.Collections;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -31,6 +34,7 @@ public class ECommerceCustomerPayment extends javax.swing.JPanel {
         txtName.setText(this.customer.getName());
         txtAddress.setText(this.customer.getAddress());
         txtPhone.setText(this.customer.getPhone());
+        txtEmail.setText(this.customer.getEmailAddress());
         txtTotalPrice.setText(Double.toString(this.customer.getCart().getTotalPrice()));
         jComboPaymentType.addItem("Cash");
         jComboPaymentType.addItem("Credit Card");
@@ -109,6 +113,11 @@ public class ECommerceCustomerPayment extends javax.swing.JPanel {
         });
 
         jButton2.setText("<<");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Email:");
 
@@ -234,13 +243,40 @@ public class ECommerceCustomerPayment extends javax.swing.JPanel {
         OrderWorkRequest orderWorkRequest = new OrderWorkRequest();
         orderWorkRequest.setCustomer(customer);
         orderWorkRequest.setPaymentType(jComboPaymentType.getSelectedItem().toString());
-        orderWorkRequest.setProdDir(customer.getCart().getProdDir());
+        for(Product p : customer.getCart().getProdDir().getProducts())
+        {
+            orderWorkRequest.getProdDir().getProducts().add(p);
+        }
+        //orderWorkRequest.setProdDir(customer.getCart().getProdDir());
+        //System.out.println(customer.getCart().getProdDir().getProducts().size());
+        //Collections.copy(orderWorkRequest.getProdDir().getProducts(), customer.getCart().getProdDir().getProducts());
         orderWorkRequest.setTotalPrice(customer.getCart().getTotalPrice());
         ecosystem.getOrderWorkQueue().addOrderWorkRequest(orderWorkRequest);
+        for(Product prodInCart : customer.getCart().getProdDir().getProducts())
+        {
+            Product prodInShop = ecosystem.getProductDirectory().findProduct(prodInCart.getName());
+            if(prodInShop.getQty() - prodInCart.getQty() < 0)
+            {
+                JOptionPane.showMessageDialog(null, "Oops, quantity for " + prodInShop.getName() + " not available, max limit " 
+                        + prodInShop.getQty() + ". Please go back to cart and reduce quantity");
+                return;
+            }
+            else
+            {
+                prodInShop.setQty(prodInShop.getQty() - prodInCart.getQty());
+            }
+        }
         customer.getCart().emptyCart();
         JOptionPane.showMessageDialog(null, "Payment Successful for Order ID: " + orderWorkRequest.getOrderId());
-        //System.out.println(ecosystem.getOrderWorkQueue().getWorkRequestList().size());
+        //for(Product prod : ecosystem.getProductDirectory().findProduct(TOOL_TIP_TEXT_KEY))
     }//GEN-LAST:event_btnPaymentActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        rightSystemAdminPanel.remove(this);
+        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
+        layout.previous(rightSystemAdminPanel);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

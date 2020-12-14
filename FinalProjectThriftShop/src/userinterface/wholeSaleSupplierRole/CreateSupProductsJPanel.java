@@ -11,7 +11,7 @@ import Business.Product.Product;
 import Business.Role.AdminRole;
 import Business.Role.SystemAdminRole;
 import Business.UserAccount.UserAccount;
-import Business.WholeSaleSupplier.WholeSaleSupplier;
+import Business.Organization.WholeSaleSupplierOrganization;
 import java.awt.CardLayout;
 import java.awt.Component;
 import java.io.File;
@@ -27,11 +27,11 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 public class CreateSupProductsJPanel extends javax.swing.JPanel {
     
     JPanel userProcessContainer;
-    WholeSaleSupplier supplier;
+    WholeSaleSupplierOrganization supplier;
     /**
      * Creates new form CreateResaurantJPanel
      */
-    public CreateSupProductsJPanel(JPanel upc, WholeSaleSupplier sup) {
+    public CreateSupProductsJPanel(JPanel upc, WholeSaleSupplierOrganization sup) {
         this.userProcessContainer = upc;
         this.supplier = sup;
         initComponents();
@@ -59,18 +59,41 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
         jBtnBrowse = new javax.swing.JButton();
         jLabelImagePath = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
+        jErrorName = new javax.swing.JLabel();
+        jErrorPrice = new javax.swing.JLabel();
+        jErrorCategory = new javax.swing.JLabel();
+        jErrorQuantity = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(255, 255, 255));
+        setLayout(null);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Create Supplier - Product");
+        add(jLabel1);
+        jLabel1.setBounds(311, 82, 228, 22);
+        add(jTxtProductName);
+        jTxtProductName.setBounds(508, 146, 251, 30);
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Name");
+        add(jLabel2);
+        jLabel2.setBounds(261, 144, 109, 20);
+        add(jTxtProductPrice);
+        jTxtProductPrice.setBounds(508, 214, 251, 30);
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("Price");
+        add(jLabel3);
+        jLabel3.setBounds(261, 212, 120, 20);
+        add(jTxtProductCat);
+        jTxtProductCat.setBounds(508, 282, 251, 30);
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Category");
+        add(jLabel4);
+        jLabel4.setBounds(261, 280, 109, 20);
 
         jBtnCreateProduct.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jBtnCreateProduct.setText("Create Product");
@@ -79,9 +102,15 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
                 jBtnCreateProductActionPerformed(evt);
             }
         });
+        add(jBtnCreateProduct);
+        jBtnCreateProduct.setBounds(604, 487, 137, 34);
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("Quantity");
+        add(jLabel5);
+        jLabel5.setBounds(261, 350, 109, 20);
+        add(jTxtProductQty);
+        jTxtProductQty.setBounds(508, 352, 251, 30);
 
         jBtnBrowse.setText("Browse");
         jBtnBrowse.addActionListener(new java.awt.event.ActionListener() {
@@ -89,8 +118,12 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
                 jBtnBrowseActionPerformed(evt);
             }
         });
+        add(jBtnBrowse);
+        jBtnBrowse.setBounds(261, 412, 143, 23);
 
-        jLabelImagePath.setText("<<Product Image Path>>");
+        jLabelImagePath.setText("<<Product Image>>");
+        add(jLabelImagePath);
+        jLabelImagePath.setBounds(508, 412, 251, 30);
 
         btnCancel.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         btnCancel.setText("Cancel");
@@ -99,86 +132,96 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
                 btnCancelActionPerformed(evt);
             }
         });
+        add(btnCancel);
+        btnCancel.setBounds(323, 487, 162, 34);
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(304, 304, 304)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(253, 253, 253)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTxtProductCat, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jTxtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(81, 81, 81)
-                                .addComponent(jTxtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jBtnBrowse, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(70, 70, 70)))
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTxtProductQty)
-                                    .addComponent(jLabelImagePath, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(btnCancel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(41, 41, 41)
-                                .addComponent(jBtnCreateProduct)))))
-                .addContainerGap(307, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(jLabel1)
-                .addGap(33, 33, 33)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtProductName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTxtProductPrice, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtProductCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTxtProductQty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jBtnBrowse)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(4, 4, 4)
-                        .addComponent(jLabelImagePath, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jBtnCreateProduct, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(214, Short.MAX_VALUE))
-        );
+        jErrorName.setForeground(new java.awt.Color(255, 0, 0));
+        add(jErrorName);
+        jErrorName.setBounds(508, 180, 251, 20);
+
+        jErrorPrice.setForeground(new java.awt.Color(255, 0, 0));
+        add(jErrorPrice);
+        jErrorPrice.setBounds(508, 248, 251, 20);
+
+        jErrorCategory.setForeground(new java.awt.Color(255, 0, 0));
+        add(jErrorCategory);
+        jErrorCategory.setBounds(508, 316, 251, 20);
+
+        jErrorQuantity.setForeground(new java.awt.Color(255, 0, 0));
+        add(jErrorQuantity);
+        jErrorQuantity.setBounds(510, 390, 251, 20);
+
+        jLabel6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Supplier1.png"))); // NOI18N
+        add(jLabel6);
+        jLabel6.setBounds(240, 140, 640, 540);
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Optimized-Capture3.PNG"))); // NOI18N
+        add(jLabel8);
+        jLabel8.setBounds(10, 0, 120, 120);
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreateProductActionPerformed
+           //Validation code starts
+        
+         if(jTxtProductName.getText().trim().isEmpty() && 
+            jTxtProductPrice.getText().trim().isEmpty() &&
+            jTxtProductCat.getText().trim().isEmpty() &&
+            jTxtProductQty.getText().trim().isEmpty())
+        {
+            
+           JOptionPane.showMessageDialog(null, "Please Enter data to proceed!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            return;
+        } // Name, Price, Category, Product Quantity are Empty
+         
+         else {
+             jErrorName.setText("");
+             jErrorPrice.setText("");
+             jErrorCategory.setText("");
+             jErrorQuantity.setText("");
              
+            boolean error = false;
+            
+            if (jTxtProductName.getText().trim().isEmpty()) {
+                jErrorName.setText("Product Name cannot be empty");
+                error = true;
+            }
+            
+             try { //To validate if  Price is actually a number
+                Double price  = Double.parseDouble(jTxtProductPrice.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (jTxtProductPrice.getText().trim().isEmpty()) {
+                   jErrorPrice.setText("Product Price cannot be empty");
+                } else {
+                    jErrorPrice.setText(" Product Price is not in Double format");
+                }
+                error = true;
+            }
+             
+             if (jTxtProductCat.getText().trim().isEmpty()) {
+                jErrorCategory.setText("Product Category cannot be empty");
+                error = true;
+            }
+             
+             try { //To validate if Quantity is actually a number
+                Integer productQuantity = Integer.parseInt(jTxtProductQty.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (jTxtProductQty.getText().trim().isEmpty()) {
+                    jErrorQuantity.setText("Product Quantity cannot be empty");
+                }else {
+                     jErrorQuantity.setText("Product Quantity is not a number");
+                }
+               
+                error = true;
+            }
+                
+            if (error) {
+                return;
+            }
+        }
+        
+        
+         // Validation code - End     
+         
         Product product = new Product();
         
         product.setName(jTxtProductName.getText().trim());
@@ -203,7 +246,7 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
           for (Component comp : comps){
             if (comp instanceof WholeSaleSupplierWorkAreaJPanel){
                 WholeSaleSupplierWorkAreaJPanel manageWS = (WholeSaleSupplierWorkAreaJPanel) comp;
-                manageWS.populateRequestTable();
+                manageWS.populateProductsTable();
             }
         }
           
@@ -240,11 +283,17 @@ public class CreateSupProductsJPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnCancel;
     private javax.swing.JButton jBtnBrowse;
     private javax.swing.JButton jBtnCreateProduct;
+    private javax.swing.JLabel jErrorCategory;
+    private javax.swing.JLabel jErrorName;
+    private javax.swing.JLabel jErrorPrice;
+    private javax.swing.JLabel jErrorQuantity;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabelImagePath;
     private javax.swing.JTextField jTxtProductCat;
     private javax.swing.JTextField jTxtProductName;

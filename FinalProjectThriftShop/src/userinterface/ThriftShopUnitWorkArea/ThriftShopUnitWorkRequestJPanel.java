@@ -9,6 +9,7 @@ import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.Employee.Employee;
 import Business.Enterprise.Enterprise;
+import Business.Helper.Email;
 import Business.Network.Network;
 import Business.Organization.Organization;
 import Business.Organization.OrganizationDirectory;
@@ -141,7 +142,7 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
 
     private void processJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_processJButtonActionPerformed
 
-        int selectedRow = workRequestJTable.getSelectedRow();
+         int selectedRow = workRequestJTable.getSelectedRow();
 
         if (selectedRow >= 0) {
             CustomerAccountActivationRequest request = (CustomerAccountActivationRequest) workRequestJTable.getValueAt(selectedRow, 0);
@@ -167,8 +168,12 @@ public class ThriftShopUnitWorkRequestJPanel extends javax.swing.JPanel {
             
 
             request.setStatus("Completed");
-            JOptionPane.showMessageDialog(null, "User account has been activated successfully");
+            JOptionPane.showMessageDialog(null, "Customer account has been activated successfully");
             populateTable();
+            String subject = "Thrift Shop Customer Activation";
+            String message = "Your customer account is activated with Thrift Shop. Now you can start shopping, selling!!";
+            Email.sendEmailMessage(request.getUserEmailId(), subject, message);
+            
         } else {
             JOptionPane.showMessageDialog(null, "Please select a request message to process.");
             return;
