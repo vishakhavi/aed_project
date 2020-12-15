@@ -41,21 +41,39 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
         this.account = account;
         this.customer = (Customer) this.account;
         populateRequestTable();
+        populateAuctionWorkOrders();
     }
 
     public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) tblCustomerOrderStatus.getModel();
         model.setRowCount(0);
+        for (OrderWorkRequest request : this.ecosystem.getOrderWorkQueue().getWorkRequestList()) 
+        {
+                if (request.getCustomer().equals(this.customer)) {
+                   Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
+                    row[0] = request;
+                    row[1] = request.getOrderDate();
+                    row[2] = request.getTotalPrice();
+                    model.addRow(row); 
+                }     
+        }
+    }
+    
+    public void populateAuctionWorkOrders() {
+        DefaultTableModel model = (DefaultTableModel) tblCustomerOrderAuctionStatus.getModel();
+        model.setRowCount(0);
         for (WorkRequest request : this.account.getWorkQueue().getWorkRequestList()) 
         {
-            CustomerWorkOrder cwo = (CustomerWorkOrder) request;
+            if (request instanceof CustomerWorkOrder) {
+               CustomerWorkOrder cwo = (CustomerWorkOrder) request;
             
-                Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
+                Object[] row = new Object[tblCustomerOrderAuctionStatus.getColumnCount()];
                 row[0] = cwo;
                 row[1] = cwo.getRequestDate();
                 row[2] = request.getStatus();
                 row[3] = request.getShippingUnitOrganization();
-                model.addRow(row);
+                model.addRow(row); 
+            }
         }
     }
 
@@ -70,7 +88,11 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
 
         jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
+        tblCustomerOrderAuctionStatus = new javax.swing.JTable();
+        jScrollPane2 = new javax.swing.JScrollPane();
         tblCustomerOrderStatus = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -79,7 +101,7 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
         jLabel1.setText("ORDER STATUS");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 29, 791, -1));
 
-        tblCustomerOrderStatus.setModel(new javax.swing.table.DefaultTableModel(
+        tblCustomerOrderAuctionStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -95,16 +117,55 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblCustomerOrderAuctionStatus.getTableHeader().setReorderingAllowed(false);
+        tblCustomerOrderAuctionStatus.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblCustomerOrderAuctionStatusMouseClicked(evt);
+            }
+        });
+        jScrollPane1.setViewportView(tblCustomerOrderAuctionStatus);
+        if (tblCustomerOrderAuctionStatus.getColumnModel().getColumnCount() > 0) {
+            tblCustomerOrderAuctionStatus.getColumnModel().getColumn(3).setHeaderValue("");
+        }
+
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 760, 190));
+
+        tblCustomerOrderStatus.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Order ID", "Order Date", "Price"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
         tblCustomerOrderStatus.getTableHeader().setReorderingAllowed(false);
         tblCustomerOrderStatus.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tblCustomerOrderStatusMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(tblCustomerOrderStatus);
+        jScrollPane2.setViewportView(tblCustomerOrderStatus);
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 840, 350));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 760, 190));
+
+        jLabel2.setText("Auction Orders");
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 230, -1));
+
+        jLabel3.setText("Ecommerce Orders");
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 160, -1));
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tblCustomerOrderAuctionStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerOrderAuctionStatusMouseClicked
+        //Dont need this
+    }//GEN-LAST:event_tblCustomerOrderAuctionStatusMouseClicked
 
     private void tblCustomerOrderStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerOrderStatusMouseClicked
         // TODO add your handling code here:
@@ -121,7 +182,11 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable tblCustomerOrderAuctionStatus;
     private javax.swing.JTable tblCustomerOrderStatus;
     // End of variables declaration//GEN-END:variables
 }

@@ -68,14 +68,16 @@ public class CustomerServiceRequestJPanel extends javax.swing.JPanel {
         Customer c = (Customer) this.userAccount;
 
         for (WorkRequest wr :  c.getWorkQueue().getWorkRequestList()) {
-            Object row[] = new Object[tblCustomerOrderStatus.getColumnCount()];
-            CustomerWorkOrder cwo = (CustomerWorkOrder) wr;
-            row[0] = cwo;
-            row[1] = cwo.getRequestDate();
-            row[2] = cwo.getStatus();
-            row[3] = cwo.getResolveDate();
-            row[4] = cwo.getLatestCustomerComment();
-            model.addRow(row); 
+            if (wr instanceof CustomerWorkOrder) {
+                Object row[] = new Object[tblCustomerOrderStatus.getColumnCount()];
+                CustomerWorkOrder cwo = (CustomerWorkOrder) wr;
+                row[0] = cwo;
+                row[1] = cwo.getRequestDate();
+                row[2] = cwo.getStatus();
+                row[3] = cwo.getResolveDate();
+                row[4] = cwo.getLatestCustomerComment();
+                model.addRow(row); 
+            }
         }
     }
     

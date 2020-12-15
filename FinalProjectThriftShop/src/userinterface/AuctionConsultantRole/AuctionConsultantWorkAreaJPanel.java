@@ -86,7 +86,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             {
                 ImageIcon ii = new ImageIcon(temp);
                 Image resizedImage = ii.getImage();
-                ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
+            ii = new ImageIcon(resizedImage.getScaledInstance(60, 60, Image.SCALE_SMOOTH));
                 row[4] = ii;
             }
             else

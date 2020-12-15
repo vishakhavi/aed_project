@@ -215,7 +215,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
         if(!workRequestList.isEmpty() ){
             
         for (WorkRequest request : workRequestList) {
-            if(!request.getSender().getUsername().equals(userAccount.getUsername())){
+            if((request instanceof BuyerBidPriceWorkRequest) && !request.getSender().getUsername().equals(userAccount.getUsername())){
             Object[] row = new Object[jTableViewAds.getColumnCount()];
             row[0] = request;
             row[1] = request.getSender().getUsername();
@@ -225,7 +225,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
             row[4] = request.getRequestDate();
             
             viewTable.addRow(row);
-            }else if(request.getSender().getUsername().equals(userAccount.getUsername())){
+            }else if((request instanceof BuyerBidPriceWorkRequest) && request.getSender().getUsername().equals(userAccount.getUsername())){
             Object[] row = new Object[jTableViewAds.getColumnCount()];
             row[0] = request;
             row[1] = request.getSender().getUsername();
@@ -252,7 +252,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
         }*/
         }
         }catch(Exception e){
-            
+            e.printStackTrace();
             System.err.println("Error while retriving work request"+e.getMessage());
         }
         
