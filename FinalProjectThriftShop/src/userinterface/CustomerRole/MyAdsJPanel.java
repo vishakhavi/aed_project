@@ -7,20 +7,11 @@ package userinterface.CustomerRole;
 
 import Business.Customer.Ads;
 import Business.Customer.Customer;
-import Business.Customer.Post;
 import Business.EcoSystem;
 import Business.UserAccount.UserAccount;
 import Business.WorkQueue.BuyerBidPriceWorkRequest;
 import Business.WorkQueue.WorkRequest;
-import java.awt.CardLayout;
 import java.util.List;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.ListSelectionEvent;
@@ -94,110 +85,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
             }
         });
     }
-    public static void sendEmailMessage(String emailId) {
-// Recipient's email ID needs to be mentioned.
-        String to = emailId;
-        String from = "donotreplythriftshopers@gmail.com";
-        String pass = "neuthrift";
-// Assuming you are sending email from localhost
-// String host = "192.168.0.16";
-
-// Get system properties
-        Properties properties = System.getProperties();
-        String host = "smtp.gmail.com";
-
-        properties.put("mail.smtp.starttls.enable", "true");
-
-        properties.put("mail.smtp.ssl.trust", host);
-        properties.put("mail.smtp.user", from);
-        //properties.put("mail.smtp.password", pass);
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.auth", "true");
-
-// Setup mail server
-// properties.setProperty("mail.smtp.host", host);
-// properties.put("mail.smtp.starttls.enable", "true");
-// Get the default Session object.
-        Session session = Session.getDefaultInstance(properties);
-
-        try {
-// Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-
-// Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
-
-// Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-// Set Subject: header field
-            message.setSubject("Volunteer Registration");
-            message.setText("Thank you for registering with us. Your account will be activated within 24 hours. We will keep you posted in case of emergencies.");
-// Send message
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, from, pass);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Invalid email id");
-        }
-    }
-
-    public static void sendTextMessage(String contact) {
-        // Recipient's email ID needs to be mentioned.
-        String to = contact;
-        System.out.println(contact);
-        String from = "donotreplythriftshopers@gmail.com";
-        String pass = "neuthrift";
-        // Assuming you are sending email from localhost
-        // String host = "192.168.0.16";
-        // Get system properties
-        Properties properties = System.getProperties();
-        String host = "smtp.gmail.com";
-        properties.put("mail.smtp.starttls.enable", "true");
-        properties.put("mail.smtp.ssl.trust", host);
-        properties.put("mail.smtp.user", from);
-        // properties.put("mail.smtp.password", pass);
-        properties.put("mail.smtp.port", "587");
-        properties.put("mail.smtp.auth", "true");
-        // Setup mail server
-        // properties.setProperty("mail.smtp.host", host);
-        //  properties.put("mail.smtp.starttls.enable", "true");
-        // Get the default Session object.
-        Session session = Session.getDefaultInstance(properties);
-        //       final PasswordAuthentication auth = new PasswordAuthentication(from, pass);
-//Session session = Session.getDefaultInstance(properties, new Authenticator() {
-//    @Override
-//    protected PasswordAuthentication getPasswordAuthentication() { return auth; }
-//});
-//Session session = Session.getInstance(properties);
-        try {
-            // Create a default MimeMessage object.
-            MimeMessage message = new MimeMessage(session);
-
-            // Set From: header field of the header.
-            message.setFrom(new InternetAddress(from));
-
-            // Set To: header field of the header.
-            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-
-            // Set Subject: header field
-            message.setSubject("Volunteer Registration");
-            message.setText("Thank you for registering with us. Your account will be activated within 24 hours. We will keep you posted in case of emergencies.");
-            // Send message
-            Transport transport = session.getTransport("smtp");
-            transport.connect(host, from, pass);
-            transport.sendMessage(message, message.getAllRecipients());
-            transport.close();
-            System.out.println("Sent message successfully....");
-        } catch (MessagingException mex) {
-            mex.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Invalid email id");
-        }
-    }
-
+    
     public void populateTable(){
         try{
         viewTable.setRowCount(0);
@@ -223,6 +111,7 @@ public class MyAdsJPanel extends javax.swing.JPanel {
             row[2] = result == null ? "Waiting for confirmation" : result;
             row[3] = request.getBidPrice();
             row[4] = request.getRequestDate();
+           
             
             viewTable.addRow(row);
             }else if((request instanceof BuyerBidPriceWorkRequest) && request.getSender().getUsername().equals(userAccount.getUsername())){
@@ -233,23 +122,10 @@ public class MyAdsJPanel extends javax.swing.JPanel {
             row[2] = result == null ? "Waiting for confirmation" : result;
             row[3] = request.getBidPrice();
             row[4] = request.getRequestDate();
-            
+           
             viewTable.addRow(row);
             }
         }
-        /*workRequestList = userAccount.getWorkQueue().getWorkRequestList();
-        if(workRequestList != null){
-        for (WorkRequest request : userAccount.getWorkQueue().getWorkRequestList()){
-            Object[] row = new Object[jTableViewAds.getColumnCount()];
-            row[0] = request.getMessage();
-            row[1] = request.getReceiver();
-            row[2] = request.getStatus();
-            String result = ((BuyerBidPriceWorkRequest) request).getBidStatus();
-            row[3] = result == null ? "Waiting" : result;
-             row[4] = request.getRequestDate(); 
-            viewTable.addRow(row);
-        
-        }*/
         }
         }catch(Exception e){
             e.printStackTrace();

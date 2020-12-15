@@ -41,10 +41,9 @@ public class LoadMaps extends javax.swing.JPanel {
     private static final int MAX_ZOOM = 21;
     private static int zoomValue = 8;
 
-    public LoadMaps(JPanel container,EcoSystem system, String location) {
+    public LoadMaps(JPanel container,EcoSystem system) {
         initComponents();
         this.container = container;
-        this.location = location;
         this.ecoSystem = system;
         
        open_map();
@@ -106,7 +105,7 @@ public class LoadMaps extends javax.swing.JPanel {
 //        frame.setSize(800, 500);
 //       frame.setVisible(true);
         displayMap.add(browserView, BorderLayout.CENTER);
-        browser.navigation().loadUrl("https://www.google.com/maps/search/?api=1&"+"query="+location);
+        browser.navigation().loadUrl("https://www.google.com/maps");
         System.out.println("browser URl "+ browser.url());
         
         

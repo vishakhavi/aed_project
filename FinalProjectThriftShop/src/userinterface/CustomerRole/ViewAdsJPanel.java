@@ -46,6 +46,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
     private double price = 0;
     private static final Object[][] rowData = {};
     private static DecimalFormat df = new DecimalFormat("0.00");
+    private String location;
 
     private static final Object[] columnNames = {"Product Name","Price","Category","Description","Image","Distance"};
 
@@ -61,11 +62,6 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         adsList = ecosystem.getAdsList();
         customer = (Customer) account;
         
-      
-        
-        
-       
-        
        
        // viewTable = new DefaultTableModel(rowData, columnNames);
         viewTable =  new DefaultTableModel(null,columnNames){
@@ -77,6 +73,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         };
        // viewTable.addRow(rowData);
         //viewTable.addColumn(columnNames);
+        
         populateTable();
         
        
@@ -109,12 +106,13 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
             row[2] = post.getCategory(); 
             row[3] = post.getDescription();
             Image product = ImageIO.read(new File(post.getPicture()));
-            Image newImg = product.getScaledInstance(170, 110, Image.SCALE_AREA_AVERAGING);
+            Image newImg = product.getScaledInstance(60, 60, Image.SCALE_SMOOTH);
             ImageIcon icon = new ImageIcon(newImg);
             row[4] = icon;
-            if(post.getLocation() != null && customer.getAddress() != null)
+            if(post.getLocation() != null && customer.getAddress() != null){
             row[5] = df.format(getDistanceForPickUp(post,customer))+" km";
-            //row[5] = post.getPostId();
+            
+            }
             viewTable.addRow(row);   
             System.out.println("post id"+post.getId());
             
@@ -178,6 +176,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         jLabel1.setText("View Ads ");
         add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(381, 26, 111, -1));
 
+        jTableViewAds.setAutoCreateRowSorter(true);
         jTableViewAds.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null}
@@ -205,7 +204,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel3.setText("Product Name: ");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(299, 483, 116, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 480, 116, -1));
 
         jTextFieldProductName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -221,14 +220,13 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(433, 536, -1, -1));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 570, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/view_ad_icon.png"))); // NOI18N
         jLabel4.setText("jLabel4");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(19, 26, 119, -1));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/ads_backgrd_op.jpg"))); // NOI18N
-        jLabel5.setText("jLabel5");
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 280, 600, 460));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -251,6 +249,7 @@ public class ViewAdsJPanel extends javax.swing.JPanel {
         request.setMessage("Amount Proposed");
         request.setBidPrice(Double.parseDouble(jTextFieldBidAmount.getText()));
         request.setSender(userAccount);
+      
         
         
         request.setRequestDate(new Date());

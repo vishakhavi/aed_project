@@ -9,6 +9,8 @@ import Business.EcoSystem;
 import Business.WorkQueue.CustomerAccountActivationRequest;
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
@@ -141,8 +143,8 @@ public class CustomerSignUp extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
        // open_map();
-        location =  jTextFieldLocation.getText();
-        LoadMaps loadMaps = new LoadMaps(container,system,location);
+       
+        LoadMaps loadMaps = new LoadMaps(container,system);
         container.add("LoadMaps", loadMaps);
         CardLayout layout = (CardLayout)this.container.getLayout();
         layout.next(container);
@@ -159,6 +161,8 @@ public class CustomerSignUp extends javax.swing.JPanel {
         String email = jTextFieldEmail.getText();
         if(!"".equals(name) && !"".equals(userName) && !"".equals(password) &&
                 !"".equals(email) && !location.equals("")){
+            boolean check = validateEmail(email) && system.checkIfUserIsUnique(userName);
+            if( check){
             CustomerAccountActivationRequest activationRequest = new CustomerAccountActivationRequest();
             activationRequest.setName(name);
             activationRequest.setUserName(userName);
@@ -169,6 +173,11 @@ public class CustomerSignUp extends javax.swing.JPanel {
             activationRequest.setArea(location);
             system.getWorkQueue().getWorkRequestList().add(activationRequest);
             JOptionPane.showMessageDialog(null, "You have succesfully signed up. Wait for some time for account activation!");
+            }else if ( !validateEmail(email)){
+                  JOptionPane.showMessageDialog(null, "Please check email format");
+            }else if(!system.checkIfUserIsUnique(userName)){
+                  JOptionPane.showMessageDialog(null, "User already exists!!");
+            }
         }else{
             
             nameErrorLabel.setText("");
@@ -209,6 +218,11 @@ public class CustomerSignUp extends javax.swing.JPanel {
         jTextFieldLocation.setText("");
         jTextFieldLocation.setText(location);
         System.out.println("location in customer sign up"+location);
+    }
+    public static boolean validateEmail(String email) {
+        Pattern pattern = Pattern.compile("^(.+)@(.+)$");
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

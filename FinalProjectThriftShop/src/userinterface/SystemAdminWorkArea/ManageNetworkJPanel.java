@@ -106,12 +106,13 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
 
         submitJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         submitJButton.setText("Submit");
+        submitJButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitJButtonActionPerformed(evt);
             }
         });
-        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 270, -1, -1));
+        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 270, 100, 30));
         add(nameJTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 210, 93, -1));
 
         backJButton.setText(" Back");
@@ -120,7 +121,7 @@ public class ManageNetworkJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 270, -1, 30));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel6.setText("Add Network");

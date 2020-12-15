@@ -134,12 +134,13 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
 
         submitJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         submitJButton.setText("Submit");
+        submitJButton.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         submitJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 submitJButtonActionPerformed(evt);
             }
         });
-        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 412, -1, -1));
+        add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 403, 90, 30));
 
         backJButton.setText(" Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -147,7 +148,7 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 413, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 406, -1, 30));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel6.setText("Add Enterprise");
