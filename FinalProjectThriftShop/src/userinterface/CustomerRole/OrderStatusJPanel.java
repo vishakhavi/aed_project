@@ -93,13 +93,16 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
         tblCustomerOrderStatus = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
+        setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("ORDER STATUS");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 29, 791, -1));
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(1, 10, 840, -1));
 
         tblCustomerOrderAuctionStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -128,7 +131,9 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
             tblCustomerOrderAuctionStatus.getColumnModel().getColumn(3).setHeaderValue("");
         }
 
-        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 760, 190));
+        add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 80, 610, 190));
+
+        jScrollPane2.setOpaque(false);
 
         tblCustomerOrderStatus.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -154,13 +159,21 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
         });
         jScrollPane2.setViewportView(tblCustomerOrderStatus);
 
-        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 320, 760, 190));
+        add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 310, 610, 190));
 
+        jLabel2.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel2.setText("Auction Orders");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 230, -1));
+        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 230, -1));
 
+        jLabel3.setFont(new java.awt.Font("Lucida Grande", 1, 13)); // NOI18N
         jLabel3.setText("Ecommerce Orders");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 300, 160, -1));
+        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 290, 160, -1));
+
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/orderStatusBg.png"))); // NOI18N
+        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 500, 390, 220));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/orderStatusIcon.jpeg"))); // NOI18N
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, -10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void tblCustomerOrderAuctionStatusMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblCustomerOrderAuctionStatusMouseClicked
@@ -184,6 +197,8 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tblCustomerOrderAuctionStatus;
