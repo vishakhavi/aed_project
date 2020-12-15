@@ -180,7 +180,7 @@ public class WholeSaleSupplierWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Whole sale supplier.png"))); // NOI18N
         add(jLabel1);
-        jLabel1.setBounds(310, 360, 790, 310);
+        jLabel1.setBounds(310, 330, 790, 310);
 
         totalRevenue.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         totalRevenue.setText("Total Revenue:");
