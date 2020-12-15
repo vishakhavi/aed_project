@@ -9,6 +9,7 @@ import Business.Customer.Customer;
 import Business.EcoSystem;
 import Business.Product.Product;
 import Business.UserAccount.UserAccount;
+import Business.WorkQueue.CustomerWorkOrder;
 import Business.WorkQueue.OrderWorkRequest;
 
 import Business.WorkQueue.WorkRequest;
@@ -45,16 +46,16 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
     public void populateRequestTable() {
         DefaultTableModel model = (DefaultTableModel) tblCustomerOrderStatus.getModel();
         model.setRowCount(0);
-        for (OrderWorkRequest request : ecosystem.getOrderWorkQueue().getWorkRequestList()) 
+        for (WorkRequest request : this.account.getWorkQueue().getWorkRequestList()) 
         {
-            if(request.getCustomer().getName().equals(customer.getName()))
-            {
+            CustomerWorkOrder cwo = (CustomerWorkOrder) request;
+            
                 Object[] row = new Object[tblCustomerOrderStatus.getColumnCount()];
-                row[0] = request;
-                row[1] = request.getOrderDate();
-                row[2] = request.getTotalPrice();
+                row[0] = cwo;
+                row[1] = cwo.getRequestDate();
+                row[2] = request.getStatus();
+                row[3] = request.getShippingUnitOrganization();
                 model.addRow(row);
-            }
         }
     }
 
@@ -83,11 +84,11 @@ public class OrderStatusJPanel extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Order ID", "Order Date", "Price"
+                "Product", "Requested Date", "Status", "Shipping Company"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
