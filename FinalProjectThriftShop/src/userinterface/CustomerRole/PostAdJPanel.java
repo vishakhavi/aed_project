@@ -122,7 +122,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel2.setText("Product :");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 110, 20));
-        jPanel1.add(jTextFieldProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 160, 20));
+        jPanel1.add(jTextFieldProductName, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, 160, 30));
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel1.setText("Product Category:");
@@ -135,8 +135,8 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel4.setText("Description:");
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 240, 150, 20));
-        jPanel1.add(jTextFieldProductCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 160, -1));
-        jPanel1.add(jTextFieldProductPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 200, 160, -1));
+        jPanel1.add(jTextFieldProductCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 150, 160, 30));
+        jPanel1.add(jTextFieldProductPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 160, 30));
 
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel6.setText("Pictures:");
@@ -166,7 +166,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, -1, -1));
 
         jTextFieldItemLocation.setEditable(false);
-        jPanel1.add(jTextFieldItemLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 470, 170, -1));
+        jPanel1.add(jTextFieldItemLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 470, 170, 30));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/post_icon.png"))); // NOI18N
         jLabel8.setText("jLabel8");
@@ -183,7 +183,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
 
         descriptionErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
         jPanel1.add(descriptionErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 130, 20));
-        jPanel1.add(jTextFieldProductDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 160, -1));
+        jPanel1.add(jTextFieldProductDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, 160, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -199,7 +199,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        LoadMaps loadMaps = new LoadMaps(userProcessContainer,ecosystem,location);
+        LoadMaps loadMaps = new LoadMaps(userProcessContainer,ecosystem);
         userProcessContainer.add("LoadMaps", loadMaps);
         CardLayout layout = (CardLayout)this.userProcessContainer.getLayout();
         layout.next(userProcessContainer);
@@ -214,7 +214,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
                 File filePath = selectFile.getSelectedFile();
                 filepathValue = filePath.getPath();
                 Image profilePic = ImageIO.read(new File(filepathValue));
-                Image newImg = profilePic.getScaledInstance(138, 190, Image.SCALE_AREA_AVERAGING);
+                Image newImg = profilePic.getScaledInstance(80, 80, Image.SCALE_AREA_AVERAGING);
                 adImage.setIcon(new ImageIcon(newImg));
                 JOptionPane.showMessageDialog(null, "Image uploaded successfully");
             }

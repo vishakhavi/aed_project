@@ -133,7 +133,6 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
         add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 162, 34));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/manufacturer_icon_bg_op.png"))); // NOI18N
-        jLabel7.setText("jLabel7");
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 620, 500));
 
         nameErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
