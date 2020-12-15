@@ -41,6 +41,7 @@ public class MainJFrame extends javax.swing.JFrame {
         jPasswordField.setText("");
         jPanel1.setVisible(true);
         jPanel1.setBackground(Color.WHITE);
+        welcomeMsgPanel.setBackground(Color.WHITE);
         container.setVisible(false);
         welcomeMsgPanel.setVisible(false);
         setResizable(false);
@@ -266,8 +267,12 @@ public class MainJFrame extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
+        if(userAccount != null){
         system.addLog(userAccount.getUsername() + " logged out.");
         logout();
+        }else{
+             logout();
+        }
     }//GEN-LAST:event_jButton3ActionPerformed
     private void logout() {
         jPanel1.setVisible(true);

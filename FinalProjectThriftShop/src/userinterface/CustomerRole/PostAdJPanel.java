@@ -85,8 +85,6 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jTextFieldProductCategory = new javax.swing.JTextField();
         jTextFieldProductPrice = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaProductDescription = new javax.swing.JTextArea();
         jLabel6 = new javax.swing.JLabel();
         adImage = new javax.swing.JLabel();
         jButtonUpload = new javax.swing.JButton();
@@ -94,13 +92,18 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jTextFieldItemLocation = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
+        productNameErrorLabel = new javax.swing.JLabel();
+        productCategoryErrorLabel = new javax.swing.JLabel();
+        priceErrorLabel = new javax.swing.JLabel();
+        descriptionErrorLabel = new javax.swing.JLabel();
+        jTextFieldProductDescription = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setPreferredSize(new java.awt.Dimension(1058, 840));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/post_bg_op.jpg"))); // NOI18N
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, -1, 350));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, -1, 290));
 
         requestTestJButton.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         requestTestJButton.setText("Post");
@@ -135,16 +138,10 @@ public class PostAdJPanel extends javax.swing.JPanel {
         jPanel1.add(jTextFieldProductCategory, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 160, 160, -1));
         jPanel1.add(jTextFieldProductPrice, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 200, 160, -1));
 
-        jTextAreaProductDescription.setColumns(20);
-        jTextAreaProductDescription.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaProductDescription);
-
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, -1, -1));
-
         jLabel6.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel6.setText("Pictures:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, 170, -1));
-        jPanel1.add(adImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 360, 170, 110));
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 320, 170, -1));
+        jPanel1.add(adImage, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 170, 110));
 
         jButtonUpload.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButtonUpload.setText("Upload");
@@ -153,11 +150,11 @@ public class PostAdJPanel extends javax.swing.JPanel {
                 jButtonUploadActionPerformed(evt);
             }
         });
-        jPanel1.add(jButtonUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 360, -1, -1));
+        jPanel1.add(jButtonUpload, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 320, -1, -1));
 
         jLabel7.setFont(new java.awt.Font("SansSerif", 1, 14)); // NOI18N
         jLabel7.setText("Location:");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 490, 120, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 470, 120, -1));
 
         jButton1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jButton1.setText("Set Location");
@@ -166,12 +163,27 @@ public class PostAdJPanel extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 490, -1, -1));
-        jPanel1.add(jTextFieldItemLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 490, 170, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 470, -1, -1));
+
+        jTextFieldItemLocation.setEditable(false);
+        jPanel1.add(jTextFieldItemLocation, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 470, 170, -1));
 
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/post_icon.png"))); // NOI18N
         jLabel8.setText("jLabel8");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 110, 110));
+
+        productNameErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(productNameErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 110, 90, 20));
+
+        productCategoryErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(productCategoryErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 130, 20));
+
+        priceErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(priceErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 200, 130, 20));
+
+        descriptionErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        jPanel1.add(descriptionErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 250, 130, 20));
+        jPanel1.add(jTextFieldProductDescription, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 250, 160, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -211,23 +223,58 @@ public class PostAdJPanel extends javax.swing.JPanel {
     }//GEN-LAST:event_jButtonUploadActionPerformed
     }
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed
-  
-        if (jTextFieldProductName.getText().isEmpty() || jTextFieldProductPrice.getText().isEmpty()
-            || jTextFieldProductCategory.getText().isEmpty() || jTextAreaProductDescription.getText().isEmpty() ) {
-            JOptionPane.showMessageDialog(null, "please enter all mandatory fields");
+    if (jTextFieldProductName.getText().trim().isEmpty()
+                && jTextFieldProductCategory.getText().trim().isEmpty()
+                && jTextFieldProductPrice.getText().trim().isEmpty()
+                && jTextFieldItemLocation.getText().trim().isEmpty()
+                && jTextFieldProductDescription.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Please Enter data to proceed!", "WARNING", JOptionPane.WARNING_MESSAGE);
             return;
+        } // Name, Price, Category, Product Quantity are Empty
+        else {
+            productNameErrorLabel.setText("");
+            priceErrorLabel.setText("");
+            productCategoryErrorLabel.setText("");
+            descriptionErrorLabel.setText("");
+
+            boolean error = false;
+
+            if (jTextFieldProductName.getText().trim().isEmpty()) {
+                productNameErrorLabel.setText("Product Name cannot be empty");
+                error = true;
+            }
+
+            try { //To validate if  Price is actually a number
+                Double price = Double.parseDouble(jTextFieldProductPrice.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (jTextFieldProductPrice.getText().trim().isEmpty()) {
+                    priceErrorLabel.setText("Product Price cannot be empty");
+                } else {
+                    priceErrorLabel.setText(" Product Price is not in Double format");
+                }
+                error = true;
+            }
+
+            if (jTextFieldProductCategory.getText().trim().isEmpty()) {
+                productCategoryErrorLabel.setText("Product Category cannot be empty");
+                error = true;
+            }
+            if (jTextFieldProductDescription.getText().trim().isEmpty()) {
+                descriptionErrorLabel.setText("Please enter some description for product");
+                error = true;
+            }
+
+            
+
+            if (error) {
+                return;
+            }
         }
 
-        double price = 0.0;
-        try {
-            price = Double.valueOf(jTextFieldProductPrice.getText());
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, " Please enter a decimal number for Item Price!!");
-            return;
-        }
 
         Post post = new Post(jTextFieldProductName.getText(), Double.valueOf(jTextFieldProductPrice.getText()),
-            jTextFieldProductCategory.getText(),jTextAreaProductDescription.getText(),
+            jTextFieldProductCategory.getText(),jTextFieldProductDescription.getText(),
             filepathValue,longitude, latitude,location);
 
         if(adsList != null && customer.getAdsList() != null){
@@ -266,6 +313,7 @@ public class PostAdJPanel extends javax.swing.JPanel {
         
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel adImage;
+    private javax.swing.JLabel descriptionErrorLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButtonUpload;
     private javax.swing.JLabel jLabel1;
@@ -278,12 +326,14 @@ public class PostAdJPanel extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaProductDescription;
     private javax.swing.JTextField jTextFieldItemLocation;
     private javax.swing.JTextField jTextFieldProductCategory;
+    private javax.swing.JTextField jTextFieldProductDescription;
     private javax.swing.JTextField jTextFieldProductName;
     private javax.swing.JTextField jTextFieldProductPrice;
+    private javax.swing.JLabel priceErrorLabel;
+    private javax.swing.JLabel productCategoryErrorLabel;
+    private javax.swing.JLabel productNameErrorLabel;
     private javax.swing.JButton requestTestJButton;
     // End of variables declaration//GEN-END:variables
 }

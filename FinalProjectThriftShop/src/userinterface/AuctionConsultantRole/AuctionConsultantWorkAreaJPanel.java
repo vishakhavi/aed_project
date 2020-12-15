@@ -192,7 +192,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(productsJTable);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(230, 430, 729, 180);
+        jScrollPane1.setBounds(230, 380, 729, 180);
 
         addToAuction.setText("Add to Auction List");
         addToAuction.addActionListener(new java.awt.event.ActionListener() {
@@ -201,7 +201,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(addToAuction);
-        addToAuction.setBounds(620, 630, 196, 31);
+        addToAuction.setBounds(620, 580, 196, 31);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -223,13 +223,13 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel1.setText("List of Products - that qualify for auctioning (Less than 2 Orders placed)");
         add(jLabel1);
-        jLabel1.setBounds(240, 400, 545, 16);
+        jLabel1.setBounds(230, 360, 545, 14);
         add(jTxtAuctionQty);
-        jTxtAuctionQty.setBounds(420, 630, 155, 30);
+        jTxtAuctionQty.setBounds(410, 580, 155, 30);
 
         jLabel2.setText("# of Units to Add to Auction");
         add(jLabel2);
-        jLabel2.setBounds(230, 630, 180, 30);
+        jLabel2.setBounds(230, 580, 180, 30);
 
         auctionProductsJTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -253,11 +253,11 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(auctionProductsJTable);
 
         add(jScrollPane2);
-        jScrollPane2.setBounds(230, 110, 729, 210);
+        jScrollPane2.setBounds(230, 90, 729, 210);
 
         jLabel3.setText("Auction Products");
         add(jLabel3);
-        jLabel3.setBounds(230, 80, 545, 16);
+        jLabel3.setBounds(230, 60, 545, 14);
 
         sellToCustomer.setText("Sell to best-bid Customer");
         sellToCustomer.addActionListener(new java.awt.event.ActionListener() {
@@ -266,7 +266,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(sellToCustomer);
-        sellToCustomer.setBounds(490, 350, 187, 31);
+        sellToCustomer.setBounds(520, 310, 187, 31);
 
         resetAuctionListButton.setText("Reset Auction List");
         resetAuctionListButton.addActionListener(new java.awt.event.ActionListener() {
@@ -283,7 +283,7 @@ public class AuctionConsultantWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Auction1.png"))); // NOI18N
         add(jLabel5);
-        jLabel5.setBounds(260, 280, 810, 430);
+        jLabel5.setBounds(260, 240, 810, 430);
     }// </editor-fold>//GEN-END:initComponents
 
     private void addToAuctionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addToAuctionActionPerformed

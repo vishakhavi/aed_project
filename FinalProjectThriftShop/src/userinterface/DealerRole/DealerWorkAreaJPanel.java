@@ -187,7 +187,7 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane1.setViewportView(productsJTable);
 
         add(jScrollPane1);
-        jScrollPane1.setBounds(293, 107, 742, 249);
+        jScrollPane1.setBounds(290, 80, 742, 249);
 
         requestTestJButton.setText("Add Product to Inventory");
         requestTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -196,7 +196,7 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(requestTestJButton);
-        requestTestJButton.setBounds(565, 376, 180, 23);
+        requestTestJButton.setBounds(560, 350, 180, 23);
 
         refreshTestJButton.setText("Refresh");
         refreshTestJButton.addActionListener(new java.awt.event.ActionListener() {
@@ -205,21 +205,21 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
         add(refreshTestJButton);
-        refreshTestJButton.setBounds(964, 66, 71, 23);
+        refreshTestJButton.setBounds(940, 50, 90, 23);
 
         enterpriseLabel.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         enterpriseLabel.setText("Dealer");
         add(enterpriseLabel);
-        enterpriseLabel.setBounds(293, 61, 127, 30);
+        enterpriseLabel.setBounds(300, 40, 127, 30);
 
         valueLabel.setText("<value>");
         add(valueLabel);
-        valueLabel.setBounds(451, 66, 232, 26);
+        valueLabel.setBounds(450, 40, 232, 26);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel1.setText("Dealer - Shipping Management of assigned orders");
         add(jLabel1);
-        jLabel1.setBounds(398, 414, 465, 30);
+        jLabel1.setBounds(400, 400, 465, 30);
 
         tblDealerOrders.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -247,7 +247,7 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane2.setViewportView(tblDealerOrders);
 
         add(jScrollPane2);
-        jScrollPane2.setBounds(293, 488, 617, 153);
+        jScrollPane2.setBounds(290, 470, 617, 153);
 
         tblShippingCompanies.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -268,15 +268,15 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
         jScrollPane3.setViewportView(tblShippingCompanies);
 
         add(jScrollPane3);
-        jScrollPane3.setBounds(940, 488, 242, 106);
+        jScrollPane3.setBounds(940, 470, 242, 106);
 
         jLabel2.setText("Choose a Shipping company to assign to an order");
         add(jLabel2);
-        jLabel2.setBounds(940, 450, 237, 19);
+        jLabel2.setBounds(940, 440, 237, 19);
 
         jLabel3.setText("Choose and order placed under this Dealer's products - Assign Shipping");
         add(jLabel3);
-        jLabel3.setBounds(293, 450, 446, 19);
+        jLabel3.setBounds(300, 440, 446, 19);
 
         jBtnAssignShipping.setText("Assign Shipping");
         jBtnAssignShipping.addActionListener(new java.awt.event.ActionListener() {
@@ -302,7 +302,7 @@ public class DealerWorkAreaJPanel extends javax.swing.JPanel {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/dealer1_760x480.png"))); // NOI18N
         add(jLabel5);
-        jLabel5.setBounds(420, 190, 760, 480);
+        jLabel5.setBounds(410, 180, 760, 480);
     }// </editor-fold>//GEN-END:initComponents
 
     private void requestTestJButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestTestJButtonActionPerformed

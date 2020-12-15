@@ -24,13 +24,14 @@ import userinterface.DealerRole.DealerWorkAreaJPanel;
  * @author Vishakha
  */
 public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
-    
+
     JPanel userProcessContainer;
     WholeSaleSupplierOrganization supplier;
     DealerOrganization dealer;
     EcoSystem ecoSystem;
-    ProductDirectory dealerPd ;
+    ProductDirectory dealerPd;
     ProductDirectory globalPd;
+
     /**
      * Creates new form CreateResaurantJPanel
      */
@@ -67,6 +68,10 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
         jLabelImagePath = new javax.swing.JLabel();
         btnCancel = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
+        nameErrorLabel = new javax.swing.JLabel();
+        priceErrorLabel = new javax.swing.JLabel();
+        categoryErrorLabel = new javax.swing.JLabel();
+        quantityErrorLAbel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -128,76 +133,140 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
         add(btnCancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 360, 162, 34));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/manufacturer_icon_bg_op.png"))); // NOI18N
-        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 570, 500));
+        jLabel7.setText("jLabel7");
+        add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 80, 620, 500));
+
+        nameErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        add(nameErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 140, 140, 30));
+
+        priceErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        add(priceErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 190, 130, 30));
+        add(categoryErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 230, 130, 30));
+
+        quantityErrorLAbel.setForeground(new java.awt.Color(255, 0, 0));
+        add(quantityErrorLAbel, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 270, 120, 30));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jBtnCreateProductActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnCreateProductActionPerformed
-             
-      
-            Product dealerProduct = new Product();
-            Product globalDirectoryProduct = new Product(); //Make sure to have another Copy.. this helps during separate update process
-            
-            dealerProduct.setDealer(this.dealer);
-            dealerProduct.setName(jTxtProductName.getText().trim());
-            dealerProduct.setPrice(Double.parseDouble(jTxtProductPrice.getText().trim())); //Dealers sell at 10% profit
-            dealerProduct.setQty(Integer.parseInt(jTxtProductQty.getText().trim()));
-            dealerProduct.setCategory(jTxtProductCat.getText().trim());
-            dealerProduct.setProductImagePath(jLabelImagePath.getText());
-            
-            //Update Global Product directory with same params
-           globalDirectoryProduct.setDealer(this.dealer);
-            globalDirectoryProduct.setName(jTxtProductName.getText().trim());
-            globalDirectoryProduct.setPrice(Double.parseDouble(jTxtProductPrice.getText().trim())); //Dealers sell at 10% profit
-            globalDirectoryProduct.setQty(Integer.parseInt(jTxtProductQty.getText().trim()));
-            globalDirectoryProduct.setCategory(jTxtProductCat.getText().trim());
-            globalDirectoryProduct.setProductImagePath(jLabelImagePath.getText());
-           addProductToDirectory(dealerProduct, dealerPd);
-            addProductToDirectory(globalDirectoryProduct, globalPd);
+        if (jTxtProductName.getText().trim().isEmpty()
+                && jTxtProductPrice.getText().trim().isEmpty()
+                && jTxtProductCat.getText().trim().isEmpty()
+                && jTxtProductQty.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Please Enter data to proceed!", "WARNING", JOptionPane.WARNING_MESSAGE);
+            return;
+        } // Name, Price, Category, Product Quantity are Empty
+        else {
+            nameErrorLabel.setText("");
+            priceErrorLabel.setText("");
+            categoryErrorLabel.setText("");
+            quantityErrorLAbel.setText("");
+
+            boolean error = false;
+
+            if (jTxtProductName.getText().trim().isEmpty()) {
+                nameErrorLabel.setText("Product Name cannot be empty");
+                error = true;
+            }
+
+            try { //To validate if  Price is actually a number
+                Double price = Double.parseDouble(jTxtProductPrice.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (jTxtProductPrice.getText().trim().isEmpty()) {
+                    priceErrorLabel.setText("Product Price cannot be empty");
+                } else {
+                    priceErrorLabel.setText(" Product Price is not in Double format");
+                }
+                error = true;
+            }
+
+            if (jTxtProductCat.getText().trim().isEmpty()) {
+                categoryErrorLabel.setText("Product Category cannot be empty");
+                error = true;
+            }
+
+            try { //To validate if Quantity is actually a number
+                Integer productQuantity = Integer.parseInt(jTxtProductQty.getText().trim());
+            } catch (NumberFormatException nfe) {
+                if (jTxtProductQty.getText().trim().isEmpty()) {
+                    quantityErrorLAbel.setText("Product Quantity cannot be empty");
+                } else {
+                    quantityErrorLAbel.setText("Product Quantity is not a number");
+                }
+
+                error = true;
+            }
+
+            if (error) {
+                return;
+            }
+        }
+
+        // Validation code - End     
+        Product dealerProduct = new Product();
+        Product globalDirectoryProduct = new Product(); //Make sure to have another Copy.. this helps during separate update process
+
+        dealerProduct.setDealer(this.dealer);
+        dealerProduct.setName(jTxtProductName.getText().trim());
+        dealerProduct.setPrice(Double.parseDouble(jTxtProductPrice.getText().trim())); //Dealers sell at 10% profit
+        dealerProduct.setQty(Integer.parseInt(jTxtProductQty.getText().trim()));
+        dealerProduct.setCategory(jTxtProductCat.getText().trim());
+        dealerProduct.setProductImagePath(jLabelImagePath.getText());
+
+        //Update Global Product directory with same params
+        globalDirectoryProduct.setDealer(this.dealer);
+        globalDirectoryProduct.setName(jTxtProductName.getText().trim());
+        globalDirectoryProduct.setPrice(Double.parseDouble(jTxtProductPrice.getText().trim())); //Dealers sell at 10% profit
+        globalDirectoryProduct.setQty(Integer.parseInt(jTxtProductQty.getText().trim()));
+        globalDirectoryProduct.setCategory(jTxtProductCat.getText().trim());
+        globalDirectoryProduct.setProductImagePath(jLabelImagePath.getText());
+        addProductToDirectory(dealerProduct, dealerPd);
+        addProductToDirectory(globalDirectoryProduct, globalPd);
         //Add the product to the Supplier's inventory
-     //   this.dealer.getProductDirectory().getProducts().add(dealerProduct);
-      //   this.ecoSystem.getProductDirectory().getProducts().add(globalDirectoryProduct);
-        
+        //   this.dealer.getProductDirectory().getProducts().add(dealerProduct);
+        //   this.ecoSystem.getProductDirectory().getProducts().add(globalDirectoryProduct);
+
         JOptionPane.showMessageDialog(null, "Created Product successfully");
-        
+
         //Populate previous screen table and navigate back.
         userProcessContainer.remove(this);
         CardLayout cardlayout = (CardLayout) userProcessContainer.getLayout();
-        
-         //        Restore prev screen's state
+
+        //        Restore prev screen's state
         Component[] comps = userProcessContainer.getComponents();
 
-          for (Component comp : comps){
-            if (comp instanceof DealerWorkAreaJPanel ){
+        for (Component comp : comps) {
+            if (comp instanceof DealerWorkAreaJPanel) {
                 DealerWorkAreaJPanel manageWS = (DealerWorkAreaJPanel) comp;
                 manageWS.populateRequestTable();
             }
         }
-          
+
         cardlayout.previous(userProcessContainer);
     }//GEN-LAST:event_jBtnCreateProductActionPerformed
- private void addProductToDirectory(Product product, ProductDirectory productDirectory) {
-     //Check if product already exists, if so add the qty alone and if not, create the product itself
-     if(productDirectory.getProducts() != null){
-        Product foundProduct = productDirectory.findProductBasedOnDealer(product.getName(), product.getDealer().getName());
-        
-        if (foundProduct != null) {
-            
-            foundProduct.setQty(foundProduct.getQty() + product.getQty());
+    private void addProductToDirectory(Product product, ProductDirectory productDirectory) {
+        //Check if product already exists, if so add the qty alone and if not, create the product itself
+        if (productDirectory.getProducts() != null) {
+            Product foundProduct = productDirectory.findProductBasedOnDealer(product.getName(), product.getDealer().getName());
+
+            if (foundProduct != null) {
+
+                foundProduct.setQty(foundProduct.getQty() + product.getQty());
+            } else {
+                productDirectory.getProducts().add(product);
+            }
         } else {
-            productDirectory.getProducts().add(product);
+            productDirectory.addProductQuantity(product.getName(), dealer.getName(), product.getQty());
         }
-    }else{
-         productDirectory.addProductQuantity(product.getName(), dealer.getName(), product.getQty());
-}
-}
+    }
     private void jBtnBrowseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnBrowseActionPerformed
-         // TODO add your handling code here:
+        // TODO add your handling code here:
         JFileChooser file = new JFileChooser();
         file.setCurrentDirectory(new File(System.getProperty("user.home")));
         FileNameExtensionFilter filter = new FileNameExtensionFilter("*.Images", "gif", "png", "jpg");
         file.addChoosableFileFilter(filter);
         int result = file.showSaveDialog(null);
-        
+
         if (result == JFileChooser.APPROVE_OPTION) {
             File selectedFile = file.getSelectedFile();
             String path = selectedFile.getAbsolutePath();
@@ -218,6 +287,7 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCancel;
+    private javax.swing.JLabel categoryErrorLabel;
     private javax.swing.JButton jBtnBrowse;
     private javax.swing.JButton jBtnCreateProduct;
     private javax.swing.JLabel jLabel1;
@@ -232,5 +302,8 @@ public class CreateManufacturerProductsJPanel extends javax.swing.JPanel {
     private javax.swing.JTextField jTxtProductName;
     private javax.swing.JTextField jTxtProductPrice;
     private javax.swing.JTextField jTxtProductQty;
+    private javax.swing.JLabel nameErrorLabel;
+    private javax.swing.JLabel priceErrorLabel;
+    private javax.swing.JLabel quantityErrorLAbel;
     // End of variables declaration//GEN-END:variables
 }

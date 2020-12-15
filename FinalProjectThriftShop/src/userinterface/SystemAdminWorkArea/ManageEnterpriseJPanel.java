@@ -141,13 +141,13 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         });
         add(submitJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 412, -1, -1));
 
-        backJButton.setText("<< Back");
+        backJButton.setText(" Back");
         backJButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 backJButtonActionPerformed(evt);
             }
         });
-        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 30, -1, -1));
+        add(backJButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 413, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Lucida Grande", 1, 18)); // NOI18N
         jLabel6.setText("Add Enterprise");
@@ -158,7 +158,6 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
         add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 120, 120));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/enterprise_bg_op.jpg"))); // NOI18N
-        jLabel4.setText("jLabel4");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 600, 460));
     }// </editor-fold>//GEN-END:initComponents
 
@@ -190,8 +189,6 @@ public class ManageEnterpriseJPanel extends javax.swing.JPanel {
          Component[] componentArray = userProcessContainer.getComponents();
         Component component = componentArray[componentArray.length - 1];
         SystemAdminWorkAreaJPanel sysAdminwjp = (SystemAdminWorkAreaJPanel) component;
-        sysAdminwjp.populateTree();
-
         CardLayout layout = (CardLayout) userProcessContainer.getLayout();
         layout.previous(userProcessContainer);
     }//GEN-LAST:event_backJButtonActionPerformed
