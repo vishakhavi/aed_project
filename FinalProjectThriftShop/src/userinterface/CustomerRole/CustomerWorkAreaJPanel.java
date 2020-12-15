@@ -362,11 +362,11 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
     private void placeOrder() {
         // TODO add your handling code here:
         
-      /*  if(this.currentVisitedPanel != null)
-            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); *///Remove previous visited JPanel
+        if(this.currentVisitedPanel != null)
+            this.rightSystemAdminPanel.remove(this.currentVisitedPanel);
         
         PostAdJPanel postAdJPanel = new PostAdJPanel(rightSystemAdminPanel, userAccount, ecosystem,organization);
-        //this.currentVisitedPanel = postAdJPanel; //Store the current visited information
+        this.currentVisitedPanel = postAdJPanel; //Store the current visited information
         rightSystemAdminPanel.add("PostAdJPanel", postAdJPanel);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
@@ -383,7 +383,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void viewAdButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewAdButtonPanelMousePressed
         // TODO add your handling code here:
-        
+        navigateToViewAd();
     }//GEN-LAST:event_viewAdButtonPanelMousePressed
 
     private void viewAdLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_viewAdLabelMousePressed
@@ -392,7 +392,12 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
     private void navigateToViewAd() {
         // TODO add your handling code here:
+         if(this.currentVisitedPanel != null)
+            this.rightSystemAdminPanel.remove(this.currentVisitedPanel); //Remove previous visited JPanel
+        
+        
         ViewAdsJPanel viewAdsJPanel = new ViewAdsJPanel(rightSystemAdminPanel, userAccount, ecosystem);
+        this.currentVisitedPanel = viewAdsJPanel; //Store the current visited information
         rightSystemAdminPanel.add("ViewAdsJPanel", viewAdsJPanel);
         CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
         layout.next(rightSystemAdminPanel);
@@ -430,10 +435,7 @@ private void eCommerceLabelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FI
 
 private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eCommerceButtonPanelMousePressed
         // TODO add your handling code here:
-        ECommerceMainJPanel eCommerceMain = new ECommerceMainJPanel(rightSystemAdminPanel, userAccount, ecosystem, organization);
-        rightSystemAdminPanel.add("eCM", eCommerceMain);
-        CardLayout layout = (CardLayout) rightSystemAdminPanel.getLayout();
-        layout.next(rightSystemAdminPanel);
+      navigateToECommerce();
  }//GEN-LAST:event_eCommerceButtonPanelMousePressed
                                              
 
