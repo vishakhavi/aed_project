@@ -58,6 +58,10 @@ public class CustomerSignUp extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        nameErrorLabel = new javax.swing.JLabel();
+        userNameErrorLabel = new javax.swing.JLabel();
+        passwordErrorLabel = new javax.swing.JLabel();
+        emailErrorLabel = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -120,6 +124,18 @@ public class CustomerSignUp extends javax.swing.JPanel {
         jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/signup_icon.png"))); // NOI18N
         jLabel8.setText("jLabel8");
         add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 120, 120));
+
+        nameErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        add(nameErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 144, 140, 20));
+
+        userNameErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        add(userNameErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 180, 150, 20));
+
+        passwordErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        add(passwordErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 224, 140, 20));
+
+        emailErrorLabel.setForeground(new java.awt.Color(255, 0, 0));
+        add(emailErrorLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 260, 140, 20));
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -141,7 +157,8 @@ public class CustomerSignUp extends javax.swing.JPanel {
         String userName = jTextFieldUserName.getText();
         String password = jTextFieldPassword.getText();
         String email = jTextFieldEmail.getText();
-        if(!"".equals(name) && !"".equals(userName) && !"".equals(password) && !"".equals(email)){
+        if(!"".equals(name) && !"".equals(userName) && !"".equals(password) &&
+                !"".equals(email) && !location.equals("")){
             CustomerAccountActivationRequest activationRequest = new CustomerAccountActivationRequest();
             activationRequest.setName(name);
             activationRequest.setUserName(userName);
@@ -152,6 +169,35 @@ public class CustomerSignUp extends javax.swing.JPanel {
             activationRequest.setArea(location);
             system.getWorkQueue().getWorkRequestList().add(activationRequest);
             JOptionPane.showMessageDialog(null, "You have succesfully signed up. Wait for some time for account activation!");
+        }else{
+            
+            nameErrorLabel.setText("");
+            userNameErrorLabel.setText("");
+            passwordErrorLabel.setText("");
+            emailErrorLabel.setText("");
+
+            boolean error = false;
+
+            if (name.trim().isEmpty()) {
+                nameErrorLabel.setText("Please enter your name");
+                error = true;
+            }
+            if (userName.trim().isEmpty()) {
+                userNameErrorLabel.setText("Please enter username");
+                error = true;
+            }if (password.trim().isEmpty()) {
+                passwordErrorLabel.setText("Please enter password");
+                error = true;
+            }if (email.trim().isEmpty()) {
+                emailErrorLabel.setText("Please enter emailId");
+                error = true;
+            }
+
+           
+
+            if (error) {
+                return;
+            }
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -166,6 +212,7 @@ public class CustomerSignUp extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel emailErrorLabel;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
@@ -181,5 +228,8 @@ public class CustomerSignUp extends javax.swing.JPanel {
     private javax.swing.JTextField jTextFieldName;
     private javax.swing.JTextField jTextFieldPassword;
     private javax.swing.JTextField jTextFieldUserName;
+    private javax.swing.JLabel nameErrorLabel;
+    private javax.swing.JLabel passwordErrorLabel;
+    private javax.swing.JLabel userNameErrorLabel;
     // End of variables declaration//GEN-END:variables
 }

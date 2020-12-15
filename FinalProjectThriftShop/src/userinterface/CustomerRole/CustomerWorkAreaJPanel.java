@@ -7,7 +7,6 @@ package userinterface.CustomerRole;
  */
 import Business.Customer.Customer;
 import Business.EcoSystem;
-import Business.Enterprise.Enterprise;
 import Business.Organization.Organization;
 
 import Business.UserAccount.UserAccount;
@@ -71,6 +70,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
         myAdsButtonPanel = new javax.swing.JPanel();
         myAdsLabel = new javax.swing.JLabel();
         rightSystemAdminPanel = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(31, 50, 97));
         setLayout(new java.awt.BorderLayout());
@@ -109,7 +109,9 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(postAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 50));
 
+        viewAdButtonPanel.setBackground(new java.awt.Color(51, 0, 204));
         viewAdButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        viewAdButtonPanel.setForeground(new java.awt.Color(255, 255, 255));
         viewAdButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
         viewAdButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -117,6 +119,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        viewAdLabel.setForeground(new java.awt.Color(255, 255, 255));
         viewAdLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         viewAdLabel.setText("View Ad");
         viewAdLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -141,6 +144,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(viewAdButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 270, 50));
 
+        serviceRequestStatusButtonPanel.setBackground(new java.awt.Color(51, 0, 204));
         serviceRequestStatusButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         serviceRequestStatusButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
         serviceRequestStatusButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -149,6 +153,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        serviceRequestLabel.setForeground(new java.awt.Color(255, 255, 255));
         serviceRequestLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         serviceRequestLabel.setText("Customer Request");
         serviceRequestLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -177,6 +182,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(serviceRequestStatusButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 180, 270, -1));
 
+        orderStatusButtonPanel.setBackground(new java.awt.Color(51, 0, 204));
         orderStatusButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         orderStatusButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
         orderStatusButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -185,6 +191,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        orderStatusLabel.setForeground(new java.awt.Color(255, 255, 255));
         orderStatusLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         orderStatusLabel.setText("Order Status");
         orderStatusLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -213,6 +220,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(orderStatusButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 120, 270, 50));
 
+        eAuctionButtonPanel.setBackground(new java.awt.Color(51, 0, 204));
         eAuctionButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         eAuctionButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
@@ -220,6 +228,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        eAuctionLabel.setForeground(new java.awt.Color(255, 255, 255));
         eAuctionLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         eAuctionLabel.setText("View e-Auction");
         eAuctionLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -244,6 +253,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(eAuctionButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 300, 270, 50));
 
+        ecommerceButtonPanel.setBackground(new java.awt.Color(51, 0, 204));
         ecommerceButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         ecommerceButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
         ecommerceButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,6 +262,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        ecommerceLabel.setForeground(new java.awt.Color(255, 255, 255));
         ecommerceLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ecommerceLabel.setText("Ecommerce Main");
         ecommerceLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -280,6 +291,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(ecommerceButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 360, 270, 50));
 
+        myAdsButtonPanel.setBackground(new java.awt.Color(51, 0, 204));
         myAdsButtonPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         myAdsButtonPanel.setPreferredSize(new java.awt.Dimension(264, 48));
         myAdsButtonPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -288,6 +300,7 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
             }
         });
 
+        myAdsLabel.setForeground(new java.awt.Color(255, 255, 255));
         myAdsLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         myAdsLabel.setText("My Ads");
         myAdsLabel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -316,8 +329,13 @@ public class CustomerWorkAreaJPanel extends javax.swing.JPanel {
 
         jPanel1.add(myAdsButtonPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 240, 270, 50));
 
+        rightSystemAdminPanel.setBackground(new java.awt.Color(255, 255, 255));
         rightSystemAdminPanel.setPreferredSize(new java.awt.Dimension(1058, 840));
         rightSystemAdminPanel.setLayout(new java.awt.CardLayout());
+
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/welcome_bg_opaque.jpg"))); // NOI18N
+        rightSystemAdminPanel.add(jLabel1, "card2");
 
         javax.swing.GroupLayout systemAdminPanelLayout = new javax.swing.GroupLayout(systemAdminPanel);
         systemAdminPanel.setLayout(systemAdminPanelLayout);
@@ -501,6 +519,7 @@ private void eCommerceButtonPanelMousePressed(java.awt.event.MouseEvent evt) {//
     private javax.swing.JLabel eAuctionLabel;
     private javax.swing.JPanel ecommerceButtonPanel;
     private javax.swing.JLabel ecommerceLabel;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel myAdsButtonPanel;
     private javax.swing.JLabel myAdsLabel;
